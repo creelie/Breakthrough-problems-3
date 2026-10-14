@@ -18,7 +18,9 @@
 (N) Lemma 6.4 for characters and random completely multiplicative f;
 (O) Lemma 6.5: the prime pair bound for X <= 10^5 and even 0 < |h| <= 100, the sieve
     remainders |R_d| <= tau(d), and the fourth moment of G(h) for X <= 10^5;
-(P) the numerical constants and the parameters I, J in the proof of Theorem 6.1.
+(P) the numerical constants and the parameters I, J in the proof of Theorem 6.1;
+(Q) Lemma 8.1 for x <= 2*10^5 and twelve values of y;
+(R) the parameter inequalities in the proof of Theorem 1.8.
 Prints one line per check and exits with status 1 if any check fails.
 """
 import cmath
@@ -512,6 +514,47 @@ Kb = 80 * math.sqrt(800 * math.exp(15)) + 52
 C1 = 45 + C5 + 908 + 216018 * Kb + 60 + 2 * Kb
 report("P", ok, f"constants of Theorem 6.1: coefficients <= 40^4, 896 = 8*112, I, J for 64 <= ell <= 10^4; "
        f"K_b = {Kb:.4e}, C_1 = {C1:.4e}")
+
+# (Q) Lemma 8.1: Psi(x, y) log x <= x (1 + 2 log y + 2 log 4), and sum_{n<=x} log(x/n) <= x
+XQ = 2 * 10**5
+lpf = [1] * (XQ + 1)
+for p in primes:
+    if p > XQ:
+        break
+    for j in range(p, XQ + 1, p):
+        lpf[j] = p                       # primes in increasing order: the largest wins
+ok, worst = True, 0.0
+for y in [1, 2, 3, 5, 7, 10, 20, 50, 100, 1000, 10**4, 10**5]:
+    cnt = 0
+    rhs0 = 1 + 2 * math.log(y) + 2 * math.log(4)
+    for x in range(1, XQ + 1):
+        if lpf[x] <= y:
+            cnt += 1
+        r = cnt * math.log(x) / (x * rhs0)
+        worst = max(worst, r)
+        ok &= r <= 1 + 1e-12
+for k in range(0, 40001):
+    x = 1 + k / 4
+    N = math.floor(x)
+    ok &= N * math.log(x) - math.lgamma(N + 1) <= x + 1e-9
+report("Q", ok, f"Lemma 8.1 for integers x <= {XQ} and 12 values of y, max ratio {worst:.4f}; "
+       "sum log(x/n) <= x on a grid of 1 <= x <= 10^4")
+
+# (R) proof of Theorem 1.8: L = log q, M = ceil(L), Y = M^40
+c = math.log(math.log(3))
+ok = c > 0 and 40 * math.log(2) > 1 and math.log(2) < 1 and math.log(4) < 2
+for q in range(3, 10**6 + 1):
+    L = math.log(q)
+    M = math.ceil(L)
+    ok &= M >= 2 and L <= M <= L + 1 <= 2 * L and q + 2 <= q * q
+    ok &= 1 + 2 * (40 * math.log(M) + math.log(4)) <= 85 + 80 * math.log(L) <= (85 / c + 80) * math.log(L)
+for k in range(0, 9001):
+    L = math.log(3) * 10 ** (k / 1000)
+    M = math.ceil(L)
+    ok &= M >= 2 and M <= 2 * L and 40 * math.log(M) <= 40 * math.log(2) + 40 * math.log(L) + 1e-9
+    ok &= 1 + 2 * (40 * math.log(M) + math.log(4)) <= (85 / c + 80) * math.log(L) + 1e-9
+report("R", ok, f"parameter inequalities of Theorem 1.8 for 3 <= q <= 10^6 and log 3 <= log q <= 10^9 log 3; "
+       f"85/log log 3 + 80 = {85 / c + 80:.2f}")
 
 print(f"{'ALL PASS' if failures == 0 else str(failures) + ' FAILED'}")
 sys.exit(1 if failures else 0)

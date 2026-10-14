@@ -27,7 +27,7 @@ import re, sys
 text = " ".join(open(sys.argv[1]).read().split())
 lists = re.findall(r"depends on axioms: \[([^\]]*)\]", text)
 allowed = {"propext", "Classical.choice", "Quot.sound"}
-ok = len(lists) == 14 and all({a.strip() for a in l.split(",")} <= allowed for l in lists)
+ok = len(lists) == 17 and all({a.strip() for a in l.split(",")} <= allowed for l in lists)
 ok = ok and "sorryAx" not in text and "does not depend" not in text
 print("axiom lists:", len(lists))
 sys.exit(0 if ok else 1)

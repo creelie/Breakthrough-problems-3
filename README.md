@@ -29,6 +29,26 @@ The proof follows Montgomery and Vaughan: a bilinear decomposition, the
 spacing of the multiples of α, and Selberg's upper bound sieve for prime
 pairs.
 
+**Theorem (the range of o(x)).** There is C such that for every nonprincipal
+character χ modulo q ≥ 3 and every x ≥ 2,
+
+    |∑_{n ≤ x} χ(n)| ≤ Ψ(x, ⌈log q⌉^40) + C x / log q
+                     ≤ C x (log log q / log x + 1 / log q),
+
+where Ψ(x, y) counts the n ≤ x with no prime factor above y. So
+∑_{n ≤ x} χ(n) = o(x) uniformly in χ whenever log x / log log q → ∞.
+Granville and Soundararajan (J. Amer. Math. Soc. 14 (2001), Corollary A) proved
+this under the generalised Riemann hypothesis and showed, unconditionally, that
+the range cannot be enlarged: for every A > 0 and every prime q some
+nonprincipal χ has |∑_{n ≤ x} χ(n)| ≫_A x at x = (log q)^A (their Theorem 3).
+This is a direct consequence of the half-plane and the method of Granville and
+Soundararajan: their Lemmas 8.1 and 8.2 assume only a zero-free rectangle
+σ_0 ≤ Re z ≤ 1, and with σ_0 = 7/8 their deduction of Theorem 2 gives the bound
+with log² q replaced by a larger power of log q. The proof here is shorter and
+fully formalised: the integers with a prime factor above ⌈log q⌉^40 are handled
+by the prime sums of the half-plane, the others by Chebyshev's bound
+Ψ(x, y) log x ≤ x (1 + 2 log y + 2 log 4).
+
 The paper also proves, with complete Lean proofs, consequences of the
 half-plane that others obtained earlier (see Prior work below):
 
@@ -78,13 +98,15 @@ contour shift of the Riesz mean and an unsmoothing step.
   Vinogradov's conjecture and #985 for large primes follow from each of them.
   What this repository adds for primitive roots is the complete Lean proof.
 - Character sums: the Lindelöf-type consequence of the half-plane and the
-  resulting o(x) are recorded in the zeta-lab notes (Hunt 125, §5).
+  resulting o(x) for log x ≥ (log q)^(1−ε) are recorded in the zeta-lab notes
+  (Hunt 125, §5), which leave the range x = (log q)^O(1) open.
 - Other consequences of the half-plane: OpenAI (least quadratic nonresidue,
   Miller's test, class numbers, idoneal numbers), Guo (binary Goldbach
   exceptional set, least prime in a progression ≪ q^(7/3+ε)) and zeta-lab
   (Hunts 123 to 126).
-- We have not found the Pólya–Vinogradov bound with log log q in these
-  sources or elsewhere.
+- We have not found the Pólya–Vinogradov bound with log log q, or o(x) in the
+  range log x / log log q → ∞ without the generalised Riemann hypothesis, in
+  these sources or elsewhere.
 
 ## Scope
 
@@ -109,7 +131,7 @@ contour shift of the Riesz mean and an unsmoothing step.
 | Path | Contents |
 |---|---|
 | `paper/` | LaTeX source `primroot.tex` (amsart) and the compiled `primroot.pdf` |
-| `lean/` | Lean 4 project: `Vinogradov/` (this proof; `Final.lean` for primitive roots, `CharacterSums.lean` for the Lindelöf bound and character sums, `MV/` for the exponential sum bound, `PV/` for the Pólya–Vinogradov bound), OpenAI's `OAI/` sources with the `PrimeNumberTheoremAnd/` and `RellichKondrachov/` files they import, the four Selberg sieve files of PrimeNumberTheoremAnd, and `Axioms.lean` |
+| `lean/` | Lean 4 project: `Vinogradov/` (this proof; `Final.lean` for primitive roots, `CharacterSums.lean` for the Lindelöf bound and character sums, `MV/` for the exponential sum bound, `PV/` for the Pólya–Vinogradov bound and, in `PV/Range.lean`, the range of o(x)), OpenAI's `OAI/` sources with the `PrimeNumberTheoremAnd/` and `RellichKondrachov/` files they import, the four Selberg sieve files of PrimeNumberTheoremAnd, and `Axioms.lean` |
 | `checks/` | `check.py`, `check.jl`, `check.c`, `check.cpp`: independent numerical checks |
 | `run_all.sh` | runs the four programs, the Lean build and the axiom check |
 | `journal/JOURNAL.md` | target journal, format and policy |
@@ -175,6 +197,24 @@ theorem polya_vinogradov_loglog :
         ‖∑ n ∈ Ioc 0 T, (χ n : ℂ)‖ ≤ C * Real.sqrt q * Real.log (Real.log q)
 ```
 
+In `lean/Vinogradov/PV/Range.lean`, namespace `Vinogradov.PV`, with
+`gpf n` the greatest prime factor of `n`:
+
+```lean
+theorem character_sum_psi :
+    ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 → 3 ≤ q →
+      ∀ x : ℕ,
+        ‖∑ n ∈ Ioc 0 x, (χ n : ℂ)‖ ≤
+          (((Ioc 0 x).filter (fun n => gpf n ≤ ⌈Real.log q⌉₊ ^ 40)).card : ℝ) +
+            C * x / Real.log q
+
+theorem character_sum_range :
+    ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 → 3 ≤ q →
+      ∀ x : ℕ, 2 ≤ x →
+        ‖∑ n ∈ Ioc 0 x, (χ n : ℂ)‖ ≤
+          C * x * (Real.log (Real.log q) / Real.log x + 1 / Real.log q)
+```
+
 `Vinogradov.zeroFree` discharges the hypothesis of `Vinogradov/Main.lean` with
 OpenAI's theorem
 
@@ -187,7 +227,8 @@ theorem OAI.DirichletCharacter.LFunction_ne_zero_of_seven_eighths_lt_re
 
 `lean/Axioms.lean` prints the axioms used by OpenAI's theorem, by
 `Vinogradov.zeroFree`, by the six theorems above, by `weak_mv`, by
-`polya_vinogradov_loglog` and by four of its steps. Its output (Lean 4.34.1,
+`polya_vinogradov_loglog` and by four of its steps, and by the two theorems
+of `Range.lean` and their step `nonsmooth_sum`. Its output (Lean 4.34.1,
 Mathlib v4.34.1) is
 
 ```
@@ -205,6 +246,9 @@ Mathlib v4.34.1) is
 'Vinogradov.PV.partial_le' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Vinogradov.PV.hsum_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Vinogradov.PV.polya_vinogradov_loglog' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Vinogradov.PV.nonsmooth_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Vinogradov.PV.character_sum_psi' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Vinogradov.PV.character_sum_range' depends on axioms: [propext, Classical.choice, Quot.sound]
 ```
 
 so no `sorry` and no axiom beyond the three standard ones is used anywhere in

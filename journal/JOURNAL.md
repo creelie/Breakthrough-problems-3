@@ -14,11 +14,15 @@
 
 Acta Arithmetica publishes research papers in number theory; its editors
 include D. R. Heath-Brown, J. Kaczorowski, W. M. Schmidt and U. Zannier. The
-paper is an analytic number theory article (19 pages). From the zero-free
+paper is an analytic number theory article (21 pages). From the zero-free
 half-plane Re s > 7/8 of OpenAI's preprint it proves that the Pólya–Vinogradov
 inequality holds with the optimal factor √q log log q for primitive characters,
 which Montgomery and Vaughan proved under GRH; on the minor arcs it proves a
 weak form of their bound for exponential sums with multiplicative coefficients.
+From the same half-plane it proves that ∑_{n≤x} χ(n) = o(x) whenever
+log x / log log q → ∞, the range Granville and Soundararajan obtained under GRH
+and showed to be optimal; their method also gives this from the half-plane, and
+the paper gives a shorter, formalised proof.
 It also gives complete Lean proofs of two consequences of the half-plane that
 others obtained first, and credits them: the bound
 O((τ(p-1)^2 log p)^(8+η)) for the least prime primitive root (Sandlund, Guo
@@ -31,9 +35,9 @@ alternatives.
 
 ## Length and format
 
-- 19 pages in `amsart` 12 pt with a 13.5 cm text width.
+- 21 pages in `amsart` 12 pt with a 13.5 cm text width.
 - Front matter, all present: title, author with address and emails, abstract
-  (5 sentences, under the 200-word limit), MSC 2020 codes (11L40, 11L07,
+  (6 sentences, under the 200-word limit), MSC 2020 codes (11L40, 11L07,
   11A07, 11M06, 11N13, 11N36, 68V15), keywords.
 - Submission is a single PDF on EditFlow; the LaTeX source is sent after
   acceptance. The arXiv tarball in `dist/` contains the source.

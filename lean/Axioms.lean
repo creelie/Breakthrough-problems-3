@@ -14,3 +14,6 @@ import Vinogradov
 #print axioms Vinogradov.PV.partial_le
 #print axioms Vinogradov.PV.hsum_bound
 #print axioms Vinogradov.PV.polya_vinogradov_loglog
+#print axioms Vinogradov.PV.nonsmooth_sum
+#print axioms Vinogradov.PV.character_sum_psi
+#print axioms Vinogradov.PV.character_sum_range

@@ -25,6 +25,8 @@
 \DeclareUnicodeCharacter{2260}{\ensuremath{\ne}}
 \DeclareUnicodeCharacter{230A}{\ensuremath{\lfloor}}
 \DeclareUnicodeCharacter{230B}{\ensuremath{\rfloor}}
+\DeclareUnicodeCharacter{2308}{\ensuremath{\lceil}}
+\DeclareUnicodeCharacter{2309}{\ensuremath{\rceil}}
 \DeclareUnicodeCharacter{03B1}{\ensuremath{\alpha}}
 \DeclareUnicodeCharacter{211A}{\ensuremath{\mathbb{Q}}}
 \usepackage[hidelinks]{hyperref}
@@ -63,7 +65,9 @@ For every primitive character $\chi$ modulo $q\ge3$ and every $x$,
 $\sum_{n\le x}\chi(n)\ll\sqrt q\log\log q$, which is optimal. Montgomery and Vaughan
 proved this under the generalised Riemann hypothesis. We deduce it from the zero-free half-plane
 $\Re s>7/8$ and prove the bound for exponential sums with multiplicative coefficients that it
-needs. We also prove two consequences of the half-plane obtained earlier by others: every prime
+needs. The same half-plane gives $\sum_{n\le x}\chi(n)=o(x)$ for nonprincipal $\chi$ whenever
+$\log x/\log\log q\to\infty$, the range that Granville and Soundararajan obtained under the
+generalised Riemann hypothesis and showed to be optimal. We also prove two consequences of the half-plane obtained earlier by others: every prime
 $p$ has a prime primitive root $\ll_\eta(\tau(p-1)^2\log p)^{8+\eta}$, and
 $\sum_{n\le x}\chi(n)\ll_\varepsilon q^\varepsilon x^{7/8+\varepsilon}$ for nonprincipal $\chi$.
 All proofs are checked in Lean~4.
@@ -76,7 +80,10 @@ All proofs are checked in Lean~4.
 The main result of this paper is Theorem~\ref{thm:pv}: for every primitive character the
 P\'olya--Vinogradov inequality holds with the optimal factor $\sqrt q\log\log q$. Montgomery and
 Vaughan proved this under the generalised Riemann hypothesis; we deduce it from the zero-free
-half-plane $\Re s>7/8$ (Theorem~\ref{thm:zerofree}). Theorems~\ref{thm:main},
+half-plane $\Re s>7/8$ (Theorem~\ref{thm:zerofree}). From the same half-plane,
+Theorem~\ref{thm:range} gives $\sum_{n\le x}\chi(n)=o(x)$ whenever $\log x/\log\log q\to\infty$,
+the range that Granville and Soundararajan reached under the generalised Riemann hypothesis and
+showed to be optimal. Theorems~\ref{thm:main},
 \ref{thm:lindelof} and~\ref{thm:charsum} are consequences of the same half-plane that are
 classical deductions or were obtained earlier by others, as explained below; we include them
 because every result of the paper is proved in Lean~4 from Theorem~\ref{thm:zerofree} alone.
@@ -170,6 +177,32 @@ below suffices there. On the minor arcs they use their unconditional bound for e
 with multiplicative coefficients; a weaker form, Theorem~\ref{thm:mv}, suffices, and we prove it
 in Section~\ref{sec:mv}.
 
+Let $\Psi(x,y)$ be the number of $n\le x$ with no prime factor above $y$. Granville and
+Soundararajan~\cite[Cor.~A, Thm.~2]{GS01} proved under the generalised Riemann hypothesis that
+$\sum_{n\le x}\chi(n)=o(x)$ uniformly in nonprincipal $\chi$ modulo $q$ once $\log x/\log\log
+q\to\infty$, and unconditionally~\cite[Thm.~3]{GS01} that this range is optimal: for every $A>0$
+and every prime $q$ some nonprincipal $\chi$ modulo $q$ has $\bigl|\sum_{n\le x}\chi(n)\bigr|\gg_A x$
+at $x=(\log q)^A$. The upper bound holds without hypothesis, by the half-plane of
+Theorem~\ref{thm:zerofree} below.
+
+\begin{theorem}\label{thm:range}
+There is an absolute constant $C$ such that for every nonprincipal character $\chi$ modulo
+$q\ge3$ and every $x\ge2$,
+\[
+  \Bigl|\sum_{n\le x}\chi(n)\Bigr|\le\Psi\bigl(x,\lceil\log q\rceil^{40}\bigr)+\frac{Cx}{\log q}
+  \le Cx\Bigl(\frac{\log\log q}{\log x}+\frac1{\log q}\Bigr).
+\]
+In particular $\sum_{n\le x}\chi(n)=o(x)$ uniformly in $\chi$ whenever $\log x/\log\log q\to\infty$.
+\end{theorem}
+
+Theorem~\ref{thm:range} is a direct consequence of Theorem~\ref{thm:zerofree} and the method
+of~\cite{GS01}: Lemmas~8.1 and~8.2 there assume only that $L(z,\chi)$ has no zeros in a rectangle
+$\sigma_0\le\Re z\le1$, and with $\sigma_0=7/8$ the deduction of~\cite[Thm.~2]{GS01} gives the
+bound with $\log^2q$ replaced by a larger power of $\log q$. We give a shorter proof
+(Section~\ref{sec:range}), which we formalise: the integers with a prime factor above
+$\lceil\log q\rceil^{40}$ are counted by the prime sums of Theorem~\ref{thm:zerofree}, and the
+others are at most $\Psi(x,\lceil\log q\rceil^{40})$, which Chebyshev's argument bounds.
+
 The input is the zero-free half-plane of~\cite{OAI26}, from which~\cite{OAI26} deduces, as
 in~\cite[Thm.~6.7]{BIMS17}, that the least quadratic nonresidue is $\ll_\varepsilon p^\varepsilon$.
 A primitive root must avoid every subgroup of prime index at once, and the number of characters
@@ -181,7 +214,8 @@ If $\chi$ is a nonprincipal Dirichlet character, then $L(s,\chi)\ne0$ for $\Re s
 
 Theorem~\ref{thm:zerofree} is formalised in Lean~4 in~\cite{OAI26}. Theorems~\ref{thm:main},
 \ref{thm:lindelof} and~\ref{thm:charsum} and Corollaries~\ref{cor:vinogradov}, \ref{cor:erdos}
-and~\ref{cor:charsum} and Theorems~\ref{thm:mv} and~\ref{thm:pv} are formalised here, with
+and~\ref{cor:charsum} and Theorems~\ref{thm:mv}, \ref{thm:pv} and~\ref{thm:range} are formalised
+here, with
 Theorem~\ref{thm:zerofree} as the only external input (Section~\ref{sec:lean}). The constants are
 effective.
 
@@ -189,11 +223,12 @@ Theorem~\ref{thm:lindelof} is Littlewood's deduction of a Lindel\"of bound from 
 half-plane~\cite[\S14.2]{Tit86}, and Theorem~\ref{thm:charsum} follows from it by a contour shift;
 the new ingredient is Theorem~\ref{thm:zerofree}. The notes~\cite[Hunt~125, \S5]{ZL26} record
 this Lindel\"of-type consequence of the half-plane and the resulting $o(x)$ for $\log x\ge(\log
-q)^{1-\varepsilon}$. Among the consequences of Theorem~\ref{thm:zerofree}, \cite{OAI26} lists the
+q)^{1-\varepsilon}$, and leave the range $x=(\log q)^{O(1)}$ open; Theorem~\ref{thm:range} gives
+$o(x)$ in the whole range allowed by~\cite[Thm.~3]{GS01}. Among the consequences of Theorem~\ref{thm:zerofree}, \cite{OAI26} lists the
 least quadratic nonresidue, the prime number theorem in progressions, class numbers and idoneal
 numbers; Guo~\cite[\S6]{Guo26} adds the exceptional set in the binary Goldbach problem and the
 bound $q^{7/3+\varepsilon}$ for the least prime in a progression, also in~\cite[Hunt~123]{ZL26}.
-We have not found Theorem~\ref{thm:pv} in these sources. All results here hold with $7/8$ replaced by any
+We have not found Theorems~\ref{thm:pv} and~\ref{thm:range} in these sources. All results here hold with $7/8$ replaced by any
 $\theta\in[1/2,1)$ such that $L(s,\chi)\ne0$ for $\Re s>\theta$ and every nonprincipal $\chi$, for
 instance by the value $0.874957\ldots$ claimed in~\cite{Liu26}. The companion
 papers~\cite{OAI26b,OAI26c} prove, from a zero-free strip $\Re s>1-10^{-6}$ for Hecke
@@ -901,6 +936,63 @@ most $1+\log q<201$, and Lemma~\ref{lem:polya} gives
 \]
 \end{proof}
 
+\section{The range of \texorpdfstring{$o(x)$}{o(x)}}\label{sec:range}
+
+In this section $\chi$ is a nonprincipal character modulo $q\ge3$, not necessarily primitive.
+
+\begin{lemma}\label{lem:psi}
+For $x\ge1$ and $y\ge1$,
+\[
+  \Psi(x,y)\log x\le x\,(1+2\log y+2\log4).
+\]
+\end{lemma}
+
+\begin{proof}
+Let $N=\lfloor x\rfloor$. Since $N^N/N!\le e^N$ and $\log t\le t-1$,
+\[
+  \sum_{n\le x}\log\frac xn=N\log x-\log N!\le N\log\frac xN+N\le x .
+\]
+If $n$ has no prime factor above $y$, then $\log n=\sum_{p\le y}v_p(n)\log p$. Since
+$\sum_{n\le N}v_p(n)=v_p(N!)\le N/(p-1)\le2x/p$, the bound
+$\sum_{p\le y}\log p/p\le\log y+\log4$ from the proof of Lemma~\ref{lem:smooth} gives
+\[
+  \sum_{\substack{n\le x\\P(n)\le y}}\log n\le2x\sum_{p\le y}\frac{\log p}p\le2x(\log y+\log4).
+\]
+Writing $\log x=\log(x/n)+\log n$ for each of the $\Psi(x,y)$ integers counted, and using
+$\log(x/n)\ge0$, proves the lemma.
+\end{proof}
+
+\begin{lemma}\label{lem:rough}
+There is an absolute constant $C_5$ such that for every integer $Y\ge2$ and every $x\ge1$,
+\[
+  \Bigl|\sum_{\substack{n\le x\\P(n)>Y}}\chi(n)\Bigr|\le C_5\,\frac{x\log(q+2)}{Y^{1/20}\log Y}.
+\]
+\end{lemma}
+
+\begin{proof}
+As in the proof of Lemma~\ref{lem:major}, write $n=pm$ with $p=P(n)$; then $Y<p\le x/m$,
+$P(m)\le p$ and $m\le x/Y$, and
+\[
+  \sum_{\substack{n\le x\\P(n)>Y}}\chi(n)=\sum_{m\le x/Y}\chi(m)\sum_{\substack{A_m<p\le x/m}}\chi(p),
+  \qquad A_m=\max\bigl(Y,P(m)-1\bigr).
+\]
+By~\eqref{eq:twistedprime} with $\xi=\chi$, $k=q$ and $\gamma=0$, the inner sum is at most
+$4C_3(x/m)^{19/20}\log(q+2)/\log Y$, and $\sum_{m\le x/Y}m^{-19/20}\le20(x/Y)^{1/20}$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:range}]
+Let $L=\log q>1$, $M=\lceil L\rceil\ge2$ and $Y=M^{40}$. Splitting the sum according to
+$P(n)\le Y$ or $P(n)>Y$, the first part has modulus at most $\Psi(x,Y)$. In the second,
+$Y^{1/20}=M^2\ge L^2$, $\log Y=40\log M\ge40\log2>1$ and $\log(q+2)\le2L$, so
+Lemma~\ref{lem:rough} bounds it by $2C_5x/L$. This proves the first inequality for every
+$C\ge2C_5$. For the second, $M\le L+1\le2L$ gives $\log Y\le40\log2+40\log L$, and
+Lemma~\ref{lem:psi} gives
+\[
+  \Psi(x,Y)\le\frac{x\,(85+80\log L)}{\log x}\le\Bigl(\frac{85}{\log\log3}+80\Bigr)\frac{x\log\log q}{\log x},
+\]
+since $\log L\ge\log\log3>0$. Hence $C=\max(2C_5,85/\log\log3+80)$ will do.
+\end{proof}
+
 \section{Formal verification and computations}\label{sec:lean}
 
 The Lean~4 development (Lean v4.34.1, Mathlib v4.34.1) proves
@@ -957,7 +1049,25 @@ theorem polya_vinogradov_loglog :
 \noindent(namespaces \texttt{Vinogradov.MV} and \texttt{Vinogradov.PV}, with
 $e(x)=\exp(2\pi ix)$ and $\texttt{q4}\,x=\sqrt{\sqrt x}$), which are Theorems~\ref{thm:mv}
 and~\ref{thm:pv}; the reduced fraction $a/r$ is the rational number \texttt{a} with denominator
-\texttt{a.den}.
+\texttt{a.den}. Finally
+{\footnotesize
+\begin{verbatim}
+theorem character_sum_psi :
+    ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
+      χ ≠ 1 → 3 ≤ q → ∀ x : ℕ,
+        ‖∑ n ∈ Finset.Ioc 0 x, (χ n : ℂ)‖ ≤
+          (((Finset.Ioc 0 x).filter
+              (fun n => gpf n ≤ ⌈Real.log q⌉₊ ^ 40)).card : ℝ) +
+            C * x / Real.log q
+theorem character_sum_range :
+    ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
+      χ ≠ 1 → 3 ≤ q → ∀ x : ℕ, 2 ≤ x →
+        ‖∑ n ∈ Finset.Ioc 0 x, (χ n : ℂ)‖ ≤
+          C * x * (Real.log (Real.log q) / Real.log x + 1 / Real.log q)
+\end{verbatim}}
+\noindent(namespace \texttt{Vinogradov.PV}, with \texttt{gpf n} $=P(n)$) are the two inequalities
+of Theorem~\ref{thm:range} for integers $x$; for real $x\ge2$ they apply to $\lfloor x\rfloor$,
+and $\lfloor x\rfloor^2\ge x$ costs a factor~$2$ in the second.
 Theorem~\ref{thm:zerofree} enters as the theorem
 \[
   \texttt{OAI.DirichletCharacter.LFunction\_ne\_zero\_of\_seven\_eighths\_lt\_re}
@@ -983,7 +1093,8 @@ of Proposition~\ref{prop:charsum} at $2\cdot10^5$ random points, the choices of 
 in Section~\ref{sec:charsum} in exact arithmetic, $|\tau(\chi)|^2=q$ and
 Lemma~\ref{lem:polya} for the quadratic characters modulo the primes $q\le3000$, the bound
 $|r(\theta)|<3$ in its proof on a grid of $10^6$ points, the inequalities between the
-parameters in the proof of Proposition~\ref{prop:hsum}, Lemmas~\ref{lem:spacing} and~\ref{lem:bilinear} on
+parameters in the proofs of Proposition~\ref{prop:hsum} and Theorem~\ref{thm:range},
+Lemma~\ref{lem:psi} for integers $x\le2\cdot10^5$ and twelve values of $y$, Lemmas~\ref{lem:spacing} and~\ref{lem:bilinear} on
 random data, Lemma~\ref{lem:reduction} for $60$ completely multiplicative functions,
 Lemma~\ref{lem:pairs}(i) for $X\le10^5$ and even $0<|h|\le100$, Lemma~\ref{lem:pairs}(ii) for
 $X\le10^5$, and the numerical constants and the choice of $I$ and $J$ in the proof of
@@ -1020,6 +1131,9 @@ H.~L. Montgomery, Grad. Texts in Math. \textbf{74}, Springer, New York, 2000.
 
 \bibitem{Erd65} P.~Erd\H{o}s, \emph{Some recent advances and current problems in number theory},
 in: Lectures on Modern Mathematics, Vol.~III, Wiley, New York, 1965, 196--244.
+
+\bibitem{GS01} A.~Granville and K.~Soundararajan, \emph{Large character sums}, J. Amer. Math.
+Soc. \textbf{14} (2001), 365--397.
 
 \bibitem{GS07} A.~Granville and K.~Soundararajan, \emph{Large character sums: pretentious
 characters and the P\'olya--Vinogradov theorem}, J. Amer. Math. Soc. \textbf{20} (2007), 357--384.

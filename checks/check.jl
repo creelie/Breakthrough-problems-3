@@ -13,7 +13,9 @@
 # (N) Lemma 6.4 for characters and random completely multiplicative f;
 # (O) Lemma 6.5: the prime pair bound for X <= 10^5 and even 0 < |h| <= 100, the sieve
 #     remainders |R_d| <= tau(d), and the fourth moment of G(h) for X <= 10^5;
-# (P) the numerical constants and the parameters I, J in the proof of Theorem 6.1.
+# (P) the numerical constants and the parameters I, J in the proof of Theorem 6.1;
+# (Q) Lemma 8.1 for x <= 2*10^5 and twelve values of y;
+# (R) the parameter inequalities in the proof of Theorem 1.8.
 # Exit status 1 if a check fails.
 
 function primes_upto(n)
@@ -396,6 +398,56 @@ function checkP()
 end
 okP, Kb, C1 = checkP()
 report("P", okP, "constants of Theorem 6.1: coefficients <= 40^4, 896 = 8*112, I, J for 64 <= ell <= 10^4; K_b = $(round(Kb; sigdigits = 5)), C_1 = $(round(C1; sigdigits = 5))")
+
+# (Q) Lemma 8.1: Psi(x, y) log x <= x (1 + 2 log y + 2 log 4), and sum_{n<=x} log(x/n) <= x
+function checkQ()
+    X = 2 * 10^5
+    lpf = ones(Int, X)
+    for p in primes_upto(X), j in p:p:X
+        lpf[j] = p
+    end
+    ok, worst = true, 0.0
+    for y in [1, 2, 3, 5, 7, 10, 20, 50, 100, 1000, 10^4, 10^5]
+        cnt = 0
+        rhs0 = 1 + 2log(y) + 2log(4)
+        for x in 1:X
+            lpf[x] <= y && (cnt += 1)
+            r = cnt * log(x) / (x * rhs0)
+            worst = max(worst, r)
+            ok &= r <= 1 + 1e-12
+        end
+    end
+    lf = cumsum([0.0; log.(1:10^4 + 1)])       # lf[N + 1] = log N!
+    for k in 0:40000
+        x = 1 + k / 4
+        N = floor(Int, x)
+        ok &= N * log(x) - lf[N + 1] <= x + 1e-9
+    end
+    ok, worst
+end
+okQ, worstQ = checkQ()
+report("Q", okQ, "Lemma 8.1 for integers x <= 200000 and 12 values of y, max ratio $(round(worstQ; digits = 4)); sum log(x/n) <= x on a grid of 1 <= x <= 10^4")
+
+# (R) proof of Theorem 1.8: L = log q, M = ceil(L), Y = M^40
+function checkR()
+    c = log(log(3))
+    ok = c > 0 && 40log(2) > 1 && log(2) < 1 && log(4) < 2
+    for q in 3:10^6
+        L = log(q)
+        M = ceil(Int, L)
+        ok &= M >= 2 && L <= M <= L + 1 <= 2L && q + 2 <= q * q
+        ok &= 1 + 2 * (40log(M) + log(4)) <= 85 + 80log(L) <= (85 / c + 80) * log(L)
+    end
+    for k in 0:9000
+        L = log(3) * 10^(k / 1000)
+        M = ceil(L)
+        ok &= M >= 2 && M <= 2L && 40log(M) <= 40log(2) + 40log(L) + 1e-9
+        ok &= 1 + 2 * (40log(M) + log(4)) <= (85 / c + 80) * log(L) + 1e-9
+    end
+    ok, 85 / c + 80
+end
+okR, cR = checkR()
+report("R", okR, "parameter inequalities of Theorem 1.8 for 3 <= q <= 10^6 and log 3 <= log q <= 10^9 log 3; 85/log log 3 + 80 = $(round(cR; digits = 2))")
 
 println(fails == 0 ? "ALL PASS" : "$fails FAILED")
 exit(fails == 0 ? 0 : 1)

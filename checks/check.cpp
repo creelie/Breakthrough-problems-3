@@ -13,7 +13,9 @@
 // (N) Lemma 6.4 for characters and random completely multiplicative f;
 // (O) Lemma 6.5: the prime pair bound for X <= 10^5 and even 0 < |h| <= 100, the sieve
 //     remainders |R_d| <= tau(d), and the fourth moment of G(h) for X <= 10^5;
-// (P) the numerical constants and the parameters I, J in the proof of Theorem 6.1.
+// (P) the numerical constants and the parameters I, J in the proof of Theorem 6.1;
+// (Q) Lemma 8.1 for x <= 2*10^5 and twelve values of y;
+// (R) the parameter inequalities in the proof of Theorem 1.8.
 // Exit status 1 if a check fails.
 #include <cmath>
 #include <complex>
@@ -573,6 +575,53 @@ int main() {
     double Kb = 80 * std::sqrt(800 * std::exp(15.0)) + 52, C1 = 45 + 1 + 4 * ZETA32 + 908 + 216018 * Kb + 60 + 2 * Kb;
     std::printf("%s P: constants of Theorem 6.1: coefficients <= 40^4, 896 = 8*112, I, J for 64 <= ell <= 10^4; K_b = "
                 "%.4e, C_1 = %.4e\n", ok ? "PASS" : "FAIL", Kb, C1);
+    fails += !ok;
+  }
+  // (Q) Lemma 8.1: Psi(x, y) log x <= x (1 + 2 log y + 2 log 4), and sum_{n<=x} log(x/n) <= x
+  {
+    const int X = 200000;
+    std::vector<int> lpf(X + 1, 1);
+    for (int p = 2; p <= X; p++)
+      if (lpf[p] == 1)
+        for (int j = p; j <= X; j += p) lpf[j] = p;
+    const long ys[12] = {1, 2, 3, 5, 7, 10, 20, 50, 100, 1000, 10000, 100000};
+    bool ok = true;
+    double worst = 0;
+    for (long y : ys) {
+      long cnt = 0;
+      double rhs0 = 1 + 2 * std::log(double(y)) + 2 * std::log(4.0);
+      for (int x = 1; x <= X; x++) {
+        if (lpf[x] <= y) cnt++;
+        double r = cnt * std::log(double(x)) / (x * rhs0);
+        worst = std::max(worst, r);
+        ok = ok && r <= 1 + 1e-12;
+      }
+    }
+    for (int k = 0; k <= 40000; k++) {
+      double x = 1 + k / 4.0, N = std::floor(x);
+      ok = ok && N * std::log(x) - std::lgamma(N + 1) <= x + 1e-9;
+    }
+    std::printf("%s Q: Lemma 8.1 for integers x <= 200000 and 12 values of y, max ratio %.4f; sum log(x/n) <= x on "
+                "a grid of 1 <= x <= 10^4\n", ok ? "PASS" : "FAIL", worst);
+    fails += !ok;
+  }
+  // (R) proof of Theorem 1.8: L = log q, M = ceil(L), Y = M^40
+  {
+    const double c = std::log(std::log(3.0)), cR = 85 / c + 80;
+    bool ok = c > 0 && 40 * std::log(2.0) > 1 && std::log(2.0) < 1 && std::log(4.0) < 2;
+    for (long q = 3; q <= 1000000; q++) {
+      double L = std::log(double(q)), M = std::ceil(L);
+      ok = ok && M >= 2 && L <= M && M <= L + 1 && L + 1 <= 2 * L && q + 2 <= q * q;
+      double lhs = 1 + 2 * (40 * std::log(M) + std::log(4.0)), mid = 85 + 80 * std::log(L);
+      ok = ok && lhs <= mid && mid <= cR * std::log(L);
+    }
+    for (int k = 0; k <= 9000; k++) {
+      double L = std::log(3.0) * std::pow(10.0, k / 1000.0), M = std::ceil(L);
+      ok = ok && M >= 2 && M <= 2 * L && 40 * std::log(M) <= 40 * std::log(2.0) + 40 * std::log(L) + 1e-9;
+      ok = ok && 1 + 2 * (40 * std::log(M) + std::log(4.0)) <= cR * std::log(L) + 1e-9;
+    }
+    std::printf("%s R: parameter inequalities of Theorem 1.8 for 3 <= q <= 10^6 and log 3 <= log q <= 10^9 log 3; "
+                "85/log log 3 + 80 = %.2f\n", ok ? "PASS" : "FAIL", cR);
     fails += !ok;
   }
   std::printf("%s\n", fails ? "SOME FAILED" : "ALL PASS");

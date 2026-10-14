@@ -13,7 +13,9 @@
    (N) Lemma 6.4 for characters and random completely multiplicative f;
    (O) Lemma 6.5: the prime pair bound for X <= 10^5 and even 0 < |h| <= 100, the sieve
        remainders |R_d| <= tau(d), and the fourth moment of G(h) for X <= 10^5;
-   (P) the numerical constants and the parameters I, J in the proof of Theorem 6.1.
+   (P) the numerical constants and the parameters I, J in the proof of Theorem 6.1;
+   (Q) Lemma 8.1 for x <= 2*10^5 and twelve values of y;
+   (R) the parameter inequalities in the proof of Theorem 1.8.
    Exit status 1 if a check fails. */
 #include <complex.h>
 #include <math.h>
@@ -330,6 +332,54 @@ static int checkP(uint32_t *pr, uint32_t np) {
   return ok;
 }
 
+/* (Q) Lemma 8.1: Psi(x, y) log x <= x (1 + 2 log y + 2 log 4), and sum_{n<=x} log(x/n) <= x */
+static int checkQ(double *worst) {
+  const int X = 200000;
+  int *lpf = malloc(sizeof(int) * (X + 1));
+  for (int i = 0; i <= X; i++) lpf[i] = 1;
+  for (int p = 2; p <= X; p++)
+    if (lpf[p] == 1)
+      for (int j = p; j <= X; j += p) lpf[j] = p;
+  const long ys[12] = {1, 2, 3, 5, 7, 10, 20, 50, 100, 1000, 10000, 100000};
+  int ok = 1;
+  *worst = 0;
+  for (int k = 0; k < 12; k++) {
+    long cnt = 0;
+    double rhs0 = 1 + 2 * log((double)ys[k]) + 2 * log(4.0);
+    for (int x = 1; x <= X; x++) {
+      if (lpf[x] <= ys[k]) cnt++;
+      double r = cnt * log((double)x) / (x * rhs0);
+      if (r > *worst) *worst = r;
+      ok &= r <= 1 + 1e-12;
+    }
+  }
+  free(lpf);
+  for (int k = 0; k <= 40000; k++) {
+    double x = 1 + k / 4.0, N = floor(x);
+    ok &= N * log(x) - lgamma(N + 1) <= x + 1e-9;
+  }
+  return ok;
+}
+
+/* (R) proof of Theorem 1.8: L = log q, M = ceil(L), Y = M^40 */
+static int checkR(double *cR) {
+  double c = log(log(3.0));
+  int ok = c > 0 && 40 * log(2.0) > 1 && log(2.0) < 1 && log(4.0) < 2;
+  *cR = 85 / c + 80;
+  for (long q = 3; q <= 1000000; q++) {
+    double L = log((double)q), M = ceil(L);
+    ok &= M >= 2 && L <= M && M <= L + 1 && L + 1 <= 2 * L && q + 2 <= q * q;
+    double lhs = 1 + 2 * (40 * log(M) + log(4.0)), mid = 85 + 80 * log(L);
+    ok &= lhs <= mid && mid <= *cR * log(L);
+  }
+  for (int k = 0; k <= 9000; k++) {
+    double L = log(3.0) * pow(10.0, k / 1000.0), M = ceil(L);
+    ok &= M >= 2 && M <= 2 * L && 40 * log(M) <= 40 * log(2.0) + 40 * log(L) + 1e-9;
+    ok &= 1 + 2 * (40 * log(M) + log(4.0)) <= *cR * log(L) + 1e-9;
+  }
+  return ok;
+}
+
 int main(void) {
   int fails = 0;
   spf = calloc(LIM + 1, sizeof(uint32_t));
@@ -575,6 +625,22 @@ int main(void) {
     printf("%s P: constants of Theorem 6.1: coefficients <= 40^4, 896 = 8*112, I, J for 64 <= ell <= 10^4; K_b = "
            "%.4e, C_1 = %.4e\n", okP ? "PASS" : "FAIL", Kb, C1);
     fails += !okP;
+  }
+  /* (Q) */
+  {
+    double worstQ;
+    int okQ = checkQ(&worstQ);
+    printf("%s Q: Lemma 8.1 for integers x <= 200000 and 12 values of y, max ratio %.4f; sum log(x/n) <= x on a "
+           "grid of 1 <= x <= 10^4\n", okQ ? "PASS" : "FAIL", worstQ);
+    fails += !okQ;
+  }
+  /* (R) */
+  {
+    double cR;
+    int okR = checkR(&cR);
+    printf("%s R: parameter inequalities of Theorem 1.8 for 3 <= q <= 10^6 and log 3 <= log q <= 10^9 log 3; "
+           "85/log log 3 + 80 = %.2f\n", okR ? "PASS" : "FAIL", cR);
+    fails += !okR;
   }
   printf("%s\n", fails ? "SOME FAILED" : "ALL PASS");
   return fails ? 1 : 0;
