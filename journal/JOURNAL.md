@@ -14,27 +14,27 @@
 
 Acta Arithmetica publishes research papers in number theory; its editors
 include D. R. Heath-Brown, J. Kaczorowski, W. M. Schmidt and U. Zannier. The
-paper is an analytic number theory article (18 pages): from the zero-free
-half-plane Re s > 7/8 of OpenAI's preprint it proves that the least prime
-primitive root is O((τ(p-1)^2 log p)^(8+η)), hence Vinogradov's conjecture
-g(p) = O_ε(p^ε), that character sums satisfy
-∑_{n≤x} χ(n) ≪ q^ε x^(7/8+ε), hence Vinogradov's conjecture that they are o(x)
-for x ≥ q^η, and that the Pólya–Vinogradov inequality holds with the optimal
-factor √q log log q for primitive characters, which Montgomery and Vaughan
-proved under GRH; on the minor arcs it proves a weak form of their bound for
-exponential sums with multiplicative coefficients. A Lean 4 verification covers
-the whole chain with no hypothesis beyond the preprint's theorem, which is
-compiled with it. The result depends on
-that preprint, which is unrefereed; a referee will need its Lean verification
-or a published version. The Journal of Number Theory and Mathematika are
+paper is an analytic number theory article (19 pages). From the zero-free
+half-plane Re s > 7/8 of OpenAI's preprint it proves that the Pólya–Vinogradov
+inequality holds with the optimal factor √q log log q for primitive characters,
+which Montgomery and Vaughan proved under GRH; on the minor arcs it proves a
+weak form of their bound for exponential sums with multiplicative coefficients.
+It also gives complete Lean proofs of two consequences of the half-plane that
+others obtained first, and credits them: the bound
+O((τ(p-1)^2 log p)^(8+η)) for the least prime primitive root (Sandlund, Guo
+and the zeta-lab notes have stronger bounds) and ∑_{n≤x} χ(n) ≪ q^ε x^(7/8+ε).
+A Lean 4 verification covers the whole chain with no hypothesis beyond the
+preprint's theorem, which is compiled with it. The result depends on that
+preprint, which is unrefereed; a referee will need its Lean verification or a
+published version. The Journal of Number Theory and Mathematika are
 alternatives.
 
 ## Length and format
 
-- 18 pages in `amsart` 12 pt with a 13.5 cm text width.
+- 19 pages in `amsart` 12 pt with a 13.5 cm text width.
 - Front matter, all present: title, author with address and emails, abstract
-  (5 sentences, under the 200-word limit), MSC 2020 codes (11A07, 11L07,
-  11L40, 11M06, 11N13, 11N36, 68V15), keywords.
+  (5 sentences, under the 200-word limit), MSC 2020 codes (11L40, 11L07,
+  11A07, 11M06, 11N13, 11N36, 68V15), keywords.
 - Submission is a single PDF on EditFlow; the LaTeX source is sent after
   acceptance. The arXiv tarball in `dist/` contains the source.
 - The submission form asks for a cover letter, suggested referees if wished,

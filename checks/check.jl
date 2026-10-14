@@ -1,4 +1,4 @@
-# Numerical checks in Julia for "Vinogradov's conjectures on primitive roots and character sums".
+# Numerical checks in Julia for "The Pólya–Vinogradov inequality with log log q".
 # (A) G(p) < p for every prime 3 <= p <= 10^7;
 # (B) the character identity for every prime p <= 200 and 0 <= n < 3p;
 # (E) the exponent arithmetic of Section 4 in exact rationals;

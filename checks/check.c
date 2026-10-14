@@ -1,4 +1,4 @@
-/* Numerical checks in C for "Vinogradov's conjectures on primitive roots and character sums".
+/* Numerical checks in C for "The Pólya–Vinogradov inequality with log log q".
    (A) G(p) < p for every prime 3 <= p <= 2*10^7, with the maximum of G(p);
    (C) psi(m)/2 >= (2m+2)/10 + log(2m+2) for 5000 <= m <= 10^7;
    (D) phi(N) tau(N) >= N for N <= 10^7;

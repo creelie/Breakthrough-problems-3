@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Numerical checks for "Vinogradov's conjectures on primitive roots and character sums".
+"""Numerical checks for "The Pólya–Vinogradov inequality with log log q".
 
 (A) least prime primitive root G(p) < p for every prime 3 <= p <= LIMIT;
 (B) the character identity of Lemma 3.1 for every prime p <= 200 and 0 <= n < 3p;

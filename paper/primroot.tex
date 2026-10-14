@@ -47,30 +47,39 @@
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\R}{\mathbb{R}}
 
-\title{Vinogradov's conjectures on primitive roots and character sums}
+\title{The P\'olya--Vinogradov inequality with $\log\log q$}
 \author{Deep Bhattacharjee}
 \address{Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL),
 Bhubaneswar, Odisha 751030, India}
 \email{d.bhattacharjee@erl-forschung.de, itsdeep@live.com}
 \thanks{ORCID 0000-0003-0466-750X}
-\subjclass[2020]{11A07, 11L07, 11L40, 11M06, 11N13, 11N36, 68V15}
-\keywords{primitive roots, character sums, Dirichlet $L$-functions, zero-free regions, Lean 4}
+\subjclass[2020]{11L40, 11L07, 11A07, 11M06, 11N13, 11N36, 68V15}
+\keywords{P\'olya--Vinogradov inequality, character sums, primitive roots, Dirichlet $L$-functions, zero-free regions, Lean 4}
 
 \begin{document}
 
 \begin{abstract}
-For every $\eta>0$ every prime $p$ has a prime primitive root
-$\ell\ll_\eta(\tau(p-1)^2\log p)^{8+\eta}$, so the least primitive root is $O_\varepsilon(p^\varepsilon)$.
-For every nonprincipal character $\chi$ modulo $q$,
-$\sum_{n\le x}\chi(n)\ll_\varepsilon q^\varepsilon x^{7/8+\varepsilon}$, which is $o(x)$ once
-$x\ge q^\eta$. Both were conjectured by Vinogradov. For primitive $\chi$,
-$\max_x|\sum_{n\le x}\chi(n)|\ll\sqrt q\log\log q$, which is optimal. The proofs use the zero-free
-half-plane $\Re s>7/8$ and are checked in Lean~4.
+For every primitive character $\chi$ modulo $q\ge3$ and every $x$,
+$\sum_{n\le x}\chi(n)\ll\sqrt q\log\log q$, which is optimal. Montgomery and Vaughan
+proved this under the generalised Riemann hypothesis. We deduce it from the zero-free half-plane
+$\Re s>7/8$ and prove the bound for exponential sums with multiplicative coefficients that it
+needs. We also prove two consequences of the half-plane obtained earlier by others: every prime
+$p$ has a prime primitive root $\ll_\eta(\tau(p-1)^2\log p)^{8+\eta}$, and
+$\sum_{n\le x}\chi(n)\ll_\varepsilon q^\varepsilon x^{7/8+\varepsilon}$ for nonprincipal $\chi$.
+All proofs are checked in Lean~4.
 \end{abstract}
 
 \maketitle
 
 \section{Introduction}
+
+The main result of this paper is Theorem~\ref{thm:pv}: for every primitive character the
+P\'olya--Vinogradov inequality holds with the optimal factor $\sqrt q\log\log q$. Montgomery and
+Vaughan proved this under the generalised Riemann hypothesis; we deduce it from the zero-free
+half-plane $\Re s>7/8$ (Theorem~\ref{thm:zerofree}). Theorems~\ref{thm:main},
+\ref{thm:lindelof} and~\ref{thm:charsum} are consequences of the same half-plane that are
+classical deductions or were obtained earlier by others, as explained below; we include them
+because every result of the paper is proved in Lean~4 from Theorem~\ref{thm:zerofree} alone.
 
 For a prime $p$ let $g(p)$ be the least primitive root modulo $p$ and $g^*(p)$ the least prime
 primitive root. Vinogradov conjectured that $g(p)\ll_\varepsilon p^\varepsilon$ for every
@@ -101,6 +110,17 @@ root $\ell\le C_\varepsilon p^\varepsilon$. In particular $g(p)\le g^*(p)\ll_\va
 There is $p_0$ such that every prime $p\ge p_0$ has a prime $q<p$ that is a primitive root
 modulo $p$.
 \end{corollary}
+
+Theorem~\ref{thm:main} is not new in substance, and stronger bounds were obtained from the same
+half-plane before this paper. Sandlund~\cite{San26} derived
+$g^*(p)\le C_\delta\{k^2(1+\log k)^2\log2p\}^{1/\delta}$, $k=\omega(p-1)$, from a zero-free half-plane
+$\Re s>1-\delta$ by Shoup's sieve; Guo~\cite[\S6.4]{Guo26} proved
+$g^*(p)\ll k^{16}(1+\log k)^{16}(\log p)^8\ll(\log p)^{24}$ from Martin's shifted
+sieve~\cite[Prop.~3]{Mar97}; and the notes~\cite{ZL26} give an explicit bound $(\Lambda_p\log p)^8$
+with a sieve factor $\Lambda_p\le2^{\omega(p-1)}$. Corollaries~\ref{cor:vinogradov}
+and~\ref{cor:erdos} follow from each of these bounds. Our proof expands the indicator of the
+primitive roots over all divisors of $p-1$, which costs the factor $\tau(p-1)^2$; what is new here
+is the complete Lean proof.
 
 Vinogradov also conjectured that $\sum_{n\le x}\chi(n)=o(x)$ for nonprincipal characters
 $\chi$ modulo $q$ once $x\ge q^\varepsilon$; see~\cite{GS18}. For prime moduli Burgess~\cite{Bur62}
@@ -167,10 +187,13 @@ effective.
 
 Theorem~\ref{thm:lindelof} is Littlewood's deduction of a Lindel\"of bound from a zero-free
 half-plane~\cite[\S14.2]{Tit86}, and Theorem~\ref{thm:charsum} follows from it by a contour shift;
-the new ingredient is Theorem~\ref{thm:zerofree}. Among the consequences of
-Theorem~\ref{thm:zerofree}, \cite{OAI26} lists the least quadratic nonresidue, the prime number
-theorem in progressions, class numbers and idoneal numbers, but not
-Theorems~\ref{thm:lindelof}, \ref{thm:charsum} and~\ref{thm:pv}. All results here hold with $7/8$ replaced by any
+the new ingredient is Theorem~\ref{thm:zerofree}. The notes~\cite[Hunt~125, \S5]{ZL26} record
+this Lindel\"of-type consequence of the half-plane and the resulting $o(x)$ for $\log x\ge(\log
+q)^{1-\varepsilon}$. Among the consequences of Theorem~\ref{thm:zerofree}, \cite{OAI26} lists the
+least quadratic nonresidue, the prime number theorem in progressions, class numbers and idoneal
+numbers; Guo~\cite[\S6]{Guo26} adds the exceptional set in the binary Goldbach problem and the
+bound $q^{7/3+\varepsilon}$ for the least prime in a progression, also in~\cite[Hunt~123]{ZL26}.
+We have not found Theorem~\ref{thm:pv} in these sources. All results here hold with $7/8$ replaced by any
 $\theta\in[1/2,1)$ such that $L(s,\chi)\ne0$ for $\Re s>\theta$ and every nonprincipal $\chi$, for
 instance by the value $0.874957\ldots$ claimed in~\cite{Liu26}. The companion
 papers~\cite{OAI26b,OAI26c} prove, from a zero-free strip $\Re s>1-10^{-6}$ for Hecke
@@ -1004,6 +1027,10 @@ characters and the P\'olya--Vinogradov theorem}, J. Amer. Math. Soc. \textbf{20}
 \bibitem{GS18} A.~Granville and K.~Soundararajan, \emph{Large character sums: Burgess's
 theorem and zeros of $L$-functions}, J. Eur. Math. Soc. \textbf{20} (2018), 1--14.
 
+\bibitem{Guo26} J.~Guo, \emph{Goldbach-type representations with prescribed Liouville signs},
+preprint, 8 October 2026, \url{https://github.com/aster2024/openai-math-followups}, commit
+a371d87.
+
 \bibitem{HR74} H.~Halberstam and H.-E. Richert, \emph{Sieve Methods}, London Math. Soc.
 Monographs \textbf{4}, Academic Press, London, 1974.
 
@@ -1043,6 +1070,9 @@ project, \url{https://github.com/AlexKontorovich/PrimeNumberTheoremAnd}, commit
 \bibitem{Pal32} R.~E. A.~C. Paley, \emph{A theorem on characters}, J. London Math. Soc.
 \textbf{7} (1932), 28--32.
 
+\bibitem{San26} B.~Sandlund, \emph{Algorithmic consequences of a fixed Dirichlet zero-free
+half-plane}, research memo, 7 October 2026, as cited in~\cite[\S6.4]{Guo26}.
+
 \bibitem{Sho92} V.~Shoup, \emph{Searching for primitive roots in finite fields}, Math. Comp.
 \textbf{58} (1992), 369--380.
 
@@ -1051,6 +1081,9 @@ Press, Oxford, 1939.
 
 \bibitem{Tit86} E.~C. Titchmarsh, \emph{The Theory of the Riemann Zeta-Function}, 2nd ed.,
 revised by D.~R. Heath-Brown, Oxford University Press, Oxford, 1986.
+
+\bibitem{ZL26} teal-sea, \emph{zeta-lab}, Hunts 123 and 125, repository notes, 8 October 2026,
+\url{https://github.com/teal-sea/zeta-lab}.
 
 \end{thebibliography}
 

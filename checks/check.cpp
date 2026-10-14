@@ -1,4 +1,4 @@
-// Numerical checks in C++ for "Vinogradov's conjectures on primitive roots and character sums".
+// Numerical checks in C++ for "The Pólya–Vinogradov inequality with log log q".
 // (A) G(p) < p for every prime 3 <= p <= 10^8 (p - 1 factored by trial division);
 // (F1) partial sums of sum chi_{-3}(n) Lambda(n) n^{-2} at x = 10^3, 10^5, 10^7;
 // (F2) sum_m e(-m/p) sum_{(n,p-1)=1} e(m g^n / p) = -phi(p-1) for p = 101, 1009, 10007;

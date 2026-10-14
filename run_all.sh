@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Runs every check of "Vinogradov's conjectures on primitive roots and character sums":
+# Runs every check of "The Pólya–Vinogradov inequality with log log q":
 # the Python, Julia, C and C++ programs, then the Lean build and the axiom check.
 # Usage: ./run_all.sh [--skip-lean]
 set -euo pipefail

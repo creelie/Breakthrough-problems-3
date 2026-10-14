@@ -1,40 +1,10 @@
-# Vinogradov's conjectures on primitive roots and character sums
+# The Pólya–Vinogradov inequality with log log q
 
 Author: Deep Bhattacharjee (ORCID 0000-0003-0466-750X).
 
 All versions on Zenodo: doi:10.5281/zenodo.0000000.
 
 ## Result
-
-**Theorem.** For every η > 0 there is a constant C_η such that every prime p has
-a prime primitive root ℓ with
-
-    ℓ ≤ C_η (τ(p-1)^2 log(p+2))^(8+η),
-
-where τ is the number of divisors.
-
-**Corollary (Vinogradov's conjecture, prime form).** For every ε > 0 there is
-C_ε such that every prime p has a prime primitive root ℓ ≤ C_ε p^ε. So the least
-primitive root g(p) and the least prime primitive root g*(p) are both
-O_ε(p^ε).
-
-**Corollary (Erdős Problem #985 for large primes).** There is p_0 such that
-every prime p ≥ p_0 has a prime q < p that is a primitive root modulo p.
-
-**Theorem (Lindelöf bound).** For every δ > 0 there is C_δ such that for every
-nonprincipal character χ modulo q and every s = σ + it with σ ≥ 7/8 + δ,
-
-    |L(s, χ)| + |L(s, χ)|^(-1) ≤ C_δ (q (3 + |t|))^δ.
-
-**Theorem (character sums).** For every δ > 0 there is C_δ such that for every
-nonprincipal character χ modulo q and every x ≥ 1,
-
-    |∑_{n ≤ x} χ(n)| ≤ C_δ q^δ x^(7/8 + δ).
-
-**Corollary (Vinogradov's character sum conjecture).** For every η > 0 and
-θ > 7/8 there is C such that |∑_{n ≤ x} χ(n)| ≤ C x^θ for every nonprincipal χ
-modulo q and every x ≥ q^η. So ∑_{n ≤ x} χ(n) = o(x) uniformly for x ≥ q^η;
-Burgess's theorem gives this for prime q only when x ≥ q^(1/4+ε).
 
 **Theorem (Pólya–Vinogradov with log log q).** There is C such that for every
 primitive character χ modulo q ≥ 3 and every x ≥ 1,
@@ -59,19 +29,62 @@ The proof follows Montgomery and Vaughan: a bilinear decomposition, the
 spacing of the multiples of α, and Selberg's upper bound sieve for prime
 pairs.
 
+The paper also proves, with complete Lean proofs, consequences of the
+half-plane that others obtained earlier (see Prior work below):
+
+**Theorem (prime primitive roots).** For every η > 0 there is a constant C_η
+such that every prime p has a prime primitive root ℓ with
+
+    ℓ ≤ C_η (τ(p-1)^2 log(p+2))^(8+η),
+
+where τ is the number of divisors. Hence g(p) ≤ g*(p) = O_ε(p^ε) (Vinogradov's
+conjecture), and there is p_0 such that every prime p ≥ p_0 has a prime q < p
+that is a primitive root modulo p (Erdős Problem #985 for large primes).
+
+**Theorem (Lindelöf bound).** For every δ > 0 there is C_δ such that for every
+nonprincipal character χ modulo q and every s = σ + it with σ ≥ 7/8 + δ,
+
+    |L(s, χ)| + |L(s, χ)|^(-1) ≤ C_δ (q (3 + |t|))^δ.
+
+**Theorem (character sums).** For every δ > 0 there is C_δ such that for every
+nonprincipal character χ modulo q and every x ≥ 1,
+
+    |∑_{n ≤ x} χ(n)| ≤ C_δ q^δ x^(7/8 + δ).
+
+So ∑_{n ≤ x} χ(n) = o(x) uniformly for x ≥ q^η (Vinogradov's character sum
+conjecture); Burgess's theorem gives this for prime q only when
+x ≥ q^(1/4+ε).
+
 The input is the zero-free half-plane Re s > 7/8 for Dirichlet L-functions of
 nonprincipal characters, proved and formalised in Lean 4 by OpenAI ("The
 quasi-Riemann hypothesis: a zero-free half-plane Re s > 7/8", 30 September 2026,
-https://github.com/openai/math). OpenAI deduce from it that the least quadratic
-nonresidue is O_ε(p^ε); the bound for primitive roots, and its prime form, are
-proved here. The proof writes the indicator of primitive roots as a sum of
-τ(p-1) groups of characters, bounds the prime sum of each nonprincipal
-character by a Riesz mean and a contour shift into Re s > 7/8, and compares
-with the principal character. The Lindelöf bound is Littlewood's deduction from
-a zero-free half-plane (Borel–Carathéodory and Hadamard's three circles), and
-the character sum bound follows from it by a contour shift of the Riesz mean
-and an unsmoothing step. OpenAI's paper and its companions (Artin's conjecture,
-deterministic factorisation, 4 October 2026) state none of these results.
+https://github.com/openai/math). The primitive root proof writes the indicator
+of primitive roots as a sum of τ(p-1) groups of characters, bounds the prime sum
+of each nonprincipal character by a Riesz mean and a contour shift into
+Re s > 7/8, and compares with the principal character. The Lindelöf bound is
+Littlewood's deduction from a zero-free half-plane (Borel–Carathéodory and
+Hadamard's three circles), and the character sum bound follows from it by a
+contour shift of the Riesz mean and an unsmoothing step.
+
+## Prior work
+
+- Primitive roots: B. Sandlund (research memo, 7 October 2026) derived
+  g*(p) ≤ C_δ {k^2 (1 + log k)^2 log 2p}^(1/δ), k = ω(p-1), from a zero-free
+  half-plane Re s > 1 − δ; J. Guo (8 October 2026,
+  https://github.com/aster2024/openai-math-followups, Part II, §6.4) proved
+  g*(p) ≪ k^16 (1 + log k)^16 (log p)^8 ≪ (log p)^24; and the zeta-lab notes
+  (Hunt 125, 8 October 2026, https://github.com/teal-sea/zeta-lab) give the
+  explicit bound (Λ_p log p)^8. These are stronger than the bound here, and
+  Vinogradov's conjecture and #985 for large primes follow from each of them.
+  What this repository adds for primitive roots is the complete Lean proof.
+- Character sums: the Lindelöf-type consequence of the half-plane and the
+  resulting o(x) are recorded in the zeta-lab notes (Hunt 125, §5).
+- Other consequences of the half-plane: OpenAI (least quadratic nonresidue,
+  Miller's test, class numbers, idoneal numbers), Guo (binary Goldbach
+  exceptional set, least prime in a progression ≪ q^(7/3+ε)) and zeta-lab
+  (Hunts 123 to 126).
+- We have not found the Pólya–Vinogradov bound with log log q in these
+  sources or elsewhere.
 
 ## Scope
 
