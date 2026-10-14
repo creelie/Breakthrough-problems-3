@@ -1,12 +1,13 @@
 import Vinogradov.PV.Polya
+import Vinogradov.MV.Weak
 
 /-!
 # The Pólya–Vinogradov inequality with `log log q`
 
-For a primitive character `χ` modulo `q ≥ 3`, `‖∑_{n ≤ T} χ(n)‖ ≤ C √q log log q`, assuming
-Montgomery–Vaughan's bound for exponential sums with multiplicative coefficients
-[MV77, Corollary 1], stated below as `MVBound`. The zero-free half-plane `Re s > 7/8` enters
-through `nonsmooth_major` (the major arcs); `MVBound` covers the minor arcs.
+For a primitive character `χ` modulo `q ≥ 3`, `‖∑_{n ≤ T} χ(n)‖ ≤ C √q log log q`. The zero-free
+half-plane `Re s > 7/8` enters through `nonsmooth_major` (the major arcs); the minor arcs are
+covered by the Montgomery–Vaughan bound for exponential sums with multiplicative coefficients, in
+the weak form `mv_bound` proved in `Vinogradov.MV`.
 -/
 
 namespace Vinogradov.PV
@@ -110,30 +111,31 @@ theorem psi_abel (Y H : ℕ) :
     rw [← hA]; push_cast; ring
   rw [h2]; linarith
 
-/-- **Montgomery–Vaughan** [MV77, Corollary 1], for `f = χ`: if `(a, r) = 1`,
-`|α - a/r| ≤ r⁻²` and `2 ≤ R ≤ r ≤ N/R`, then
-`‖∑_{n ≤ N} χ(n) e(nα)‖ ≤ C (N / log N + N (log R)^{3/2} / √R)`.
-H. L. Montgomery and R. C. Vaughan, *Exponential sums with multiplicative coefficients*,
-Invent. Math. 43 (1977), 69–82. -/
-def MVBound : Prop :=
-  ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (α : ℝ) (a : ℚ) (N : ℕ)
-    (R : ℝ), 2 ≤ R → R ≤ a.den → (a.den : ℝ) ≤ N / R → |α - a| ≤ 1 / (a.den : ℝ) ^ 2 →
-      ‖∑ n ∈ Ioc 0 N, (χ n : ℂ) * e (n * α)‖ ≤
-        C * (N / Real.log N + N * Real.log R ^ (3 / 2 : ℝ) / Real.sqrt R)
+/-- **Montgomery–Vaughan** for `f = χ`, in the weak form `MV.weak_mv`: if `|α - a/r| ≤ r⁻²` and
+`2 ≤ R ≤ r ≤ N/R`, then `‖∑_{n ≤ N} χ(n) e(nα)‖ ≤ C (N / log N + N (log N)² / R^{1/4})`. -/
+theorem mv_bound : ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (α : ℝ)
+    (a : ℚ) (N : ℕ) (R : ℝ), 2 ≤ R → R ≤ a.den → (a.den : ℝ) ≤ N / R →
+      |α - a| ≤ 1 / (a.den : ℝ) ^ 2 →
+        ‖∑ n ∈ Ioc 0 N, (χ n : ℂ) * e (n * α)‖ ≤
+          C * (N / Real.log N + N * Real.log N ^ 2 / MV.q4 R) := by
+  obtain ⟨C, hC, h⟩ := MV.weak_mv
+  refine ⟨C, hC, fun q _ χ α a N R hR hRr hrN hα => ?_⟩
+  exact h (fun n => (χ n : ℂ)) (fun m n => by simp only [Nat.cast_mul, map_mul])
+    (fun n => DirichletCharacter.norm_le_one χ _) α a N R hR hRr hrN hα
 
 /-- **The partial sums over integers with a large prime factor.** For `t > Y ≥ R`, by Dirichlet's
-theorem with `Q = ⌊t/R⌋`: a major arc is `nonsmooth_major`, a minor arc is `MVBound` less the
+theorem with `Q = ⌊t/R⌋`: a major arc is `nonsmooth_major`, a minor arc is `mv_bound` less the
 smooth numbers. -/
-theorem partial_le (hMV : MVBound) :
+theorem partial_le :
     ∃ C₁ C₂ : ℝ, 0 < C₁ ∧ 0 < C₂ ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
       χ.IsPrimitive → ∀ (R : ℝ) (Y : ℕ), 2 ≤ R → R < q → R ≤ Y → ∀ (β : ℝ) (t : ℕ), Y < t →
         ‖∑ n ∈ Ioc 0 t with Y < gpf n, (χ n : ℂ) * e (n * β)‖ ≤
-          C₁ * (t / Real.log t + t * (Real.log R ^ (3 / 2 : ℝ) / Real.sqrt R)) +
+          C₁ * (t / Real.log t + t * (Real.log t ^ 2 / MV.q4 R)) +
             (((Ioc 0 t).filter (fun n => gpf n ≤ Y)).card : ℝ) +
             C₂ * (R * Real.log (q * R + 2) * (2 + 2 * Real.pi * R) /
               ((Y : ℝ) ^ (1 / 20 : ℝ) * Real.log Y)) * t := by
   classical
-  obtain ⟨C₁, hC₁, hmv⟩ := hMV
+  obtain ⟨C₁, hC₁, hmv⟩ := mv_bound
   obtain ⟨C₂, hC₂, hmaj⟩ := nonsmooth_major
   refine ⟨C₁, C₂, hC₁, hC₂, ?_⟩
   intro q _ χ hχ R Y hR hRq hRY β t hYt
@@ -145,9 +147,9 @@ theorem partial_le (hMV : MVBound) :
   have ht1 : (1 : ℝ) ≤ t := by linarith
   have hq1 : (1 : ℝ) ≤ q := by linarith
   -- the three terms are nonnegative
-  have hT1 : 0 ≤ C₁ * (t / Real.log t + t * (Real.log R ^ (3 / 2 : ℝ) / Real.sqrt R)) := by
+  have hT1 : 0 ≤ C₁ * (t / Real.log t + t * (Real.log t ^ 2 / MV.q4 R)) := by
     have := Real.log_nonneg ht1
-    have := Real.log_nonneg (show (1 : ℝ) ≤ R by linarith)
+    have := MV.q4_nonneg R
     positivity
   have hT2 : (0 : ℝ) ≤ (((Ioc 0 t).filter (fun n => gpf n ≤ Y)).card : ℝ) := by positivity
   have hlogY : 0 < Real.log Y := Real.log_pos (by linarith)
@@ -183,7 +185,7 @@ theorem partial_le (hMV : MVBound) :
     rw [hA]
     calc _ ≤ ‖∑ n ∈ Ioc 0 t, (χ n : ℂ) * e (n * β)‖ +
           ‖∑ n ∈ Ioc 0 t with ¬ Y < gpf n, (χ n : ℂ) * e (n * β)‖ := norm_sub_le _ _
-      _ ≤ C₁ * (t / Real.log t + t * (Real.log R ^ (3 / 2 : ℝ) / Real.sqrt R)) +
+      _ ≤ C₁ * (t / Real.log t + t * (Real.log t ^ 2 / MV.q4 R)) +
           (((Ioc 0 t).filter (fun n => gpf n ≤ Y)).card : ℝ) := by
           refine add_le_add (hS.trans (le_of_eq ?_)) hsm
           ring
@@ -238,7 +240,7 @@ theorem partial_le (hMV : MVBound) :
           ((Y : ℝ) ^ (1 / 20 : ℝ) * Real.log Y)) * t := by ring
       _ ≤ _ := by linarith
 
-/-! ### The parameters `R = M⁴`, `Y = M²⁰⁰`, `M = ⌈log q⌉` -/
+/-! ### The parameters `R = M¹⁶`, `Y = M⁷⁰⁰`, `M = ⌈log q⌉` -/
 
 theorem one_le_log_of_ge {M : ℝ} (hM : 3 ≤ M) : 1 ≤ Real.log M := by
   calc (1 : ℝ) = Real.log (Real.exp 1) := (Real.log_exp 1).symm
@@ -250,78 +252,73 @@ theorem one_lt_log_three : 1 < Real.log 3 := by
     _ < Real.log 3 :=
       Real.log_lt_log (Real.exp_pos 1) (by have := Real.exp_one_lt_d9; linarith)
 
+theorem q4_pow_sixteen (M : ℝ) : MV.q4 (M ^ 16) = M ^ 4 := by
+  unfold MV.q4
+  rw [show M ^ 16 = (M ^ 8) ^ 2 by ring, Real.sqrt_sq (by positivity),
+    show M ^ 8 = (M ^ 4) ^ 2 by ring, Real.sqrt_sq (by positivity)]
+
 theorem rho_bound {M L : ℝ} (hM : 200 ≤ M) (hLM : L ≤ M) (hL : 0 ≤ L) :
-    Real.log (M ^ 4) ^ (3 / 2 : ℝ) / Real.sqrt (M ^ 4) * (1 + L) ≤ 128 := by
+    L ^ 2 / MV.q4 (M ^ 16) * (1 + L) ≤ 128 := by
   have hM0 : 0 < M := by linarith
-  have hℓ1 : 1 ≤ Real.log M := one_le_log_of_ge (by linarith)
-  have hlog4 : Real.log (M ^ 4) = 4 * Real.log M := by rw [Real.log_pow]; norm_num
-  have hsqrt : Real.sqrt (M ^ 4) = M ^ 2 := by
-    rw [show M ^ 4 = (M ^ 2) ^ 2 by ring, Real.sqrt_sq (by positivity)]
-  have hpow : (4 * Real.log M) ^ (3 / 2 : ℝ) ≤ (4 * Real.log M) ^ 2 := by
-    rw [← Real.rpow_two]
-    exact Real.rpow_le_rpow_of_exponent_le (by linarith) (by norm_num)
-  have hℓsq : Real.log M ^ 2 ≤ 4 * M := by
-    have h := Real.log_le_rpow_div hM0.le (show (0 : ℝ) < 1 / 2 by norm_num)
-    rw [← Real.sqrt_eq_rpow] at h
-    have h' : Real.log M ≤ 2 * Real.sqrt M := by
-      calc Real.log M ≤ Real.sqrt M / (1 / 2) := h
-        _ = 2 * Real.sqrt M := by ring
-    calc Real.log M ^ 2 ≤ (2 * Real.sqrt M) ^ 2 := pow_le_pow_left₀ (by linarith) h' 2
-      _ = 4 * M := by rw [mul_pow, Real.sq_sqrt hM0.le]; ring
-  rw [hlog4, hsqrt]
-  have hM2 : 0 < M ^ 2 := by positivity
-  calc (4 * Real.log M) ^ (3 / 2 : ℝ) / M ^ 2 * (1 + L)
-      ≤ (4 * Real.log M) ^ 2 / M ^ 2 * (2 * M) := by
-        apply mul_le_mul (div_le_div_of_nonneg_right hpow hM2.le) (by linarith) (by linarith)
-        positivity
-    _ = 32 * Real.log M ^ 2 / M := by field_simp; ring
-    _ ≤ 128 := by rw [div_le_iff₀ hM0]; linarith
+  rw [q4_pow_sixteen, div_mul_eq_mul_div, div_le_iff₀ (by positivity)]
+  have h1 : L ^ 2 ≤ M ^ 2 := pow_le_pow_left₀ hL hLM 2
+  have h2 : 1 + L ≤ 2 * M := by linarith
+  have h3 : 2 * M ^ 3 ≤ (128 * M) * M ^ 3 :=
+    mul_le_mul_of_nonneg_right (by linarith) (by positivity)
+  calc L ^ 2 * (1 + L) ≤ M ^ 2 * (2 * M) := mul_le_mul h1 h2 (by linarith) (by positivity)
+    _ = 2 * M ^ 3 := by ring
+    _ ≤ (128 * M) * M ^ 3 := h3
+    _ = 128 * M ^ 4 := by ring
 
 theorem k_bound {M L q : ℝ} (hM : 200 ≤ M) (hLM : L ≤ M) (hL : 0 ≤ L) (hq : 1 ≤ q)
     (hlq : Real.log q ≤ M) :
-    M ^ 4 * Real.log (q * M ^ 4 + 2) * (2 + 2 * Real.pi * M ^ 4) /
-      ((M ^ 200) ^ (1 / 20 : ℝ) * Real.log (M ^ 200)) * (1 + L) ≤ 1 := by
+    M ^ 16 * Real.log (q * M ^ 16 + 2) * (2 + 2 * Real.pi * M ^ 16) /
+      ((M ^ 700) ^ (1 / 20 : ℝ) * Real.log (M ^ 700)) * (1 + L) ≤ 1 := by
   have hM0 : 0 < M := by linarith
   have hℓ1 : 1 ≤ Real.log M := one_le_log_of_ge (by linarith)
-  have h20 : (M ^ 200) ^ (1 / 20 : ℝ) = M ^ 10 := by
-    rw [show M ^ 200 = (M ^ 10) ^ 20 by ring, show (1 / 20 : ℝ) = ((20 : ℕ) : ℝ)⁻¹ by norm_num,
+  have h20 : (M ^ 700) ^ (1 / 20 : ℝ) = M ^ 35 := by
+    rw [show M ^ 700 = (M ^ 35) ^ 20 by ring, show (1 / 20 : ℝ) = ((20 : ℕ) : ℝ)⁻¹ by norm_num,
       Real.pow_rpow_inv_natCast (by positivity) (by norm_num)]
-  have hl200 : Real.log (M ^ 200) = 200 * Real.log M := by rw [Real.log_pow]; norm_num
+  have hl700 : Real.log (M ^ 700) = 700 * Real.log M := by rw [Real.log_pow]; norm_num
   have hlogM : Real.log M ≤ M - 1 := Real.log_le_sub_one_of_pos hM0
   have hlog3 : Real.log 3 ≤ 2 := by
     have := Real.log_le_sub_one_of_pos (show (0 : ℝ) < 3 by norm_num); linarith
-  have hM4 : 1 ≤ M ^ 4 := one_le_pow₀ (by linarith)
-  have hlqM : Real.log (q * M ^ 4 + 2) ≤ 6 * M := by
-    have h1 : q * M ^ 4 + 2 ≤ 3 * q * M ^ 4 := by nlinarith
-    have h2 : Real.log (3 * q * M ^ 4) = Real.log 3 + Real.log q + 4 * Real.log M := by
+  have hM16 : 1 ≤ M ^ 16 := one_le_pow₀ (by linarith)
+  have hlqM : Real.log (q * M ^ 16 + 2) ≤ 18 * M := by
+    have h1 : q * M ^ 16 + 2 ≤ 3 * q * M ^ 16 := by nlinarith
+    have h2 : Real.log (3 * q * M ^ 16) = Real.log 3 + Real.log q + 16 * Real.log M := by
       rw [Real.log_mul (by positivity) (by positivity), Real.log_mul (by norm_num) (by positivity),
         Real.log_pow]
       norm_num
-    calc Real.log (q * M ^ 4 + 2) ≤ Real.log (3 * q * M ^ 4) :=
+    calc Real.log (q * M ^ 16 + 2) ≤ Real.log (3 * q * M ^ 16) :=
           Real.log_le_log (by positivity) h1
-      _ ≤ 6 * M := by rw [h2]; linarith
-  have hM4' : M ≤ M ^ 4 := le_self_pow₀ (by linarith) (by norm_num)
-  have hpi : 2 + 2 * Real.pi * M ^ 4 ≤ 8 * M ^ 4 := by
-    have h := mul_le_mul_of_nonneg_right Real.pi_lt_d2.le (show 0 ≤ M ^ 4 by positivity)
+      _ ≤ 18 * M := by rw [h2]; linarith
+  have hM16' : M ≤ M ^ 16 := le_self_pow₀ (by linarith) (by norm_num)
+  have hpi : 2 + 2 * Real.pi * M ^ 16 ≤ 8 * M ^ 16 := by
+    have h := mul_le_mul_of_nonneg_right Real.pi_lt_d2.le (show 0 ≤ M ^ 16 by positivity)
     linarith
-  have hlq0 : 0 ≤ Real.log (q * M ^ 4 + 2) := Real.log_nonneg (by nlinarith)
-  rw [h20, hl200, div_mul_eq_mul_div, div_le_iff₀ (by positivity), one_mul]
-  have hP0 : 0 ≤ 2 + 2 * Real.pi * M ^ 4 := by positivity
-  have e1 : M ^ 4 * Real.log (q * M ^ 4 + 2) ≤ M ^ 4 * (6 * M) :=
+  have hlq0 : 0 ≤ Real.log (q * M ^ 16 + 2) := Real.log_nonneg (by nlinarith)
+  rw [h20, hl700, div_mul_eq_mul_div, div_le_iff₀ (by positivity), one_mul]
+  have hP0 : 0 ≤ 2 + 2 * Real.pi * M ^ 16 := by positivity
+  have e1 : M ^ 16 * Real.log (q * M ^ 16 + 2) ≤ M ^ 16 * (18 * M) :=
     mul_le_mul_of_nonneg_left hlqM (by positivity)
-  have e2 : M ^ 4 * Real.log (q * M ^ 4 + 2) * (2 + 2 * Real.pi * M ^ 4) ≤
-      M ^ 4 * (6 * M) * (8 * M ^ 4) := mul_le_mul e1 hpi hP0 (by positivity)
-  have e3 : M ^ 4 * Real.log (q * M ^ 4 + 2) * (2 + 2 * Real.pi * M ^ 4) * (1 + L) ≤
-      M ^ 4 * (6 * M) * (8 * M ^ 4) * (2 * M) := mul_le_mul e2 (by linarith) (by linarith)
+  have e2 : M ^ 16 * Real.log (q * M ^ 16 + 2) * (2 + 2 * Real.pi * M ^ 16) ≤
+      M ^ 16 * (18 * M) * (8 * M ^ 16) := mul_le_mul e1 hpi hP0 (by positivity)
+  have e3 : M ^ 16 * Real.log (q * M ^ 16 + 2) * (2 + 2 * Real.pi * M ^ 16) * (1 + L) ≤
+      M ^ 16 * (18 * M) * (8 * M ^ 16) * (2 * M) := mul_le_mul e2 (by linarith) (by linarith)
         (by positivity)
-  have e4 : 96 * M ^ 10 ≤ M ^ 10 * (200 * Real.log M) := by
-    have := pow_pos hM0 10; nlinarith
-  calc _ ≤ M ^ 4 * (6 * M) * (8 * M ^ 4) * (2 * M) := e3
-    _ = 96 * M ^ 10 := by ring
+  have e4 : M ^ 35 * 700 ≤ M ^ 35 * (700 * Real.log M) :=
+    mul_le_mul_of_nonneg_left (by linarith) (by positivity)
+  have e5 : 288 * M ^ 34 ≤ (700 * M) * M ^ 34 :=
+    mul_le_mul_of_nonneg_right (by linarith) (by positivity)
+  calc _ ≤ M ^ 16 * (18 * M) * (8 * M ^ 16) * (2 * M) := e3
+    _ = 288 * M ^ 34 := by ring
+    _ ≤ (700 * M) * M ^ 34 := e5
+    _ = M ^ 35 * 700 := by ring
     _ ≤ _ := e4
 
 theorem logY_le {M L : ℝ} (hL : 200 ≤ L) (hM0 : 0 < M) (hML : M ≤ L + 1) :
-    Real.log (M ^ 200) ≤ 400 * Real.log L := by
+    Real.log (M ^ 700) ≤ 1400 * Real.log L := by
   rw [Real.log_pow]
   have h1 : M ≤ L ^ 2 := by nlinarith
   have h2 : Real.log M ≤ 2 * Real.log L := by
@@ -329,31 +326,35 @@ theorem logY_le {M L : ℝ} (hL : 200 ≤ L) (hM0 : 0 < M) (hML : M ≤ L + 1) :
       _ = 2 * Real.log L := by rw [Real.log_pow]; norm_num
   push_cast; linarith
 
-theorem pow_four_lt {M L q : ℝ} (hL : 200 ≤ L) (hM0 : 0 ≤ M) (hML : M ≤ L + 1) (hq : 0 < q)
-    (hLq : Real.log q = L) : M ^ 4 < q := by
+theorem pow_sixteen_lt {M L q : ℝ} (hL : 200 ≤ L) (hM0 : 0 ≤ M) (hML : M ≤ L + 1) (hq : 0 < q)
+    (hLq : Real.log q = L) : M ^ 16 < q := by
   have hqe : Real.exp L = q := by rw [← hLq, Real.exp_log hq]
-  have h6 := Real.pow_div_factorial_le_exp L (show 0 ≤ L by linarith) 6
-  rw [hqe] at h6
-  norm_num [Nat.factorial] at h6
-  have hM2 : M ^ 4 ≤ (2 * L) ^ 4 := pow_le_pow_left₀ hM0 (by linarith) 4
-  have hL4 : 0 < L ^ 4 := by positivity
-  have h7 : (2 * L) ^ 4 < L ^ 6 / 720 := by
-    rw [lt_div_iff₀ (by norm_num)]
-    have h6' : L ^ 6 = L ^ 4 * L ^ 2 := by ring
-    have hL2 : (40000 : ℝ) ≤ L ^ 2 := by nlinarith
-    have := mul_le_mul_of_nonneg_left hL2 hL4.le
-    rw [h6']; linarith
-  linarith
+  have h4 := Real.pow_div_factorial_le_exp (L / 16) (by linarith) 4
+  rw [show ((Nat.factorial 4 : ℕ) : ℝ) = 24 by norm_num [Nat.factorial]] at h4
+  have hL3 : (8000000 : ℝ) ≤ L ^ 3 := by
+    have := pow_le_pow_left₀ (by norm_num : (0 : ℝ) ≤ 200) hL 3
+    norm_num at this; linarith
+  have hL4 : L + 1 < (L / 16) ^ 4 / 24 := by
+    have e : (L / 16) ^ 4 / 24 = L * L ^ 3 / 1572864 := by ring
+    rw [e, lt_div_iff₀ (by norm_num)]
+    have := mul_le_mul_of_nonneg_left hL3 (by linarith : (0 : ℝ) ≤ L)
+    linarith
+  have hMlt : M < Real.exp (L / 16) := by linarith
+  have hpow : M ^ 16 < Real.exp (L / 16) ^ 16 := pow_lt_pow_left₀ hMlt hM0 (by norm_num)
+  have hexp : Real.exp (L / 16) ^ 16 = Real.exp L := by
+    rw [← Real.exp_nat_mul]; congr 1; push_cast; ring
+  rw [hexp, hqe] at hpow
+  exact hpow
 
-/-- **Theorem B.** Under `MVBound`, for primitive `χ` modulo `q` with `log q ≥ 200`,
+/-- **Theorem B.** For primitive `χ` modulo `q` with `log q ≥ 200`,
 `‖∑_{m ≤ H} χ(m) e(mβ)/m‖ ≤ C log log q` for every `H ≤ q` and real `β`. -/
-theorem hsum_bound (hMV : MVBound) :
+theorem hsum_bound :
     ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsPrimitive →
       200 ≤ Real.log q → ∀ H : ℕ, H ≤ q → ∀ β : ℝ,
         ‖∑ m ∈ Ioc 0 H, (χ m : ℂ) * e (m * β) / m‖ ≤ C * Real.log (Real.log q) := by
   classical
-  obtain ⟨C₁, C₂, hC₁, hC₂, hpart⟩ := partial_le hMV
-  refine ⟨800 * Real.exp 11 + 1 + 132 * C₁ + C₂, by positivity, ?_⟩
+  obtain ⟨C₁, C₂, hC₁, hC₂, hpart⟩ := partial_le
+  refine ⟨2800 * Real.exp 11 + 1 + 132 * C₁ + C₂, by positivity, ?_⟩
   intro q _ χ hχ hL H hHq β
   set L := Real.log q with hLdef
   have hq0 : (0 : ℝ) < q := by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne q)
@@ -363,28 +364,27 @@ theorem hsum_bound (hMV : MVBound) :
   have hML : (Mn : ℝ) ≤ L + 1 := (Nat.ceil_lt_add_one (by linarith)).le
   have hM200 : (200 : ℝ) ≤ Mn := by linarith
   have hM0 : (0 : ℝ) < Mn := by linarith
-  set Y : ℕ := Mn ^ 200 with hY
-  have hYc : (Y : ℝ) = (Mn : ℝ) ^ 200 := by simp [hY]
-  have hRq : (Mn : ℝ) ^ 4 < q := pow_four_lt hL hM0.le hML hq0 rfl
-  have hR2 : (2 : ℝ) ≤ (Mn : ℝ) ^ 4 := by
-    have : (1 : ℝ) ≤ (Mn : ℝ) ^ 3 := one_le_pow₀ (by linarith)
+  set Y : ℕ := Mn ^ 700 with hY
+  have hYc : (Y : ℝ) = (Mn : ℝ) ^ 700 := by simp [hY]
+  have hRq : (Mn : ℝ) ^ 16 < q := pow_sixteen_lt hL hM0.le hML hq0 rfl
+  have hR2 : (2 : ℝ) ≤ (Mn : ℝ) ^ 16 := by
+    have : (1 : ℝ) ≤ (Mn : ℝ) ^ 15 := one_le_pow₀ (by linarith)
     nlinarith
-  have hRY : (Mn : ℝ) ^ 4 ≤ Y := by
+  have hRY : (Mn : ℝ) ^ 16 ≤ Y := by
     rw [hYc]; exact pow_le_pow_right₀ (by linarith) (by norm_num)
   have hY2 : (2 : ℝ) ≤ Y := hR2.trans hRY
   have hY2' : 2 ≤ Y := by exact_mod_cast hY2
   have hL0 : 0 ≤ L := by linarith
-  set R : ℝ := (Mn : ℝ) ^ 4 with hR
-  set ρ : ℝ := Real.log R ^ (3 / 2 : ℝ) / Real.sqrt R with hρ
+  set R : ℝ := (Mn : ℝ) ^ 16 with hR
+  set ρ : ℝ := L ^ 2 / MV.q4 R with hρ
   set k : ℝ := R * Real.log (q * R + 2) * (2 + 2 * Real.pi * R) /
     ((Y : ℝ) ^ (1 / 20 : ℝ) * Real.log Y) with hk
   have hρb : ρ * (1 + L) ≤ 128 := rho_bound hM200 hLM hL0
   have hkb : k * (1 + L) ≤ 1 := by
     rw [hk, hYc]; exact k_bound hM200 hLM hL0 hq1 hLM
-  have hlogY : Real.log Y ≤ 400 * Real.log L := by rw [hYc]; exact logY_le hL hM0 hML
+  have hlogY : Real.log Y ≤ 1400 * Real.log L := by rw [hYc]; exact logY_le hL hM0 hML
   have hlogL : 1 ≤ Real.log L := one_le_log_of_ge (by linarith)
-  have hρ0 : 0 ≤ ρ :=
-    div_nonneg (Real.rpow_nonneg (Real.log_nonneg (by linarith)) _) (Real.sqrt_nonneg _)
+  have hρ0 : 0 ≤ ρ := div_nonneg (sq_nonneg L) (MV.q4_nonneg R)
   have hk0 : 0 ≤ k := by
     have h1 : 0 ≤ Real.log (q * R + 2) := Real.log_nonneg (by nlinarith)
     have h2 : 0 ≤ Real.log Y := Real.log_nonneg (by linarith)
@@ -424,6 +424,17 @@ theorem hsum_bound (hMV : MVBound) :
     have hA1 : 0 ≤ C₁ * (1 / ((t : ℝ) * Real.log t)) := by positivity
     by_cases hYt : Y < t
     · have hb := hpart q χ hχ R Y hR2 hRq hRY β t hYt
+      have htq : t ≤ q := by have := (mem_Ico.mp ht).2; omega
+      have hlogt : Real.log t ≤ L :=
+        Real.log_le_log (by positivity) (by exact_mod_cast htq)
+      have hcmp : (t : ℝ) * (Real.log t ^ 2 / MV.q4 R) ≤ t * ρ := by
+        apply mul_le_mul_of_nonneg_left _ (by positivity)
+        exact div_le_div_of_nonneg_right (pow_le_pow_left₀ hlt hlogt 2) (MV.q4_nonneg R)
+      have hb2 : ‖∑ n ∈ Ioc 0 t with Y < gpf n, (χ n : ℂ) * e (n * β)‖ ≤
+          C₁ * ((t : ℝ) / Real.log t + t * ρ) +
+            (((Ioc 0 t).filter (fun n => gpf n ≤ Y)).card : ℝ) + C₂ * k * t :=
+        hb.trans (add_le_add (add_le_add
+          (mul_le_mul_of_nonneg_left (add_le_add le_rfl hcmp) hC₁.le) le_rfl) le_rfl)
       have e1 : (t : ℝ) / Real.log t * (1 / (t : ℝ) - 1 / ((t : ℝ) + 1)) ≤
           1 / ((t : ℝ) * Real.log t) := by
         rcases eq_or_lt_of_le hlt with h | h
@@ -444,7 +455,7 @@ theorem hsum_bound (hMV : MVBound) :
       have f3 := mul_le_mul_of_nonneg_left e2 (mul_nonneg hC₂.le hk0)
       calc _ ≤ (C₁ * ((t : ℝ) / Real.log t + t * ρ) +
             (((Ioc 0 t).filter (fun n => gpf n ≤ Y)).card : ℝ) + C₂ * k * t) *
-            (1 / (t : ℝ) - 1 / ((t : ℝ) + 1)) := mul_le_mul_of_nonneg_right hb hw0
+            (1 / (t : ℝ) - 1 / ((t : ℝ) + 1)) := mul_le_mul_of_nonneg_right hb2 hw0
         _ = C₁ * ((t : ℝ) / Real.log t * (1 / (t : ℝ) - 1 / ((t : ℝ) + 1))) +
             C₁ * ρ * ((t : ℝ) * (1 / (t : ℝ) - 1 / ((t : ℝ) + 1))) +
             (((Ioc 0 t).filter (fun n => gpf n ≤ Y)).card : ℝ) *
@@ -497,7 +508,7 @@ theorem hsum_bound (hMV : MVBound) :
       _ = C₂ * (k * (1 + L)) := by ring
       _ ≤ C₂ * 1 := mul_le_mul_of_nonneg_left hkb hC₂.le
       _ = C₂ := mul_one _
-  have g4 : Real.exp 11 * Real.log Y ≤ Real.exp 11 * (400 * Real.log L) :=
+  have g4 : Real.exp 11 * Real.log Y ≤ Real.exp 11 * (1400 * Real.log L) :=
     mul_le_mul_of_nonneg_left hlogY (Real.exp_pos 11).le
   have g5 : 1 + 131 * C₁ + C₂ ≤ (1 + 131 * C₁ + C₂) * Real.log L := by
     have := mul_le_mul_of_nonneg_left hlogL (show 0 ≤ 1 + 131 * C₁ + C₂ by positivity)
@@ -507,12 +518,12 @@ theorem hsum_bound (hMV : MVBound) :
         ‖∑ n ∈ Ioc 0 H with ¬ Y < gpf n, (χ n : ℂ) * e (n * β) / n‖ := norm_add_le _ _
     _ ≤ _ := by nlinarith
 
-/-- **The Pólya–Vinogradov inequality with `log log q`**, under `MVBound`. -/
-theorem polya_vinogradov_loglog (hMV : MVBound) :
+/-- **The Pólya–Vinogradov inequality with `log log q`**. -/
+theorem polya_vinogradov_loglog :
     ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsPrimitive →
       3 ≤ q → ∀ T : ℕ,
         ‖∑ n ∈ Ioc 0 T, (χ n : ℂ)‖ ≤ C * Real.sqrt q * Real.log (Real.log q) := by
-  obtain ⟨CB, hCB, hB⟩ := hsum_bound hMV
+  obtain ⟨CB, hCB, hB⟩ := hsum_bound
   have hc0 : 0 < Real.log (Real.log 3) := Real.log_pos one_lt_log_three
   refine ⟨max (CB + 6) (207 / Real.log (Real.log 3)), by positivity, ?_⟩
   intro q _ χ hχ hq3 T

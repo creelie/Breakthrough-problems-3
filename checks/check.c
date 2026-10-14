@@ -5,10 +5,15 @@
    (G) the unsmoothing identity of Lemma 5.2, in exact integer arithmetic;
    (H) the kernel and size bounds in the proof of Proposition 5.3 at random points;
    (I) the parameters of Theorems 1.4, 1.5 and Corollary 1.6, in exact rationals;
-   (J) |tau|^2 = q and Lemma 6.2 for the quadratic characters modulo primes q <= 3000, and the ratio
+   (J) |tau|^2 = q and Lemma 7.1 for the quadratic characters modulo primes q <= 3000, and the ratio
        max_x |sum_{n<=x} (n/q)| / (sqrt(q) log log q) for primes 1000 <= q <= 20000;
-   (K) the bound |r(theta)| < 3 in the proof of Lemma 6.2 on a grid;
-   (L) the parameter inequalities in the proof of Proposition 6.5.
+   (K) the bound |r(theta)| < 3 in the proof of Lemma 7.1 on a grid;
+   (L) the parameter inequalities in the proof of Proposition 7.4;
+   (M) Lemmas 6.2 and 6.3 (spacing of the multiples of alpha, the bilinear bounds) on random data;
+   (N) Lemma 6.4 for characters and random completely multiplicative f;
+   (O) Lemma 6.5: the prime pair bound for X <= 10^5 and even 0 < |h| <= 100, the sieve
+       remainders |R_d| <= tau(d), and the fourth moment of G(h) for X <= 10^5;
+   (P) the numerical constants and the parameters I, J in the proof of Theorem 6.1.
    Exit status 1 if a check fails. */
 #include <complex.h>
 #include <math.h>
@@ -84,6 +89,246 @@ static int qcmp(Q a, Q b) {
 }
 static Q qmin(Q a, Q b) { return qcmp(a, b) <= 0 ? a : b; }
 static Q qi(long long n) { Q r = {n, 1}; return r; }
+
+/* Section 6 */
+static double dist1(double x) { return fabs(x - nearbyint(x)); }
+static double wM(double M, double th) {
+  double d = dist1(th);
+  return d < 1 / M ? M : 1 / d;
+}
+static const double ZETA32 = 2.612375348685488;
+static double Gof(long long h) {
+  double g = 1;
+  long long n = h < 0 ? -h : h;
+  while (n > 1) {
+    uint32_t p = spf[n];
+    g *= (double)p / (p - 1);
+    while (n % p == 0) n /= p;
+  }
+  return g;
+}
+static int isp(long long n) { return n >= 2 && spf[n] == (uint32_t)n; }
+
+static int checkM(void) {
+  int ok = 1;
+  static double ds[1001], ws[1001];
+  for (int c = 0; c < 3000; c++) {
+    int r = 2 + (int)(400 * rnd());
+    int a = (int)(r * rnd());
+    while (gcdll(a, r) != 1) a = (a + 1) % r;
+    double al = (double)a / r + (2 * rnd() - 1) / ((double)r * r) + (int)(20 * rnd()) - 10;
+    for (int k = 1; k <= r / 2; k++) ok &= dist1(k * al) >= 1.0 / (2 * r) - 1e-12;
+    int H = (int)(1000 * rnd());
+    for (int h = 1; h <= H; h++) ds[h] = dist1(h * al);
+    for (int z = 0; z < 3; z++) {
+      double t = 0.5 * rnd();
+      int cntt = 0;
+      for (int h = 1; h <= H; h++) cntt += ds[h] < t;
+      ok &= cntt <= (4.0 * H / r + 1) * (4 * r * t + 1);
+    }
+    double M = 0.5 + 1000 * rnd();
+    int K = (int)ceil(log2(M));
+    if (K < 0) K = 0;
+    double s1 = 0, s2 = 0;
+    for (int h = 1; h <= H; h++) {
+      ws[h] = ds[h] < 1 / M ? M : 1 / ds[h];
+      s1 += ws[h];
+      s2 += ws[h] * ws[h];
+    }
+    ok &= s1 <= (4.0 * H / r + 1) * (3 * M + 4 * r + 8.0 * r * K);
+    ok &= s2 <= (4.0 * H / r + 1) * (20 * r * M + 3 * M * M);
+  }
+  for (int c = 0; c < 2000; c++) {
+    double th = 2 * rnd() - 1, U = 0.5 + 300 * rnd();
+    int A = (int)(1000 * rnd()), B = A + (int)(U * rnd());
+    double complex S = 0;
+    for (int x = A + 1; x <= B; x++) S += cexp(2 * M_PI * I * x * th);
+    ok &= cabs(S) <= wM(U, th) * (1 + 1e-9);
+  }
+  for (int c = 0; c < 300; c++) {
+    double al = rnd(), U = 1 + 50 * rnd();
+    int A = (int)(100 * rnd()), B = A + (int)U, N = (int)(2000 * rnd()) + 1;
+    int nv = 1 + (int)(20 * rnd()), V[64], m = 0;
+    double complex b[64];
+    for (int z = 0; z < nv; z++) {
+      int v = 1 + (int)(60 * rnd()), dup = 0;
+      for (int y = 0; y < m; y++) dup |= V[y] == v;
+      if (!dup) V[m++] = v;
+    }
+    for (int y = 0; y < m; y++) b[y] = cexp(2 * M_PI * I * rnd()) * rnd();
+    double lhs = 0, rhs = 0;
+    for (int u = A + 1; u <= B; u++) {
+      double complex t = 0;
+      for (int y = 0; y < m; y++)
+        if ((long long)u * V[y] <= N) t += b[y] * cexp(2 * M_PI * I * u * V[y] * al);
+      lhs += creal(t * conj(t));
+    }
+    for (int y = 0; y < m; y++)
+      for (int z = 0; z < m; z++) rhs += cabs(b[y]) * cabs(b[z]) * wM(U, (V[y] - V[z]) * al);
+    ok &= lhs <= rhs * (1 + 1e-9) + 1e-9;
+    int Hh = (int)(80 * rnd());
+    double Mm = 0.5 + 100 * rnd(), l2 = 0, sw = 0;
+    for (int x = 1; x <= Hh; x++)
+      for (int y = 1; y <= Hh; y++) l2 += wM(Mm, (x - y) * al);
+    for (int h = 1; h <= Hh; h++) sw += wM(Mm, h * al);
+    ok &= l2 <= Hh * (Mm + 2 * sw) * (1 + 1e-12);
+  }
+  return ok;
+}
+
+static int checkN(double *worst) {
+  int ok = 1;
+  static double complex f[3001];
+  static double complex fp[3001];
+  static int seen[3001];
+  const int qs[6] = {3, 5, 7, 11, 101, 997};
+  *worst = 0;
+  for (int trial = 0; trial < 60; trial++) {
+    int N = 2 + (int)(2998 * rnd());
+    double al = rnd();
+    if (trial % 3 == 0) {
+      int q = qs[trial / 3 % 6];
+      for (int n = 1; n <= N; n++) f[n] = legendre(n, q);
+    } else {
+      for (int n = 0; n <= N; n++) seen[n] = 0;
+      f[1] = 1;
+      for (int n = 2; n <= N; n++) {
+        uint32_t p = spf[n];
+        if (!seen[p]) {
+          seen[p] = 1;
+          fp[p] = cexp(2 * M_PI * I * rnd());
+          if (trial % 3 == 2) fp[p] *= rnd();
+        }
+        f[n] = fp[p] * f[n / p];
+      }
+    }
+    double complex S = 0, T = 0;
+    for (int n = 1; n <= N; n++) S += f[n] * cexp(2 * M_PI * I * n * al);
+    for (int p = 2; p <= N; p++) {
+      if (!isp(p)) continue;
+      double complex in = 0;
+      for (int m = 1; m <= N / p; m++) in += f[m] * cexp(2 * M_PI * I * (double)p * m * al);
+      T += log(p) * f[p] * in;
+    }
+    double err = cabs(S * log(N) - T) / N;
+    if (err > *worst) *worst = err;
+    ok &= err <= 1 + 4 * ZETA32;
+  }
+  return ok;
+}
+
+static int checkO(double *worst, double *worstG) {
+  int ok = 1;
+  const int XO = 100000;
+  *worst = 0;
+  for (int h = -100; h <= 100; h += 2) {
+    if (h == 0) continue;
+    double g2 = Gof(h) * Gof(h);
+    int cntp = 0;
+    for (int X = 2; X <= XO; X++) {
+      int n = X - 1, jump = n + h >= 0 && isp(n) && isp(n + h);
+      cntp += jump;
+      if (jump || X <= 8) {
+        double bd = 400 * g2 * X / (log(X) * log(X)) + 3 * pow(X, 0.6);
+        ok &= cntp <= bd;
+        if (cntp / bd > *worst) *worst = cntp / bd;
+      }
+    }
+  }
+  const int Xs[6] = {1, 2, 7, 100, 1001, 2000}, hs[5] = {2, 6, 30, 98, -4},
+            dsv[11] = {1, 3, 5, 7, 15, 21, 35, 105, 11, 143, 1155}, sp[5] = {3, 5, 7, 11, 13};
+  for (int a = 0; a < 6; a++)
+    for (int b = 0; b < 5; b++)
+      for (int c = 0; c < 11; c++) {
+        int X = Xs[a], h = hs[b], d = dsv[c];
+        if (gcdll(d, h) != 1) continue;
+        int tau = 1, cn = 0;
+        for (int z = 0; z < 5; z++)
+          if (d % sp[z] == 0) tau *= 2;
+        for (int n = 0; n < X; n++) cn += ((long long)n * (n + h)) % d == 0;
+        ok &= fabs(cn - (double)tau * X / d) <= tau;
+      }
+  for (unsigned long long X = 2; X <= 1000000000000000000ULL; X = X < 100000 ? X + 1 : X * 10) {
+    unsigned long long m = (unsigned long long)llround(pow((double)X, 0.1)) + 2;
+    for (;;) {
+      unsigned __int128 p10 = 1;
+      for (int z = 0; z < 10; z++) p10 *= m;
+      if (p10 <= X) break;
+      m--;
+    }
+    unsigned long long T = (unsigned long long)sqrt((double)m);
+    while ((T + 1) * (T + 1) <= m) T++;
+    while (T * T > m) T--;
+    unsigned __int128 p20 = 1;
+    for (int z = 0; z < 20; z++) p20 *= (T + 1);
+    ok &= p20 > X;
+  }
+  double acc = 0;
+  *worstG = 0;
+  for (int h = 1; h <= XO; h++) {
+    double g = Gof(h);
+    acc += g * g * g * g;
+    if (acc / h > *worstG) *worstG = acc / h;
+  }
+  ok &= *worstG <= exp(30) && M_PI * M_PI / 6 - 1 <= 1;
+  for (__int128 t = 1; t < 100000; t++) ok &= (t + 1) * (t + 1) * (t + 1) * (t + 1) * (t + 1) <= (t + 31) * t * t * t * t;
+  return ok;
+}
+
+static int checkP(uint32_t *pr, uint32_t np) {
+  int ok = 64 * log(2) < 45;
+  for (long long l = 64; l <= 10000; l++) {
+    int Ib = 0;
+    while ((1LL << Ib) <= l) Ib++;
+    long long J = l + 1 - 4 * Ib;
+    __int128 p16 = 1;
+    for (int z = 0; z < Ib; z++) p16 *= 16;
+    __int128 L4 = (__int128)l * l * l * l;
+    ok &= p16 > L4 && 1 <= J && J <= l && 4 * Ib <= l && (1LL << Ib) <= 2 * l && J + 4 * Ib == l + 1;
+    /* J^2 2^J l^4 <= (l+1)^2 2^(l+1), with 2^(l+1) = 2^J 16^I */
+    ok &= (__int128)J * J * L4 <= (__int128)(l + 1) * (l + 1) * p16 && (__int128)(l + 1) * (l + 1) <= L4;
+  }
+  ok &= log(2) >= 0.5;
+  double tail = 0;
+  for (int j = 0; j < 400; j++) tail += (j + 1.0) * (j + 1.0) * pow(0.75, j);
+  ok &= tail > 111.99 && tail <= 112 + 1e-9 && 7.0 / 4 / (1.0 / 64) == 112;
+  for (int j = 0; j < 2000; j++) {
+    if (j <= 30) {
+      __int128 l8 = 1 + 2 * j, r9 = 2 * (__int128)(j + 1) * (j + 1);
+      for (int z = 0; z < j; z++) { l8 *= 8; r9 *= 9; }
+      ok &= l8 <= r9;
+    } else {
+      ok &= log(1 + 2.0 * j) + j * log(8) < log(2) + 2 * log(j + 1.0) + j * log(9) - 1;
+    }
+  }
+  for (int J = 1; J < 200; J++) {
+    double s = 0;
+    for (int j = 0; j < J; j++) s += pow(2, j / 2.0);
+    ok &= s <= 3 * pow(2, J / 2.0);
+  }
+  ok &= 3 * sqrt(14) <= 12 && sqrt(24) <= 5 && 8 * 112 + 12 == 908 && 6 * 225 == 1350 && 1350 <= 37 * 37 &&
+        15 + 37 == 52;
+  const long long c4[4] = {320LL * 3375, 48LL * 50625, 80LL * 3375, 180LL * 3375};
+  for (int z = 0; z < 4; z++) ok &= c4[z] <= 2560000;
+  ok &= pow(2, 0.25) <= 2 && pow(2, 0.3) <= 2 && 2 + 16 + 32 * 2 * 3375 == 216018;
+  for (int k = 0; k < 3000; k++) {
+    double x = 1 + pow(10, k / 10.0);
+    ok &= log(x) <= 15 * pow(x, 1.0 / 15) && log(x) <= 4 * pow(x, 0.25);
+  }
+  double lf = 0;
+  for (int N = 1; N < 10000; N++) {
+    lf += log(N);
+    ok &= N * log(N) - lf <= N;
+  }
+  double s1 = 0, s2 = 0;
+  for (uint32_t i = 0; i < np && pr[i] <= 1000000; i++) {
+    double p = pr[i];
+    s1 += log(p) / (p * (p - 1));
+    s2 += log(p) / (p * p);
+  }
+  ok &= s1 <= 2 * s2 && 2 * s2 <= 2 * ZETA32;
+  return ok;
+}
 
 int main(void) {
   int fails = 0;
@@ -274,21 +519,62 @@ int main(void) {
            worstK);
     fails += !okK;
   }
-  /* (L) */
+  /* (L) Proposition 7.4: M = ceil(L), R = M^16, Y = M^700 */
   {
     const double Ls[8] = {200.0, 200.5, 201.0, 250.0, 1000.0, 1e4, 1e6, 1e9};
     int okL = 1;
     for (int i = 0; i < 8; i++) {
       double L = Ls[i], M = ceil(L), lM = log(M);
-      okL &= 4 * lM < L && L * L > 11520 && pow(M, 4) >= 2 && lM >= 1 && lM * lM <= 4 * M;
-      double rho = pow(4 * lM, 1.5) / (M * M);
-      okL &= rho * (1 + L) <= 128 && 32 * lM * lM / M <= 128;
-      double k = (L + 4 * lM + 1e-80) * (2 + 2 * M_PI * pow(M, 4)) / (pow(M, 6) * 200 * lM);
-      okL &= L + 4 * lM <= 6 * M && 2 + 2 * M_PI * pow(M, 4) <= 8 * pow(M, 4) && k * (1 + L) <= 1 &&
-             200 * lM <= 400 * log(L);
+      okL &= pow(L / 16, 4) / 24 > L + 1 && L + 1 >= M && 16 * lM < L && pow(M, 16) >= 2 && lM >= 1 && M <= 2 * L;
+      double rho = L * L / pow(M, 4);
+      okL &= rho * (1 + L) <= 2 / M && 2 / M <= 128;
+      double logqR = L + 16 * lM + log1p(2 * exp(-L - 16 * lM));
+      okL &= logqR <= 18 * M && 2 + 2 * M_PI * pow(M, 16) <= 8 * pow(M, 16);
+      double k = logqR * (2 / pow(M, 16) + 2 * M_PI) / (pow(M, 3) * 700 * lM);
+      okL &= k * (1 + L) <= 288 / (700 * M) && 288 / (700 * M) <= 1 && 700 * lM <= 1400 * log(L);
     }
-    printf("%s L: parameter inequalities of Proposition 6.5 at 8 values of log q\n", okL ? "PASS" : "FAIL");
+    double s1 = 0;
+    for (int t = 2; t <= 1000000; t++) {
+      s1 += 1 / (t * log(t));
+      if (t == 2) okL &= s1 <= 3;
+      if (t == 3 || t == 10 || t == 100 || t == 1000 || t == 10000 || t == 100000 || t == 1000000)
+        okL &= s1 <= 3 + log(log(t));
+    }
+    printf("%s L: parameter inequalities of Proposition 7.4 at 8 values of log q; sum_{2<=t<=H} 1/(t log t) <= "
+           "3 + log log H for H <= 10^6\n", okL ? "PASS" : "FAIL");
     fails += !okL;
+  }
+  /* (M) */
+  {
+    int okM = checkM();
+    printf("%s M: Lemma 6.2 (i)-(iii) for 3000 random (alpha, a/r), Lemma 6.3 (i) at 2000 and (ii), (iii) at 300 "
+           "random cases\n", okM ? "PASS" : "FAIL");
+    fails += !okM;
+  }
+  /* (N) */
+  {
+    double worstN;
+    int okN = checkN(&worstN);
+    printf("%s N: Lemma 6.4 for 60 completely multiplicative f, N <= 3000: max error / N = %.4f <= C5 = %.4f\n",
+           okN ? "PASS" : "FAIL", worstN, 1 + 4 * ZETA32);
+    fails += !okN;
+  }
+  /* (O) */
+  {
+    double worstO, worstGO;
+    int okO = checkO(&worstO, &worstGO);
+    printf("%s O: prime pairs: count <= 400 G(h)^2 X/log^2 X + 3 X^(3/5) for X <= 10^5, 0 < |h| <= 100 even (max "
+           "ratio %.4f); |R_d| <= tau(d); (T+1)^20 > X; max_X X^-1 sum G(h)^4 = %.3f <= e^30\n",
+           okO ? "PASS" : "FAIL", worstO, worstGO);
+    fails += !okO;
+  }
+  /* (P) */
+  {
+    int okP = checkP(pr, np);
+    double Kb = 80 * sqrt(800 * exp(15)) + 52, C1 = 45 + 1 + 4 * ZETA32 + 908 + 216018 * Kb + 60 + 2 * Kb;
+    printf("%s P: constants of Theorem 6.1: coefficients <= 40^4, 896 = 8*112, I, J for 64 <= ell <= 10^4; K_b = "
+           "%.4e, C_1 = %.4e\n", okP ? "PASS" : "FAIL", Kb, C1);
+    fails += !okP;
   }
   printf("%s\n", fails ? "SOME FAILED" : "ALL PASS");
   return fails ? 1 : 0;

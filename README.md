@@ -44,9 +44,20 @@ primitive character χ modulo q ≥ 3 and every x ≥ 1,
 Paley (1932) showed that log log q cannot be replaced by anything smaller, and
 Montgomery and Vaughan (1977) proved the bound under the generalised Riemann
 hypothesis. Their proof uses the hypothesis only on the major arcs, and the
-zero-free half-plane Re s > 7/8 is enough there; on the minor arcs it uses their
-unconditional bound for exponential sums with multiplicative coefficients
-(Montgomery–Vaughan 1977, Corollary 1).
+zero-free half-plane Re s > 7/8 is enough there. On the minor arcs they use
+their unconditional bound for exponential sums with multiplicative coefficients
+(Montgomery–Vaughan 1977, Corollary 1); a weaker form of it suffices, and the
+paper proves it (Theorem 6.1):
+
+**Theorem (exponential sums).** There is C such that for every completely
+multiplicative f with |f(n)| ≤ 1, every α, and coprime a, r with
+|α − a/r| ≤ r^(-2) and 2 ≤ R ≤ r ≤ N/R,
+
+    |∑_{n ≤ N} f(n) e(nα)| ≤ C (N/log N + N (log N)^2 / R^(1/4)).
+
+The proof follows Montgomery and Vaughan: a bilinear decomposition, the
+spacing of the multiples of α, and Selberg's upper bound sieve for prime
+pairs.
 
 The input is the zero-free half-plane Re s > 7/8 for Dirichlet L-functions of
 nonprincipal characters, proved and formalised in Lean 4 by OpenAI ("The
@@ -67,10 +78,12 @@ deterministic factorisation, 4 October 2026) state none of these results.
 - The theorem rests on OpenAI's zero-free half-plane. That theorem is in an
   unrefereed preprint; its Lean proof is compiled here from source and checked
   by the Lean kernel together with ours, so the whole chain is machine-checked.
-- In the Lean proof of the Pólya–Vinogradov bound, Corollary 1 of
-  Montgomery–Vaughan (1977) is the hypothesis `MVBound`; the paper cites it.
-  Everything else in that proof, including the major arcs, Pólya's expansion
-  and |τ(χ)| = √q, is checked by the Lean kernel.
+- The Lean proof of the Pólya–Vinogradov bound has no hypothesis: the
+  exponential sum bound is `Vinogradov.MV.weak_mv`, proved in
+  `lean/Vinogradov/MV/`, and the major arcs, Pólya's expansion and
+  |τ(χ)| = √q are proved in `lean/Vinogradov/PV/`. The prime pair bound uses
+  Arend Mellendijk's formalisation of Selberg's sieve from
+  PrimeNumberTheoremAnd.
 - p_0 is effective but far beyond computation. The programs show g*(p) < p for
   every prime 3 ≤ p ≤ 10^8 (the largest value is g*(73189117) = 223). Erdős's
   question for the primes in [10^8, p_0) is open.
@@ -83,7 +96,7 @@ deterministic factorisation, 4 October 2026) state none of these results.
 | Path | Contents |
 |---|---|
 | `paper/` | LaTeX source `primroot.tex` (amsart) and the compiled `primroot.pdf` |
-| `lean/` | Lean 4 project: `Vinogradov/` (this proof; `Final.lean` for primitive roots, `CharacterSums.lean` for the Lindelöf bound and character sums, `PV/` for the Pólya–Vinogradov bound), OpenAI's `OAI/` sources with the `PrimeNumberTheoremAnd/` and `RellichKondrachov/` files they import, and `Axioms.lean` |
+| `lean/` | Lean 4 project: `Vinogradov/` (this proof; `Final.lean` for primitive roots, `CharacterSums.lean` for the Lindelöf bound and character sums, `MV/` for the exponential sum bound, `PV/` for the Pólya–Vinogradov bound), OpenAI's `OAI/` sources with the `PrimeNumberTheoremAnd/` and `RellichKondrachov/` files they import, the four Selberg sieve files of PrimeNumberTheoremAnd, and `Axioms.lean` |
 | `checks/` | `check.py`, `check.jl`, `check.c`, `check.cpp`: independent numerical checks |
 | `run_all.sh` | runs the four programs, the Lean build and the axiom check |
 | `journal/JOURNAL.md` | target journal, format and policy |
@@ -128,20 +141,25 @@ theorem character_sum_le_rpow {η θ : ℝ} (hη : 0 < η) (hθ : 7 / 8 < θ) :
         ‖∑ n ∈ Finset.Icc 1 ⌊x⌋₊, χ n‖ ≤ C * x ^ θ
 ```
 
-In `lean/Vinogradov/PV/Main.lean`, namespace `Vinogradov.PV`, with
-`e x = exp(2πix)`:
+In `lean/Vinogradov/MV/Weak.lean`, namespace `Vinogradov.MV`, with
+`e x = exp(2πix)` and `q4 x = √√x` (the reduced fraction a/r is the rational
+number `a` with denominator `a.den`):
 
 ```lean
-def MVBound : Prop :=
-  ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q) (α : ℝ) (a : ℚ) (N : ℕ)
-    (R : ℝ), 2 ≤ R → R ≤ a.den → (a.den : ℝ) ≤ N / R → |α - a| ≤ 1 / (a.den : ℝ) ^ 2 →
-      ‖∑ n ∈ Finset.Ioc 0 N, (χ n : ℂ) * e (n * α)‖ ≤
-        C * (N / Real.log N + N * Real.log R ^ (3 / 2 : ℝ) / Real.sqrt R)
+theorem weak_mv : ∃ C : ℝ, 0 < C ∧ ∀ (f : ℕ → ℂ), (∀ m n, f (m * n) = f m * f n) →
+    (∀ n, ‖f n‖ ≤ 1) → ∀ (α : ℝ) (a : ℚ) (N : ℕ) (R : ℝ), 2 ≤ R → R ≤ a.den →
+      (a.den : ℝ) ≤ N / R → |α - a| ≤ 1 / (a.den : ℝ) ^ 2 →
+        ‖∑ n ∈ Ioc 0 N, f n * e (n * α)‖ ≤
+          C * (N / Real.log N + N * Real.log N ^ 2 / q4 R)
+```
 
-theorem polya_vinogradov_loglog (hMV : MVBound) :
+In `lean/Vinogradov/PV/Main.lean`, namespace `Vinogradov.PV`:
+
+```lean
+theorem polya_vinogradov_loglog :
     ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsPrimitive →
       3 ≤ q → ∀ T : ℕ,
-        ‖∑ n ∈ Finset.Ioc 0 T, (χ n : ℂ)‖ ≤ C * Real.sqrt q * Real.log (Real.log q)
+        ‖∑ n ∈ Ioc 0 T, (χ n : ℂ)‖ ≤ C * Real.sqrt q * Real.log (Real.log q)
 ```
 
 `Vinogradov.zeroFree` discharges the hypothesis of `Vinogradov/Main.lean` with
@@ -155,8 +173,8 @@ theorem OAI.DirichletCharacter.LFunction_ne_zero_of_seven_eighths_lt_re
 ```
 
 `lean/Axioms.lean` prints the axioms used by OpenAI's theorem, by
-`Vinogradov.zeroFree`, by the six theorems above, by
-`polya_vinogradov_loglog` and by three of its steps. Its output (Lean 4.34.1,
+`Vinogradov.zeroFree`, by the six theorems above, by `weak_mv`, by
+`polya_vinogradov_loglog` and by four of its steps. Its output (Lean 4.34.1,
 Mathlib v4.34.1) is
 
 ```
@@ -168,6 +186,8 @@ Mathlib v4.34.1) is
 'Vinogradov.CharSum.lindelof' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Vinogradov.CharSum.character_sum_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Vinogradov.CharSum.character_sum_le_rpow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Vinogradov.MV.weak_mv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Vinogradov.PV.mv_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Vinogradov.PV.polya_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Vinogradov.PV.partial_le' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Vinogradov.PV.hsum_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -193,5 +213,6 @@ program ends with `ALL PASS`, and the script with `ALL CHECKS PASSED`.
 ## Licence
 
 Apache License 2.0 (`LICENSE`). OpenAI's Lean sources and the files of
-PrimeNumberTheoremAnd and rellich-kondrachov they import are
+PrimeNumberTheoremAnd and rellich-kondrachov they import, and the Selberg
+sieve files of PrimeNumberTheoremAnd, are
 Apache 2.0; `NOTICE` lists their origins.

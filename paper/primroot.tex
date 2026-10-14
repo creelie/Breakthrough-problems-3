@@ -53,7 +53,7 @@
 Bhubaneswar, Odisha 751030, India}
 \email{d.bhattacharjee@erl-forschung.de, itsdeep@live.com}
 \thanks{ORCID 0000-0003-0466-750X}
-\subjclass[2020]{11A07, 11L40, 11M06, 11N13, 68V15}
+\subjclass[2020]{11A07, 11L07, 11L40, 11M06, 11N13, 11N36, 68V15}
 \keywords{primitive roots, character sums, Dirichlet $L$-functions, zero-free regions, Lean 4}
 
 \begin{document}
@@ -65,8 +65,7 @@ For every nonprincipal character $\chi$ modulo $q$,
 $\sum_{n\le x}\chi(n)\ll_\varepsilon q^\varepsilon x^{7/8+\varepsilon}$, which is $o(x)$ once
 $x\ge q^\eta$. Both were conjectured by Vinogradov. For primitive $\chi$,
 $\max_x|\sum_{n\le x}\chi(n)|\ll\sqrt q\log\log q$, which is optimal. The proofs use the zero-free
-half-plane $\Re s>7/8$ and are checked in Lean~4, the last one with a theorem of Montgomery and
-Vaughan as a hypothesis.
+half-plane $\Re s>7/8$ and are checked in Lean~4.
 \end{abstract}
 
 \maketitle
@@ -148,7 +147,8 @@ and every $x\ge1$,
 Montgomery and Vaughan use the generalised Riemann hypothesis only for prime sums of the
 characters $\chi\psi$, with $\psi$ modulo a small $r$, on the major arcs; Theorem~\ref{thm:zerofree}
 below suffices there. On the minor arcs they use their unconditional bound for exponential sums
-with multiplicative coefficients, Theorem~\ref{thm:mv}.
+with multiplicative coefficients; a weaker form, Theorem~\ref{thm:mv}, suffices, and we prove it
+in Section~\ref{sec:mv}.
 
 The input is the zero-free half-plane of~\cite{OAI26}, from which~\cite{OAI26} deduces, as
 in~\cite[Thm.~6.7]{BIMS17}, that the least quadratic nonresidue is $\ll_\varepsilon p^\varepsilon$.
@@ -161,9 +161,9 @@ If $\chi$ is a nonprincipal Dirichlet character, then $L(s,\chi)\ne0$ for $\Re s
 
 Theorem~\ref{thm:zerofree} is formalised in Lean~4 in~\cite{OAI26}. Theorems~\ref{thm:main},
 \ref{thm:lindelof} and~\ref{thm:charsum} and Corollaries~\ref{cor:vinogradov}, \ref{cor:erdos}
-and~\ref{cor:charsum} are formalised here, with Theorem~\ref{thm:zerofree} as the only external
-input, and Theorem~\ref{thm:pv} is formalised from Theorems~\ref{thm:zerofree} and~\ref{thm:mv}
-(Section~\ref{sec:lean}). The constants are effective.
+and~\ref{cor:charsum} and Theorems~\ref{thm:mv} and~\ref{thm:pv} are formalised here, with
+Theorem~\ref{thm:zerofree} as the only external input (Section~\ref{sec:lean}). The constants are
+effective.
 
 Theorem~\ref{thm:lindelof} is Littlewood's deduction of a Lindel\"of bound from a zero-free
 half-plane~\cite[\S14.2]{Tit86}, and Theorem~\ref{thm:charsum} follows from it by a contour shift;
@@ -530,22 +530,224 @@ $|\sum_{n\le x}\chi(n)|\le C_\delta x^\theta$. With $\theta=15/16$ this is $o(x)
 \end{proof}
 
 
-\section{The P\'olya--Vinogradov inequality}\label{sec:pv}
+\section{Exponential sums with multiplicative coefficients}\label{sec:mv}
 
-Write $e(x)=e^{2\pi ix}$, and let $P(n)$ be the largest prime factor of $n\ge2$, with $P(1)=1$.
-The minor arcs are handled by the following theorem.
+Write $e(x)=e^{2\pi ix}$ and let $\|x\|$ be the distance from $x$ to the nearest integer. For
+$M>0$ put $w_M(\theta)=M$ if $\|\theta\|<1/M$ and $w_M(\theta)=1/\|\theta\|$ otherwise; then
+$0\le w_M(\theta)\le M$ and $w_M(-\theta)=w_M(\theta)$.
 
-\begin{theorem}[{\cite[Corollary~1]{MV77}}]\label{thm:mv}
-There is an absolute constant $C_1$ with the following property. Let $f$ be multiplicative with
-$|f(n)|\le1$, let $\alpha\in\R$, and let $a,r$ be coprime integers with
+\begin{theorem}\label{thm:mv}
+There is an absolute constant $C_1$ with the following property. Let $f$ be completely
+multiplicative with $|f(n)|\le1$, let $\alpha\in\R$, and let $a,r$ be coprime integers with $r\ge1$,
 $|\alpha-a/r|\le r^{-2}$ and $2\le R\le r\le N/R$. Then
 \[
   \Bigl|\sum_{n\le N}f(n)e(n\alpha)\Bigr|\le C_1\Bigl(\frac N{\log N}
-  +\frac{N(\log R)^{3/2}}{R^{1/2}}\Bigr).
+  +\frac{N(\log N)^2}{R^{1/4}}\Bigr).
 \]
 \end{theorem}
 
-In this section $\chi$ is a primitive character modulo $q\ge3$.
+Montgomery and Vaughan~\cite[Corollary~1]{MV77} proved this for multiplicative $f$ with
+$N(\log R)^{3/2}R^{-1/2}$ in place of $N(\log N)^2R^{-1/4}$. The proof below follows their
+approach (a bilinear decomposition, the spacing of the multiples of $\alpha$ and an upper bound
+for prime pairs) with cruder estimates, which suffice for Theorem~\ref{thm:pv}.
+
+\begin{lemma}\label{lem:spacing}
+Let $a,r$ be coprime with $r\ge2$ and $|\alpha-a/r|\le r^{-2}$, and let $H\ge0$ be an integer.
+\begin{enumerate}
+\item[(i)] $\|k\alpha\|\ge1/(2r)$ for every integer $k$ with $0<|k|\le r/2$.
+\item[(ii)] $\#\{1\le h\le H:\|h\alpha\|<t\}\le(4H/r+1)(4rt+1)$ for every $t\ge0$.
+\item[(iii)] For $M>0$ and every integer $K\ge0$ with $M\le2^K$,
+\begin{align*}
+  \sum_{h\le H}w_M(h\alpha)&\le\Bigl(\frac{4H}r+1\Bigr)(3M+4r+8rK),\\
+  \sum_{h\le H}w_M(h\alpha)^2&\le\Bigl(\frac{4H}r+1\Bigr)(20rM+3M^2).
+\end{align*}
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) Let $z$ be the integer nearest to $k\alpha$. Since $0<|k|<r$ and $(a,r)=1$, $r\nmid ka$, so
+$|ka/r-z|\ge1/r$ and $\|k\alpha\|\ge1/r-|k|\,|\alpha-a/r|\ge1/(2r)$.
+
+(ii) Let $L=\lfloor r/2\rfloor$, so $L\ge r/4$. For $k$ in a block of $L$ consecutive integers let
+$y_k=k\alpha-z_k$ with $z_k$ the integer nearest to $k\alpha$. For $k\ne k'$ in the block,
+$0<|k-k'|<L\le r/2$ and $y_k-y_{k'}\equiv(k-k')\alpha\pmod1$, so $|y_k-y_{k'}|\ge1/(2r)$ by~(i).
+Points of $(-t,t)$ at mutual distances at least $1/(2r)$ number at most $4rt+1$, and $[1,H]$ is
+covered by at most $H/L+1\le4H/r+1$ blocks.
+
+(iii) If $\|\theta\|\ge1/M$, let $k\ge1$ be least with $\|\theta\|<2^k/M$; then $k\le K$ because
+$\|\theta\|\le1/2<2^K/M$, and $\|\theta\|\ge2^{k-1}/M$, so $w_M(\theta)\le2^{1-k}M$. Hence
+\[
+  w_M(\theta)^j\le M^j\,[\|\theta\|<1/M]+\sum_{k=1}^K(2^{1-k}M)^j\,[\|\theta\|<2^k/M]\qquad(j=1,2).
+\]
+Summing over $h\le H$ with~(ii), the first sum is at most
+$(4H/r+1)\bigl(4r+M+\sum_{k\le K}(8r+2^{1-k}M)\bigr)$ and the second at most
+$(4H/r+1)\bigl(4rM+M^2+\sum_{k\ge1}(16rM2^{-k}+4M^24^{-k})\bigr)$.
+\end{proof}
+
+\begin{lemma}\label{lem:bilinear}
+Let $\theta,\alpha\in\R$, $U>0$, and let $A,B,N$ be nonnegative integers with $B\le A+U$.
+\begin{enumerate}
+\item[(i)] $\bigl|\sum_{A<x\le B}e(x\theta)\bigr|\le w_U(\theta)$.
+\item[(ii)] For a finite set $V$ of positive integers and $b:V\to\C$,
+\[
+  \sum_{A<u\le B}\Bigl|\sum_{\substack{v\in V\\uv\le N}}b(v)e(uv\alpha)\Bigr|^2\le
+  \sum_{v,v'\in V}|b(v)|\,|b(v')|\,w_U\bigl((v-v')\alpha\bigr).
+\]
+\item[(iii)] For $M>0$ and an integer $H\ge0$,
+$\sum_{1\le m,m'\le H}w_M((m-m')\alpha)\le H\bigl(M+2\sum_{h\le H}w_M(h\alpha)\bigr)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) If $\|\theta\|<1/U$, the sum has at most $U$ terms of modulus $1$. Otherwise
+$\theta\notin\mathbb Z$, the sum has modulus at most $|e((B-A)\theta)-1|/|e(\theta)-1|$, and
+$|e(\theta)-1|=2|\sin\pi\theta|\ge4\|\theta\|$, so the modulus is at most $1/(2\|\theta\|)$. (ii) Expanding the square gives
+$\sum_{v,v'}b(v)\overline{b(v')}\sum_ue(u(v-v')\alpha)$, where $u$ runs over the integers of
+$(A,\min(B,N/v,N/v')]$, an interval of length at most $U$; apply~(i). (iii) For fixed $m$, the
+term $m'=m$ is $w_M(0)=M$, and each $h=|m-m'|\in[1,H]$ arises from at most two $m'$.
+\end{proof}
+
+\begin{lemma}\label{lem:reduction}
+Let $C_5=1+4\zeta(3/2)$. For every completely multiplicative $f$ with $|f(n)|\le1$, every
+$\alpha\in\R$ and every integer $N\ge1$, the sum $S=\sum_{n\le N}f(n)e(n\alpha)$ satisfies
+\[
+  \Bigl|S\log N-\sum_{p\le N}\log p\,f(p)\sum_{m\le N/p}f(m)e(pm\alpha)\Bigr|\le C_5N.
+\]
+\end{lemma}
+
+\begin{proof}
+Write $S\log N=S_1+S_2$ with $S_1=\sum_{n\le N}f(n)e(n\alpha)\log n$ and
+$S_2=\sum_{n\le N}f(n)e(n\alpha)\log(N/n)$. Then $S_2$ has modulus at most $N\log N-\log N!\le N$, since $N^N/N!\le e^N$. In $S_1$ write
+$\log n=\sum_{d\mid n}\Lambda(d)$ and $n=dm$; complete multiplicativity gives
+$\sum_{d\le N}\Lambda(d)f(d)\sum_{m\le N/d}f(m)e(dm\alpha)$. The terms with $d$ prime form the sum in
+the statement, and the others have modulus at most
+$N\sum_p\sum_{k\ge2}\log p/p^k\le2N\sum_p\log p/p^2\le4\zeta(3/2)N$, since $\log p\le2\sqrt p$.
+\end{proof}
+
+Let $G(h)=\prod_{p\mid h}p/(p-1)$.
+
+\begin{lemma}\label{lem:pairs}
+\begin{enumerate}
+\item[(i)] For every integer $X\ge2$ and every even $h\ne0$,
+\[
+  \#\{0\le n<X:n\text{ and }n+h\text{ prime}\}\le\frac{400\,G(h)^2X}{(\log X)^2}+3X^{3/5}.
+\]
+\item[(ii)] $\sum_{h\le X}G(h)^4\le e^{30}X$ for every $X\ge1$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) We use Selberg's upper bound sieve~\cite[Ch.~3]{HR74} in the following form. Let
+$a_0,\dots,a_{X-1}\ge0$ be integers, $P$ a squarefree integer, $\nu$ a multiplicative function with
+$0<\nu(p)<1$ for $p\mid P$, $y\ge1$, and $R_d=\#\{n:d\mid a_n\}-\nu(d)X$. Then
+\[
+  \#\{n:(a_n,P)=1\}\le\frac XS+\sum_{\substack{d\mid P\\d\le y}}3^{\omega(d)}|R_d|,\qquad
+  S=\sum_{\substack{l\mid P\\l^2\le y}}\prod_{p\mid l}\frac{\nu(p)}{1-\nu(p)}.
+\]
+Take $a_n=n(n+h)$, $y=X^{1/5}$, $z=\lfloor y\rfloor$, $P$ the product of the primes $p\le z$ with
+$p\nmid h$, and $\nu(d)=2^{\Omega(d)}/d$. Every $p\mid P$ is odd, so $\nu(p)=2/p<1$. For $d\mid P$ the
+residues $n$ with $d\mid n(n+h)$ form $2^{\omega(d)}=\tau(d)$ classes modulo $d$ (namely $n\equiv0$ or
+$-h\pmod p$ for each $p\mid d$, distinct as $p\nmid h$), and each class contains between $X/d-1$
+and $X/d+1$ of the integers $0\le n<X$; since $\nu(d)X=\tau(d)X/d$, $|R_d|\le\tau(d)$. Since the prime factors of $d$ are at least $3$,
+$3^{\omega(d)}|R_d|\le d^2\le y^2$, and the error term is at most $y^3=X^{3/5}$.
+
+Since $\nu$ is completely multiplicative, $\prod_{p\mid l}\nu(p)/(1-\nu(p))$ is the sum of $\nu(m)$
+over the $m$ whose set of prime factors is that of $l$; so $S\ge\sum\nu(m)$ over the $m\le\sqrt y$
+whose prime factors divide $P$. Let $T=\lfloor\lfloor\sqrt y\rfloor^{1/2}\rfloor$ and let $B$ be
+the set of $a\le T$ with no prime factor dividing $h$. For $a,b\in B$ the product $m=ab\le\sqrt y$
+has its prime factors in $P$, and $\nu(m)\ge\tau(m)/m$, so
+$S\ge\bigl(\sum_{a\in B}1/a\bigr)^2$. Removing the multiples of one prime $p$ from a sum
+$\sum1/a$ over $a\le T$ divides it by at most $\sum_kp^{-k}=p/(p-1)$, since each $a$ is $p^ka'$ with
+$p\nmid a'$; hence $\sum_{a\in B}1/a\ge G(h)^{-1}\sum_{a\le T}1/a\ge G(h)^{-1}\log(T+1)$. As
+$(T+1)^2>\sqrt y$, $\log(T+1)\ge\log X/20$, and $X/S\le400G(h)^2X/(\log X)^2$. Finally, if $n<X$
+and $n,n+h$ are prime, then $n\le z$ or $(n(n+h),P)=1$, so the count is at most
+$z+1+X/S+y^3\le400G(h)^2X/(\log X)^2+3X^{3/5}$.
+
+(ii) For $t=p-1\ge1$, $(t+1)^5\le(t+31)t^4$, that is, $(p/(p-1))^4\le1+30/p$. Hence
+$G(h)^4\le\sum_d30^{\omega(d)}/d$ over the squarefree $d\mid h$, and
+\begin{align*}
+  \sum_{h\le X}G(h)^4&\le\sum_{d\le X}\mu(d)^2\frac{30^{\omega(d)}}d\cdot\frac Xd
+  \le X\prod_p\Bigl(1+\frac{30}{p^2}\Bigr)\\
+  &\le X\exp\Bigl(30\sum_{n\ge2}\frac1{n^2}\Bigr)\le e^{30}X.\qedhere
+\end{align*}
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:mv}]
+Let $S=\sum_{n\le N}f(n)e(n\alpha)$, $L=\log N$ and $\ell=\lfloor\log_2N\rfloor$. Since $N\ge rR\ge4$,
+$L\ge1$. If $\ell<64$, then $L<64\log2<45$ and $|S|\le N\le45N/L$. Let $\ell\ge64$,
+$I=\lfloor\log_2\ell\rfloor+1$ and $J=\ell+1-4I$. Then $16^I>\ell^4$, $1\le J\le\ell\le2L$,
+$I\le\ell\le2L$, $2^I\le2\ell$, $N<2^{\ell+1}=2^J16^I$ and
+$J^22^J\le(\ell+1)^22^{\ell+1}\ell^{-4}\le2N$. By Lemma~\ref{lem:reduction},
+$|S|L\le C_5N+|T_1|+|T_2|$, where $T_1$ and $T_2$ are the parts of
+$\sum_p\log p\,f(p)\sum_{m\le N/p}f(m)e(pm\alpha)$ with $p\le2^J$ and with $p>2^J$.
+
+\emph{The small primes.} Let $0\le j<J$, $U=2^j$, $H=\lfloor N/U\rfloor$, and for $U<x\le2U$ let
+$B(x)=\sum_{m\le H,\,xm\le N}f(m)e(xm\alpha)$; the inner sum for a prime $p\in(U,2U]$ is $B(p)$.
+By Cauchy--Schwarz, Lemma~\ref{lem:bilinear}(ii), (iii) and Lemma~\ref{lem:spacing}(iii) with
+$M=U$, $K=j$,
+\[
+  \sum_{U<p\le2U}\log p\,|B(p)|\le\bigl(U\log^2(2U)\bigr)^{1/2}Q_j^{1/2},
+\]
+where $Q_j=H\bigl(U+2(4H/r+1)(3U+4r+8rj)\bigr)$.
+Since $HU\le N$, $UQ_j\le7NU+(8+16j)Nr+24N^2/r+(32+64j)N^2/U$, and $\log(2U)\le j+1$. Summing over
+$j<J$ with $j+1\le J$, $\sum_{j<J}2^{j/2}\le3\cdot2^{J/2}$,
+$\sqrt{(32+64j)2^{-j}}\le8(j+1)(3/4)^j$ and $\sum_{j\ge0}(j+1)^2(3/4)^j=112$,
+\[
+  |T_1|\le3\sqrt7J\sqrt{N2^J}+J^2N\sqrt{24/r}+896N+J^2\sqrt{24JNr}.
+\]
+Now $J^22^J\le2N$ gives $3\sqrt7J\sqrt{N2^J}\le12N$; $r\ge R\ge\sqrt R$ gives
+$\sqrt{24/r}\le5R^{-1/4}$; and $r\sqrt R\le rR\le N$ gives $\sqrt{24JNr}\le5JNR^{-1/4}$. With
+$J\le2L$ and $L\ge1$, $|T_1|\le908N+60L^3NR^{-1/4}$.
+
+\emph{The large primes.} For $p>2^J$ we have $N/p<16^I$, so the $m$ in $T_2$ lie in
+$(0,16^I-1]$, the union of the blocks $(16^i-1,16^{i+1}-1]$ with $0\le i<I$. Fix $i$, let
+$A=16^i-1$, $U=15\cdot16^i$ and $X=\lfloor N/16^i\rfloor$, and assume $X\ge1$, the block being
+empty otherwise. Only the primes $p\in(2^J,X]$ contribute, since $p\ge X+1$ and $m\ge16^i$ give
+$pm>N$. Let $V$ be the set of these primes, which are odd, and
+$B(m)=\sum_{p\in V,\,pm\le N}\log p\,f(p)e(pm\alpha)$. The block is
+$\sum_{A<m\le A+U}f(m)B(m)$, and by Cauchy--Schwarz, Lemma~\ref{lem:bilinear}(ii) and
+$\log p\le\lambda=\log(X+1)$, its square is at most $U\lambda^2W$, where
+\[
+  W=\sum_{p,p'\in V}w_U((p-p')\alpha)=|V|U+2\sum_{h=1}^Xw_U(h\alpha)\,\#\{p\in V:p+h\in V\}.
+\]
+The count vanishes for odd $h$, and for even $h$ Lemma~\ref{lem:pairs}(i), applied to $X+1$,
+bounds it by $400G(h)^2(X+1)\lambda^{-2}+3(X+1)^{3/5}$. By Cauchy--Schwarz,
+Lemma~\ref{lem:pairs}(ii) and Lemma~\ref{lem:spacing}(iii),
+$\sum_{h\le X}G(h)^2w_U(h\alpha)\le e^{15}\sqrt XQ^{1/2}$ with $Q=(4X/r+1)(20rU+3U^2)$, and
+$\sum_{h\le X}w_U(h\alpha)\le XU$. Hence $U\lambda^2W\le A_1+800e^{15}Z+A_3$, where
+\[
+  A_1=U^2\lambda^2X,\qquad Z=U(X+1)\sqrt XQ^{1/2},\qquad A_3=6U^2\lambda^2(X+1)^{3/5}X.
+\]
+Let $\kappa=\log(N+1)\ge\lambda$ and $T_i=4^i\kappa\,(N(2N)^{3/5})^{1/2}$. Since
+$U^2X=225\cdot16^i(16^iX)\le225\cdot16^iN$ and $X+1\le2N$, we get $A_1\le225T_i^2$ and
+$A_3\le1350T_i^2\le37^2T_i^2$. With $w=UX\le15N$, $X\le N/16^i$ and $R\le r\le N/R$,
+\begin{align*}
+  Z^2\le4U^2X^3Q&=320w^3X+\frac{48w^4}r+80rw^3+12Uw^3\\
+  &\le\frac{320\cdot15^3N^4}{16^i}+\frac{48\cdot15^4N^4}R+\frac{80\cdot15^3N^4}R\\
+  &\qquad+180\cdot15^3\cdot16^iN^3,
+\end{align*}
+and every coefficient is at most $40^4$, so $Z^{1/2}\le40(N2^{-i}+2NR^{-1/4}+2^iN^{3/4})$. The
+block is therefore at most
+\begin{align*}
+  &15T_i+40\sqrt{800e^{15}}\bigl(N2^{-i}+2NR^{-1/4}+2^iN^{3/4}\bigr)+37T_i\\
+  &\qquad\le K_b\bigl(N2^{-i}+NR^{-1/4}+2^iN^{3/4}+T_i\bigr),
+\end{align*}
+with $K_b=80\sqrt{800e^{15}}+52$. Summing over $i<I$,
+\[
+  |T_2|\le K_b\bigl(2N+INR^{-1/4}+2^IN^{3/4}+4^I\kappa(N(2N)^{3/5})^{1/2}\bigr).
+\]
+Here $I\le2L^3$; $2^I\le4L\le16N^{1/4}$; $4^I\le16L^2$ and $\kappa\le2L$; and
+$\log x\le15x^{1/15}$ gives $L^3(N(2N)^{3/5})^{1/2}\le2\cdot15^3N$. Hence
+$|T_2|\le K_b(216018N+2L^3NR^{-1/4})$.
+
+Altogether $|S|L\le(C_5+908+216018K_b)N+(60+2K_b)L^3NR^{-1/4}$, and dividing by $L$ gives the
+theorem with $C_1=45+C_5+908+216018K_b+60+2K_b$.
+\end{proof}
+
+\section{The P\'olya--Vinogradov inequality}\label{sec:pv}
+
+Let $P(n)$ be the largest prime factor of $n\ge2$, with $P(1)=1$. In this section $\chi$ is a
+primitive character modulo $q\ge3$.
 
 \begin{lemma}\label{lem:polya}
 Let $B\ge0$ be such that $\bigl|\sum_{m\le H}\bar\chi(m)e(m\beta)/m\bigr|\le B$ for every integer
@@ -629,8 +831,8 @@ $\beta\in\R$.
 \end{proposition}
 
 \begin{proof}
-Let $L=\log q$, $M=\lceil L\rceil$, $R=M^4$ and $Y=M^{200}$. Since $q=e^L\ge L^6/720$ and
-$M\le L+1\le2L$, we have $2\le R<q$ and $R\le Y$. Split the sum according to $P(m)\le Y$ or
+Let $L=\log q$, $M=\lceil L\rceil$, $R=M^{16}$ and $Y=M^{700}$. Since
+$e^{L/16}\ge(L/16)^4/24>L+1\ge M$, we have $2\le R<q$ and $R\le Y$. Split the sum according to $P(m)\le Y$ or
 $P(m)>Y$. By Lemma~\ref{lem:smooth} the first part is at most $e^{11}\log Y$. For the second
 put $A(t)=\sum_{n\le t,\,P(n)>Y}\chi(n)e(n\beta)$ and $w(t)=1/t-1/(t+1)$. Partial summation and
 $|A(H)|\le H$ give
@@ -643,24 +845,24 @@ If $r\le R$, then Lemma~\ref{lem:major} with $b=a$ gives $|A(t)|\le C_2kt$, wher
 \[
   k=\frac{R\log(qR+2)(2+2\pi R)}{Y^{1/20}\log Y}.
 \]
-If $r>R$, then $R\le r\le t/R$ and $|\beta-a/r|\le r^{-2}$, so Theorem~\ref{thm:mv} bounds the
-full sum $\sum_{n\le t}\chi(n)e(n\beta)$, and removing the $\Psi(t)=\#\{n\le t:P(n)\le Y\}$ smooth
-terms gives
+If $r>R$, then $R\le r\le t/R$ and $|\beta-a/r|\le r^{-2}$, so Theorem~\ref{thm:mv} for $f=\chi$
+bounds the full sum $\sum_{n\le t}\chi(n)e(n\beta)$, and since $\log t\le L$, removing the
+$\Psi(t)=\#\{n\le t:P(n)\le Y\}$ smooth terms gives
 \[
   |A(t)|\le C_1\Bigl(\frac t{\log t}+t\rho\Bigr)+\Psi(t),\qquad
-  \rho=\frac{(\log R)^{3/2}}{R^{1/2}}.
+  \rho=\frac{L^2}{R^{1/4}}=\frac{L^2}{M^4}.
 \]
 Since $tw(t)\le1/t$ and $w(t)\le1/t^2$,
 \[
-  \sum_{1\le t<H}|A(t)|\,w(t)\le C_1\sum_{t\le H}\frac1{t\log t}
+  \sum_{1\le t<H}|A(t)|\,w(t)\le C_1\sum_{2\le t\le H}\frac1{t\log t}
   +(C_1\rho+C_2k)\sum_{t\le H}\frac1t+\sum_{1\le t<H}\Psi(t)w(t).
 \]
 The first sum is at most $3+\log L$, the second at most $1+L$, and by partial summation the third
-is at most $\sum_{n\le H,\,P(n)\le Y}1/n\le e^{11}\log Y$. Finally $\log M\ge1$ and
-$(\log M)^2\le4M$ give $\rho(1+L)\le32(\log M)^2/M\le128$; $\log(qR+2)\le6M$,
-$2+2\pi R\le8M^4$ and $Y^{1/20}=M^{10}$ give $k(1+L)\le1$; and $\log Y=200\log M\le400\log L$.
-Collecting terms, the sum is at most
-$1+131C_1+C_2+(800e^{11}+C_1)\log L\le(800e^{11}+1+132C_1+C_2)\log L$.
+is at most $\sum_{n\le H,\,P(n)\le Y}1/n\le e^{11}\log Y$. Finally $L\le M\le2L$ gives
+$\rho(1+L)\le2/M\le128$; $\log(qR+2)\le18M$, $2+2\pi R\le8M^{16}$, $Y^{1/20}=M^{35}$ and
+$\log Y=700\log M\ge700$ give $k(1+L)\le288M^{34}/(700M^{35})\le1$; and
+$\log Y=700\log M\le1400\log L$. Collecting terms, the sum is at most
+$1+131C_1+C_2+(2800e^{11}+C_1)\log L\le(2800e^{11}+1+132C_1+C_2)\log L$.
 \end{proof}
 
 \begin{proof}[Proof of Theorem~\ref{thm:pv}]
@@ -717,23 +919,22 @@ and~\ref{thm:charsum} and Corollary~\ref{cor:charsum} (there $x\ge1$ follows fro
 and
 {\footnotesize
 \begin{verbatim}
-def MVBound : Prop :=
-  ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q)
-    (α : ℝ) (a : ℚ) (N : ℕ) (R : ℝ), 2 ≤ R → R ≤ a.den →
+theorem weak_mv : ∃ C : ℝ, 0 < C ∧ ∀ (f : ℕ → ℂ),
+    (∀ m n, f (m * n) = f m * f n) → (∀ n, ‖f n‖ ≤ 1) →
+    ∀ (α : ℝ) (a : ℚ) (N : ℕ) (R : ℝ), 2 ≤ R → R ≤ a.den →
       (a.den : ℝ) ≤ N / R → |α - a| ≤ 1 / (a.den : ℝ) ^ 2 →
-      ‖∑ n ∈ Finset.Ioc 0 N, (χ n : ℂ) * e (n * α)‖ ≤
-        C * (N / Real.log N +
-          N * Real.log R ^ (3 / 2 : ℝ) / Real.sqrt R)
-theorem polya_vinogradov_loglog (hMV : MVBound) :
+        ‖∑ n ∈ Finset.Ioc 0 N, f n * e (n * α)‖ ≤
+          C * (N / Real.log N + N * Real.log N ^ 2 / q4 R)
+theorem polya_vinogradov_loglog :
     ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
       χ.IsPrimitive → 3 ≤ q → ∀ T : ℕ,
         ‖∑ n ∈ Finset.Ioc 0 T, (χ n : ℂ)‖ ≤
           C * Real.sqrt q * Real.log (Real.log q)
 \end{verbatim}}
-\noindent(namespace \texttt{Vinogradov.PV}, with $e(x)=\exp(2\pi ix)$), which is
-Theorem~\ref{thm:pv}. \texttt{MVBound} is Theorem~\ref{thm:mv} for $f=\chi$, with the reduced
-fraction $a/r$ given as a rational number $a$ with denominator \texttt{a.den}; it is a hypothesis
-of \texttt{polya\_vinogradov\_loglog}.
+\noindent(namespaces \texttt{Vinogradov.MV} and \texttt{Vinogradov.PV}, with
+$e(x)=\exp(2\pi ix)$ and $\texttt{q4}\,x=\sqrt{\sqrt x}$), which are Theorems~\ref{thm:mv}
+and~\ref{thm:pv}; the reduced fraction $a/r$ is the rational number \texttt{a} with denominator
+\texttt{a.den}.
 Theorem~\ref{thm:zerofree} enters as the theorem
 \[
   \texttt{OAI.DirichletCharacter.LFunction\_ne\_zero\_of\_seven\_eighths\_lt\_re}
@@ -744,7 +945,9 @@ The Lean proofs of Lemmas~\ref{lem:logderiv} and~\ref{lem:lindelof} use the loga
 control lemma of~\cite{OAI26} in place of the Borel--Carath\'eodory and three circles arguments,
 and the proof of
 Lemma~\ref{lem:principal} uses Mathlib's bound $\psi(y)\ge(y-1)\log2-\log(y+2)$ in place
-of~\cite{Nai82}. Every theorem depends only on the axioms \texttt{propext},
+of~\cite{Nai82}. The Lean proof of Lemma~\ref{lem:pairs} uses Mellendijk's formalisation of
+Selberg's sieve in~\cite{PNT}, and that of Lemma~\ref{lem:reduction} bounds the prime powers by
+$\sum_n4n^{-3/2}$. Every theorem depends only on the axioms \texttt{propext},
 \texttt{Classical.choice} and \texttt{Quot.sound}.
 
 Programs in Python, C, C++ and Julia compute $g^*(p)$ for all primes $3\le p\le10^8$
@@ -756,8 +959,12 @@ Lemma~\ref{lem:unsmooth} in exact arithmetic for six characters, the inequalitie
 of Proposition~\ref{prop:charsum} at $2\cdot10^5$ random points, the choices of parameters
 in Section~\ref{sec:charsum} in exact arithmetic, $|\tau(\chi)|^2=q$ and
 Lemma~\ref{lem:polya} for the quadratic characters modulo the primes $q\le3000$, the bound
-$|r(\theta)|<3$ in its proof on a grid of $10^6$ points, and the inequalities between the
-parameters in the proof of Proposition~\ref{prop:hsum}. For the quadratic characters modulo the
+$|r(\theta)|<3$ in its proof on a grid of $10^6$ points, the inequalities between the
+parameters in the proof of Proposition~\ref{prop:hsum}, Lemmas~\ref{lem:spacing} and~\ref{lem:bilinear} on
+random data, Lemma~\ref{lem:reduction} for $60$ completely multiplicative functions,
+Lemma~\ref{lem:pairs}(i) for $X\le10^5$ and even $0<|h|\le100$, Lemma~\ref{lem:pairs}(ii) for
+$X\le10^5$, and the numerical constants and the choice of $I$ and $J$ in the proof of
+Theorem~\ref{thm:mv}. For the quadratic characters modulo the
 primes $10^3\le q\le2\cdot10^4$ the ratio $\max_x|\sum_{n\le x}\chi(n)|/(\sqrt q\log\log q)$
 of Theorem~\ref{thm:pv} is at most $0.848$.
 
@@ -797,6 +1004,9 @@ characters and the P\'olya--Vinogradov theorem}, J. Amer. Math. Soc. \textbf{20}
 \bibitem{GS18} A.~Granville and K.~Soundararajan, \emph{Large character sums: Burgess's
 theorem and zeros of $L$-functions}, J. Eur. Math. Soc. \textbf{20} (2018), 1--14.
 
+\bibitem{HR74} H.~Halberstam and H.-E. Richert, \emph{Sieve Methods}, London Math. Soc.
+Monographs \textbf{4}, Academic Press, London, 1974.
+
 \bibitem{HW} G.~H. Hardy and E.~M. Wright, \emph{An Introduction to the Theory of Numbers},
 6th ed., Oxford University Press, Oxford, 2008.
 
@@ -825,6 +1035,10 @@ $\Re s>7/8$}, preprint, 30 September 2026, with a Lean~4 formalisation,
 
 \bibitem{OAI26c} OpenAI, \emph{Deterministic polynomial factorization over prime fields},
 preprint, 4 October 2026, \url{https://github.com/openai/math}.
+
+\bibitem{PNT} A.~Kontorovich, T.~Tao et al., \emph{The prime number theorem and more}, Lean~4
+project, \url{https://github.com/AlexKontorovich/PrimeNumberTheoremAnd}, commit
+\texttt{c39a751}; the Selberg sieve by A.~Mellendijk.
 
 \bibitem{Pal32} R.~E. A.~C. Paley, \emph{A theorem on characters}, J. London Math. Soc.
 \textbf{7} (1932), 28--32.
