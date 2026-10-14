@@ -1,4 +1,4 @@
-# Prime primitive roots below every power of p
+# Vinogradov's conjectures on primitive roots and character sums
 
 Author: Deep Bhattacharjee (ORCID 0000-0003-0466-750X).
 
@@ -21,6 +21,21 @@ O_ε(p^ε).
 **Corollary (Erdős Problem #985 for large primes).** There is p_0 such that
 every prime p ≥ p_0 has a prime q < p that is a primitive root modulo p.
 
+**Theorem (Lindelöf bound).** For every δ > 0 there is C_δ such that for every
+nonprincipal character χ modulo q and every s = σ + it with σ ≥ 7/8 + δ,
+
+    |L(s, χ)| + |L(s, χ)|^(-1) ≤ C_δ (q (3 + |t|))^δ.
+
+**Theorem (character sums).** For every δ > 0 there is C_δ such that for every
+nonprincipal character χ modulo q and every x ≥ 1,
+
+    |∑_{n ≤ x} χ(n)| ≤ C_δ q^δ x^(7/8 + δ).
+
+**Corollary (Vinogradov's character sum conjecture).** For every η > 0 and
+θ > 7/8 there is C such that |∑_{n ≤ x} χ(n)| ≤ C x^θ for every nonprincipal χ
+modulo q and every x ≥ q^η. So ∑_{n ≤ x} χ(n) = o(x) uniformly for x ≥ q^η;
+Burgess's theorem gives this for prime q only when x ≥ q^(1/4+ε).
+
 The input is the zero-free half-plane Re s > 7/8 for Dirichlet L-functions of
 nonprincipal characters, proved and formalised in Lean 4 by OpenAI ("The
 quasi-Riemann hypothesis: a zero-free half-plane Re s > 7/8", 30 September 2026,
@@ -29,7 +44,11 @@ nonresidue is O_ε(p^ε); the bound for primitive roots, and its prime form, are
 proved here. The proof writes the indicator of primitive roots as a sum of
 τ(p-1) groups of characters, bounds the prime sum of each nonprincipal
 character by a Riesz mean and a contour shift into Re s > 7/8, and compares
-with the principal character.
+with the principal character. The Lindelöf bound is Littlewood's deduction from
+a zero-free half-plane (Borel–Carathéodory and Hadamard's three circles), and
+the character sum bound follows from it by a contour shift of the Riesz mean
+and an unsmoothing step. OpenAI's paper and its companions (Artin's conjecture,
+deterministic factorisation, 4 October 2026) state none of these results.
 
 ## Scope
 
@@ -48,7 +67,7 @@ with the principal character.
 | Path | Contents |
 |---|---|
 | `paper/` | LaTeX source `primroot.tex` (amsart) and the compiled `primroot.pdf` |
-| `lean/` | Lean 4 project: `Vinogradov/` (this proof), OpenAI's `OAI/` sources with the `PrimeNumberTheoremAnd/` and `RellichKondrachov/` files they import, and `Axioms.lean` |
+| `lean/` | Lean 4 project: `Vinogradov/` (this proof; `Final.lean` for primitive roots, `CharacterSums.lean` for the Lindelöf bound and character sums), OpenAI's `OAI/` sources with the `PrimeNumberTheoremAnd/` and `RellichKondrachov/` files they import, and `Axioms.lean` |
 | `checks/` | `check.py`, `check.jl`, `check.c`, `check.cpp`: independent numerical checks |
 | `run_all.sh` | runs the four programs, the Lean build and the axiom check |
 | `journal/JOURNAL.md` | target journal, format and policy |
@@ -73,6 +92,26 @@ theorem erdos_985_of_large :
       ∃ q : ℕ, q.Prime ∧ q < p ∧ orderOf (q : ZMod p) = p - 1
 ```
 
+In `lean/Vinogradov/CharacterSums.lean`, namespace `Vinogradov.CharSum`:
+
+```lean
+theorem lindelof {w : ℝ} (hw : 0 < w) :
+    ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
+      ∀ s : ℂ, 7 / 8 + w ≤ s.re →
+        ‖DirichletCharacter.LFunction χ s‖ + ‖(DirichletCharacter.LFunction χ s)⁻¹‖ ≤
+          C * ((q : ℝ) * (3 + |s.im|)) ^ w
+
+theorem character_sum_bound {w : ℝ} (hw : 0 < w) :
+    ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
+      ∀ x : ℝ, 1 ≤ x →
+        ‖∑ n ∈ Finset.Icc 1 ⌊x⌋₊, χ n‖ ≤ C * (q : ℝ) ^ w * x ^ (7 / 8 + w)
+
+theorem character_sum_le_rpow {η θ : ℝ} (hη : 0 < η) (hθ : 7 / 8 < θ) :
+    ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
+      ∀ x : ℝ, 1 ≤ x → (q : ℝ) ^ η ≤ x →
+        ‖∑ n ∈ Finset.Icc 1 ⌊x⌋₊, χ n‖ ≤ C * x ^ θ
+```
+
 `Vinogradov.zeroFree` discharges the hypothesis of `Vinogradov/Main.lean` with
 OpenAI's theorem
 
@@ -84,7 +123,7 @@ theorem OAI.DirichletCharacter.LFunction_ne_zero_of_seven_eighths_lt_re
 ```
 
 `lean/Axioms.lean` prints the axioms used by OpenAI's theorem, by
-`Vinogradov.zeroFree` and by the three theorems above. Its output (Lean 4.34.1,
+`Vinogradov.zeroFree` and by the six theorems above. Its output (Lean 4.34.1,
 Mathlib v4.34.1) is
 
 ```
@@ -93,6 +132,9 @@ Mathlib v4.34.1) is
 'Vinogradov.least_prime_primitive_root_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Vinogradov.least_prime_primitive_root_le_rpow' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Vinogradov.erdos_985_of_large' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Vinogradov.CharSum.lindelof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Vinogradov.CharSum.character_sum_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Vinogradov.CharSum.character_sum_le_rpow' depends on axioms: [propext, Classical.choice, Quot.sound]
 ```
 
 so no `sorry` and no axiom beyond the three standard ones is used anywhere in

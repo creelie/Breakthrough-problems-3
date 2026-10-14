@@ -5,3 +5,4 @@ paper/*.out
 paper/*.fls
 paper/*.fdb_latexmk
 paper/build.out
+__pycache__/

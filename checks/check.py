@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
-"""Numerical checks for "Prime primitive roots below every power of p".
+"""Numerical checks for "Vinogradov's conjectures on primitive roots and character sums".
 
 (A) least prime primitive root G(p) < p for every prime 3 <= p <= LIMIT;
 (B) the character identity of Lemma 3.1 for every prime p <= 200 and 0 <= n < 3p;
 (C) psi(m)/2 >= (2m+2)/10 + log(2m+2) for 5000 <= m <= M_LIMIT (Lemma 3.3);
 (D) phi(N)/N >= 1/tau(N) for 1 <= N <= 10^6 (Lemma 3.2);
 (E) the exponent arithmetic of Section 4, in exact rationals;
-(F) the two computations of Remark 1.7 on Carella's estimates.
+(F) the two computations of Remark 1.7 on Carella's estimates;
+(G) the unsmoothing identity of Lemma 5.2, in exact rationals;
+(H) the kernel and size bounds in the proof of Proposition 5.3, at random points;
+(I) the parameters of Theorems 1.4, 1.5 and Corollary 1.6, in exact rationals.
 Prints one line per check and exits with status 1 if any check fails.
 """
 import cmath
@@ -192,6 +195,73 @@ for p in [101, 1009, 10007]:
     ok &= worst < 1e-6 * p
     print(f"     p = {p}: {len(us)} values of u checked, max error {worst:.2e}, -phi(p-1) = {-phi}")
 report("F2", ok, "the double sum of [Car18, (7.2)] equals -phi(p-1) whenever u is not a primitive root")
+
+# (G) T(x+h) - T(x) - h S(x) = sum_{x<n<=x+h} chi(n)(x+h-n), of absolute value <= h(h+1),
+# where T(y) = sum_{n<=y} chi(n)(y-n) and S(x) = sum_{n<=x} chi(n)
+def legendre(n, q):
+    r = pow(n % q, (q - 1) // 2, q)
+    return 0 if r == 0 else (1 if r == 1 else -1)
+
+chars = [(lambda n: 0 if n % 2 == 0 else (1 if n % 4 == 1 else -1), "chi_-4")]
+for q in [3, 5, 7, 101, 997]:
+    chars.append(((lambda q: lambda n: legendre(n, q))(q), f"(./{q})"))
+ok, cases = True, 0
+xs = [Fraction(1), Fraction(5, 2), Fraction(37, 3), Fraction(1000), Fraction(12345, 7)]
+hs = [Fraction(1, 3), Fraction(1), Fraction(7, 2), Fraction(40), Fraction(333, 4)]
+for chi, _ in chars:
+    for x in xs:
+        for h in hs:
+            T = lambda y: sum(chi(n) * (y - n) for n in range(1, math.floor(y) + 1))
+            S = sum(chi(n) for n in range(1, math.floor(x) + 1))
+            lhs = T(x + h) - T(x) - h * S
+            tail = sum(chi(n) * (x + h - n) for n in range(math.floor(x) + 1, math.floor(x + h) + 1))
+            ok &= lhs == tail and abs(lhs) <= h * (h + 1)
+            cases += 1
+report("G", ok, f"(x+h)R(x+h) - xR(x) - h S(x) = tail, |tail| <= h(h+1): {cases} cases, exact")
+
+# (H) for w = sigma+1+it: |(x+h)^w - x^w| <= min(|w| h (x+h)^sigma, 2 (x+h)^(sigma+1));
+# for h = x^sigma0: (x+h)^sigma0 <= 2h, (3h)^(1-4e) <= 3h, (2(x+h))^(4e) <= 4 x^(4e)
+state = 12345
+def rnd():
+    global state
+    state = (state * 6364136223846793005 + 1442695040888963407) % 2**64
+    return (state >> 11) / 2**53
+ok, worst = True, 0.0
+for _ in range(200000):
+    x = 1 + 10**6 * rnd()
+    h = x * rnd()
+    sigma = 0.5 + 1.5 * rnd()
+    t = -100 + 200 * rnd()
+    w = complex(sigma + 1, t)
+    d = abs(cmath.exp(w * math.log(x + h)) - cmath.exp(w * math.log(x)))
+    bound = min(abs(w) * h * (x + h) ** sigma, 2 * (x + h) ** (sigma + 1))
+    worst = max(worst, d / bound)
+    ok &= d <= bound * (1 + 1e-9)
+    s0 = 0.5 + 0.5 * rnd()
+    e = 0.125 * (1 - rnd())
+    hh = x ** s0
+    ok &= (x + hh) ** s0 <= 2 * hh * (1 + 1e-12) and (3 * hh) ** (1 - 4 * e) <= 3 * hh * (1 + 1e-12)
+    ok &= (2 * (x + hh)) ** (4 * e) <= 4 * x ** (4 * e) * (1 + 1e-12)
+report("H", ok, f"kernel and size bounds at 200000 random points, max ratio {worst:.6f}")
+
+# (I) Theorems 1.4, 1.5 and Corollary 1.6: the parameters satisfy the hypotheses
+ok = True
+for dl in [Fraction(1, 10**6), Fraction(1, 1000), Fraction(1, 7), Fraction(1), Fraction(5), Fraction(1000)]:
+    e1 = min(dl / 8, Fraction(1, 2000))
+    a1 = Fraction(7, 8) - 2 * e1
+    ok &= 0 < e1 < Fraction(1, 1000) and 8 * e1 <= dl and Fraction(1, 2) <= a1 <= 1 and a1 + 2 * e1 == Fraction(7, 8)
+    ok &= a1 + 8 * e1 <= Fraction(7, 8) + dl
+    d = min(dl, 1)
+    e = min(d / 12, Fraction(1, 2000))
+    eps = d / 8
+    a = Fraction(7, 8) - 2 * e
+    ok &= 0 < e < Fraction(1, 1000) and 0 < eps <= Fraction(1, 8) and Fraction(1, 2) <= a
+    ok &= a + 8 * e <= 1 and a + 8 * e + 4 * eps <= Fraction(7, 8) + dl and a + 2 * e == Fraction(7, 8)
+for eta, theta in [(Fraction(1, 1000), Fraction(7, 8) + Fraction(1, 10**6)), (Fraction(1), Fraction(9, 10)),
+                   (Fraction(1000), Fraction(1)), (Fraction(1, 7), Fraction(15, 16))]:
+    dc = (theta - Fraction(7, 8)) * eta / (1 + eta)
+    ok &= dc > 0 and dc / eta + Fraction(7, 8) + dc == theta
+report("I", ok, "parameters of Theorems 1.4, 1.5 and Corollary 1.6, exact rationals")
 
 print(f"{'ALL PASS' if failures == 0 else str(failures) + ' FAILED'}")
 sys.exit(1 if failures else 0)

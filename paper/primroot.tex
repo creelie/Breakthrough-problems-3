@@ -13,6 +13,18 @@
 \DeclareUnicodeCharacter{2264}{\ensuremath{\le}}
 \DeclareUnicodeCharacter{2192}{\ensuremath{\to}}
 \DeclareUnicodeCharacter{2080}{\ensuremath{_0}}
+\DeclareUnicodeCharacter{03B8}{\ensuremath{\theta}}
+\DeclareUnicodeCharacter{03C7}{\ensuremath{\chi}}
+\DeclareUnicodeCharacter{2016}{\ensuremath{\Vert}}
+\DeclareUnicodeCharacter{207B}{\ensuremath{^{-}}}
+\DeclareUnicodeCharacter{00B9}{\ensuremath{^{1}}}
+\DeclareUnicodeCharacter{208A}{\ensuremath{_{+}}}
+\DeclareUnicodeCharacter{2102}{\ensuremath{\mathbb{C}}}
+\DeclareUnicodeCharacter{2208}{\ensuremath{\in}}
+\DeclareUnicodeCharacter{2211}{\ensuremath{\sum}}
+\DeclareUnicodeCharacter{2260}{\ensuremath{\ne}}
+\DeclareUnicodeCharacter{230A}{\ensuremath{\lfloor}}
+\DeclareUnicodeCharacter{230B}{\ensuremath{\rfloor}}
 \usepackage[hidelinks]{hyperref}
 \usepackage{etoolbox}
 \makeatletter
@@ -33,22 +45,24 @@
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\R}{\mathbb{R}}
 
-\title{Prime primitive roots below every power of $p$}
+\title{Vinogradov's conjectures on primitive roots and character sums}
 \author{Deep Bhattacharjee}
 \address{Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL),
 Bhubaneswar, Odisha 751030, India}
 \email{d.bhattacharjee@erl-forschung.de, itsdeep@live.com}
 \thanks{ORCID 0000-0003-0466-750X}
-\subjclass[2020]{11A07, 11M06, 11N13, 68V15}
-\keywords{primitive roots, Dirichlet $L$-functions, zero-free regions, Lean 4}
+\subjclass[2020]{11A07, 11L40, 11M06, 11N13, 68V15}
+\keywords{primitive roots, character sums, Dirichlet $L$-functions, zero-free regions, Lean 4}
 
 \begin{document}
 
 \begin{abstract}
 For every $\eta>0$ every prime $p$ has a prime primitive root
-$\ell\ll_\eta(\tau(p-1)^2\log p)^{8+\eta}$. Hence the least primitive root is $O_\varepsilon(p^\varepsilon)$,
-as Vinogradov conjectured, and every large prime has a smaller prime primitive root.
-The proof uses the zero-free half-plane $\Re s>7/8$ and is checked in Lean~4.
+$\ell\ll_\eta(\tau(p-1)^2\log p)^{8+\eta}$, so the least primitive root is $O_\varepsilon(p^\varepsilon)$.
+For every nonprincipal character $\chi$ modulo $q$,
+$\sum_{n\le x}\chi(n)\ll_\varepsilon q^\varepsilon x^{7/8+\varepsilon}$, which is $o(x)$ once
+$x\ge q^\eta$. Both were conjectured by Vinogradov. The proofs use the zero-free half-plane
+$\Re s>7/8$ and are checked in Lean~4.
 \end{abstract}
 
 \maketitle
@@ -85,6 +99,32 @@ There is $p_0$ such that every prime $p\ge p_0$ has a prime $q<p$ that is a prim
 modulo $p$.
 \end{corollary}
 
+Vinogradov also conjectured that $\sum_{n\le x}\chi(n)=o(x)$ for nonprincipal characters
+$\chi$ modulo $q$ once $x\ge q^\varepsilon$; see~\cite{GS18}. For prime moduli Burgess~\cite{Bur62}
+proved this for $x\ge q^{1/4+\varepsilon}$, and it follows from the generalised Riemann hypothesis.
+
+\begin{theorem}\label{thm:lindelof}
+For every $\delta>0$ there is $C_\delta$ such that for every nonprincipal character $\chi$ modulo
+$q$ and every $s=\sigma+it$ with $\sigma\ge7/8+\delta$,
+\[
+  |L(s,\chi)|+|L(s,\chi)|^{-1}\le C_\delta\bigl(q(3+|t|)\bigr)^\delta.
+\]
+\end{theorem}
+
+\begin{theorem}\label{thm:charsum}
+For every $\delta>0$ there is $C_\delta$ such that for every nonprincipal character $\chi$ modulo
+$q$ and every $x\ge1$,
+\[
+  \Bigl|\sum_{n\le x}\chi(n)\Bigr|\le C_\delta\,q^\delta x^{7/8+\delta}.
+\]
+\end{theorem}
+
+\begin{corollary}\label{cor:charsum}
+For every $\eta>0$ and $\theta>7/8$ there is $C$ such that $\bigl|\sum_{n\le x}\chi(n)\bigr|\le
+Cx^\theta$ for every nonprincipal character $\chi$ modulo $q$ and every $x\ge q^\eta$. In
+particular $\sum_{n\le x}\chi(n)=o(x)$ uniformly for $x\ge q^\eta$.
+\end{corollary}
+
 The input is the zero-free half-plane of~\cite{OAI26}, from which~\cite{OAI26} deduces, as
 in~\cite[Thm.~6.7]{BIMS17}, that the least quadratic nonresidue is $\ll_\varepsilon p^\varepsilon$.
 A primitive root must avoid every subgroup of prime index at once, and the number of characters
@@ -94,9 +134,23 @@ involved is the source of the factor $\tau(p-1)^2$.
 If $\chi$ is a nonprincipal Dirichlet character, then $L(s,\chi)\ne0$ for $\Re s>7/8$.
 \end{theorem}
 
-Theorem~\ref{thm:zerofree} is formalised in Lean~4 in~\cite{OAI26}. Theorem~\ref{thm:main} and
-both corollaries are formalised here, with Theorem~\ref{thm:zerofree} as the only external input
-(Section~\ref{sec:lean}). The constants are effective.
+Theorem~\ref{thm:zerofree} is formalised in Lean~4 in~\cite{OAI26}. Theorems~\ref{thm:main},
+\ref{thm:lindelof} and~\ref{thm:charsum} and Corollaries~\ref{cor:vinogradov}, \ref{cor:erdos}
+and~\ref{cor:charsum} are formalised here, with Theorem~\ref{thm:zerofree} as the only external
+input (Section~\ref{sec:lean}). The constants are effective.
+
+Theorem~\ref{thm:lindelof} is Littlewood's deduction of a Lindel\"of bound from a zero-free
+half-plane~\cite[\S14.2]{Tit86}, and Theorem~\ref{thm:charsum} follows from it by a contour shift;
+the new ingredient is Theorem~\ref{thm:zerofree}. Among the consequences of
+Theorem~\ref{thm:zerofree}, \cite{OAI26} lists the least quadratic nonresidue, the prime number
+theorem in progressions, class numbers and idoneal numbers, but not
+Theorems~\ref{thm:lindelof} and~\ref{thm:charsum}. All results here hold with $7/8$ replaced by any
+$\theta\in[1/2,1)$ such that $L(s,\chi)\ne0$ for $\Re s>\theta$ and every nonprincipal $\chi$, for
+instance by the value $0.874957\ldots$ claimed in~\cite{Liu26}. The companion
+papers~\cite{OAI26b,OAI26c} prove, from a zero-free strip $\Re s>1-10^{-6}$ for Hecke
+$L$-functions of cyclotomic fields containing the twelfth roots of unity, that every integer other
+than $-1$ and the squares is a primitive root modulo infinitely many primes, and that polynomials
+over $\mathbb F_p$ can be factored in deterministic polynomial time; neither bounds $g(p)$.
 
 \begin{remark}\label{rem:p0}
 The constant $p_0$ of Corollary~\ref{cor:erdos} is effective but far beyond direct computation.
@@ -287,7 +341,7 @@ If $\ell^k$ with $k\ge1$ is a primitive root modulo $p$, so is $\ell$.
 $\ell$ is a unit modulo $p$, and $N=\ord(\ell^k)$ divides $\ord(\ell)$, which divides $N$.
 \end{proof}
 
-\section{Proofs of the theorem and the corollaries}
+\section{Proof of Theorem~\ref{thm:main} and Corollaries~\ref{cor:vinogradov} and~\ref{cor:erdos}}
 
 \begin{proof}[Proof of Theorem~\ref{thm:main}]
 Let $\delta=\eta/(2000(8+\eta))$, so $0<\delta<1/1000$, and let $K$ be given by
@@ -328,6 +382,127 @@ Corollary~\ref{cor:vinogradov} with $\varepsilon=1/2$ gives $\ell\le C\sqrt p<p$
 $p>C^2$.
 \end{proof}
 
+\section{The Lindel\"of bound and character sums}\label{sec:charsum}
+
+In this section $A_0$ is the constant of Lemma~\ref{lem:euler}.
+
+\begin{lemma}\label{lem:lindelof}
+Let $0<\kappa<1/1000$ and $\varepsilon>0$. There is $D=D(\kappa,\varepsilon)$ such that the
+following holds. Let $1/2\le a\le1$ and let $\chi$ be nonprincipal modulo $q$ with
+$L(s,\chi)\ne0$ for $\Re s>a+2\kappa$. For $a+8\kappa\le\sigma\le2$ and $t\in\R$,
+\[
+  |L(\sigma+it,\chi)|+|L(\sigma+it,\chi)|^{-1}\le D\bigl(2q(3+|t|)^2\bigr)^\varepsilon.
+\]
+\end{lemma}
+
+\begin{proof}
+Let $c$, $r$, $\Lambda_0$ and the logarithm $h$ of $L(z,\chi)$ on $|z-c|<2-a-2\kappa$ be as in
+the proof of Lemma~\ref{lem:logderiv}, with $\delta$ replaced by $\kappa$. Both $h$ and $E$ are
+logarithms of $L$ on the disc $|z-c|<3/4$, where $\Re z>1$, so $h=E$ there, and
+$|h(z)|\le A_0$ for $|z-c|\le1/2$ by Lemma~\ref{lem:euler}. The proof of
+Lemma~\ref{lem:logderiv} gives $|h(z)|\le M:=(1+2A_0)\Lambda_0/\kappa$ for $|z-c|\le r$.
+
+Let $w=\sigma+it$, $\rho=|w-c|=2-\sigma$, $A_1=\max(A_0,1)$ and $\lambda=4\kappa/(3\log3)$; note
+$M\ge1$. If $\rho\le1/2$ then $|h(w)|\le A_0\le A_1M^{1-\lambda}$. Otherwise
+$1/2<\rho\le r-2\kappa$, and Hadamard's three circles theorem~\cite[\S5.3]{Tit39} gives
+$|h(w)|\le A_0^{1-\alpha}M^{\alpha}$ with $\alpha=\log(2\rho)/\log(2r)$. Since
+$1-6\kappa\le r\le3/2$,
+\[
+  \alpha\le\frac{\log(2r-4\kappa)}{\log(2r)}=1+\frac{\log(1-2\kappa/r)}{\log(2r)}
+  \le1-\frac{2\kappa/r}{\log3}\le1-\lambda,
+\]
+so again $|h(w)|\le A_1M^{1-\lambda}=B\Lambda_0^{1-\lambda}$ with
+$B=A_1((1+2A_0)/\kappa)^{1-\lambda}$. If $\Lambda_0^\lambda\ge B/\varepsilon$ then
+$B\Lambda_0^{1-\lambda}\le\varepsilon\Lambda_0$, and otherwise $B\Lambda_0^{1-\lambda}\le
+D_1:=B(B/\varepsilon)^{(1-\lambda)/\lambda}$. Since $\log|L(w,\chi)|=\Re h(w)$,
+\[
+  |L(w,\chi)|^{\pm1}\le e^{|h(w)|}\le e^{D_1}e^{\varepsilon\Lambda_0}
+  =e^{D_1}\bigl(2q(3+|t|)^2\bigr)^\varepsilon,
+\]
+and $D=2e^{D_1}$ works.
+\end{proof}
+
+\begin{lemma}\label{lem:unsmooth}
+Let $|b(n)|\le1$ for $n\ge1$ and put $T(y)=\sum_{n\le y}b(n)(y-n)$ for $y>0$. For $x,h>0$,
+\[
+  h\Bigl|\sum_{n\le x}b(n)\Bigr|\le|T(x+h)-T(x)|+h(h+1).
+\]
+\end{lemma}
+
+\begin{proof}
+$T(x+h)-T(x)=h\sum_{n\le x}b(n)+\sum_{x<n\le x+h}b(n)(x+h-n)$, and the last sum has at most
+$h+1$ terms, each of modulus at most $h$.
+\end{proof}
+
+\begin{proposition}\label{prop:charsum}
+Let $0<\kappa<1/1000$ and $0<\varepsilon\le1/8$. There is $K=K(\kappa,\varepsilon)$ such that the
+following holds. Let $1/2\le a$ with $a+8\kappa\le1$, and let $\chi$ be nonprincipal modulo $q$
+with $L(s,\chi)\ne0$ for $\Re s>a+2\kappa$. Then for $x\ge1$,
+\[
+  \Bigl|\sum_{n\le x}\chi(n)\Bigr|\le K\,q^\varepsilon x^{a+8\kappa+4\varepsilon}.
+\]
+\end{proposition}
+
+\begin{proof}
+Put $\sigma_0=a+8\kappa\in[1/2,1]$ and let $D$ be given by Lemma~\ref{lem:lindelof}. Since
+$2q(3+|t|)^2\le18q(1+|t|)^2$, Lemmas~\ref{lem:lindelof} and~\ref{lem:elementary} give, for
+$s=\sigma+it$ with $\sigma_0\le\sigma\le2$,
+\begin{equation}\label{eq:quot}
+  \Bigl|\frac{L(s,\chi)}{s(s+1)}\Bigr|\le8D(18q)^\varepsilon(1+|t|)^{-2+2\varepsilon}.
+\end{equation}
+Let $T(y)=\sum_{n\le y}\chi(n)(y-n)$. Lemma~\ref{lem:mellin} with $a(n)=\chi(n)$ gives
+$T(y)=\frac1{2\pi i}\int_{(2)}L(s,\chi)\,y^{s+1}\frac{ds}{s(s+1)}$. The integrand is entire, and
+by~\eqref{eq:quot} it tends to $0$ as $|t|\to\infty$ uniformly in $\sigma_0\le\sigma\le2$, since
+$2\varepsilon<1$; Cauchy's theorem moves the line to $\Re s=\sigma_0$. For $h>0$,
+\[
+  T(x+h)-T(x)=\frac1{2\pi}\int_{-\infty}^{\infty}\frac{L(s,\chi)}{s(s+1)}
+  \bigl((x+h)^{s+1}-x^{s+1}\bigr)\,dt,\qquad s=\sigma_0+it.
+\]
+Since $(x+h)^{s+1}-x^{s+1}=(s+1)\int_x^{x+h}u^s\,du$ and $|s+1|\le3(1+|t|)$, its modulus is at
+most $3(1+|t|)h(x+h)^{\sigma_0}$, and also at most $2(x+h)^{\sigma_0+1}$. The minimum of two
+numbers is at most the product of their powers $1-4\varepsilon$ and $4\varepsilon$, so
+\[
+  \bigl|(x+h)^{s+1}-x^{s+1}\bigr|\le(1+|t|)^{1-4\varepsilon}(x+h)^{\sigma_0}(3h)^{1-4\varepsilon}
+  \bigl(2(x+h)\bigr)^{4\varepsilon}.
+\]
+With~\eqref{eq:quot} and $\int_\R(1+|t|)^{-1-2\varepsilon}dt=1/\varepsilon$,
+\[
+  |T(x+h)-T(x)|\le\frac{4D(18q)^\varepsilon}{\pi\varepsilon}(x+h)^{\sigma_0}(3h)^{1-4\varepsilon}
+  \bigl(2(x+h)\bigr)^{4\varepsilon}.
+\]
+Take $h=x^{\sigma_0}$, so $1\le h\le x$. Then $(x+h)^{\sigma_0}\le2h$, $(3h)^{1-4\varepsilon}\le3h$
+and $(2(x+h))^{4\varepsilon}\le4x^{4\varepsilon}$, so the right side is at most
+$\frac{1728D}{\pi\varepsilon}q^\varepsilon h^2x^{4\varepsilon}$. By Lemma~\ref{lem:unsmooth}
+with $b=\chi$,
+\[
+  \Bigl|\sum_{n\le x}\chi(n)\Bigr|\le\frac{1728D}{\pi\varepsilon}q^\varepsilon hx^{4\varepsilon}+h+1
+  \le\Bigl(\frac{1728D}{\pi\varepsilon}+2\Bigr)q^\varepsilon x^{\sigma_0+4\varepsilon}.
+  \qedhere
+\]
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:lindelof}]
+Let $\kappa=\min(\delta/8,1/2000)$ and $a=7/8-2\kappa$, so $1/2\le a\le1$ and, by
+Theorem~\ref{thm:zerofree}, $L(s,\chi)\ne0$ for $\Re s>a+2\kappa$. Let $D$ be given by
+Lemma~\ref{lem:lindelof} with $\varepsilon=\delta/2$. If $7/8+\delta\le\sigma\le2$, then
+$\sigma\ge a+8\kappa$, and $2q(3+|t|)^2\le(2q(3+|t|))^2$ gives
+$|L|+|L|^{-1}\le D2^\delta(q(3+|t|))^\delta$. If $\sigma>2$, Lemma~\ref{lem:euler} gives
+$|L|^{\pm1}\le e^{A_0}$. So $C_\delta=D2^\delta+2e^{A_0}$ works.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:charsum}]
+Let $\delta'=\min(\delta,1)$, $\kappa=\min(\delta'/12,1/2000)$, $a=7/8-2\kappa$ and
+$\varepsilon=\delta'/8$. Then $a+8\kappa=7/8+6\kappa\le1$, and Proposition~\ref{prop:charsum},
+with Theorem~\ref{thm:zerofree}, gives the bound
+$Kq^{\delta'/8}x^{7/8+6\kappa+\delta'/2}\le Kq^\delta x^{7/8+\delta}$.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:charsum}]
+Let $\delta=(\theta-7/8)\eta/(1+\eta)$, so that $\delta/\eta+7/8+\delta=\theta$. For
+$x\ge q^\eta$ we have $q^\delta\le x^{\delta/\eta}$, and Theorem~\ref{thm:charsum} gives
+$|\sum_{n\le x}\chi(n)|\le C_\delta x^\theta$. With $\theta=15/16$ this is $o(x)$.
+\end{proof}
+
 \section{Formal verification and computations}\label{sec:lean}
 
 The Lean~4 development (Lean v4.34.1, Mathlib v4.34.1) proves
@@ -345,15 +520,36 @@ theorem erdos_985_of_large : ∃ p₀ : ℕ, ∀ p : ℕ, p.Prime →
     p₀ ≤ p → ∃ q : ℕ, q.Prime ∧ q < p ∧
       orderOf (q : ZMod p) = p - 1
 \end{verbatim}}
-which are Theorem~\ref{thm:main} and Corollaries~\ref{cor:vinogradov} and~\ref{cor:erdos}.
+which are Theorem~\ref{thm:main} and Corollaries~\ref{cor:vinogradov} and~\ref{cor:erdos}, and
+{\footnotesize
+\begin{verbatim}
+theorem lindelof {w : ℝ} (hw : 0 < w) :
+    ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
+      χ ≠ 1 → ∀ s : ℂ, 7 / 8 + w ≤ s.re →
+        ‖DirichletCharacter.LFunction χ s‖ +
+          ‖(DirichletCharacter.LFunction χ s)⁻¹‖ ≤
+          C * ((q : ℝ) * (3 + |s.im|)) ^ w
+theorem character_sum_bound {w : ℝ} (hw : 0 < w) :
+    ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
+      χ ≠ 1 → ∀ x : ℝ, 1 ≤ x →
+        ‖∑ n ∈ Finset.Icc 1 ⌊x⌋₊, χ n‖ ≤
+          C * (q : ℝ) ^ w * x ^ (7 / 8 + w)
+theorem character_sum_le_rpow {η θ : ℝ} (hη : 0 < η) (hθ : 7 / 8 < θ) :
+    ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
+      χ ≠ 1 → ∀ x : ℝ, 1 ≤ x → (q : ℝ) ^ η ≤ x →
+        ‖∑ n ∈ Finset.Icc 1 ⌊x⌋₊, χ n‖ ≤ C * x ^ θ
+\end{verbatim}}
+\noindent(namespace \texttt{Vinogradov.CharSum}), which are Theorems~\ref{thm:lindelof}
+and~\ref{thm:charsum} and Corollary~\ref{cor:charsum} (there $x\ge1$ follows from $x\ge q^\eta$).
 Theorem~\ref{thm:zerofree} enters as the theorem
 \[
   \texttt{OAI.DirichletCharacter.LFunction\_ne\_zero\_of\_seven\_eighths\_lt\_re}
 \]
 of~\cite{OAI26}, stated for Mathlib's \texttt{DirichletCharacter.LFunction} and compiled from its
 source.
-The Lean proof of Lemma~\ref{lem:logderiv} uses the logarithmic control lemma
-of~\cite{OAI26} in place of the Borel--Carath\'eodory argument, and the proof of
+The Lean proofs of Lemmas~\ref{lem:logderiv} and~\ref{lem:lindelof} use the logarithmic
+control lemma of~\cite{OAI26} in place of the Borel--Carath\'eodory and three circles arguments,
+and the proof of
 Lemma~\ref{lem:principal} uses Mathlib's bound $\psi(y)\ge(y-1)\log2-\log(y+2)$ in place
 of~\cite{Nai82}. Every theorem depends only on the axioms \texttt{propext},
 \texttt{Classical.choice} and \texttt{Quot.sound}.
@@ -362,7 +558,10 @@ Programs in Python, C, C++ and Julia compute $g^*(p)$ for all primes $3\le p\le1
 (Remark~\ref{rem:p0}), check Lemma~\ref{lem:indicator} numerically for $p\le200$, the inequality
 of Lemma~\ref{lem:principal} on $10^4\le x\le2\cdot10^7$, Lemma~\ref{lem:arith} for
 $N\le10^7$, the exponent identity in the proof of Theorem~\ref{thm:main} in exact arithmetic,
-and the two values in Remark~\ref{rem:carella}.
+the two values in Remark~\ref{rem:carella}, the identity in the proof of
+Lemma~\ref{lem:unsmooth} in exact arithmetic for six characters, the inequalities in the proof
+of Proposition~\ref{prop:charsum} at $2\cdot10^5$ random points, and the choices of parameters
+in Section~\ref{sec:charsum} in exact arithmetic.
 
 \section*{Data availability}
 The Lean project, the programs and a script that runs them are archived at Zenodo,
@@ -391,12 +590,18 @@ Math. Soc. (3) \textbf{12} (1962), 179--192.
 \bibitem{Erd65} P.~Erd\H{o}s, \emph{Some recent advances and current problems in number theory},
 in: Lectures on Modern Mathematics, Vol.~III, Wiley, New York, 1965, 196--244.
 
+\bibitem{GS18} A.~Granville and K.~Soundararajan, \emph{Large character sums: Burgess's
+theorem and zeros of $L$-functions}, J. Eur. Math. Soc. \textbf{20} (2018), 1--14.
+
 \bibitem{HW} G.~H. Hardy and E.~M. Wright, \emph{An Introduction to the Theory of Numbers},
 6th ed., Oxford University Press, Oxford, 2008.
 
 \bibitem{HB92} D.~R. Heath-Brown, \emph{Zero-free regions for Dirichlet $L$-functions, and the
 least prime in an arithmetic progression}, Proc. London Math. Soc. (3) \textbf{64} (1992),
 265--338.
+
+\bibitem{Liu26} B.~Liu, \emph{Slightly improved zero-free half-planes for the
+quasi-Riemann hypothesis}, arXiv:2610.12234, 2026.
 
 \bibitem{Mar97} G.~Martin, \emph{The least prime primitive root and the shifted sieve}, Acta
 Arith. \textbf{80} (1997), 277--288.
@@ -408,11 +613,20 @@ Arith. \textbf{80} (1997), 277--288.
 $\Re s>7/8$}, preprint, 30 September 2026, with a Lean~4 formalisation,
 \url{https://github.com/openai/math}.
 
+\bibitem{OAI26b} OpenAI, \emph{Primitive roots for every admissible integer base}, preprint,
+4 October 2026, \url{https://github.com/openai/math}.
+
+\bibitem{OAI26c} OpenAI, \emph{Deterministic polynomial factorization over prime fields},
+preprint, 4 October 2026, \url{https://github.com/openai/math}.
+
 \bibitem{Sho92} V.~Shoup, \emph{Searching for primitive roots in finite fields}, Math. Comp.
 \textbf{58} (1992), 369--380.
 
 \bibitem{Tit39} E.~C. Titchmarsh, \emph{The Theory of Functions}, 2nd ed., Oxford University
 Press, Oxford, 1939.
+
+\bibitem{Tit86} E.~C. Titchmarsh, \emph{The Theory of the Riemann Zeta-Function}, 2nd ed.,
+revised by D.~R. Heath-Brown, Oxford University Press, Oxford, 1986.
 
 \end{thebibliography}
 

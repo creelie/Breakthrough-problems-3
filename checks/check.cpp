@@ -1,12 +1,16 @@
-// Numerical checks in C++ for "Prime primitive roots below every power of p".
+// Numerical checks in C++ for "Vinogradov's conjectures on primitive roots and character sums".
 // (A) G(p) < p for every prime 3 <= p <= 10^8 (p - 1 factored by trial division);
 // (F1) partial sums of sum chi_{-3}(n) Lambda(n) n^{-2} at x = 10^3, 10^5, 10^7;
-// (F2) sum_m e(-m/p) sum_{(n,p-1)=1} e(m g^n / p) = -phi(p-1) for p = 101, 1009, 10007.
+// (F2) sum_m e(-m/p) sum_{(n,p-1)=1} e(m g^n / p) = -phi(p-1) for p = 101, 1009, 10007;
+// (G) the unsmoothing identity of Lemma 5.2 in exact rational arithmetic;
+// (H) the kernel and size bounds in the proof of Proposition 5.3 at random points;
+// (I) the parameters of Theorems 1.4, 1.5 and Corollary 1.6 in exact rationals.
 // Exit status 1 if a check fails.
 #include <cmath>
 #include <complex>
 #include <cstdint>
 #include <cstdio>
+#include <functional>
 #include <numeric>
 #include <vector>
 
@@ -21,6 +25,33 @@ static u64 powmod(u64 a, u64 e, u64 m) {
     e >>= 1;
   }
   return r;
+}
+
+
+// Exact rationals with 128-bit numerator and denominator.
+struct Frac {
+  __int128 n, d;
+  Frac(__int128 a = 0, __int128 b = 1) : n(a), d(b) { norm(); }
+  void norm() {
+    if (d < 0) { n = -n; d = -d; }
+    __int128 a = n < 0 ? -n : n, b = d;
+    while (b) { __int128 t = a % b; a = b; b = t; }
+    if (a > 1) { n /= a; d /= a; }
+  }
+};
+static Frac operator+(Frac a, Frac b) { return Frac(a.n * b.d + b.n * a.d, a.d * b.d); }
+static Frac operator-(Frac a, Frac b) { return Frac(a.n * b.d - b.n * a.d, a.d * b.d); }
+static Frac operator*(Frac a, Frac b) { return Frac(a.n * b.n, a.d * b.d); }
+static Frac operator/(Frac a, Frac b) { return Frac(a.n * b.d, a.d * b.n); }
+static bool operator<(Frac a, Frac b) { return a.n * b.d < b.n * a.d; }
+static bool operator<=(Frac a, Frac b) { return a.n * b.d <= b.n * a.d; }
+static bool operator==(Frac a, Frac b) { return a.n == b.n && a.d == b.d; }
+static Frac fmin2(Frac a, Frac b) { return a <= b ? a : b; }
+static Frac fabsq(Frac a) { return a.n < 0 ? Frac(-a.n, a.d) : a; }
+static long long floorq(Frac a) {
+  __int128 q = a.n / a.d;
+  if (a.n < 0 && q * a.d != a.n) q--;
+  return (long long)q;
 }
 
 int main() {
@@ -117,6 +148,77 @@ int main() {
   }
   std::printf("%s F2: the double sum of [Car18, (7.2)] equals -phi(p-1) at u = 1\n", okF2 ? "PASS" : "FAIL");
   fails += !okF2;
+  // (G)
+  bool okG = true;
+  int casesG = 0;
+  std::vector<std::function<int(long long)>> chars;
+  chars.push_back([](long long n) { return n % 2 == 0 ? 0 : (n % 4 == 1 ? 1 : -1); });
+  for (long long q : {3LL, 5LL, 7LL, 101LL, 997LL})
+    chars.push_back([q](long long n) {
+      u64 r = powmod((u64)(n % q), (u64)((q - 1) / 2), (u64)q);
+      return r == 0 ? 0 : (r == 1 ? 1 : -1);
+    });
+  std::vector<Frac> xs = {Frac(1), Frac(5, 2), Frac(37, 3), Frac(1000), Frac(12345, 7)};
+  std::vector<Frac> hs = {Frac(1, 3), Frac(1), Frac(7, 2), Frac(40), Frac(333, 4)};
+  for (auto& chi : chars)
+    for (Frac x : xs)
+      for (Frac h : hs) {
+        auto T = [&](Frac y) {
+          Frac s(0);
+          for (long long n = 1; n <= floorq(y); n++) s = s + Frac(chi(n)) * (y - Frac(n));
+          return s;
+        };
+        long long S = 0;
+        for (long long n = 1; n <= floorq(x); n++) S += chi(n);
+        Frac tail(0);
+        for (long long n = floorq(x) + 1; n <= floorq(x + h); n++) tail = tail + Frac(chi(n)) * (x + h - Frac(n));
+        Frac lhs = T(x + h) - T(x) - h * Frac(S);
+        if (!(lhs == tail) || !(fabsq(lhs) <= h * (h + Frac(1)))) okG = false;
+        casesG++;
+      }
+  std::printf("%s G: unsmoothing identity and |tail| <= h(h+1), %d cases, exact\n", okG ? "PASS" : "FAIL", casesG);
+  fails += !okG;
+  // (H)
+  bool okH = true;
+  double worstH = 0;
+  u64 st = 12345;
+  auto rnd = [&]() {
+    st = st * 6364136223846793005ULL + 1442695040888963407ULL;
+    return (double)(st >> 11) / 9007199254740992.0;
+  };
+  for (int it = 0; it < 200000; it++) {
+    double x = 1 + 1e6 * rnd(), h = x * rnd(), sg = 0.5 + 1.5 * rnd(), t = -100 + 200 * rnd();
+    std::complex<double> w(sg + 1, t);
+    double dd = std::abs(std::exp(w * std::log(x + h)) - std::exp(w * std::log(x)));
+    double b = std::min(std::abs(w) * h * std::pow(x + h, sg), 2 * std::pow(x + h, sg + 1));
+    worstH = std::max(worstH, dd / b);
+    if (dd > b * (1 + 1e-9)) okH = false;
+    double s0 = 0.5 + 0.5 * rnd(), ee = 0.125 * (1 - rnd()), hh = std::pow(x, s0);
+    if (std::pow(x + hh, s0) > 2 * hh * (1 + 1e-12) || std::pow(3 * hh, 1 - 4 * ee) > 3 * hh * (1 + 1e-12) ||
+        std::pow(2 * (x + hh), 4 * ee) > 4 * std::pow(x, 4 * ee) * (1 + 1e-12))
+      okH = false;
+  }
+  std::printf("%s H: kernel and size bounds at 200000 random points, max ratio %.6f\n", okH ? "PASS" : "FAIL", worstH);
+  fails += !okH;
+  // (I)
+  bool okI = true;
+  const Frac c78(7, 8), half(1, 2), c18(1, 8), c1000(1, 1000), c2000(1, 2000), one(1), zero(0);
+  for (Frac dl : {Frac(1, 1000000), Frac(1, 1000), Frac(1, 7), Frac(1), Frac(5), Frac(1000)}) {
+    Frac f1 = fmin2(dl / Frac(8), c2000), a1 = c78 - Frac(2) * f1;
+    okI = okI && zero < f1 && f1 < c1000 && Frac(8) * f1 <= dl && half <= a1 && a1 <= one &&
+          a1 + Frac(2) * f1 == c78 && a1 + Frac(8) * f1 <= c78 + dl;
+    Frac d = fmin2(dl, one), f = fmin2(d / Frac(12), c2000), ep = d / Frac(8), a = c78 - Frac(2) * f;
+    okI = okI && zero < f && f < c1000 && zero < ep && ep <= c18 && half <= a && a + Frac(8) * f <= one &&
+          a + Frac(8) * f + Frac(4) * ep <= c78 + dl && a + Frac(2) * f == c78;
+  }
+  std::vector<std::pair<Frac, Frac>> et = {{Frac(1, 1000), c78 + Frac(1, 1000000)}, {Frac(1), Frac(9, 10)},
+                                           {Frac(1000), one}, {Frac(1, 7), Frac(15, 16)}};
+  for (auto [eta, theta] : et) {
+    Frac dc = (theta - c78) * eta / (one + eta);
+    okI = okI && zero < dc && dc / eta + c78 + dc == theta;
+  }
+  std::printf("%s I: parameters of Theorems 1.4, 1.5 and Corollary 1.6, exact rationals\n", okI ? "PASS" : "FAIL");
+  fails += !okI;
   std::printf("%s\n", fails ? "SOME FAILED" : "ALL PASS");
   return fails ? 1 : 0;
 }

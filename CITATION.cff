@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this work, please cite it as below."
-title: "Prime primitive roots below every power of p: paper, Lean 4 formalization and verification code"
+title: "Vinogradov's conjectures on primitive roots and character sums: paper, Lean 4 formalization and verification code"
 authors:
   - family-names: Bhattacharjee
     given-names: Deep
@@ -13,6 +13,8 @@ date-released: 2026-10-14
 keywords:
   - primitive roots
   - Vinogradov's conjecture
+  - character sums
+  - Lindelöf hypothesis
   - Dirichlet L-functions
   - zero-free region
   - Erdős problems
