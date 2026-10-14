@@ -1,0 +1,419 @@
+\documentclass[12pt]{amsart}
+\usepackage[textwidth=13.5cm,textheight=21cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[utf8]{inputenc}
+\DeclareUnicodeCharacter{03B7}{\ensuremath{\eta}}
+\DeclareUnicodeCharacter{03B5}{\ensuremath{\varepsilon}}
+\DeclareUnicodeCharacter{211D}{\ensuremath{\mathbb{R}}}
+\DeclareUnicodeCharacter{2115}{\ensuremath{\mathbb{N}}}
+\DeclareUnicodeCharacter{2113}{\ensuremath{\ell}}
+\DeclareUnicodeCharacter{2203}{\ensuremath{\exists}}
+\DeclareUnicodeCharacter{2200}{\ensuremath{\forall}}
+\DeclareUnicodeCharacter{2227}{\ensuremath{\wedge}}
+\DeclareUnicodeCharacter{2264}{\ensuremath{\le}}
+\DeclareUnicodeCharacter{2192}{\ensuremath{\to}}
+\DeclareUnicodeCharacter{2080}{\ensuremath{_0}}
+\usepackage[hidelinks]{hyperref}
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\@setaddresses}{\footnotesize}{\footnotesize\raggedright}{}{}
+\makeatother
+\emergencystretch=3em
+\newcommand{\zenodoID}{10.5281/zenodo.0000000}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\renewcommand{\Re}{\operatorname{Re}}
+\newcommand{\ord}{\operatorname{ord}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+
+\title{Prime primitive roots below every power of $p$}
+\author{Deep Bhattacharjee}
+\address{Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL),
+Bhubaneswar, Odisha 751030, India}
+\email{d.bhattacharjee@erl-forschung.de, itsdeep@live.com}
+\thanks{ORCID 0000-0003-0466-750X}
+\subjclass[2020]{11A07, 11M06, 11N13, 68V15}
+\keywords{primitive roots, Dirichlet $L$-functions, zero-free regions, Lean 4}
+
+\begin{document}
+
+\begin{abstract}
+For every $\eta>0$ every prime $p$ has a prime primitive root
+$\ell\ll_\eta(\tau(p-1)^2\log p)^{8+\eta}$. Hence the least primitive root is $O_\varepsilon(p^\varepsilon)$,
+as Vinogradov conjectured, and every large prime has a smaller prime primitive root.
+The proof uses the zero-free half-plane $\Re s>7/8$ and is checked in Lean~4.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+For a prime $p$ let $g(p)$ be the least primitive root modulo $p$ and $g^*(p)$ the least prime
+primitive root. Vinogradov conjectured that $g(p)\ll_\varepsilon p^\varepsilon$ for every
+$\varepsilon>0$. Burgess~\cite{Bur62} proved $g(p)\ll_\varepsilon p^{1/4+\varepsilon}$; for the
+prime version the least prime in a progression~\cite{HB92} gives $g^*(p)\ll p^{5.5}$. Under the
+generalised Riemann hypothesis Shoup~\cite{Sho92} and Martin~\cite{Mar97} proved
+$g^*(p)\ll\omega^4(\log\omega+1)^4\log^2p$ with $\omega=\omega(p-1)$. Erd\H{o}s~\cite{Erd65}
+asked whether every prime $p$ has a prime $q<p$ that is a primitive root modulo $p$
+(Problem~985 of~\cite{Blo}).
+
+Let $\tau$ denote the divisor function. Throughout, $\chi$ is a Dirichlet character and
+$L(s,\chi)$ its $L$-function.
+
+\begin{theorem}\label{thm:main}
+For every $\eta>0$ there is $C_\eta$ such that every prime $p$ has a prime primitive root $\ell$
+with
+\[
+  \ell\le C_\eta\bigl(\tau(p-1)^2\log(p+2)\bigr)^{8+\eta}.
+\]
+\end{theorem}
+
+\begin{corollary}\label{cor:vinogradov}
+For every $\varepsilon>0$ there is $C_\varepsilon$ such that every prime $p$ has a prime primitive
+root $\ell\le C_\varepsilon p^\varepsilon$. In particular $g(p)\le g^*(p)\ll_\varepsilon p^\varepsilon$.
+\end{corollary}
+
+\begin{corollary}\label{cor:erdos}
+There is $p_0$ such that every prime $p\ge p_0$ has a prime $q<p$ that is a primitive root
+modulo $p$.
+\end{corollary}
+
+The input is the zero-free half-plane of~\cite{OAI26}, from which~\cite{OAI26} deduces, as
+in~\cite[Thm.~6.7]{BIMS17}, that the least quadratic nonresidue is $\ll_\varepsilon p^\varepsilon$.
+A primitive root must avoid every subgroup of prime index at once, and the number of characters
+involved is the source of the factor $\tau(p-1)^2$.
+
+\begin{theorem}[{\cite{OAI26}}]\label{thm:zerofree}
+If $\chi$ is a nonprincipal Dirichlet character, then $L(s,\chi)\ne0$ for $\Re s>7/8$.
+\end{theorem}
+
+Theorem~\ref{thm:zerofree} is formalised in Lean~4 in~\cite{OAI26}. Theorem~\ref{thm:main} and
+both corollaries are formalised here, with Theorem~\ref{thm:zerofree} as the only external input
+(Section~\ref{sec:lean}). The constants are effective.
+
+\begin{remark}\label{rem:p0}
+The constant $p_0$ of Corollary~\ref{cor:erdos} is effective but far beyond direct computation.
+A computation (Section~\ref{sec:lean}) gives $g^*(p)<p$ for every prime $3\le p\le10^8$, with
+$\max g^*(p)=223$ at $p=73189117$. Erd\H{o}s's question therefore remains open for the primes in
+$[10^8,p_0)$.
+\end{remark}
+
+\begin{remark}\label{rem:wigert}
+Since $\tau(n)\le 2^{(1+o(1))\log n/\log\log n}$ \cite[Thm.~317]{HW}, Theorem~\ref{thm:main}
+gives $g^*(p)\le\exp\bigl(c\log p/\log\log p\bigr)$ for an absolute constant $c$. This form is not
+formalised.
+\end{remark}
+
+\begin{remark}\label{rem:carella}
+Carella has claimed $g^*(p)\ll p^{5/\log\log p}$ \cite{Car15} and
+$g^*(p)=O((\log p)^{1+\varepsilon})$ \cite{Car18,Car25} without hypotheses. In~\cite{Car15}, the
+estimate~(16) bounds $\sum_{n\le x}\chi(n)\Lambda(n)n^{-2}$ by $O(1/x)$; the sum tends to
+$-L'(2,\chi)/L(2,\chi)$, which equals $-0.17264\ldots$ for the character modulo~$3$. In the
+arXiv version of~\cite{Car18}, Lemma~7.1 asserts $E(x,y)\ll yp^{-\varepsilon}$ for the sum
+$E(x,y)$ of~(7.2) when no integer of $[x,x+y]$ is a primitive root. Under that hypothesis every
+inner sum over $m$ equals $-1$, so $E(x,y)=-\varphi(p-1)\,\#([x,x+y]\cap\mathbb Z)/p$ exactly,
+while $\varphi(p-1)/p\gg1/\log\log p$; the step~(7.2) replaces $\sum_ne(m\tau^n/p)$ by its value
+at $m=1$. We could not obtain the text of~\cite{Car25}.
+\end{remark}
+
+\section{The prime sum of a nonprincipal character}
+
+For an arithmetic function $f$ and $x\ge1$ put
+\[
+  S(f;x)=\sum_{n\le x}f(n)\Lambda(n)\Bigl(1-\frac nx\Bigr),
+\]
+and write $S(\chi;x)$ when $f=\chi$. The aim of this section is Proposition~\ref{prop:riesz}.
+
+\begin{lemma}\label{lem:mellin}
+Let $a\colon\mathbb N\to\C$ satisfy $\sum_n|a(n)|n^{-2}<\infty$ and put $F(s)=\sum_na(n)n^{-s}$
+for $\Re s\ge2$. For $x>0$,
+\[
+  \sum_{n\le x}a(n)\Bigl(1-\frac nx\Bigr)=\frac1{2\pi}\int_{-\infty}^{\infty}
+  F(2+it)\,\frac{x^{2+it}}{(2+it)(3+it)}\,dt.
+\]
+\end{lemma}
+
+\begin{proof}
+For $y>0$ let $k(y)=\frac1{2\pi i}\int_{(2)}y^s\,\frac{ds}{s(s+1)}$. If $y\ge1$, moving the line
+to the left through the poles at $0$ and $-1$ gives $k(y)=1-1/y$; if $y<1$, moving it to the right
+gives $k(y)=0$. Since $|s(s+1)|^{-1}$ is integrable on $\Re s=2$ and
+$\sum_n|a(n)|n^{-2}<\infty$, summation and integration may be exchanged:
+the right side equals $\sum_na(n)k(x/n)$.
+\end{proof}
+
+\begin{lemma}\label{lem:size}
+Let $\chi$ be nonprincipal modulo $q$. For $\Re s=\sigma>0$, $|L(s,\chi)|\le q|s|/\sigma$.
+\end{lemma}
+
+\begin{proof}
+Put $A(t)=\sum_{n\le t}\chi(n)$; then $|A(t)|\le q$, and partial summation gives
+$L(s,\chi)=s\int_1^\infty A(t)t^{-s-1}\,dt$ for $\sigma>0$. Hence
+$|L(s,\chi)|\le q|s|\int_1^\infty t^{-\sigma-1}dt=q|s|/\sigma$.
+\end{proof}
+
+\begin{lemma}\label{lem:euler}
+Let $A_0=\frac32\sum_{\ell}\ell^{-3/2}$, the sum over primes. For every Dirichlet character
+$\chi$ the series $E(s)=\sum_\ell-\log(1-\chi(\ell)\ell^{-s})$ is holomorphic on $\Re s>1$,
+$e^{E(s)}=L(s,\chi)$ there, and $|E(s)|\le A_0$ for $\Re s\ge3/2$.
+\end{lemma}
+
+\begin{proof}
+For $\Re s\ge1$ we have $|\chi(\ell)\ell^{-s}|\le1/2$, and $|\log(1-w)|\le\frac32|w|$ for
+$|w|\le1/2$. The series therefore converges locally uniformly on $\Re s>1$ and is bounded by
+$A_0$ on $\Re s\ge3/2$, and the Euler product gives $e^{E}=L$.
+\end{proof}
+
+\begin{lemma}\label{lem:logderiv}
+Let $0<\delta<1/1000$, $1/2\le a\le1$, and let $\chi$ be nonprincipal modulo $q$ with
+$L(s,\chi)\ne0$ for $\Re s>a+2\delta$. Put $K_1=(1+2A_0)/(2\delta^2)$. For
+$a+8\delta\le\sigma\le2$ and $t\in\R$,
+\[
+  \Bigl|\frac{L'}{L}(\sigma+it,\chi)\Bigr|\le K_1\log\bigl(2q(3+|t|)^2\bigr).
+\]
+\end{lemma}
+
+\begin{proof}
+Let $c=2+it$, $R=2-a-3\delta$, $r=2-a-6\delta$ and $\Lambda_0=\log(2q(3+|t|)^2)\ge\log18>1$.
+On the disc $|z-c|<2-a-2\delta$ we have $\Re z>a+2\delta$, so $L(z,\chi)$ has no zero there
+and has a holomorphic logarithm $h$. On $|z-c|<1/2$ both $h$ and $E$ of Lemma~\ref{lem:euler}
+are logarithms of $L$, so they differ by a constant in $2\pi i\mathbb Z$; we choose $h=E$ there.
+Then $|h(c)|\le A_0$.
+
+If $|z-c|\le R$, then $\Re z\ge a+3\delta\ge1/2$ and $|z|\le|c|+3/2\le4+|t|$, so
+Lemma~\ref{lem:size} gives $\Re h(z)=\log|L(z,\chi)|\le\log(2q(4+|t|))\le\Lambda_0$.
+The Borel--Carath\'eodory inequality~\cite[\S5.5]{Tit39} gives, for $|z-c|\le r$,
+\[
+  |h(z)-h(c)|\le\frac{2r}{R-r}\max_{|w-c|=R}\Re\bigl(h(w)-h(c)\bigr)
+  \le\frac{\Lambda_0+A_0}{\delta},
+\]
+as $r\le3/2$ and $R-r=3\delta$. Hence $|h(z)|\le A_0+(\Lambda_0+A_0)/\delta\le(1+2A_0)\Lambda_0/\delta$
+on $|z-c|\le r$. For $w=\sigma+it$ with $a+8\delta\le\sigma\le2$ we have $|w-c|=2-\sigma\le r-2\delta$,
+so the circle $|z-w|=2\delta$ lies in $|z-c|\le r$, and Cauchy's estimate gives
+$|L'/L(w,\chi)|=|h'(w)|\le(1+2A_0)\Lambda_0/(2\delta^2)$.
+\end{proof}
+
+\begin{lemma}\label{lem:elementary}
+For $q\ge1$, $t\in\R$ and $s=\sigma+it$ with $\sigma\ge1/2$,
+\[
+  \log\bigl(2q(3+|t|)^2\bigr)\le10\log(q+2)(1+|t|)^{1/2},\qquad |s(s+1)|\ge\tfrac18(1+|t|)^2.
+\]
+\end{lemma}
+
+\begin{proof}
+We have $\log(2q)\le2\log(q+2)$, and $\log y\le2y^{1/2}$ with $3+|t|\le4(1+|t|)$ gives
+$\log(3+|t|)\le4(1+|t|)^{1/2}$; the first bound follows from $\log(q+2)\ge1$. For the second,
+$|s|\ge\max(\sigma,|t|)\ge(1+|t|)/4$ and $|s+1|\ge\max(\sigma+1,|t|)\ge(1+|t|)/2$.
+\end{proof}
+
+\begin{proposition}\label{prop:riesz}
+Let $0<\delta<1/1000$. There is $K=K(\delta)$ such that the following holds. Let $1/2\le a\le1$
+and let $\chi$ be nonprincipal modulo $q$ with $L(s,\chi)\ne0$ for $\Re s>a+2\delta$. Then for
+$x\ge1$,
+\[
+  |S(\chi;x)|\le K\,x^{a+8\delta}\log(q+2).
+\]
+\end{proposition}
+
+\begin{proof}
+Put $\sigma_0=a+8\delta$ and
+\[
+  \Phi(s)=-\frac{L'}{L}(s,\chi)\,\frac{x^s}{s(s+1)}.
+\]
+For $\Re s>1$, $-L'/L(s,\chi)=\sum_n\chi(n)\Lambda(n)n^{-s}$, so Lemma~\ref{lem:mellin} gives
+$S(\chi;x)=\frac1{2\pi}\int\Phi(2+it)\,dt$. The function $\Phi$ is holomorphic on
+$\sigma_0\le\Re s\le2$, and by Lemmas~\ref{lem:logderiv} and~\ref{lem:elementary},
+\[
+  |\Phi(\sigma+it)|\le80K_1\log(q+2)\,x^{\sigma}(1+|t|)^{-3/2}\qquad(\sigma_0\le\sigma\le2).
+\]
+This tends to $0$ as $|t|\to\infty$ uniformly in $\sigma$, so Cauchy's theorem on the rectangles
+$[\sigma_0,2]\times[-T,T]$, $T\to\infty$, moves the integral to $\Re s=\sigma_0$. Since
+$\int_\R(1+|t|)^{-3/2}dt=4$, we get $|S(\chi;x)|\le\frac{160K_1}{\pi}x^{\sigma_0}\log(q+2)$.
+\end{proof}
+
+\section{Primitive roots as a combination of characters}
+
+Fix a prime $p$, put $N=p-1$, let $g$ generate $(\mathbb Z/p\mathbb Z)^\times$, and let $\chi_1$
+be the character modulo $p$ with $\chi_1(g)=e^{2\pi i/N}$. Let $\chi_0$ be the principal character.
+
+\begin{lemma}\label{lem:indicator}
+For every integer $n$,
+\[
+  \mathbf 1[n\text{ is a primitive root mod }p]=\sum_{d\mid N}\frac{\mu(d)}d\sum_{m=0}^{d-1}
+  \chi_1^{mN/d}(n),
+\]
+and $\chi_1^{mN/d}\ne\chi_0$ for $d\mid N$ and $0<m<d$.
+\end{lemma}
+
+\begin{proof}
+If $p\mid n$ both sides vanish. Otherwise $n\equiv g^k$, the order of $n$ is $N/(N,k)$, and
+$\sum_{m<d}e^{2\pi ikm/d}=d\,\mathbf 1[d\mid k]$; the right side is
+$\sum_{d\mid(N,k)}\mu(d)=\mathbf 1[(N,k)=1]$. The character $\chi_1^{mN/d}$ sends $g$ to
+$e^{2\pi im/d}\ne1$.
+\end{proof}
+
+\begin{lemma}\label{lem:arith}
+For $N\ge1$, $\sum_{d\mid N}\mu(d)/d=\varphi(N)/N\ge1/\tau(N)$.
+\end{lemma}
+
+\begin{proof}
+$\varphi(N)/N=\prod_{r\mid N}(1-1/r)\ge2^{-\omega(N)}\ge1/\tau(N)$, the product over the prime
+divisors $r$ of $N$.
+\end{proof}
+
+\begin{lemma}\label{lem:principal}
+For $x\ge10^4$, $\Re S(\chi_0;x)\ge\frac12\psi(x/2)-\log x\ge x/10$.
+\end{lemma}
+
+\begin{proof}
+The terms of $\sum_{n\le x}\Lambda(n)(1-n/x)$ are nonnegative and at least $\Lambda(n)/2$ for
+$n\le x/2$, so the sum is at least $\psi(x/2)/2$. The terms removed by $\chi_0$ are those with
+$p\mid n$, that is $n=p^k\le x$, and they contribute at most $\sum_{p^k\le x}\log p\le\log x$.
+For the second inequality, $\psi(n)\ge n\log2$ for integers $n\ge7$~\cite{Nai82}, so
+$\psi(x/2)\ge(x/2-1)\log2$, and $\frac x4\log2-\frac12\log2-\log x\ge\frac x{10}$ for $x\ge10^4$.
+\end{proof}
+
+\begin{lemma}\label{lem:powers}
+If $\ell^k$ with $k\ge1$ is a primitive root modulo $p$, so is $\ell$.
+\end{lemma}
+
+\begin{proof}
+$\ell$ is a unit modulo $p$, and $N=\ord(\ell^k)$ divides $\ord(\ell)$, which divides $N$.
+\end{proof}
+
+\section{Proofs of the theorem and the corollaries}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Let $\delta=\eta/(2000(8+\eta))$, so $0<\delta<1/1000$, and let $K$ be given by
+Proposition~\ref{prop:riesz}; put $K'=\max(K,1)$. Let $\sigma_0=7/8+8\delta$ and
+$\beta=1-\sigma_0=1/8-8\delta>0$. Then
+\[
+  (8+\eta)\beta=1+\frac\eta8-\frac\eta{250}\ge1.
+\]
+Put $C_\eta=\max\bigl(10^4,(20K')^{8+\eta}\bigr)$. Given a prime $p$, let $\tau=\tau(p-1)$,
+$Y=\tau^2\log(p+2)\ge1$ and $x=C_\eta Y^{8+\eta}\ge10^4$.
+
+By Theorem~\ref{thm:zerofree}, Proposition~\ref{prop:riesz} applies with $a=7/8$ to every
+nonprincipal $\chi$ modulo $p$, so $|S(\chi;x)|\le B:=K'x^{\sigma_0}\log(p+2)$. Let $G$ be the sum
+$S(f;x)$ with $f$ the indicator of the primitive roots modulo $p$. By Lemma~\ref{lem:indicator},
+\[
+  G=c_0S(\chi_0;x)+\mathcal E,\qquad c_0=\sum_{d\mid N}\frac{\mu(d)}d,\qquad
+  \mathcal E=\sum_{d\mid N}\frac{\mu(d)}d\sum_{0<m<d}S(\chi_1^{mN/d};x),
+\]
+and $|\mathcal E|\le\sum_{d\mid N}\frac{d-1}dB\le\tau B$. Lemmas~\ref{lem:arith}
+and~\ref{lem:principal} give
+\[
+  |G|\ge c_0\Re S(\chi_0;x)-|\mathcal E|\ge\frac x{10\tau}-\tau B.
+\]
+Now $x^\beta=C_\eta^\beta Y^{(8+\eta)\beta}\ge(20K')^{(8+\eta)\beta}Y\ge20K'Y$, so
+$\tau^2B=K'Yx^{\sigma_0}\le x^{\beta+\sigma_0}/20=x/20$. Hence $|G|\ge x/(20\tau)>0$, and some
+$n\le x$ with $\Lambda(n)\ne0$ is a primitive root modulo $p$. Writing $n=\ell^k$, the prime
+$\ell\le x$ is a primitive root by Lemma~\ref{lem:powers}.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:vinogradov}]
+Take $\eta=1$ and $\nu=\varepsilon/27$. By~\cite[Thm.~315]{HW} there is $D_\nu$ with
+$\tau(n)\le D_\nu n^\nu$, and $\log(p+2)\le(p+2)^\nu/\nu\le3^\nu p^\nu/\nu$. Theorem~\ref{thm:main}
+gives $\ell\le C_1(D_\nu^2 3^\nu\nu^{-1})^9p^{27\nu}$.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:erdos}]
+Corollary~\ref{cor:vinogradov} with $\varepsilon=1/2$ gives $\ell\le C\sqrt p<p$ for
+$p>C^2$.
+\end{proof}
+
+\section{Formal verification and computations}\label{sec:lean}
+
+The Lean~4 development (Lean v4.34.1, Mathlib v4.34.1) proves
+{\footnotesize
+\begin{verbatim}
+theorem least_prime_primitive_root_bound {η : ℝ} (hη : 0 < η) :
+    ∃ C : ℝ, 0 < C ∧ ∀ p : ℕ, p.Prime → ∃ ℓ : ℕ, ℓ.Prime ∧
+      orderOf (ℓ : ZMod p) = p - 1 ∧
+      (ℓ : ℝ) ≤ C * (((p - 1).divisors.card : ℝ) ^ 2 *
+        Real.log (p + 2)) ^ (8 + η)
+theorem least_prime_primitive_root_le_rpow {ε : ℝ} (hε : 0 < ε) :
+    ∃ C : ℝ, 0 < C ∧ ∀ p : ℕ, p.Prime → ∃ ℓ : ℕ, ℓ.Prime ∧
+      orderOf (ℓ : ZMod p) = p - 1 ∧ (ℓ : ℝ) ≤ C * (p : ℝ) ^ ε
+theorem erdos_985_of_large : ∃ p₀ : ℕ, ∀ p : ℕ, p.Prime →
+    p₀ ≤ p → ∃ q : ℕ, q.Prime ∧ q < p ∧
+      orderOf (q : ZMod p) = p - 1
+\end{verbatim}}
+which are Theorem~\ref{thm:main} and Corollaries~\ref{cor:vinogradov} and~\ref{cor:erdos}.
+Theorem~\ref{thm:zerofree} enters as the theorem
+\[
+  \texttt{OAI.DirichletCharacter.LFunction\_ne\_zero\_of\_seven\_eighths\_lt\_re}
+\]
+of~\cite{OAI26}, stated for Mathlib's \texttt{DirichletCharacter.LFunction} and compiled from its
+source.
+The Lean proof of Lemma~\ref{lem:logderiv} uses the logarithmic control lemma
+of~\cite{OAI26} in place of the Borel--Carath\'eodory argument, and the proof of
+Lemma~\ref{lem:principal} uses Mathlib's bound $\psi(y)\ge(y-1)\log2-\log(y+2)$ in place
+of~\cite{Nai82}. Every theorem depends only on the axioms \texttt{propext},
+\texttt{Classical.choice} and \texttt{Quot.sound}.
+
+Programs in Python, C, C++ and Julia compute $g^*(p)$ for all primes $3\le p\le10^8$
+(Remark~\ref{rem:p0}), check Lemma~\ref{lem:indicator} numerically for $p\le200$, the inequality
+of Lemma~\ref{lem:principal} on $10^4\le x\le2\cdot10^7$, Lemma~\ref{lem:arith} for
+$N\le10^7$, the exponent identity in the proof of Theorem~\ref{thm:main} in exact arithmetic,
+and the two values in Remark~\ref{rem:carella}.
+
+\section*{Data availability}
+The Lean project, the programs and a script that runs them are archived at Zenodo,
+doi:\href{https://doi.org/\zenodoID}{\zenodoID}.
+
+\begin{thebibliography}{99}
+
+\bibitem{BIMS17} V.~Bhargava, G.~Ivanyos, R.~Mittal and N.~Saxena, \emph{Irreducibility and
+deterministic $r$-th root finding over finite fields}, arXiv:1702.00558, 2017.
+
+\bibitem{Blo} T.~F. Bloom, \emph{Erd\H{o}s Problem \#985},
+\url{https://www.erdosproblems.com/985}, accessed 14 October 2026.
+
+\bibitem{Bur62} D.~A. Burgess, \emph{On character sums and primitive roots}, Proc. London
+Math. Soc. (3) \textbf{12} (1962), 179--192.
+
+\bibitem{Car15} N.~A. Carella, \emph{Least prime primitive roots}, Int. J. Math. Comput. Sci.
+\textbf{10} (2015), no.~2, 185--194; arXiv:1709.01172.
+
+\bibitem{Car18} N.~A. Carella, \emph{Primitive roots in short intervals}, arXiv:1806.01150v5,
+2026.
+
+\bibitem{Car25} N.~A. Carella, \emph{The least primitive roots mod $p$}, J. Math. Cryptol.
+\textbf{19} (2025), article 20240017.
+
+\bibitem{Erd65} P.~Erd\H{o}s, \emph{Some recent advances and current problems in number theory},
+in: Lectures on Modern Mathematics, Vol.~III, Wiley, New York, 1965, 196--244.
+
+\bibitem{HW} G.~H. Hardy and E.~M. Wright, \emph{An Introduction to the Theory of Numbers},
+6th ed., Oxford University Press, Oxford, 2008.
+
+\bibitem{HB92} D.~R. Heath-Brown, \emph{Zero-free regions for Dirichlet $L$-functions, and the
+least prime in an arithmetic progression}, Proc. London Math. Soc. (3) \textbf{64} (1992),
+265--338.
+
+\bibitem{Mar97} G.~Martin, \emph{The least prime primitive root and the shifted sieve}, Acta
+Arith. \textbf{80} (1997), 277--288.
+
+\bibitem{Nai82} M.~Nair, \emph{On Chebyshev-type inequalities for primes}, Amer. Math. Monthly
+\textbf{89} (1982), 126--129.
+
+\bibitem{OAI26} OpenAI, \emph{The quasi-Riemann hypothesis: a zero-free half-plane
+$\Re s>7/8$}, preprint, 30 September 2026, with a Lean~4 formalisation,
+\url{https://github.com/openai/math}.
+
+\bibitem{Sho92} V.~Shoup, \emph{Searching for primitive roots in finite fields}, Math. Comp.
+\textbf{58} (1992), 369--380.
+
+\bibitem{Tit39} E.~C. Titchmarsh, \emph{The Theory of Functions}, 2nd ed., Oxford University
+Press, Oxford, 1939.
+
+\end{thebibliography}
+
+\end{document}

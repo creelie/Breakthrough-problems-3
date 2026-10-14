@@ -1,0 +1,31 @@
+name = "VinogradovPrimitiveRoot"
+defaultTargets = ["Vinogradov"]
+
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "v4.34.1"
+
+[[lean_lib]]
+name = "OAI"
+roots = ["OAI.NumberTheory.DirichletL.Nonvanishing"]
+globs = ["OAI.+"]
+leanOptions = { autoImplicit = false }
+
+[[lean_lib]]
+name = "PrimeNumberTheoremAnd"
+roots = []
+globs = ["PrimeNumberTheoremAnd.+"]
+leanOptions = { autoImplicit = false, relaxedAutoImplicit = false }
+
+[[lean_lib]]
+name = "RellichKondrachov"
+roots = []
+globs = ["RellichKondrachov.+"]
+leanOptions = { autoImplicit = false }
+
+[[lean_lib]]
+name = "Vinogradov"
+roots = ["Vinogradov"]
+globs = ["Vinogradov", "Vinogradov.+"]
+leanOptions = { autoImplicit = false }

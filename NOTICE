@@ -1,0 +1,28 @@
+Prime primitive roots below every power of p
+Copyright 2026 Deep Bhattacharjee
+
+This package is distributed under the Apache License, Version 2.0 (LICENSE).
+It contains the following third-party Lean 4 sources, each under the Apache
+License, Version 2.0, compiled unchanged except where stated.
+
+lean/OAI/
+  OpenAI, the Lean library of https://github.com/openai/math (copied from the
+  mirror https://github.com/creelie/math01-openAI, commit
+  adc7f1241b42e322a6451854ab7e4b4c146bf78a, directory lean/OAI), restricted to
+  the import closure of OAI.NumberTheory.DirichletL.Nonvanishing.
+
+lean/PrimeNumberTheoremAnd/
+  https://github.com/AlexKontorovich/PrimeNumberTheoremAnd, commit
+  c39a751132c88b6e8080b74c74023fd95b3d8be0, the files imported by lean/OAI/,
+  with OpenAI's patch lean/patches/PrimeNumberTheoremAnd-lean4341.patch for
+  Lean v4.34.1 applied.
+
+lean/RellichKondrachov/
+  https://github.com/abenenson/rellich-kondrachov, commit
+  70f85d4c1bf99c6e7d61e8be4daa6f3664d08d23, the files imported by lean/OAI/,
+  with OpenAI's patch lean/patches/rellich-kondrachov-lean4341.patch applied.
+
+lean/Vinogradov.lean, lean/Vinogradov/, lean/Axioms.lean, checks/, paper/,
+run_all.sh are by Deep Bhattacharjee. The headers of Vinogradov/MRT.lean,
+Vinogradov/Riesz.lean, Vinogradov/ContourShift.lean and
+Vinogradov/EulerLog.lean name the OpenAI files they adapt.
