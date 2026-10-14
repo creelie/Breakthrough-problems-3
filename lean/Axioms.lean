@@ -8,3 +8,7 @@ import Vinogradov
 #print axioms Vinogradov.CharSum.lindelof
 #print axioms Vinogradov.CharSum.character_sum_bound
 #print axioms Vinogradov.CharSum.character_sum_le_rpow
+#print axioms Vinogradov.PV.polya_bound
+#print axioms Vinogradov.PV.partial_le
+#print axioms Vinogradov.PV.hsum_bound
+#print axioms Vinogradov.PV.polya_vinogradov_loglog

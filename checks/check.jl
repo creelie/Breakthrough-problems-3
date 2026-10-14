@@ -4,7 +4,11 @@
 # (E) the exponent arithmetic of Section 4 in exact rationals;
 # (G) the unsmoothing identity of Lemma 5.2 in exact rationals;
 # (H) the kernel and size bounds in the proof of Proposition 5.3 at random points;
-# (I) the parameters of Theorems 1.4, 1.5 and Corollary 1.6 in exact rationals.
+# (I) the parameters of Theorems 1.4, 1.5 and Corollary 1.6 in exact rationals;
+# (J) |tau|^2 = q and Lemma 6.2 for the quadratic characters modulo primes q <= 3000, and the ratio
+#     max_x |sum_{n<=x} (n/q)| / (sqrt(q) log log q) for primes 1000 <= q <= 20000;
+# (K) the bound |r(theta)| < 3 in the proof of Lemma 6.2 on a grid;
+# (L) the parameter inequalities in the proof of Proposition 6.5.
 # Exit status 1 if a check fails.
 
 function primes_upto(n)
@@ -160,6 +164,58 @@ for (η, θ) in [(1//1000, 7//8 + 1//10^6), (1//1, 9//10), (1000//1, 1//1), (1//
     global okI &= dc > 0 && dc / η + 7//8 + dc == θ
 end
 report("I", okI, "parameters of Theorems 1.4, 1.5 and Corollary 1.6, exact rationals")
+
+# (J)
+function quadtable(q)
+    tab = fill(-1, q); tab[1] = 0
+    for a in 1:q-1
+        tab[(a * a) % q + 1] = 1
+    end
+    tab
+end
+ispJ = trues(20000); ispJ[1] = false
+for i in 2:141, j in i*i:i:20000
+    ispJ[j] = false
+end
+okJ = true; worstτ = 0.0; nJ = 0; worstJ = 0.0
+for q in 3:20000
+    ispJ[q] || continue
+    tab = quadtable(q)
+    run = 0; m = 0
+    for n in 1:q-1
+        run += tab[n+1]; m = max(m, abs(run))
+    end
+    if q <= 3000
+        τ = sum(tab[a+1] * cispi(2a / q) for a in 1:q-1)
+        global worstτ = max(worstτ, abs(abs2(τ) - q) / q)
+        b0 = sum(1 / k for k in 1:q÷2)
+        global okJ &= m <= sqrt(q) * (b0 + 6)
+        global nJ += 1
+    end
+    q >= 1000 && (global worstJ = max(worstJ, m / (sqrt(q) * log(log(q)))))
+end
+okJ &= worstτ < 1e-9 && worstJ < 2
+report("J", okJ, "|tau|^2 = q (max rel. error $(round(worstτ; sigdigits = 2))) and max|S| <= sqrt(q)(B+6) for $nJ primes; max ratio for 1000 <= q <= 20000: $(round(worstJ; digits = 4))")
+
+# (K)
+worstK = 0.0
+for k in 1:500000, th in (k / 1e6, -k / 1e6)
+    r = 1 / (1 - cispi(-2th)) - 1 / (2im * pi * th)
+    global worstK = max(worstK, abs(r))
+end
+report("K", worstK < 3, "|r(theta)| on 10^6 grid points of 0 < |theta| <= 1/2, max $(round(worstK; digits = 6))")
+
+# (L)
+okL = true
+for L in [200.0, 200.5, 201.0, 250.0, 1000.0, 1e4, 1e6, 1e9]
+    M = ceil(L); lM = log(M)
+    global okL &= 4lM < L && L^2 > 11520 && M^4 >= 2 && lM >= 1 && lM^2 <= 4M
+    ρ = (4lM)^1.5 / M^2
+    global okL &= ρ * (1 + L) <= 128 && 32lM^2 / M <= 128
+    k = (L + 4lM + 1e-80) * (2 + 2pi * M^4) / (M^6 * 200 * lM)
+    global okL &= L + 4lM <= 6M && 2 + 2pi * M^4 <= 8M^4 && k * (1 + L) <= 1 && 200lM <= 400log(L)
+end
+report("L", okL, "parameter inequalities of Proposition 6.5 at 8 values of log q")
 
 println(fails == 0 ? "ALL PASS" : "$fails FAILED")
 exit(fails == 0 ? 0 : 1)

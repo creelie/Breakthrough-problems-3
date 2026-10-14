@@ -6,10 +6,14 @@
 (C) psi(m)/2 >= (2m+2)/10 + log(2m+2) for 5000 <= m <= M_LIMIT (Lemma 3.3);
 (D) phi(N)/N >= 1/tau(N) for 1 <= N <= 10^6 (Lemma 3.2);
 (E) the exponent arithmetic of Section 4, in exact rationals;
-(F) the two computations of Remark 1.7 on Carella's estimates;
+(F) the two computations of Remark 1.11 on Carella's estimates;
 (G) the unsmoothing identity of Lemma 5.2, in exact rationals;
 (H) the kernel and size bounds in the proof of Proposition 5.3, at random points;
-(I) the parameters of Theorems 1.4, 1.5 and Corollary 1.6, in exact rationals.
+(I) the parameters of Theorems 1.4, 1.5 and Corollary 1.6, in exact rationals;
+(J) |tau|^2 = q and Lemma 6.2 for the quadratic characters modulo primes q <= 3000, and
+    max_x |sum_{n<=x} (n/q)| / (sqrt(q) log log q) for primes 1000 <= q <= 20000;
+(K) the bound |r(theta)| < 3 in the proof of Lemma 6.2 on a grid;
+(L) the parameter inequalities in the proof of Proposition 6.5.
 Prints one line per check and exits with status 1 if any check fails.
 """
 import cmath
@@ -262,6 +266,61 @@ for eta, theta in [(Fraction(1, 1000), Fraction(7, 8) + Fraction(1, 10**6)), (Fr
     dc = (theta - Fraction(7, 8)) * eta / (1 + eta)
     ok &= dc > 0 and dc / eta + Fraction(7, 8) + dc == theta
 report("I", ok, "parameters of Theorems 1.4, 1.5 and Corollary 1.6, exact rationals")
+
+# (J) Gauss sums and Polya's bound for the quadratic characters (Lemma 6.2), and the ratio
+# max_x |sum_{n<=x} (n/q)| / (sqrt(q) log log q) (Theorem 1.7)
+def quad_table(q):
+    tab = [-1] * q
+    tab[0] = 0
+    for a in range(1, q):
+        tab[a * a % q] = 1
+    return tab
+
+isp = sieve(20000)
+ok, worst_tau, nq, worst_ratio = True, 0.0, 0, 0.0
+for q in range(3, 20001):
+    if not isp[q]:
+        continue
+    tab = quad_table(q)
+    run, m = 0, 0
+    for n in range(1, q):
+        run += tab[n]
+        m = max(m, abs(run))
+    if q <= 3000:
+        tau = sum(tab[a] * cmath.exp(2j * math.pi * a / q) for a in range(1, q))
+        worst_tau = max(worst_tau, abs(abs(tau) ** 2 - q) / q)
+        b0 = sum(1 / k for k in range(1, q // 2 + 1))
+        ok &= m <= math.sqrt(q) * (b0 + 6)
+        nq += 1
+    if q >= 1000:
+        worst_ratio = max(worst_ratio, m / (math.sqrt(q) * math.log(math.log(q))))
+ok &= worst_tau < 1e-9 and worst_ratio < 2
+report("J", ok, f"|tau|^2 = q (max rel. error {worst_tau:.1e}) and max|S| <= sqrt(q)(B+6) for {nq} primes; "
+       f"max ratio for 1000 <= q <= 20000: {worst_ratio:.4f}")
+
+# (K) |1/(1 - e(-theta)) - 1/(2 pi i theta)| < 3 for 0 < |theta| <= 1/2
+ok, worst = True, 0.0
+for k in range(1, 500001):
+    for th in (k / 10**6, -k / 10**6):
+        r = 1 / (1 - cmath.exp(-2j * math.pi * th)) - 1 / (2j * math.pi * th)
+        worst = max(worst, abs(r))
+ok &= worst < 3
+report("K", ok, f"|r(theta)| on 10^6 grid points of 0 < |theta| <= 1/2, max {worst:.6f}")
+
+# (L) Proposition 6.5: M = ceil(L), R = M^4, Y = M^200
+ok = True
+for L in [200.0, 200.5, 201.0, 250.0, 1000.0, 1e4, 1e6, 1e9]:
+    M = math.ceil(L)
+    lM = math.log(M)
+    ok &= 4 * lM < L and L ** 2 > 11520                      # R < q and L^6/720 > 16 L^4
+    ok &= 2 <= M ** 4 and lM >= 1 and lM ** 2 <= 4 * M
+    rho = (4 * lM) ** 1.5 / M ** 2
+    ok &= rho * (1 + L) <= 128 and 32 * lM ** 2 / M <= 128
+    logqR = L + 4 * lM                                          # log(qR + 2) up to < 1e-80
+    k = (L + 4 * lM + 1e-80) * (2 + 2 * math.pi * M ** 4) / (M ** 6 * 200 * lM)
+    ok &= logqR <= 6 * M and 2 + 2 * math.pi * M ** 4 <= 8 * M ** 4 and k * (1 + L) <= 1
+    ok &= 200 * lM <= 400 * math.log(L)
+report("L", ok, "parameter inequalities of Proposition 6.5 at 8 values of log q")
 
 print(f"{'ALL PASS' if failures == 0 else str(failures) + ' FAILED'}")
 sys.exit(1 if failures else 0)

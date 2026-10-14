@@ -4,7 +4,11 @@
 // (F2) sum_m e(-m/p) sum_{(n,p-1)=1} e(m g^n / p) = -phi(p-1) for p = 101, 1009, 10007;
 // (G) the unsmoothing identity of Lemma 5.2 in exact rational arithmetic;
 // (H) the kernel and size bounds in the proof of Proposition 5.3 at random points;
-// (I) the parameters of Theorems 1.4, 1.5 and Corollary 1.6 in exact rationals.
+// (I) the parameters of Theorems 1.4, 1.5 and Corollary 1.6 in exact rationals;
+// (J) |tau|^2 = q and Lemma 6.2 for the quadratic characters modulo primes q <= 3000, and the ratio
+//     max_x |sum_{n<=x} (n/q)| / (sqrt(q) log log q) for primes 1000 <= q <= 20000;
+// (K) the bound |r(theta)| < 3 in the proof of Lemma 6.2 on a grid;
+// (L) the parameter inequalities in the proof of Proposition 6.5.
 // Exit status 1 if a check fails.
 #include <cmath>
 #include <complex>
@@ -13,6 +17,8 @@
 #include <functional>
 #include <numeric>
 #include <vector>
+#include <algorithm>
+#include <cstdlib>
 
 using u64 = std::uint64_t;
 
@@ -219,6 +225,75 @@ int main() {
   }
   std::printf("%s I: parameters of Theorems 1.4, 1.5 and Corollary 1.6, exact rationals\n", okI ? "PASS" : "FAIL");
   fails += !okI;
+  // (J)
+  {
+    const int NJ = 20000;
+    std::vector<char> isp(NJ + 1, 1);
+    isp[0] = isp[1] = 0;
+    for (int i = 2; i * i <= NJ; i++)
+      if (isp[i])
+        for (int j = i * i; j <= NJ; j += i) isp[j] = 0;
+    bool okJ = true;
+    int nJ = 0;
+    double worstTau = 0, worstJ = 0;
+    const double pi = std::acos(-1.0);
+    for (int q = 3; q <= NJ; q++) {
+      if (!isp[q]) continue;
+      std::vector<int> tab(q, -1);
+      tab[0] = 0;
+      for (long long a = 1; a < q; a++) tab[a * a % q] = 1;
+      int run = 0, m = 0;
+      for (int n = 1; n < q; n++) {
+        run += tab[n];
+        m = std::max(m, std::abs(run));
+      }
+      if (q <= 3000) {
+        std::complex<double> tau = 0;
+        for (int a = 1; a < q; a++) tau += double(tab[a]) * std::polar(1.0, 2 * pi * a / q);
+        worstTau = std::max(worstTau, std::fabs(std::norm(tau) - q) / q);
+        double b0 = 0;
+        for (int k = 1; k <= q / 2; k++) b0 += 1.0 / k;
+        if (m > std::sqrt(double(q)) * (b0 + 6)) okJ = false;
+        nJ++;
+      }
+      if (q >= 1000) worstJ = std::max(worstJ, m / (std::sqrt(double(q)) * std::log(std::log(double(q)))));
+    }
+    okJ = okJ && worstTau < 1e-9 && worstJ < 2;
+    std::printf("%s J: |tau|^2 = q (max rel. error %.1e) and max|S| <= sqrt(q)(B+6) for %d primes; max ratio for "
+                "1000 <= q <= 20000: %.4f\n", okJ ? "PASS" : "FAIL", worstTau, nJ, worstJ);
+    fails += !okJ;
+  }
+  // (K)
+  {
+    const double pi = std::acos(-1.0);
+    const std::complex<double> i2pi(0, 2 * pi);
+    double worstK = 0;
+    for (int k = 1; k <= 500000; k++)
+      for (int s : {1, -1}) {
+        double th = s * k / 1e6;
+        std::complex<double> r = 1.0 / (1.0 - std::exp(-i2pi * th)) - 1.0 / (i2pi * th);
+        worstK = std::max(worstK, std::abs(r));
+      }
+    std::printf("%s K: |r(theta)| on 10^6 grid points of 0 < |theta| <= 1/2, max %.6f\n", worstK < 3 ? "PASS" : "FAIL",
+                worstK);
+    fails += !(worstK < 3);
+  }
+  // (L)
+  {
+    const double pi = std::acos(-1.0);
+    bool okL = true;
+    for (double L : {200.0, 200.5, 201.0, 250.0, 1000.0, 1e4, 1e6, 1e9}) {
+      double M = std::ceil(L), lM = std::log(M);
+      okL = okL && 4 * lM < L && L * L > 11520 && std::pow(M, 4) >= 2 && lM >= 1 && lM * lM <= 4 * M;
+      double rho = std::pow(4 * lM, 1.5) / (M * M);
+      okL = okL && rho * (1 + L) <= 128 && 32 * lM * lM / M <= 128;
+      double k = (L + 4 * lM + 1e-80) * (2 + 2 * pi * std::pow(M, 4)) / (std::pow(M, 6) * 200 * lM);
+      okL = okL && L + 4 * lM <= 6 * M && 2 + 2 * pi * std::pow(M, 4) <= 8 * std::pow(M, 4) && k * (1 + L) <= 1 &&
+            200 * lM <= 400 * std::log(L);
+    }
+    std::printf("%s L: parameter inequalities of Proposition 6.5 at 8 values of log q\n", okL ? "PASS" : "FAIL");
+    fails += !okL;
+  }
   std::printf("%s\n", fails ? "SOME FAILED" : "ALL PASS");
   return fails ? 1 : 0;
 }

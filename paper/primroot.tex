@@ -25,6 +25,8 @@
 \DeclareUnicodeCharacter{2260}{\ensuremath{\ne}}
 \DeclareUnicodeCharacter{230A}{\ensuremath{\lfloor}}
 \DeclareUnicodeCharacter{230B}{\ensuremath{\rfloor}}
+\DeclareUnicodeCharacter{03B1}{\ensuremath{\alpha}}
+\DeclareUnicodeCharacter{211A}{\ensuremath{\mathbb{Q}}}
 \usepackage[hidelinks]{hyperref}
 \usepackage{etoolbox}
 \makeatletter
@@ -61,8 +63,10 @@ For every $\eta>0$ every prime $p$ has a prime primitive root
 $\ell\ll_\eta(\tau(p-1)^2\log p)^{8+\eta}$, so the least primitive root is $O_\varepsilon(p^\varepsilon)$.
 For every nonprincipal character $\chi$ modulo $q$,
 $\sum_{n\le x}\chi(n)\ll_\varepsilon q^\varepsilon x^{7/8+\varepsilon}$, which is $o(x)$ once
-$x\ge q^\eta$. Both were conjectured by Vinogradov. The proofs use the zero-free half-plane
-$\Re s>7/8$ and are checked in Lean~4.
+$x\ge q^\eta$. Both were conjectured by Vinogradov. For primitive $\chi$,
+$\max_x|\sum_{n\le x}\chi(n)|\ll\sqrt q\log\log q$, which is optimal. The proofs use the zero-free
+half-plane $\Re s>7/8$ and are checked in Lean~4, the last one with a theorem of Montgomery and
+Vaughan as a hypothesis.
 \end{abstract}
 
 \maketitle
@@ -125,6 +129,27 @@ Cx^\theta$ for every nonprincipal character $\chi$ modulo $q$ and every $x\ge q^
 particular $\sum_{n\le x}\chi(n)=o(x)$ uniformly for $x\ge q^\eta$.
 \end{corollary}
 
+The P\'olya--Vinogradov inequality~\cite[Ch.~23]{Dav00} gives
+$\bigl|\sum_{n\le x}\chi(n)\bigr|\ll\sqrt q\log q$ for every nonprincipal $\chi$ modulo $q$. Paley~\cite{Pal32}
+showed that $\log\log q$ cannot replace $\log q$ with a factor tending to $0$: for infinitely many
+primitive quadratic characters the maximum exceeds $c\sqrt q\log\log q$. Montgomery and
+Vaughan~\cite{MV77} proved the upper bound $\sqrt q\log\log q$ for primitive characters under the
+generalised Riemann hypothesis, and Granville and Soundararajan~\cite{GS07} improved the
+exponent of $\log q$ unconditionally for characters of fixed odd order.
+
+\begin{theorem}\label{thm:pv}
+There is an absolute constant $C$ such that for every primitive character $\chi$ modulo $q\ge3$
+and every $x\ge1$,
+\[
+  \Bigl|\sum_{n\le x}\chi(n)\Bigr|\le C\sqrt q\log\log q.
+\]
+\end{theorem}
+
+Montgomery and Vaughan use the generalised Riemann hypothesis only for prime sums of the
+characters $\chi\psi$, with $\psi$ modulo a small $r$, on the major arcs; Theorem~\ref{thm:zerofree}
+below suffices there. On the minor arcs they use their unconditional bound for exponential sums
+with multiplicative coefficients, Theorem~\ref{thm:mv}.
+
 The input is the zero-free half-plane of~\cite{OAI26}, from which~\cite{OAI26} deduces, as
 in~\cite[Thm.~6.7]{BIMS17}, that the least quadratic nonresidue is $\ll_\varepsilon p^\varepsilon$.
 A primitive root must avoid every subgroup of prime index at once, and the number of characters
@@ -137,14 +162,15 @@ If $\chi$ is a nonprincipal Dirichlet character, then $L(s,\chi)\ne0$ for $\Re s
 Theorem~\ref{thm:zerofree} is formalised in Lean~4 in~\cite{OAI26}. Theorems~\ref{thm:main},
 \ref{thm:lindelof} and~\ref{thm:charsum} and Corollaries~\ref{cor:vinogradov}, \ref{cor:erdos}
 and~\ref{cor:charsum} are formalised here, with Theorem~\ref{thm:zerofree} as the only external
-input (Section~\ref{sec:lean}). The constants are effective.
+input, and Theorem~\ref{thm:pv} is formalised from Theorems~\ref{thm:zerofree} and~\ref{thm:mv}
+(Section~\ref{sec:lean}). The constants are effective.
 
 Theorem~\ref{thm:lindelof} is Littlewood's deduction of a Lindel\"of bound from a zero-free
 half-plane~\cite[\S14.2]{Tit86}, and Theorem~\ref{thm:charsum} follows from it by a contour shift;
 the new ingredient is Theorem~\ref{thm:zerofree}. Among the consequences of
 Theorem~\ref{thm:zerofree}, \cite{OAI26} lists the least quadratic nonresidue, the prime number
 theorem in progressions, class numbers and idoneal numbers, but not
-Theorems~\ref{thm:lindelof} and~\ref{thm:charsum}. All results here hold with $7/8$ replaced by any
+Theorems~\ref{thm:lindelof}, \ref{thm:charsum} and~\ref{thm:pv}. All results here hold with $7/8$ replaced by any
 $\theta\in[1/2,1)$ such that $L(s,\chi)\ne0$ for $\Re s>\theta$ and every nonprincipal $\chi$, for
 instance by the value $0.874957\ldots$ claimed in~\cite{Liu26}. The companion
 papers~\cite{OAI26b,OAI26c} prove, from a zero-free strip $\Re s>1-10^{-6}$ for Hecke
@@ -503,6 +529,153 @@ $x\ge q^\eta$ we have $q^\delta\le x^{\delta/\eta}$, and Theorem~\ref{thm:charsu
 $|\sum_{n\le x}\chi(n)|\le C_\delta x^\theta$. With $\theta=15/16$ this is $o(x)$.
 \end{proof}
 
+
+\section{The P\'olya--Vinogradov inequality}\label{sec:pv}
+
+Write $e(x)=e^{2\pi ix}$, and let $P(n)$ be the largest prime factor of $n\ge2$, with $P(1)=1$.
+The minor arcs are handled by the following theorem.
+
+\begin{theorem}[{\cite[Corollary~1]{MV77}}]\label{thm:mv}
+There is an absolute constant $C_1$ with the following property. Let $f$ be multiplicative with
+$|f(n)|\le1$, let $\alpha\in\R$, and let $a,r$ be coprime integers with
+$|\alpha-a/r|\le r^{-2}$ and $2\le R\le r\le N/R$. Then
+\[
+  \Bigl|\sum_{n\le N}f(n)e(n\alpha)\Bigr|\le C_1\Bigl(\frac N{\log N}
+  +\frac{N(\log R)^{3/2}}{R^{1/2}}\Bigr).
+\]
+\end{theorem}
+
+In this section $\chi$ is a primitive character modulo $q\ge3$.
+
+\begin{lemma}\label{lem:polya}
+Let $B\ge0$ be such that $\bigl|\sum_{m\le H}\bar\chi(m)e(m\beta)/m\bigr|\le B$ for every integer
+$H\le q/2$ and every $\beta\in\R$. Then $\bigl|\sum_{n\le T}\chi(n)\bigr|\le\sqrt q\,(B+6)$ for every
+$T\ge0$.
+\end{lemma}
+
+\begin{proof}
+Let $\tau=\sum_{a\bmod q}\bar\chi(a)e(a/q)$. Since $\bar\chi$ is primitive,
+$\sum_a\bar\chi(a)e(an/q)=\chi(n)\tau$ for every $n$, and summing the squares of these identities over
+$n\bmod q$ gives $q\varphi(q)=|\tau|^2\varphi(q)$, so $|\tau|=\sqrt q$. Summing over $n\le T$,
+\[
+  \tau\sum_{n\le T}\chi(n)=\sum_{0<|a|\le q/2}\bar\chi(a)\,
+  \frac{e(aT/q)-1}{1-e(-a/q)},
+\]
+where $a$ runs over the integers with $-q/2<a\le q/2$, $a\ne0$. For $0<|\theta|\le1/2$ put
+$r(\theta)=(1-e(-\theta))^{-1}-(2\pi i\theta)^{-1}$; then $|1-e(-\theta)|=2|\sin\pi\theta|\ge4|\theta|$.
+If $2\pi|\theta|\le1$, then $|e(-\theta)-1+2\pi i\theta|\le(2\pi\theta)^2$ and
+$|r(\theta)|\le(2\pi\theta)^2/(4|\theta|\cdot2\pi|\theta|)<3$; otherwise
+$|r(\theta)|\le1/(4|\theta|)+1/(2\pi|\theta|)<3$. The terms with $r(a/q)$ contribute at most
+$6q$. Writing $a=\pm m$ with $1\le m\le q/2$, the remaining terms are $q/(2\pi i)$ times a
+combination, with coefficients of modulus at most $1$, of four sums
+$\sum_{m\le H}\bar\chi(m)e(m\beta)/m$ with $H\le q/2$, so they contribute at most $2qB/\pi$. Dividing
+by $|\tau|$ gives the claim.
+\end{proof}
+
+\begin{lemma}\label{lem:smooth}
+For $N\ge1$, $\sum_{p\le N}1/p\le\log\log N+10$. For $Y\ge2$ and $H\ge1$,
+\[
+  \sum_{\substack{n\le H\\P(n)\le Y}}\frac1n\le e^{11}\log Y.
+\]
+\end{lemma}
+
+\begin{proof}
+Legendre's formula gives $\log N!\ge\sum_{p\le N}\lfloor N/p\rfloor\log p$, and $\log N!\le N\log N$,
+$\sum_{p\le N}\log p\le N\log4$; hence $\sum_{p\le N}\log p/p\le\log N+\log4$, and partial
+summation gives the first bound. The sum in the second is at most
+$\prod_{p\le Y}(1-1/p)^{-1}\le\exp\bigl(\sum_{p\le Y}\frac1{p-1}\bigr)$, and
+$\sum_p\bigl(\frac1{p-1}-\frac1p\bigr)\le1$.
+\end{proof}
+
+\begin{lemma}\label{lem:major}
+There is an absolute constant $C_2$ such that for $0<r<q$, $b\in\mathbb Z$, $\beta\in\R$, integers
+$Y\ge\max(2,r)$ and $t\ge1$,
+\[
+  \Bigl|\sum_{\substack{n\le t\\P(n)>Y}}\chi(n)e\Bigl(n\Bigl(\frac br+\beta\Bigr)\Bigr)\Bigr|
+  \le C_2\,\frac{r\log(qr+2)\,(2+2\pi|\beta|t)\,t}{Y^{1/20}\log Y}.
+\]
+\end{lemma}
+
+\begin{proof}
+Let $\xi$ be a nonprincipal character modulo $k$. Proposition~\ref{prop:riesz} with
+$\delta=1/2000$ and $a=7/8-2\delta$, which applies by Theorem~\ref{thm:zerofree}, gives
+$|S(\xi;y)|\le Ky^{7/8+6\delta}\log(k+2)$ for $y\ge1$. Since
+$(x+h)S(\xi;x+h)-xS(\xi;x)=h\sum_{n\le x}\xi(n)\Lambda(n)+\sum_{x<n\le x+h}\xi(n)\Lambda(n)(x+h-n)$,
+the choice $h=x^{47/50}$, $\log x\le100x^{1/100}$ and the removal of the prime powers give
+$\bigl|\sum_{p\le x}\xi(p)\log p\bigr|\le C_3x^{19/20}\log(k+2)$, and partial summation gives, for
+integers $2\le A\le B$ and $\gamma\in\R$,
+\begin{equation}\label{eq:twistedprime}
+  \Bigl|\sum_{A<p\le B}\xi(p)e(p\gamma)\Bigr|\le
+  2C_3\,\frac{B^{19/20}\log(k+2)(2+2\pi|\gamma|B)}{\log A}.
+\end{equation}
+Every $n\le t$ with $P(n)>Y$ is uniquely $n=pm$ with $p=P(n)$ prime, $Y<p\le t/m$ and
+$P(m)\le p$, and then $m\le t/Y$. For such $p$ we have $p>r$, so $p\nmid r$, and on the units
+modulo $r$ the function $u\mapsto e(umb/r)$ equals $\sum_\psi c_\psi\psi(u)$, the sum over the
+characters $\psi$ modulo $r$, with $|c_\psi|\le1$. The character $\chi\psi$ modulo $qr$ is
+nonprincipal: otherwise $\chi(n)=\bar\psi(n)$ for every $n$ prime to $qr$, so $\chi$ would be
+induced by a character modulo $\gcd(q,r)<q$. Applying~\eqref{eq:twistedprime} to $\xi=\chi\psi$
+with $\gamma=m\beta$, $A=\max(Y,P(m)-1)$ and $B=\lfloor t/m\rfloor$ gives
+\[
+  \Bigl|\sum_{\substack{n\le t\\P(n)>Y}}\chi(n)e\Bigl(n\Bigl(\frac br+\beta\Bigr)\Bigr)\Bigr|
+  \le2C_3r\,\frac{\log(qr+2)(2+2\pi|\beta|t)}{\log Y}\sum_{m\le t/Y}\Bigl(\frac tm\Bigr)^{19/20},
+\]
+and $\sum_{m\le M}m^{-19/20}\le20M^{1/20}$.
+\end{proof}
+
+\begin{proposition}\label{prop:hsum}
+There is an absolute constant $C_4$ such that if $\log q\ge200$, then
+$\bigl|\sum_{m\le H}\chi(m)e(m\beta)/m\bigr|\le C_4\log\log q$ for every integer $H\le q$ and every
+$\beta\in\R$.
+\end{proposition}
+
+\begin{proof}
+Let $L=\log q$, $M=\lceil L\rceil$, $R=M^4$ and $Y=M^{200}$. Since $q=e^L\ge L^6/720$ and
+$M\le L+1\le2L$, we have $2\le R<q$ and $R\le Y$. Split the sum according to $P(m)\le Y$ or
+$P(m)>Y$. By Lemma~\ref{lem:smooth} the first part is at most $e^{11}\log Y$. For the second
+put $A(t)=\sum_{n\le t,\,P(n)>Y}\chi(n)e(n\beta)$ and $w(t)=1/t-1/(t+1)$. Partial summation and
+$|A(H)|\le H$ give
+\[
+  \Bigl|\sum_{\substack{m\le H\\P(m)>Y}}\frac{\chi(m)e(m\beta)}m\Bigr|\le1+\sum_{1\le t<H}|A(t)|\,w(t).
+\]
+If $t\le Y$, then $A(t)=0$. Let $t>Y$ and $Q=\lfloor t/R\rfloor\ge1$. By Dirichlet's theorem there
+are coprime $a,r$ with $1\le r\le Q$ and $|\beta-a/r|\le1/(r(Q+1))$; then $|\beta-a/r|\,t\le R$.
+If $r\le R$, then Lemma~\ref{lem:major} with $b=a$ gives $|A(t)|\le C_2kt$, where
+\[
+  k=\frac{R\log(qR+2)(2+2\pi R)}{Y^{1/20}\log Y}.
+\]
+If $r>R$, then $R\le r\le t/R$ and $|\beta-a/r|\le r^{-2}$, so Theorem~\ref{thm:mv} bounds the
+full sum $\sum_{n\le t}\chi(n)e(n\beta)$, and removing the $\Psi(t)=\#\{n\le t:P(n)\le Y\}$ smooth
+terms gives
+\[
+  |A(t)|\le C_1\Bigl(\frac t{\log t}+t\rho\Bigr)+\Psi(t),\qquad
+  \rho=\frac{(\log R)^{3/2}}{R^{1/2}}.
+\]
+Since $tw(t)\le1/t$ and $w(t)\le1/t^2$,
+\[
+  \sum_{1\le t<H}|A(t)|\,w(t)\le C_1\sum_{t\le H}\frac1{t\log t}
+  +(C_1\rho+C_2k)\sum_{t\le H}\frac1t+\sum_{1\le t<H}\Psi(t)w(t).
+\]
+The first sum is at most $3+\log L$, the second at most $1+L$, and by partial summation the third
+is at most $\sum_{n\le H,\,P(n)\le Y}1/n\le e^{11}\log Y$. Finally $\log M\ge1$ and
+$(\log M)^2\le4M$ give $\rho(1+L)\le32(\log M)^2/M\le128$; $\log(qR+2)\le6M$,
+$2+2\pi R\le8M^4$ and $Y^{1/20}=M^{10}$ give $k(1+L)\le1$; and $\log Y=200\log M\le400\log L$.
+Collecting terms, the sum is at most
+$1+131C_1+C_2+(800e^{11}+C_1)\log L\le(800e^{11}+1+132C_1+C_2)\log L$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:pv}]
+The character $\bar\chi$ is primitive modulo $q$. If $\log q\ge200$, then
+Proposition~\ref{prop:hsum} for $\bar\chi$ and Lemma~\ref{lem:polya} give
+\[
+  \Bigl|\sum_{n\le x}\chi(n)\Bigr|\le\sqrt q\,(C_4\log\log q+6)\le(C_4+6)\sqrt q\log\log q.
+\]
+If $\log q<200$, then every sum $\sum_{m\le H}\bar\chi(m)e(m\beta)/m$ with $H\le q$ has modulus at
+most $1+\log q<201$, and Lemma~\ref{lem:polya} gives
+\[
+  \Bigl|\sum_{n\le x}\chi(n)\Bigr|\le207\sqrt q\le\frac{207}{\log\log3}\sqrt q\log\log q.\qedhere
+\]
+\end{proof}
+
 \section{Formal verification and computations}\label{sec:lean}
 
 The Lean~4 development (Lean v4.34.1, Mathlib v4.34.1) proves
@@ -540,7 +713,27 @@ theorem character_sum_le_rpow {η θ : ℝ} (hη : 0 < η) (hθ : 7 / 8 < θ) :
         ‖∑ n ∈ Finset.Icc 1 ⌊x⌋₊, χ n‖ ≤ C * x ^ θ
 \end{verbatim}}
 \noindent(namespace \texttt{Vinogradov.CharSum}), which are Theorems~\ref{thm:lindelof}
-and~\ref{thm:charsum} and Corollary~\ref{cor:charsum} (there $x\ge1$ follows from $x\ge q^\eta$).
+and~\ref{thm:charsum} and Corollary~\ref{cor:charsum} (there $x\ge1$ follows from $x\ge q^\eta$),
+and
+{\footnotesize
+\begin{verbatim}
+def MVBound : Prop :=
+  ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q)
+    (α : ℝ) (a : ℚ) (N : ℕ) (R : ℝ), 2 ≤ R → R ≤ a.den →
+      (a.den : ℝ) ≤ N / R → |α - a| ≤ 1 / (a.den : ℝ) ^ 2 →
+      ‖∑ n ∈ Finset.Ioc 0 N, (χ n : ℂ) * e (n * α)‖ ≤
+        C * (N / Real.log N +
+          N * Real.log R ^ (3 / 2 : ℝ) / Real.sqrt R)
+theorem polya_vinogradov_loglog (hMV : MVBound) :
+    ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q),
+      χ.IsPrimitive → 3 ≤ q → ∀ T : ℕ,
+        ‖∑ n ∈ Finset.Ioc 0 T, (χ n : ℂ)‖ ≤
+          C * Real.sqrt q * Real.log (Real.log q)
+\end{verbatim}}
+\noindent(namespace \texttt{Vinogradov.PV}, with $e(x)=\exp(2\pi ix)$), which is
+Theorem~\ref{thm:pv}. \texttt{MVBound} is Theorem~\ref{thm:mv} for $f=\chi$, with the reduced
+fraction $a/r$ given as a rational number $a$ with denominator \texttt{a.den}; it is a hypothesis
+of \texttt{polya\_vinogradov\_loglog}.
 Theorem~\ref{thm:zerofree} enters as the theorem
 \[
   \texttt{OAI.DirichletCharacter.LFunction\_ne\_zero\_of\_seven\_eighths\_lt\_re}
@@ -560,8 +753,13 @@ of Lemma~\ref{lem:principal} on $10^4\le x\le2\cdot10^7$, Lemma~\ref{lem:arith} 
 $N\le10^7$, the exponent identity in the proof of Theorem~\ref{thm:main} in exact arithmetic,
 the two values in Remark~\ref{rem:carella}, the identity in the proof of
 Lemma~\ref{lem:unsmooth} in exact arithmetic for six characters, the inequalities in the proof
-of Proposition~\ref{prop:charsum} at $2\cdot10^5$ random points, and the choices of parameters
-in Section~\ref{sec:charsum} in exact arithmetic.
+of Proposition~\ref{prop:charsum} at $2\cdot10^5$ random points, the choices of parameters
+in Section~\ref{sec:charsum} in exact arithmetic, $|\tau(\chi)|^2=q$ and
+Lemma~\ref{lem:polya} for the quadratic characters modulo the primes $q\le3000$, the bound
+$|r(\theta)|<3$ in its proof on a grid of $10^6$ points, and the inequalities between the
+parameters in the proof of Proposition~\ref{prop:hsum}. For the quadratic characters modulo the
+primes $10^3\le q\le2\cdot10^4$ the ratio $\max_x|\sum_{n\le x}\chi(n)|/(\sqrt q\log\log q)$
+of Theorem~\ref{thm:pv} is at most $0.848$.
 
 \section*{Data availability}
 The Lean project, the programs and a script that runs them are archived at Zenodo,
@@ -587,8 +785,14 @@ Math. Soc. (3) \textbf{12} (1962), 179--192.
 \bibitem{Car25} N.~A. Carella, \emph{The least primitive roots mod $p$}, J. Math. Cryptol.
 \textbf{19} (2025), article 20240017.
 
+\bibitem{Dav00} H.~Davenport, \emph{Multiplicative Number Theory}, 3rd ed., revised by
+H.~L. Montgomery, Grad. Texts in Math. \textbf{74}, Springer, New York, 2000.
+
 \bibitem{Erd65} P.~Erd\H{o}s, \emph{Some recent advances and current problems in number theory},
 in: Lectures on Modern Mathematics, Vol.~III, Wiley, New York, 1965, 196--244.
+
+\bibitem{GS07} A.~Granville and K.~Soundararajan, \emph{Large character sums: pretentious
+characters and the P\'olya--Vinogradov theorem}, J. Amer. Math. Soc. \textbf{20} (2007), 357--384.
 
 \bibitem{GS18} A.~Granville and K.~Soundararajan, \emph{Large character sums: Burgess's
 theorem and zeros of $L$-functions}, J. Eur. Math. Soc. \textbf{20} (2018), 1--14.
@@ -606,6 +810,9 @@ quasi-Riemann hypothesis}, arXiv:2610.12234, 2026.
 \bibitem{Mar97} G.~Martin, \emph{The least prime primitive root and the shifted sieve}, Acta
 Arith. \textbf{80} (1997), 277--288.
 
+\bibitem{MV77} H.~L. Montgomery and R.~C. Vaughan, \emph{Exponential sums with multiplicative
+coefficients}, Invent. Math. \textbf{43} (1977), 69--82.
+
 \bibitem{Nai82} M.~Nair, \emph{On Chebyshev-type inequalities for primes}, Amer. Math. Monthly
 \textbf{89} (1982), 126--129.
 
@@ -618,6 +825,9 @@ $\Re s>7/8$}, preprint, 30 September 2026, with a Lean~4 formalisation,
 
 \bibitem{OAI26c} OpenAI, \emph{Deterministic polynomial factorization over prime fields},
 preprint, 4 October 2026, \url{https://github.com/openai/math}.
+
+\bibitem{Pal32} R.~E. A.~C. Paley, \emph{A theorem on characters}, J. London Math. Soc.
+\textbf{7} (1932), 28--32.
 
 \bibitem{Sho92} V.~Shoup, \emph{Searching for primitive roots in finite fields}, Math. Comp.
 \textbf{58} (1992), 369--380.

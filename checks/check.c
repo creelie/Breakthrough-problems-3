@@ -4,13 +4,20 @@
    (D) phi(N) tau(N) >= N for N <= 10^7;
    (G) the unsmoothing identity of Lemma 5.2, in exact integer arithmetic;
    (H) the kernel and size bounds in the proof of Proposition 5.3 at random points;
-   (I) the parameters of Theorems 1.4, 1.5 and Corollary 1.6, in exact rationals.
+   (I) the parameters of Theorems 1.4, 1.5 and Corollary 1.6, in exact rationals;
+   (J) |tau|^2 = q and Lemma 6.2 for the quadratic characters modulo primes q <= 3000, and the ratio
+       max_x |sum_{n<=x} (n/q)| / (sqrt(q) log log q) for primes 1000 <= q <= 20000;
+   (K) the bound |r(theta)| < 3 in the proof of Lemma 6.2 on a grid;
+   (L) the parameter inequalities in the proof of Proposition 6.5.
    Exit status 1 if a check fails. */
 #include <complex.h>
 #include <math.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 
 #define LIM 20000000u
 
@@ -212,6 +219,77 @@ int main(void) {
   printf("%s I: parameters of Theorems 1.4, 1.5 and Corollary 1.6, exact rationals\n",
          okI ? "PASS" : "FAIL");
   fails += !okI;
+  /* (J) */
+  {
+    enum { NJ = 20000 };
+    static char ispJ[NJ + 1];
+    static int tab[NJ];
+    for (int i = 2; i <= NJ; i++) ispJ[i] = 1;
+    for (int i = 2; i * i <= NJ; i++)
+      if (ispJ[i])
+        for (int j = i * i; j <= NJ; j += i) ispJ[j] = 0;
+    int okJ = 1, nJ = 0;
+    double worstTau = 0, worstJ = 0;
+    for (int q = 3; q <= NJ; q++) {
+      if (!ispJ[q]) continue;
+      for (int a = 0; a < q; a++) tab[a] = -1;
+      tab[0] = 0;
+      for (long a = 1; a < q; a++) tab[a * a % q] = 1;
+      int run = 0, m = 0;
+      for (int n = 1; n < q; n++) {
+        run += tab[n];
+        if (abs(run) > m) m = abs(run);
+      }
+      if (q <= 3000) {
+        double complex tau = 0;
+        for (int a = 1; a < q; a++) tau += tab[a] * cexp(2 * M_PI * I * a / q);
+        double rel = fabs(creal(tau * conj(tau)) - q) / q;
+        if (rel > worstTau) worstTau = rel;
+        double b0 = 0;
+        for (int k = 1; k <= q / 2; k++) b0 += 1.0 / k;
+        if (m > sqrt(q) * (b0 + 6)) okJ = 0;
+        nJ++;
+      }
+      if (q >= 1000) {
+        double r = m / (sqrt(q) * log(log(q)));
+        if (r > worstJ) worstJ = r;
+      }
+    }
+    okJ &= worstTau < 1e-9 && worstJ < 2;
+    printf("%s J: |tau|^2 = q (max rel. error %.1e) and max|S| <= sqrt(q)(B+6) for %d primes; max ratio for "
+           "1000 <= q <= 20000: %.4f\n", okJ ? "PASS" : "FAIL", worstTau, nJ, worstJ);
+    fails += !okJ;
+  }
+  /* (K) */
+  {
+    double worstK = 0;
+    for (int k = 1; k <= 500000; k++)
+      for (int s = -1; s <= 1; s += 2) {
+        double th = s * k / 1e6;
+        double complex r = 1 / (1 - cexp(-2 * M_PI * I * th)) - 1 / (2 * M_PI * I * th);
+        if (cabs(r) > worstK) worstK = cabs(r);
+      }
+    int okK = worstK < 3;
+    printf("%s K: |r(theta)| on 10^6 grid points of 0 < |theta| <= 1/2, max %.6f\n", okK ? "PASS" : "FAIL",
+           worstK);
+    fails += !okK;
+  }
+  /* (L) */
+  {
+    const double Ls[8] = {200.0, 200.5, 201.0, 250.0, 1000.0, 1e4, 1e6, 1e9};
+    int okL = 1;
+    for (int i = 0; i < 8; i++) {
+      double L = Ls[i], M = ceil(L), lM = log(M);
+      okL &= 4 * lM < L && L * L > 11520 && pow(M, 4) >= 2 && lM >= 1 && lM * lM <= 4 * M;
+      double rho = pow(4 * lM, 1.5) / (M * M);
+      okL &= rho * (1 + L) <= 128 && 32 * lM * lM / M <= 128;
+      double k = (L + 4 * lM + 1e-80) * (2 + 2 * M_PI * pow(M, 4)) / (pow(M, 6) * 200 * lM);
+      okL &= L + 4 * lM <= 6 * M && 2 + 2 * M_PI * pow(M, 4) <= 8 * pow(M, 4) && k * (1 + L) <= 1 &&
+             200 * lM <= 400 * log(L);
+    }
+    printf("%s L: parameter inequalities of Proposition 6.5 at 8 values of log q\n", okL ? "PASS" : "FAIL");
+    fails += !okL;
+  }
   printf("%s\n", fails ? "SOME FAILED" : "ALL PASS");
   return fails ? 1 : 0;
 }

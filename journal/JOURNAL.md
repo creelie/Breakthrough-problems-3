@@ -14,21 +14,24 @@
 
 Acta Arithmetica publishes research papers in number theory; its editors
 include D. R. Heath-Brown, J. Kaczorowski, W. M. Schmidt and U. Zannier. The
-paper is a short analytic number theory note (10 pages): from the zero-free
+paper is an analytic number theory article (14 pages): from the zero-free
 half-plane Re s > 7/8 of OpenAI's preprint it proves that the least prime
 primitive root is O((τ(p-1)^2 log p)^(8+η)), hence Vinogradov's conjecture
-g(p) = O_ε(p^ε), and that character sums satisfy
+g(p) = O_ε(p^ε), that character sums satisfy
 ∑_{n≤x} χ(n) ≪ q^ε x^(7/8+ε), hence Vinogradov's conjecture that they are o(x)
-for x ≥ q^η, with a Lean 4 verification of the whole chain. The result depends on
+for x ≥ q^η, and that the Pólya–Vinogradov inequality holds with the optimal
+factor √q log log q for primitive characters, which Montgomery and Vaughan
+proved under GRH. A Lean 4 verification covers the whole chain, with
+Montgomery–Vaughan's Corollary 1 as a stated hypothesis of the last result. The result depends on
 that preprint, which is unrefereed; a referee will need its Lean verification
 or a published version. The Journal of Number Theory and Mathematika are
 alternatives.
 
 ## Length and format
 
-- 10 pages in `amsart` 12 pt with a 13.5 cm text width.
+- 14 pages in `amsart` 12 pt with a 13.5 cm text width.
 - Front matter, all present: title, author with address and emails, abstract
-  (4 sentences, under the 200-word limit), MSC 2020 codes (11A07, 11L40,
+  (5 sentences, under the 200-word limit), MSC 2020 codes (11A07, 11L40,
   11M06, 11N13, 68V15), keywords.
 - Submission is a single PDF on EditFlow; the LaTeX source is sent after
   acceptance. The arXiv tarball in `dist/` contains the source.
