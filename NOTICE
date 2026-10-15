@@ -1,5 +1,5 @@
 The Pólya–Vinogradov inequality with log log q
-Copyright 2026 Deep Bhattacharjee
+Copyright 2026 Deep Bhattacharjee and Ushashi Bhattacharya
 
 This package is distributed under the Apache License, Version 2.0 (LICENSE).
 It contains the following third-party Lean 4 sources, each under the Apache
@@ -25,7 +25,9 @@ lean/RellichKondrachov/
   70f85d4c1bf99c6e7d61e8be4daa6f3664d08d23, the files imported by lean/OAI/,
   with OpenAI's patch lean/patches/rellich-kondrachov-lean4341.patch applied.
 
-lean/Vinogradov.lean, lean/Vinogradov/, lean/Axioms.lean, checks/, paper/,
-run_all.sh are by Deep Bhattacharjee. The headers of Vinogradov/MRT.lean,
+lean/Vinogradov.lean, lean/Vinogradov/, lean/Axioms.lean, checks/, figures/,
+run_all.sh and make_dist.sh are by Deep Bhattacharjee; paper/ and
+preprintPolyaVinogradovLogLog/ are by Deep Bhattacharjee and Ushashi
+Bhattacharya. The headers of Vinogradov/MRT.lean,
 Vinogradov/Riesz.lean, Vinogradov/ContourShift.lean and
 Vinogradov/EulerLog.lean name the OpenAI files they adapt.

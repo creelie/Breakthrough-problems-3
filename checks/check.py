@@ -1,26 +1,29 @@
 #!/usr/bin/env python3
 """Numerical checks for "The Pólya–Vinogradov inequality with log log q".
 
-(A) least prime primitive root G(p) < p for every prime 3 <= p <= LIMIT;
-(B) the character identity of Lemma 3.1 for every prime p <= 200 and 0 <= n < 3p;
-(C) psi(m)/2 >= (2m+2)/10 + log(2m+2) for 5000 <= m <= M_LIMIT (Lemma 3.3);
-(D) phi(N)/N >= 1/tau(N) for 1 <= N <= 10^6 (Lemma 3.2);
-(E) the exponent arithmetic of Section 4, in exact rationals;
-(F) the two computations of Remark 1.11 on Carella's estimates;
-(G) the unsmoothing identity of Lemma 5.2, in exact rationals;
-(H) the kernel and size bounds in the proof of Proposition 5.3, at random points;
-(I) the parameters of Theorems 1.4, 1.5 and Corollary 1.6, in exact rationals;
-(J) |tau|^2 = q and Lemma 7.1 for the quadratic characters modulo primes q <= 3000, and
-    max_x |sum_{n<=x} (n/q)| / (sqrt(q) log log q) for primes 1000 <= q <= 20000;
-(K) the bound |r(theta)| < 3 in the proof of Lemma 7.1 on a grid;
-(L) the parameter inequalities in the proof of Proposition 7.4;
-(M) Lemmas 6.2 and 6.3 (spacing of the multiples of alpha, the bilinear bounds) on random data;
-(N) Lemma 6.4 for characters and random completely multiplicative f;
-(O) Lemma 6.5: the prime pair bound for X <= 10^5 and even 0 < |h| <= 100, the sieve
-    remainders |R_d| <= tau(d), and the fourth moment of G(h) for X <= 10^5;
-(P) the numerical constants and the parameters I, J in the proof of Theorem 6.1;
-(Q) Lemma 8.1 for x <= 2*10^5 and twelve values of y;
-(R) the parameter inequalities in the proof of Theorem 1.8.
+(A) Lemma 2.1 (Chebyshev's bounds) for x, N <= 10^6;
+(B) Lemma 2.2: the Selberg weights satisfy lambda_1 = 1, |lambda_d| <= 1 and Q = 1/S, in exact
+    rationals, and the sieve bound holds for a_n = n(n + 2);
+(C) Lemmas 3.3, 3.4 and 3.6: the logarithm bound, Borel-Caratheodory for random polynomials,
+    and the two elementary inequalities on grids;
+(D) the exponent arithmetic of Section 3 and of the proof of Theorem 1.3(ii), in exact rationals;
+(E) Corollary 3.8: the identity for T(x + h) - T(x), the inequalities used for h = x^(47/50),
+    and max |sum_{p<=x} xi(p) log p| / (x^(19/20) log(k+2)) for quadratic xi, x <= 10^6;
+(F) Lemmas 4.2 and 4.3 (spacing of the multiples of alpha, bilinear bounds) on random data;
+(G) Lemma 4.4 for characters and random completely multiplicative f;
+(H) Lemma 4.5: the prime pair bound for X <= 10^5 and even 2 <= h <= 100, the sieve remainders,
+    and the fourth moment of G(h) for X <= 10^5;
+(I) the numerical constants and the parameters I, J in the proof of Theorem 4.1;
+(J) Lemma 5.1: |tau|^2 = q and the bound for the quadratic characters modulo primes q <= 3000,
+    max_x |sum_{n<=x} (n/q)| / (sqrt(q) log log q) for primes 1000 <= q <= 20000, and the
+    bound |r(theta)| < 3 on a grid;
+(K) Lemma 5.2 for Y <= 10^6, the sum of m^(-19/20) in Lemma 5.3, and the parameter
+    inequalities in the proof of Proposition 5.4;
+(L) Lemmas 6.2 and 6.3: the block counts against the sieve bound for primes 101 <= q <= 401, the
+    claim N_j <= 393 * 2^j/(j+1) where it can be counted, and the inequalities of the proof;
+(M) Theorem 1.3: L'/L(1, chi) for every nonprincipal chi modulo the primes q <= 300, from the
+    Hurwitz zeta function at s = 1, and the Euler-Kronecker constants
+    gamma_q = gamma + sum_{chi != 1} L'/L(1, chi), against reference values from mpmath.
 Prints one line per check and exits with status 1 if any check fails.
 """
 import cmath
@@ -29,7 +32,6 @@ import sys
 from fractions import Fraction
 
 LIMIT = 10**6
-M_LIMIT = 10**6
 
 
 def sieve(n):
@@ -39,16 +41,6 @@ def sieve(n):
         if is_p[i]:
             is_p[i * i :: i] = bytearray(len(is_p[i * i :: i]))
     return is_p
-
-
-def prime_factors(n, spf):
-    out = []
-    while n > 1:
-        q = spf[n]
-        out.append(q)
-        while n % q == 0:
-            n //= q
-    return out
 
 
 def smallest_prime_factor(n):
@@ -61,291 +53,202 @@ def smallest_prime_factor(n):
     return spf
 
 
+def prime_factors(n, spf):
+    out = []
+    while n > 1:
+        p = spf[n]
+        out.append(p)
+        while n % p == 0:
+            n //= p
+    return out
+
+
+def legendre(n, q):
+    r = pow(n % q, (q - 1) // 2, q)
+    return 0 if r == 0 else (1 if r == 1 else -1)
+
+
+state = 12345
+
+
+def rnd():
+    global state
+    state = (state * 6364136223846793005 + 1442695040888963407) % 2**64
+    return (state >> 11) / 2**53
+
+
 failures = 0
 
 
 def report(name, ok, detail):
     global failures
-    print(f"{'PASS' if ok else 'FAIL'} {name}: {detail}")
+    print(f"{'PASS' if ok else 'FAIL'} {name}: {detail}", flush=True)
     if not ok:
         failures += 1
 
 
-# (A) least prime primitive roots
-is_p = sieve(LIMIT)
+is_p = sieve(4 * LIMIT)
 spf = smallest_prime_factor(LIMIT)
 primes = [i for i in range(2, LIMIT + 1) if is_p[i]]
-worst_g, worst_p, total, count, ok = 0, 0, 0, 0, True
-for p in primes:
-    if p == 2:
-        continue
-    qs = [(p - 1) // r for r in prime_factors(p - 1, spf)]
-    g = None
-    for ell in primes:
-        if ell >= p:
-            break
-        if all(pow(ell, e, p) != 1 for e in qs):
-            g = ell
-            break
-    if g is None:
-        ok = False
-        break
-    total += g
-    count += 1
-    if g > worst_g:
-        worst_g, worst_p = g, p
-report("A", ok, f"{count} primes 3..{LIMIT}, max G(p) = {worst_g} at p = {worst_p}, sum G(p) = {total}")
 
-# (B) the character identity
-ok = True
-for p in primes:
-    if p > 200:
-        break
-    N = p - 1
-    g = next(a for a in range(1, p) if all(pow(a, N // r, p) != 1 for r in prime_factors(N, spf)) or N == 1)
-    log = {pow(g, k, p): k for k in range(N)}
-    zeta = cmath.exp(2j * math.pi / N)
-    divs = [d for d in range(1, N + 1) if N % d == 0]
-    mu = {}
-    for d in divs:
-        fs = prime_factors(d, spf)
-        prod = 1
-        for f in fs:
-            prod *= f
-        mu[d] = 0 if prod != d else (-1) ** len(fs)
-    for n in range(3 * p):
-        r = n % p
-        lhs = 1 if (r != 0 and math.gcd(log[r], N) == 1) else 0
-        rhs = 0j
-        for d in divs:
-            inner = 0j
-            for m in range(d):
-                j = m * (N // d)
-                inner += 0 if r == 0 else zeta ** (log[r] * j % N)
-            rhs += mu[d] / d * inner
-        if abs(rhs - lhs) > 1e-8:
-            ok = False
-report("B", ok, "indicator of primitive roots = sum over d | p-1 of mu(d)/d sum_{m<d} chi^{m(p-1)/d}, p <= 200")
+# (A) Lemma 2.1
+ok, theta, psi, sl, sr = True, 0.0, 0.0, 0.0, 0.0
+w1 = w2 = w3 = 0.0
+for n in range(2, LIMIT + 1):
+    p = spf[n]
+    m = n
+    while m % p == 0:
+        m //= p
+    if m == 1:                       # n is a power of p
+        psi += math.log(p)
+        if n == p:
+            theta += math.log(p)
+            sl += math.log(p) / p
+            sr += 1 / p
+    w1 = max(w1, theta / (n * math.log(4)))
+    w2 = max(w2, (psi - theta) / (2 * math.sqrt(n) * math.log(n)))
+    w3 = max(w3, psi / (4 * n))
+    ok &= sl <= math.log(n) + math.log(4) and sr <= math.log(math.log(n)) + 10
+ok &= w1 <= 1 and w2 <= 1 and w3 <= 1
+report("A", ok, f"theta(x) <= x log 4 (max ratio {w1:.4f}), psi - theta <= 2 sqrt(x) log x ({w2:.4f}), "
+       f"psi(x) <= 4x ({w3:.4f}), (iii) and (iv) for x, N <= 10^6")
 
-# (C) psi(x/2)/2 - log x >= x/10 for x >= 10^4, checked on the cells [2m, 2m+2)
-ok = True
-psi = 0.0
-worst = float("inf")
-lam = [0.0] * (M_LIMIT + 1)
-for q in primes:
-    if q > M_LIMIT:
-        break
-    lq = math.log(q)
-    k = q
-    while k <= M_LIMIT:
-        lam[k] = lq
-        k *= q
-for m in range(1, M_LIMIT + 1):
-    psi += lam[m]
-    if m >= 5000:
-        margin = psi / 2 - ((2 * m + 2) / 10 + math.log(2 * m + 2))
-        worst = min(worst, margin)
-        if margin < 0:
-            ok = False
-report("C", ok, f"psi(m)/2 - (2m+2)/10 - log(2m+2) >= 0 for 5000 <= m <= {M_LIMIT}, least margin {worst:.3f}")
 
-# (D) phi(N)/N >= 1/tau(N)
-ok = True
-for N in range(1, 10**6 + 1):
-    fs = prime_factors(N, spf)
-    phi, tau, n = N, 1, N
-    for f in fs:
-        phi = phi // f * (f - 1)
-        e = 0
-        while n % f == 0:
-            n //= f
-            e += 1
-        tau *= e + 1
-    if phi * tau < N:
-        ok = False
-        break
-report("D", ok, "phi(N) tau(N) >= N for N <= 10^6")
+# (B) Lemma 2.2: Selberg's weights in exact rationals
+def selberg(ps, nu_p, y):
+    divs = [1]
+    for p in ps:
+        divs += [d * p for d in divs]
+    D = sorted(d for d in divs if d * d <= y)
+    fac = {d: [p for p in ps if d % p == 0] for d in divs}
 
-# (E) exponent arithmetic: e = eta/(2000(8+eta)), sigma0 = 7/8+8e, beta = 1/8-8e
-ok = True
-for eta in [Fraction(1, 10**6), Fraction(1, 1000), Fraction(1, 7), Fraction(1), Fraction(5), Fraction(10**6)]:
-    e = eta / (2000 * (8 + eta))
-    beta = Fraction(1, 8) - 8 * e
-    sigma0 = Fraction(7, 8) + 8 * e
-    ok &= 0 < e < Fraction(1, 1000) and beta > 0 and (8 + eta) * beta >= 1 and sigma0 + beta == 1
-    ok &= (8 + eta) * 8 * e == eta / 250
-report("E", ok, "0 < e < 1/1000, beta > 0, (8+eta) beta = 1 + eta/8 - eta/250 >= 1")
+    def nu(d):
+        r = Fraction(1)
+        for p in fac[d]:
+            r *= nu_p(p)
+        return r
 
-# (F1) partial sums of sum chi_{-3}(n) Lambda(n) n^{-2} do not tend to 0
-chi = lambda n: 0 if n % 3 == 0 else (1 if n % 3 == 1 else -1)
-s, ok, X = 0.0, True, 10**6
-for n in range(2, X + 1):
-    if lam[n]:
-        s += chi(n) * lam[n] / n**2
-report("F1", abs(s) > 0.1, f"sum_(n <= 10^6) chi_-3(n) Lambda(n) / n^2 = {s:.6f} (Carella [Car15, (16)] asserts O(1/x))")
+    def g(d):
+        r = Fraction(1)
+        for p in fac[d]:
+            r *= nu_p(p) / (1 - nu_p(p))
+        return r
 
-# (F2) for u not a primitive root, sum_{0<m<p} e(-um/p) sum_{(n,p-1)=1} e(m tau^n / p) = -phi(p-1):
-# every u in [0, p) for p = 101, 1009, and u = 1 for p = 10007
-ok = True
-for p in [101, 1009, 10007]:
-    N = p - 1
-    g = next(a for a in range(2, p) if all(pow(a, N // r, p) != 1 for r in prime_factors(N, spf)))
-    roots = [pow(g, n, p) for n in range(1, N + 1) if math.gcd(n, N) == 1]
-    is_root = [False] * p
-    for r in roots:
-        is_root[r] = True
-    w = [cmath.exp(2j * math.pi * k / p) for k in range(p)]
-    S = [sum(w[m * r % p] for r in roots) for m in range(p)]
-    phi = len(roots)
-    us = range(p) if p < 5000 else [1]
-    worst = 0.0
-    for u in us:
-        total_val = sum(w[(-u * m) % p] * S[m] for m in range(1, p))
-        expected = p - phi if is_root[u] else -phi
-        worst = max(worst, abs(total_val - expected))
-    ok &= worst < 1e-6 * p
-    print(f"     p = {p}: {len(us)} values of u checked, max error {worst:.2e}, -phi(p-1) = {-phi}")
-report("F2", ok, "the double sum of [Car18, (7.2)] equals -phi(p-1) whenever u is not a primitive root")
+    S = sum(g(l) for l in D)
+    lam = {}
+    for d in D:
+        tot = sum(g(e) for e in D if math.gcd(e, d) == 1 and (d * e) ** 2 <= y)
+        lam[d] = (-1) ** len(fac[d]) * g(d) / (nu(d) * S) * tot
+    return D, lam, S, nu
 
-# (G) T(x+h) - T(x) - h S(x) = sum_{x<n<=x+h} chi(n)(x+h-n), of absolute value <= h(h+1),
-# where T(y) = sum_{n<=y} chi(n)(y-n) and S(x) = sum_{n<=x} chi(n)
-def legendre(n, q):
-    r = pow(n % q, (q - 1) // 2, q)
-    return 0 if r == 0 else (1 if r == 1 else -1)
 
-chars = [(lambda n: 0 if n % 2 == 0 else (1 if n % 4 == 1 else -1), "chi_-4")]
-for q in [3, 5, 7, 101, 997]:
-    chars.append(((lambda q: lambda n: legendre(n, q))(q), f"(./{q})"))
 ok, cases = True, 0
-xs = [Fraction(1), Fraction(5, 2), Fraction(37, 3), Fraction(1000), Fraction(12345, 7)]
-hs = [Fraction(1, 3), Fraction(1), Fraction(7, 2), Fraction(40), Fraction(333, 4)]
-for chi, _ in chars:
-    for x in xs:
-        for h in hs:
-            T = lambda y: sum(chi(n) * (y - n) for n in range(1, math.floor(y) + 1))
-            S = sum(chi(n) for n in range(1, math.floor(x) + 1))
-            lhs = T(x + h) - T(x) - h * S
-            tail = sum(chi(n) * (x + h - n) for n in range(math.floor(x) + 1, math.floor(x + h) + 1))
-            ok &= lhs == tail and abs(lhs) <= h * (h + 1)
-            cases += 1
-report("G", ok, f"(x+h)R(x+h) - xR(x) - h S(x) = tail, |tail| <= h(h+1): {cases} cases, exact")
+for ps, nu_p in [([2, 3, 5, 7, 11, 13], lambda p: Fraction(1, p)),
+                 ([3, 5, 7, 11, 13, 17], lambda p: Fraction(2, p)),
+                 ([2, 5, 7, 13, 19], lambda p: Fraction(1, p + 1))]:
+    for y in [1, 4, 30, 200, 3000, 10**5]:
+        D, lam, S, nu = selberg(ps, nu_p, y)
+        Q = sum(lam[a] * lam[b] * nu(a * b // math.gcd(a, b)) for a in D for b in D)
+        ok &= lam[1] == 1 and all(abs(v) <= 1 for v in lam.values()) and Q * S == 1
+        cases += 1
+for X in [100, 1000, 10**4]:          # the bound for a_n = n(n+2), 0 <= n < X, nu(p) = 2/p
+    for z, y in [(5, 30), (7, 60), (11, 150), (13, 200)]:
+        ps = [p for p in [3, 5, 7, 11, 13] if p <= z]
+        D, lam, S, nu = selberg(ps, lambda p: Fraction(2, p), y)
+        P = math.prod(ps)
+        cnt = sum(1 for n in range(X) if math.gcd(n * (n + 2), P) == 1)
+        err = 0
+        for d in range(1, y + 1):
+            if P % d == 0:
+                k = sum(1 for p in ps if d % p == 0)
+                Rd = sum(1 for n in range(X) if n * (n + 2) % d == 0) - Fraction(2 ** k, d) * X
+                err += 3 ** k * abs(Rd)
+        ok &= cnt <= X / S + err
+        cases += 1
+report("B", ok, f"lambda_1 = 1, |lambda_d| <= 1, Q = 1/S and the sieve bound in {cases} cases, exact")
 
-# (H) for w = sigma+1+it: |(x+h)^w - x^w| <= min(|w| h (x+h)^sigma, 2 (x+h)^(sigma+1));
-# for h = x^sigma0: (x+h)^sigma0 <= 2h, (3h)^(1-4e) <= 3h, (2(x+h))^(4e) <= 4 x^(4e)
-state = 12345
-def rnd():
-    global state
-    state = (state * 6364136223846793005 + 1442695040888963407) % 2**64
-    return (state >> 11) / 2**53
+# (C) Lemmas 3.3, 3.4 and 3.6
 ok, worst = True, 0.0
-for _ in range(200000):
-    x = 1 + 10**6 * rnd()
-    h = x * rnd()
-    sigma = 0.5 + 1.5 * rnd()
-    t = -100 + 200 * rnd()
-    w = complex(sigma + 1, t)
-    d = abs(cmath.exp(w * math.log(x + h)) - cmath.exp(w * math.log(x)))
-    bound = min(abs(w) * h * (x + h) ** sigma, 2 * (x + h) ** (sigma + 1))
-    worst = max(worst, d / bound)
-    ok &= d <= bound * (1 + 1e-9)
-    s0 = 0.5 + 0.5 * rnd()
-    e = 0.125 * (1 - rnd())
-    hh = x ** s0
-    ok &= (x + hh) ** s0 <= 2 * hh * (1 + 1e-12) and (3 * hh) ** (1 - 4 * e) <= 3 * hh * (1 + 1e-12)
-    ok &= (2 * (x + hh)) ** (4 * e) <= 4 * x ** (4 * e) * (1 + 1e-12)
-report("H", ok, f"kernel and size bounds at 200000 random points, max ratio {worst:.6f}")
+for i in range(1, 401):
+    for k in range(0, 360):
+        w = (i / 800) * cmath.exp(1j * math.pi * k / 180)
+        worst = max(worst, abs(cmath.log(1 - w)) / abs(w))
+ok &= worst <= 1.5
+A0 = 1.5 * sum(p ** -1.5 for p in primes)
+for _ in range(400):
+    deg = 1 + int(6 * rnd())
+    co = [complex(2 * rnd() - 1, 2 * rnd() - 1) for _ in range(deg + 1)]
+    c = complex(2 * rnd() - 1, 2 * rnd() - 1)
+    R = 0.2 + 2 * rnd()
+    r = R * (0.05 + 0.9 * rnd())
+    h = lambda z: sum(a * z ** j for j, a in enumerate(co))
+    hc = h(c)
+    A = max((h(c + R * cmath.exp(2j * math.pi * k / 720)) - hc).real for k in range(720))
+    lhs = max(abs(h(c + r * cmath.exp(2j * math.pi * k / 360)) - hc) for k in range(360))
+    ok &= lhs <= 2 * r / (R - r) * A * (1 + 1e-6) + 1e-12
+for qq in [1, 2, 3, 10, 1000, 10**9]:
+    for k in range(0, 4001):
+        t = 10 ** (k / 500) - 1
+        ok &= math.log(2 * qq * (3 + t) ** 2) <= 10 * math.log(qq + 2) * math.sqrt(1 + t)
+        for sig in [0.5, 0.7, 1.0, 2.0, 5.0]:
+            s = complex(sig, t)
+            ok &= abs(s * (s + 1)) >= (1 + t) ** 2 / 8
+report("C", ok, f"|log(1-w)| <= 1.5|w| on |w| <= 1/2 (max ratio {worst:.4f}), A_0 = {A0:.5f}; "
+       "Borel-Caratheodory for 400 random polynomials; Lemma 3.6 on grids")
 
-# (I) Theorems 1.4, 1.5 and Corollary 1.6: the parameters satisfy the hypotheses
-ok = True
-for dl in [Fraction(1, 10**6), Fraction(1, 1000), Fraction(1, 7), Fraction(1), Fraction(5), Fraction(1000)]:
-    e1 = min(dl / 8, Fraction(1, 2000))
-    a1 = Fraction(7, 8) - 2 * e1
-    ok &= 0 < e1 < Fraction(1, 1000) and 8 * e1 <= dl and Fraction(1, 2) <= a1 <= 1 and a1 + 2 * e1 == Fraction(7, 8)
-    ok &= a1 + 8 * e1 <= Fraction(7, 8) + dl
-    d = min(dl, 1)
-    e = min(d / 12, Fraction(1, 2000))
-    eps = d / 8
-    a = Fraction(7, 8) - 2 * e
-    ok &= 0 < e < Fraction(1, 1000) and 0 < eps <= Fraction(1, 8) and Fraction(1, 2) <= a
-    ok &= a + 8 * e <= 1 and a + 8 * e + 4 * eps <= Fraction(7, 8) + dl and a + 2 * e == Fraction(7, 8)
-for eta, theta in [(Fraction(1, 1000), Fraction(7, 8) + Fraction(1, 10**6)), (Fraction(1), Fraction(9, 10)),
-                   (Fraction(1000), Fraction(1)), (Fraction(1, 7), Fraction(15, 16))]:
-    dc = (theta - Fraction(7, 8)) * eta / (1 + eta)
-    ok &= dc > 0 and dc / eta + Fraction(7, 8) + dc == theta
-report("I", ok, "parameters of Theorems 1.4, 1.5 and Corollary 1.6, exact rationals")
+# (D) exponents
+F = Fraction
+delta, a = F(1, 2000), F(7, 8) - F(1, 1000)
+sigma0 = a + 8 * delta
+ok = 0 < delta < F(1, 1000) and F(1, 2) <= a <= 1 and a + 2 * delta == F(7, 8)
+ok &= sigma0 == F(7, 8) + F(3, 1000) and 1 + sigma0 - F(47, 50) < F(19, 20)
+ok &= 17 * (sigma0 - 1) < -2 and 2 ** float(1 + sigma0) <= 4
+report("D", ok, f"sigma_0 = {sigma0} = 7/8 + 3/1000, 1 + sigma_0 - 47/50 = {1 + sigma0 - F(47, 50)} < 19/20, "
+       f"17(sigma_0 - 1) = {17 * (sigma0 - 1)} < -2")
 
-# (J) Gauss sums and Polya's bound for the quadratic characters (Lemma 7.1), and the ratio
-# max_x |sum_{n<=x} (n/q)| / (sqrt(q) log log q) (Theorem 1.7)
-def quad_table(q):
-    tab = [-1] * q
-    tab[0] = 0
-    for a in range(1, q):
-        tab[a * a % q] = 1
-    return tab
+# (E) Corollary 3.8
+ok, cases = True, 0
+for q in [3, 5, 101]:
+    lam = [0.0] * 3001
+    for n in range(2, 3001):
+        p = spf[n]
+        m = n
+        while m % p == 0:
+            m //= p
+        if m == 1:
+            lam[n] = legendre(n, q) * math.log(p)
+    T = lambda y: sum(lam[n] * (y - n) for n in range(1, math.floor(y) + 1))
+    for _ in range(40):
+        x = 1 + 1400 * rnd()
+        h = x * rnd()
+        fx, fxh = math.floor(x), math.floor(x + h)
+        lhs = T(x + h) - T(x)
+        rhs = h * sum(lam[1:fx + 1]) + sum(lam[n] * (x + h - n) for n in range(fx + 1, fxh + 1))
+        ok &= abs(lhs - rhs) <= 1e-7 * (1 + abs(lhs)) and fxh - fx <= h + 1
+        cases += 1
+for k in range(0, 6001):
+    x = 10 ** (k / 100)
+    ok &= math.log(2 * x) <= 1 + 100 * x ** 0.01 and 2 * math.sqrt(x) * math.log(x) <= 200 * x ** 0.95
+worst = 0.0
+for q in [3, 5, 7, 11, 13, 101, 997]:
+    run = 0.0
+    for p in primes:
+        run += legendre(p, q) * math.log(p)
+        worst = max(worst, abs(run) / (p ** 0.95 * math.log(q + 2)))
+report("E", ok, f"T(x+h) - T(x) identity in {cases} cases, log(2x) <= 1 + 100 x^(1/100), "
+       f"2 sqrt(x) log x <= 200 x^(19/20); max |sum xi(p) log p| / (x^(19/20) log(k+2)) = {worst:.4f}")
 
-isp = sieve(20000)
-ok, worst_tau, nq, worst_ratio = True, 0.0, 0, 0.0
-for q in range(3, 20001):
-    if not isp[q]:
-        continue
-    tab = quad_table(q)
-    run, m = 0, 0
-    for n in range(1, q):
-        run += tab[n]
-        m = max(m, abs(run))
-    if q <= 3000:
-        tau = sum(tab[a] * cmath.exp(2j * math.pi * a / q) for a in range(1, q))
-        worst_tau = max(worst_tau, abs(abs(tau) ** 2 - q) / q)
-        b0 = sum(1 / k for k in range(1, q // 2 + 1))
-        ok &= m <= math.sqrt(q) * (b0 + 6)
-        nq += 1
-    if q >= 1000:
-        worst_ratio = max(worst_ratio, m / (math.sqrt(q) * math.log(math.log(q))))
-ok &= worst_tau < 1e-9 and worst_ratio < 2
-report("J", ok, f"|tau|^2 = q (max rel. error {worst_tau:.1e}) and max|S| <= sqrt(q)(B+6) for {nq} primes; "
-       f"max ratio for 1000 <= q <= 20000: {worst_ratio:.4f}")
 
-# (K) |1/(1 - e(-theta)) - 1/(2 pi i theta)| < 3 for 0 < |theta| <= 1/2
-ok, worst = True, 0.0
-for k in range(1, 500001):
-    for th in (k / 10**6, -k / 10**6):
-        r = 1 / (1 - cmath.exp(-2j * math.pi * th)) - 1 / (2j * math.pi * th)
-        worst = max(worst, abs(r))
-ok &= worst < 3
-report("K", ok, f"|r(theta)| on 10^6 grid points of 0 < |theta| <= 1/2, max {worst:.6f}")
-
-# (L) Proposition 7.4: M = ceil(L), R = M^16, Y = M^700
-ok = True
-for L in [200.0, 200.5, 201.0, 250.0, 1000.0, 1e4, 1e6, 1e9]:
-    M = math.ceil(L)
-    lM = math.log(M)
-    ok &= (L / 16) ** 4 / 24 > L + 1 >= M and 16 * lM < L       # e^(L/16) > M, so R < q
-    ok &= M ** 16 >= 2 and lM >= 1 and M <= 2 * L
-    rho = L ** 2 / M ** 4
-    ok &= rho * (1 + L) <= 2 / M <= 128
-    logqR = L + 16 * lM + math.log1p(2 * math.exp(-L - 16 * lM))  # log(q R + 2)
-    ok &= logqR <= 18 * M and 2 + 2 * math.pi * M ** 16 <= 8 * M ** 16
-    # k = R log(qR+2) (2 + 2 pi R) / (Y^(1/20) log Y) with Y^(1/20) = M^35, written without overflow
-    k = logqR * (2 / M ** 16 + 2 * math.pi) / (M ** 3 * 700 * lM)
-    ok &= k * (1 + L) <= 288 / (700 * M) <= 1
-    ok &= 700 * lM <= 1400 * math.log(L)
-s1, ok1 = 0.0, True
-for t in range(2, 10**6 + 1):
-    s1 += 1 / (t * math.log(t))
-    if t in (2, 3, 10, 100, 10**3, 10**4, 10**5, 10**6):
-        ok1 &= s1 <= 3 + math.log(math.log(t)) if t >= 3 else s1 <= 3
-ok &= ok1
-report("L", ok, "parameter inequalities of Proposition 7.4 at 8 values of log q; "
-       "sum_{2<=t<=H} 1/(t log t) <= 3 + log log H for H <= 10^6")
-
-# (M) Lemma 6.2 (spacing) and Lemma 6.3 (bilinear bounds) on random data
 def dist(x):
     return abs(x - round(x))
+
 
 def wM(M, th):
     d = dist(th)
     return M if d < 1 / M else 1 / d
 
+
+# (F) Lemmas 4.2 and 4.3
 ok, cases = True, 0
 for _ in range(3000):
     r = 2 + int(400 * rnd())
@@ -366,14 +269,14 @@ for _ in range(3000):
     ok &= sum(ws) <= (4 * H / r + 1) * (3 * M + 4 * r + 8 * r * K)    # (iii)
     ok &= sum(w * w for w in ws) <= (4 * H / r + 1) * (20 * r * M + 3 * M * M)
     cases += 1
-for _ in range(2000):                                                # Lemma 6.3 (i)
+for _ in range(2000):                                                # Lemma 4.3 (i)
     th = 2 * rnd() - 1
     U = 0.5 + 300 * rnd()
     A = int(1000 * rnd())
     B = A + int(U * rnd())
     S = sum(cmath.exp(2j * math.pi * x * th) for x in range(A + 1, B + 1))
     ok &= abs(S) <= wM(U, th) * (1 + 1e-9)
-for _ in range(300):                                                 # Lemma 6.3 (ii), (iii)
+for _ in range(300):                                                 # Lemma 4.3 (ii), (iii)
     alpha = rnd()
     U = 1 + 50 * rnd()
     A = int(100 * rnd())
@@ -389,13 +292,13 @@ for _ in range(300):                                                 # Lemma 6.3
     Mm = 0.5 + 100 * rnd()
     lhs = sum(wM(Mm, (m - m2) * alpha) for m in range(1, Hh + 1) for m2 in range(1, Hh + 1))
     ok &= lhs <= Hh * (Mm + 2 * sum(wM(Mm, h * alpha) for h in range(1, Hh + 1))) * (1 + 1e-12)
-report("M", ok, f"Lemma 6.2 (i)-(iii) for {cases} random (alpha, a/r), Lemma 6.3 (i) at 2000 and (ii), (iii) at 300 random cases")
+report("F", ok, f"Lemma 4.2 (i)-(iii) for {cases} random (alpha, a/r), Lemma 4.3 (i) at 2000 and (ii), (iii) "
+       "at 300 random cases")
 
-# (N) Lemma 6.4: |S log N - sum_p log p f(p) sum_{m<=N/p} f(m) e(pm alpha)| <= C5 N
+# (G) Lemma 4.4
 zeta32 = 2.612375348685488
 C5 = 1 + 4 * zeta32
 ok, worst = True, 0.0
-spf_small = smallest_prime_factor(3000)
 for trial in range(60):
     N = 2 + int(2998 * rnd())
     alpha = rnd()
@@ -407,98 +310,94 @@ for trial in range(60):
         f = [0j] * (N + 1)
         f[1] = 1
         for n in range(2, N + 1):
-            p = spf_small[n]
+            p = spf[n]
             if p not in fp:
                 fp[p] = cmath.exp(2j * math.pi * rnd()) * (rnd() if trial % 3 == 2 else 1)
             f[n] = fp[p] * f[n // p]
-    ev = [cmath.exp(2j * math.pi * n * alpha) for n in range(N + 1)]
-    S = sum(f[n] * ev[n] for n in range(1, N + 1))
+    S = sum(f[n] * cmath.exp(2j * math.pi * n * alpha) for n in range(1, N + 1))
     T = 0j
     for p in range(2, N + 1):
-        if spf_small[p] == p:
-            T += math.log(p) * f[p] * sum(f[m] * cmath.exp(2j * math.pi * p * m * alpha) for m in range(1, N // p + 1))
+        if spf[p] == p:
+            T += math.log(p) * f[p] * sum(f[m] * cmath.exp(2j * math.pi * p * m * alpha)
+                                          for m in range(1, N // p + 1))
     err = abs(S * math.log(N) - T) / N
     worst = max(worst, err)
     ok &= err <= C5
-report("N", ok, f"Lemma 6.4 for 60 completely multiplicative f, N <= 3000: max error / N = {worst:.4f} <= C5 = {C5:.4f}")
+report("G", ok, f"Lemma 4.4 for 60 completely multiplicative f, N <= 3000: max error / N = {worst:.4f} "
+       f"<= C_5 = {C5:.4f}")
 
-# (O) Lemma 6.5
+# (H) Lemma 4.5
 XO = 10**5
-isp_o = sieve(XO + 200)
+
 
 def Gfun(h):
-    h = abs(h)
-    g, p, n = 1.0, 2, h
-    while p * p <= n:
-        if n % p == 0:
-            g *= p / (p - 1)
-            while n % p == 0:
-                n //= p
-        p += 1
-    if n > 1:
-        g *= n / (n - 1)
+    g = 1.0
+    for p in prime_factors(h, spf):
+        g *= p / (p - 1)
     return g
 
+
 ok, worst = True, 0.0
-for h in list(range(2, 101, 2)) + list(range(-100, 0, 2)):
+for h in range(2, 101, 2):
     g2 = Gfun(h) ** 2
     bound = lambda X: 400 * g2 * X / math.log(X) ** 2 + 3 * X ** 0.6
-    # the count for X counts 0 <= n < X; it changes only at X = n + 1 for a pair (n, n + h), and the
-    # bound increases for X >= 8, so it suffices to check every X <= 8 and every jump
+    # the count for X changes only at X = n + 1 for a pair (n, n + h), and the bound increases for
+    # X >= 8, so it suffices to check every X <= 8 and every jump
     cnt = 0
     for X in range(2, XO + 1):
         n = X - 1
-        jump = n + h >= 0 and isp_o[n] and isp_o[n + h]
+        jump = is_p[n] and is_p[n + h]
         if jump:
             cnt += 1
         if jump or X <= 8:
             ok &= cnt <= bound(X)
             worst = max(worst, cnt / bound(X))
-okR = True
 for X in [1, 2, 7, 100, 1001, 2000]:
-    for h in [2, 6, 30, 98, -4]:
+    for h in [2, 4, 6, 30, 98]:
         for d in [1, 3, 5, 7, 15, 21, 35, 105, 11, 143, 3 * 5 * 7 * 11]:
             if math.gcd(d, h) != 1:
                 continue
-            tau = 2 ** sum(1 for p in [3, 5, 7, 11, 13] if d % p == 0)
+            k = sum(1 for p in [3, 5, 7, 11, 13] if d % p == 0)
             c = sum(1 for n in range(X) if (n * (n + h)) % d == 0)
-            okR &= abs(c - tau * X / d) <= tau
-# T = floor(sqrt(floor(X^(1/10)))) satisfies (T+1)^20 > X
-okT = True
-for X in list(range(2, 10**5)) + [10**k for k in range(6, 40)]:
-    m = int(round(X ** 0.1)) + 2
-    while m ** 10 > X:
-        m -= 1
-    T = math.isqrt(m)
-    okT &= (T + 1) ** 20 > X
-okG, acc, worstG = True, 0.0, 0.0
+            ok &= abs(c - 2 ** k * X / d) <= 2 ** k and 6 ** k <= d * d
+for X in range(2, 10**5):                       # T = floor(X^(1/20)): (T+1)^20 > X
+    T = int(round(X ** 0.05))
+    while T ** 20 > X:
+        T -= 1
+    while (T + 1) ** 20 <= X:
+        T += 1
+    ok &= (T + 1) ** 20 > X
+for m in range(1, 10**5):                       # tau(m) <= 2^Omega(m)
+    n, tau, Om = m, 1, 0
+    while n > 1:
+        p, e = spf[n], 0
+        while n % p == 0:
+            n //= p
+            e += 1
+        tau *= e + 1
+        Om += e
+    ok &= tau <= 2 ** Om
+acc, worstG = 0.0, 0.0
 for h in range(1, XO + 1):
-    g = 1.0
-    for p in prime_factors(h, spf):
-        g *= p / (p - 1)
-    acc += g ** 4
+    acc += Gfun(h) ** 4
     worstG = max(worstG, acc / h)
-okG &= worstG <= math.exp(30)
-okG &= all((t + 1) ** 5 <= (t + 31) * t ** 4 for t in range(1, 10**5))
-okG &= math.pi ** 2 / 6 - 1 <= 1
-ok &= okR and okT and okG
-report("O", ok, f"prime pairs: count <= 400 G(h)^2 X/log^2 X + 3 X^(3/5) for X <= 10^5, 0 < |h| <= 100 even "
-       f"(max ratio {worst:.4f}); |R_d| <= tau(d); (T+1)^20 > X; max_X X^-1 sum G(h)^4 = {worstG:.3f} <= e^30")
+ok &= worstG <= math.exp(30) and math.pi ** 2 / 6 - 1 <= 1
+ok &= all((t + 1) ** 5 <= (t + 31) * t ** 4 for t in range(1, 10**5))
+report("H", ok, f"prime pairs: count <= 400 G(h)^2 X/log^2 X + 3 X^(3/5) for X <= 10^5, even 2 <= h <= 100 "
+       f"(max ratio {worst:.4f}); |R_d| <= 2^omega(d); tau(m) <= 2^Omega(m); "
+       f"max_X X^-1 sum G(h)^4 = {worstG:.3f} <= e^30")
 
-# (P) constants and parameters in the proof of Theorem 6.1
-ok = True
-ok &= 64 * math.log(2) < 45
+# (I) constants and parameters in the proof of Theorem 4.1
+ok = 64 * math.log(2) < 45
 for ell in range(64, 10**4 + 1):
     I = ell.bit_length()                 # floor(log2 ell) + 1
     J = ell + 1 - 4 * I
     ok &= 16 ** I > ell ** 4 and 1 <= J <= ell and 4 * I <= ell and 2 ** I <= 2 * ell
     ok &= 2 ** J * 16 ** I == 2 ** (ell + 1)
     ok &= J * J * 2 ** J * ell ** 4 <= (ell + 1) ** 2 * 2 ** (ell + 1) and (ell + 1) ** 2 <= ell ** 4
-ok &= math.log(2) >= 0.5                 # ell <= log2 N <= 2 log N
+ok &= 1 / math.log(2) <= 2                # ell <= log2 N <= 2 log N
 ok &= Fraction(7, 4) / Fraction(1, 4) ** 3 == 112   # sum (j+1)^2 x^j = (1+x)/(1-x)^3 at x = 3/4
-tail = sum(Fraction((j + 1) ** 2 * 3 ** j, 4 ** j) for j in range(400))
-ok &= 111.99 < float(tail) <= 112
-ok &= all((1 + 2 * j) * 8 ** j <= 2 * (j + 1) ** 2 * 9 ** j for j in range(2000))  # sqrt((32+64j)/2^j) <= 8(j+1)(3/4)^j
+ok &= all((1 + 2 * j) * 8 ** j <= 2 * (j + 1) ** 2 * 9 ** j for j in range(2000))
 ok &= all(sum(2 ** (j / 2) for j in range(J)) <= 3 * 2 ** (J / 2) for J in range(1, 200))
 ok &= 3 * math.sqrt(14) <= 12 and math.sqrt(24) <= 5 and 8 * 112 + 12 == 908
 ok &= 6 * 225 == 1350 <= 37 ** 2 and 15 + 37 == 52
@@ -512,49 +411,182 @@ pl = sum(math.log(p) / (p * (p - 1)) for p in primes)
 ok &= pl <= 2 * sum(math.log(p) / p ** 2 for p in primes) <= 2 * zeta32
 Kb = 80 * math.sqrt(800 * math.exp(15)) + 52
 C1 = 45 + C5 + 908 + 216018 * Kb + 60 + 2 * Kb
-report("P", ok, f"constants of Theorem 6.1: coefficients <= 40^4, 896 = 8*112, I, J for 64 <= ell <= 10^4; "
+report("I", ok, f"constants of Theorem 4.1: coefficients <= 40^4, 896 = 8*112, I, J for 64 <= ell <= 10^4; "
        f"K_b = {Kb:.4e}, C_1 = {C1:.4e}")
 
-# (Q) Lemma 8.1: Psi(x, y) log x <= x (1 + 2 log y + 2 log 4), and sum_{n<=x} log(x/n) <= x
-XQ = 2 * 10**5
-lpf = [1] * (XQ + 1)
-for p in primes:
-    if p > XQ:
-        break
-    for j in range(p, XQ + 1, p):
-        lpf[j] = p                       # primes in increasing order: the largest wins
-ok, worst = True, 0.0
-for y in [1, 2, 3, 5, 7, 10, 20, 50, 100, 1000, 10**4, 10**5]:
-    cnt = 0
-    rhs0 = 1 + 2 * math.log(y) + 2 * math.log(4)
-    for x in range(1, XQ + 1):
-        if lpf[x] <= y:
-            cnt += 1
-        r = cnt * math.log(x) / (x * rhs0)
-        worst = max(worst, r)
-        ok &= r <= 1 + 1e-12
-for k in range(0, 40001):
-    x = 1 + k / 4
-    N = math.floor(x)
-    ok &= N * math.log(x) - math.lgamma(N + 1) <= x + 1e-9
-report("Q", ok, f"Lemma 8.1 for integers x <= {XQ} and 12 values of y, max ratio {worst:.4f}; "
-       "sum log(x/n) <= x on a grid of 1 <= x <= 10^4")
 
-# (R) proof of Theorem 1.8: L = log q, M = ceil(L), Y = M^40
-c = math.log(math.log(3))
-ok = c > 0 and 40 * math.log(2) > 1 and math.log(2) < 1 and math.log(4) < 2
-for q in range(3, 10**6 + 1):
-    L = math.log(q)
+# (J) Lemma 5.1
+def quad_table(q):
+    tab = [-1] * q
+    tab[0] = 0
+    for a in range(1, q):
+        tab[a * a % q] = 1
+    return tab
+
+
+ok, worst_tau, nq, worst_ratio = True, 0.0, 0, 0.0
+for q in range(3, 20001):
+    if not is_p[q]:
+        continue
+    tab = quad_table(q)
+    run, m = 0, 0
+    for n in range(1, q):
+        run += tab[n]
+        m = max(m, abs(run))
+    if q <= 3000:
+        tau = sum(tab[a] * cmath.exp(2j * math.pi * a / q) for a in range(1, q))
+        worst_tau = max(worst_tau, abs(abs(tau) ** 2 - q) / q)
+        b0 = sum(1 / k for k in range(1, q // 2 + 1))
+        ok &= m <= math.sqrt(q) * (b0 + 6)
+        nq += 1
+    if q >= 1000:
+        worst_ratio = max(worst_ratio, m / (math.sqrt(q) * math.log(math.log(q))))
+worst = 0.0
+for k in range(1, 500001):
+    for th in (k / 10**6, -k / 10**6):
+        r = 1 / (1 - cmath.exp(-2j * math.pi * th)) - 1 / (2j * math.pi * th)
+        worst = max(worst, abs(r))
+ok &= worst_tau < 1e-9 and worst_ratio < 2 and worst < 3
+report("J", ok, f"|tau|^2 = q (max rel. error {worst_tau:.1e}) and max|S| <= sqrt(q)(B+6) for {nq} primes; "
+       f"max ratio for 1000 <= q <= 20000: {worst_ratio:.4f}; max |r(theta)| = {worst:.6f} < 3")
+
+# (K) Lemma 5.2, Lemma 5.3, Proposition 5.4
+ok, prod, worstS = True, 1.0, 0.0
+for Y in range(2, LIMIT + 1):
+    if is_p[Y]:
+        prod /= 1 - 1 / Y
+    worstS = max(worstS, prod / (math.exp(11) * math.log(Y)))
+ok &= worstS <= 1
+s19 = 0.0
+for m in range(1, 10**6 + 1):
+    s19 += m ** -0.95
+    if m % 997 == 0 or m < 100:
+        ok &= s19 <= 20 * m ** 0.05
+for L in [200.0, 200.5, 201.0, 250.0, 1000.0, 1e4, 1e6, 1e9]:
     M = math.ceil(L)
-    ok &= M >= 2 and L <= M <= L + 1 <= 2 * L and q + 2 <= q * q
-    ok &= 1 + 2 * (40 * math.log(M) + math.log(4)) <= 85 + 80 * math.log(L) <= (85 / c + 80) * math.log(L)
-for k in range(0, 9001):
-    L = math.log(3) * 10 ** (k / 1000)
-    M = math.ceil(L)
-    ok &= M >= 2 and M <= 2 * L and 40 * math.log(M) <= 40 * math.log(2) + 40 * math.log(L) + 1e-9
-    ok &= 1 + 2 * (40 * math.log(M) + math.log(4)) <= (85 / c + 80) * math.log(L) + 1e-9
-report("R", ok, f"parameter inequalities of Theorem 1.8 for 3 <= q <= 10^6 and log 3 <= log q <= 10^9 log 3; "
-       f"85/log log 3 + 80 = {85 / c + 80:.2f}")
+    lM = math.log(M)
+    ok &= (L / 16) ** 4 / 24 > L + 1 >= M and 16 * lM < L       # e^(L/16) > M, so R < q
+    ok &= M ** 16 >= 2 and lM >= 1 and M <= 2 * L
+    rho = L ** 2 / M ** 4
+    ok &= rho * (1 + L) <= 2 / M <= 1
+    logqR = L + 16 * lM + math.log1p(2 * math.exp(-L - 16 * lM))  # log(q R + 2)
+    ok &= logqR <= 18 * M and 2 + 2 * math.pi * M ** 16 <= 8 * M ** 16
+    k = logqR * (2 / M ** 16 + 2 * math.pi) / (M ** 3 * 700 * lM)  # R log(qR+2)(2+2 pi R)/(Y^(1/20) log Y)
+    ok &= k * (1 + L) <= 288 / (700 * M) <= 1
+    ok &= 700 <= 700 * lM <= 1400 * math.log(L)
+s1 = 0.0
+for t in range(2, 10**6 + 1):
+    s1 += 1 / (t * math.log(t))
+    if t in (2, 3, 10, 100, 10**3, 10**4, 10**5, 10**6):
+        ok &= s1 <= 3 + math.log(math.log(t)) if t >= 3 else s1 <= 3
+report("K", ok, f"prod_(p<=Y) (1-1/p)^-1 <= e^11 log Y for Y <= 10^6 (max ratio {worstS:.2e}); "
+       "sum m^(-19/20) <= 20 M^(1/20); Proposition 5.4 at 8 values of log q")
+
+# (L) Lemmas 6.2 and 6.3
+XL = 4 * LIMIT
+
+
+def is_prime_power(n):
+    if is_p[n]:
+        return True
+    p = spf[n] if n <= LIMIT else next(p for p in primes if n % p == 0)
+    while n % p == 0:
+        n //= p
+    return n == 1
+
+
+ok, cases, worstB, worstN = True, 0, 0.0, 0.0
+for q in [p for p in primes if 101 <= p <= 401]:
+    j = 0
+    while 2 ** (j + 1) * q <= XL:
+        M = 2 ** j
+        cnt = sum(1 for m in range(M, 2 * M) if is_prime_power(1 + m * q))
+        worstN = max(worstN, cnt / (393 * M / (j + 1)))
+        ok &= cnt <= 393 * M / (j + 1)
+        for z in sorted({2, 3, 5, 10, 30, math.isqrt(q), q - 1}):
+            bnd = 2 * M / math.log(z) + z * (1 + math.log(z)) ** 2 + z
+            worstB = max(worstB, cnt / bnd)
+            ok &= cnt <= bnd
+            cases += 1
+        j += 1
+for k in range(0, 200001):
+    u = 1 + k / 1000
+    ok &= (2 + u) ** 2 * (32 * u + 1) <= 297 * u ** 3 and u ** 3 <= 2 ** (3 * u)
+    ok &= (1 + u * math.log(2)) ** 2 + 1 <= (2 + u) ** 2
+ok &= all(64 * (j + 1) <= 96 * j * math.log(2) for j in range(32, 10**5))
+ok &= 50 * math.log(2) <= 35 and math.log(25) <= 4 and math.log(math.log(3)) > 1 / 11
+ok &= 40 <= 440 * math.log(math.log(3)) and 393 == 96 + 297
+for q in primes[1:]:
+    J = math.floor(16 * math.log2(q)) + 1
+    ok &= J <= 25 * math.log(q) and 2 ** J > q ** 16 and 2 ** J <= 2 * q ** 16
+report("L", ok, f"block counts <= sieve bound in {cases} cases (max ratio {worstB:.4f}); N_j <= 393 2^j/(j+1) "
+       f"(max ratio {worstN:.4f}); the inequalities of Lemma 6.3 on grids and for primes q <= 10^6")
+
+# (M) Theorem 1.3: L'/L(1, chi) = -log q + sum chi(a) gamma_1(a/q) / sum chi(a) psi(a/q)
+B2 = [Fraction(1, 6), Fraction(-1, 30), Fraction(1, 42), Fraction(-1, 30), Fraction(5, 66),
+      Fraction(-691, 2730), Fraction(7, 6), Fraction(-3617, 510)]
+HARM = [sum(Fraction(1, i) for i in range(1, n + 1)) for n in range(20)]
+EM_N = 30
+
+
+def digamma(a):
+    x = a + EM_N
+    s = math.log(x) - 1 / (2 * x) - sum(float(B2[j]) / ((2 * j + 2) * x ** (2 * j + 2)) for j in range(8))
+    return s - sum(1 / (a + k) for k in range(EM_N))
+
+
+def stieltjes1(a):
+    # gamma_1(a) = lim_M (sum_{k<=M} log(k+a)/(k+a) - log^2(M+a)/2), by Euler-Maclaurin at x = a + N
+    x = a + EM_N
+    lx = math.log(x)
+    s = sum(math.log(a + k) / (a + k) for k in range(EM_N)) - lx * lx / 2 + lx / (2 * x)
+    s += sum(float(B2[j]) * (lx - float(HARM[2 * j + 1])) / ((2 * j + 2) * x ** (2 * j + 2)) for j in range(8))
+    return s
+
+
+EULER = 0.5772156649015329
+ok = abs(digamma(1) + EULER) < 1e-13 and abs(stieltjes1(1) + 0.0728158454836767) < 1e-13
+ok &= abs(digamma(0.5) + EULER + 2 * math.log(2)) < 1e-13
+
+
+def primitive_root(q):
+    fs = prime_factors(q - 1, spf)
+    return next(g for g in range(2, q) if all(pow(g, (q - 1) // f, q) != 1 for f in fs))
+
+
+def ek(q):
+    g = primitive_root(q)
+    pw = [pow(g, k, q) for k in range(q - 1)]
+    ps = [digamma(pw[k] / q) for k in range(q - 1)]
+    g1 = [stieltjes1(pw[k] / q) for k in range(q - 1)]
+    roots = [cmath.exp(2j * math.pi * m / (q - 1)) for m in range(q - 1)]
+    tot, mx = 0j, 0.0
+    for j in range(1, q - 1):
+        num = sum(roots[j * k % (q - 1)] * g1[k] for k in range(q - 1))
+        den = sum(roots[j * k % (q - 1)] * ps[k] for k in range(q - 1))
+        r = -math.log(q) + num / den
+        tot += r
+        mx = max(mx, abs(r))
+    return EULER + tot, mx
+
+
+# gamma_q from mpmath at 90 digits: euler + sum over chi != 1 of L'/L(1, chi), the logarithmic
+# derivative taken from the Hurwitz zeta function and its derivative at s = 1 + 10^-25
+REF = {3: 0.945497280871680703, 5: 1.72062421251340476, 7: 2.08759407471733013,
+       11: 2.41542590428326783, 13: 2.6107577374176502, 19: 4.79040941571428333,
+       101: 5.29701289150966972, 199: 6.47366513609320739, 293: 3.38438152121953979}
+lo, hi, mxr, vals = 1e9, -1e9, 0.0, {}
+for q in [p for p in primes if 3 <= p <= 300]:
+    gq, mx = ek(q)
+    vals[q] = gq.real
+    ok &= abs(gq.imag) < 1e-9
+    lo, hi = min(lo, gq.real / math.log(q)), max(hi, gq.real / math.log(q))
+    mxr = max(mxr, mx / math.log(math.log(q)))
+worstR = max(abs(vals[q] - v) for q, v in REF.items()) if REF else 0.0
+ok &= worstR < 1e-9
+report("M", ok, f"gamma_q for primes 3 <= q <= 300 is real with {lo:.4f} <= gamma_q/log q <= {hi:.4f}; "
+       f"max |L'/L(1,chi)|/log log q = {mxr:.4f}; gamma_3 = {vals[3]:.12f}, gamma_19 = {vals[19]:.12f}; "
+       f"{len(REF)} values agree with mpmath to {worstR:.1e}")
 
 print(f"{'ALL PASS' if failures == 0 else str(failures) + ' FAILED'}")
 sys.exit(1 if failures else 0)
