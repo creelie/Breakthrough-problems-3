@@ -7,7 +7,7 @@ and Ushashi Bhattacharya (Formerly, National Taiwan University, Taipei 106319,
 Taiwan; rai.bhattacharya.in@gmail.com; ORCID 0009-0002-2254-3914).
 
 Paper: [`preprintPolyaVinogradovLogLog/PolyaVinogradovLogLog.pdf`](preprintPolyaVinogradovLogLog/PolyaVinogradovLogLog.pdf).
-Lean formalisation and verification code on Zenodo: doi:10.5281/zenodo.0000000.
+Lean formalisation and verification code on Zenodo: doi:[10.5281/zenodo.23383716](https://doi.org/10.5281/zenodo.23383716) (release v1.0.0; all versions: doi:[10.5281/zenodo.23383715](https://doi.org/10.5281/zenodo.23383715)).
 
 ## Results
 
