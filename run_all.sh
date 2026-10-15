@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Runs every check of "Vinogradov's conjectures on primitive roots and character sums":
+# Runs every check of "The Pólya–Vinogradov inequality with log log q":
 # the Python, Julia, C and C++ programs, then the Lean build and the axiom check.
 # Usage: ./run_all.sh [--skip-lean]
 set -euo pipefail
@@ -27,7 +27,7 @@ import re, sys
 text = " ".join(open(sys.argv[1]).read().split())
 lists = re.findall(r"depends on axioms: \[([^\]]*)\]", text)
 allowed = {"propext", "Classical.choice", "Quot.sound"}
-ok = len(lists) == 8 and all({a.strip() for a in l.split(",")} <= allowed for l in lists)
+ok = len(lists) == 17 and all({a.strip() for a in l.split(",")} <= allowed for l in lists)
 ok = ok and "sorryAx" not in text and "does not depend" not in text
 print("axiom lists:", len(lists))
 sys.exit(0 if ok else 1)

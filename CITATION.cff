@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this work, please cite it as below."
-title: "Vinogradov's conjectures on primitive roots and character sums: paper, Lean 4 formalization and verification code"
+title: "The Pólya–Vinogradov inequality with log log q: paper, Lean 4 formalization and verification code"
 authors:
   - family-names: Bhattacharjee
     given-names: Deep
@@ -11,9 +11,9 @@ repository-code: "https://github.com/creelie/Breakthrough-problems-3"
 version: 1.0.0
 date-released: 2026-10-14
 keywords:
-  - primitive roots
-  - Vinogradov's conjecture
+  - Pólya–Vinogradov inequality
   - character sums
+  - primitive roots
   - Lindelöf hypothesis
   - Dirichlet L-functions
   - zero-free region

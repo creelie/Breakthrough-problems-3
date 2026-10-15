@@ -1,4 +1,4 @@
-Vinogradov's conjectures on primitive roots and character sums
+The Pólya–Vinogradov inequality with log log q
 Copyright 2026 Deep Bhattacharjee
 
 This package is distributed under the Apache License, Version 2.0 (LICENSE).
@@ -15,7 +15,10 @@ lean/PrimeNumberTheoremAnd/
   https://github.com/AlexKontorovich/PrimeNumberTheoremAnd, commit
   c39a751132c88b6e8080b74c74023fd95b3d8be0, the files imported by lean/OAI/,
   with OpenAI's patch lean/patches/PrimeNumberTheoremAnd-lean4341.patch for
-  Lean v4.34.1 applied.
+  Lean v4.34.1 applied. The four files
+  lean/PrimeNumberTheoremAnd/Mathlib/NumberTheory/Sieve/{AuxResults,Basic,
+  Selberg,SelbergBounds}.lean (the Selberg sieve, by Arend Mellendijk) are
+  copied unchanged from the same commit.
 
 lean/RellichKondrachov/
   https://github.com/abenenson/rellich-kondrachov, commit

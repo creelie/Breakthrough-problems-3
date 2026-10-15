@@ -1,10 +1,21 @@
-// Numerical checks in C++ for "Vinogradov's conjectures on primitive roots and character sums".
+// Numerical checks in C++ for "The Pólya–Vinogradov inequality with log log q".
 // (A) G(p) < p for every prime 3 <= p <= 10^8 (p - 1 factored by trial division);
 // (F1) partial sums of sum chi_{-3}(n) Lambda(n) n^{-2} at x = 10^3, 10^5, 10^7;
 // (F2) sum_m e(-m/p) sum_{(n,p-1)=1} e(m g^n / p) = -phi(p-1) for p = 101, 1009, 10007;
 // (G) the unsmoothing identity of Lemma 5.2 in exact rational arithmetic;
 // (H) the kernel and size bounds in the proof of Proposition 5.3 at random points;
-// (I) the parameters of Theorems 1.4, 1.5 and Corollary 1.6 in exact rationals.
+// (I) the parameters of Theorems 1.4, 1.5 and Corollary 1.6 in exact rationals;
+// (J) |tau|^2 = q and Lemma 7.1 for the quadratic characters modulo primes q <= 3000, and the ratio
+//     max_x |sum_{n<=x} (n/q)| / (sqrt(q) log log q) for primes 1000 <= q <= 20000;
+// (K) the bound |r(theta)| < 3 in the proof of Lemma 7.1 on a grid;
+// (L) the parameter inequalities in the proof of Proposition 7.4;
+// (M) Lemmas 6.2 and 6.3 (spacing of the multiples of alpha, the bilinear bounds) on random data;
+// (N) Lemma 6.4 for characters and random completely multiplicative f;
+// (O) Lemma 6.5: the prime pair bound for X <= 10^5 and even 0 < |h| <= 100, the sieve
+//     remainders |R_d| <= tau(d), and the fourth moment of G(h) for X <= 10^5;
+// (P) the numerical constants and the parameters I, J in the proof of Theorem 6.1;
+// (Q) Lemma 8.1 for x <= 2*10^5 and twelve values of y;
+// (R) the parameter inequalities in the proof of Theorem 1.8.
 // Exit status 1 if a check fails.
 #include <cmath>
 #include <complex>
@@ -13,6 +24,8 @@
 #include <functional>
 #include <numeric>
 #include <vector>
+#include <algorithm>
+#include <cstdlib>
 
 using u64 = std::uint64_t;
 
@@ -52,6 +65,37 @@ static long long floorq(Frac a) {
   __int128 q = a.n / a.d;
   if (a.n < 0 && q * a.d != a.n) q--;
   return (long long)q;
+}
+
+// Section 6
+static double dist1(double x) { return std::fabs(x - std::nearbyint(x)); }
+static double wM(double M, double th) {
+  double d = dist1(th);
+  return d < 1 / M ? M : 1 / d;
+}
+static const double ZETA32 = 2.612375348685488;
+static int legendre_q(long long n, long long q) {
+  u64 r = powmod((u64)(((n % q) + q) % q), (u64)((q - 1) / 2), (u64)q);
+  return r == 0 ? 0 : (r == 1 ? 1 : -1);
+}
+static std::vector<int> spf_upto(int n) {
+  std::vector<int> spf(n + 1);
+  for (int i = 0; i <= n; i++) spf[i] = i;
+  for (int i = 2; (long long)i * i <= n; i++)
+    if (spf[i] == i)
+      for (int j = i * i; j <= n; j += i)
+        if (spf[j] == j) spf[j] = i;
+  return spf;
+}
+static double Gof(long long h, const std::vector<int>& spf) {
+  double g = 1;
+  long long n = h < 0 ? -h : h;
+  while (n > 1) {
+    int p = spf[n];
+    g *= double(p) / (p - 1);
+    while (n % p == 0) n /= p;
+  }
+  return g;
 }
 
 int main() {
@@ -219,6 +263,367 @@ int main() {
   }
   std::printf("%s I: parameters of Theorems 1.4, 1.5 and Corollary 1.6, exact rationals\n", okI ? "PASS" : "FAIL");
   fails += !okI;
+  // (J)
+  {
+    const int NJ = 20000;
+    std::vector<char> isp(NJ + 1, 1);
+    isp[0] = isp[1] = 0;
+    for (int i = 2; i * i <= NJ; i++)
+      if (isp[i])
+        for (int j = i * i; j <= NJ; j += i) isp[j] = 0;
+    bool okJ = true;
+    int nJ = 0;
+    double worstTau = 0, worstJ = 0;
+    const double pi = std::acos(-1.0);
+    for (int q = 3; q <= NJ; q++) {
+      if (!isp[q]) continue;
+      std::vector<int> tab(q, -1);
+      tab[0] = 0;
+      for (long long a = 1; a < q; a++) tab[a * a % q] = 1;
+      int run = 0, m = 0;
+      for (int n = 1; n < q; n++) {
+        run += tab[n];
+        m = std::max(m, std::abs(run));
+      }
+      if (q <= 3000) {
+        std::complex<double> tau = 0;
+        for (int a = 1; a < q; a++) tau += double(tab[a]) * std::polar(1.0, 2 * pi * a / q);
+        worstTau = std::max(worstTau, std::fabs(std::norm(tau) - q) / q);
+        double b0 = 0;
+        for (int k = 1; k <= q / 2; k++) b0 += 1.0 / k;
+        if (m > std::sqrt(double(q)) * (b0 + 6)) okJ = false;
+        nJ++;
+      }
+      if (q >= 1000) worstJ = std::max(worstJ, m / (std::sqrt(double(q)) * std::log(std::log(double(q)))));
+    }
+    okJ = okJ && worstTau < 1e-9 && worstJ < 2;
+    std::printf("%s J: |tau|^2 = q (max rel. error %.1e) and max|S| <= sqrt(q)(B+6) for %d primes; max ratio for "
+                "1000 <= q <= 20000: %.4f\n", okJ ? "PASS" : "FAIL", worstTau, nJ, worstJ);
+    fails += !okJ;
+  }
+  // (K)
+  {
+    const double pi = std::acos(-1.0);
+    const std::complex<double> i2pi(0, 2 * pi);
+    double worstK = 0;
+    for (int k = 1; k <= 500000; k++)
+      for (int s : {1, -1}) {
+        double th = s * k / 1e6;
+        std::complex<double> r = 1.0 / (1.0 - std::exp(-i2pi * th)) - 1.0 / (i2pi * th);
+        worstK = std::max(worstK, std::abs(r));
+      }
+    std::printf("%s K: |r(theta)| on 10^6 grid points of 0 < |theta| <= 1/2, max %.6f\n", worstK < 3 ? "PASS" : "FAIL",
+                worstK);
+    fails += !(worstK < 3);
+  }
+  // (L) Proposition 7.4: M = ceil(L), R = M^16, Y = M^700
+  {
+    const double pi = std::acos(-1.0);
+    bool okL = true;
+    for (double L : {200.0, 200.5, 201.0, 250.0, 1000.0, 1e4, 1e6, 1e9}) {
+      double M = std::ceil(L), lM = std::log(M);
+      okL = okL && std::pow(L / 16, 4) / 24 > L + 1 && L + 1 >= M && 16 * lM < L && std::pow(M, 16) >= 2 &&
+            lM >= 1 && M <= 2 * L;
+      double rho = L * L / std::pow(M, 4);
+      okL = okL && rho * (1 + L) <= 2 / M && 2 / M <= 128;
+      double logqR = L + 16 * lM + std::log1p(2 * std::exp(-L - 16 * lM));
+      okL = okL && logqR <= 18 * M && 2 + 2 * pi * std::pow(M, 16) <= 8 * std::pow(M, 16);
+      double k = logqR * (2 / std::pow(M, 16) + 2 * pi) / (std::pow(M, 3) * 700 * lM);
+      okL = okL && k * (1 + L) <= 288 / (700 * M) && 288 / (700 * M) <= 1 && 700 * lM <= 1400 * std::log(L);
+    }
+    double s1 = 0;
+    for (int t = 2; t <= 1000000; t++) {
+      s1 += 1 / (t * std::log(double(t)));
+      if (t == 2) okL = okL && s1 <= 3;
+      if (t == 3 || t == 10 || t == 100 || t == 1000 || t == 10000 || t == 100000 || t == 1000000)
+        okL = okL && s1 <= 3 + std::log(std::log(double(t)));
+    }
+    std::printf("%s L: parameter inequalities of Proposition 7.4 at 8 values of log q; sum_{2<=t<=H} 1/(t log t) <= "
+                "3 + log log H for H <= 10^6\n", okL ? "PASS" : "FAIL");
+    fails += !okL;
+  }
+  // (M) Lemma 6.2 (spacing) and Lemma 6.3 (bilinear bounds) on random data
+  {
+    const double pi = std::acos(-1.0);
+    auto ex = [&](double x) { return std::polar(1.0, 2 * pi * x); };
+    bool ok = true;
+    std::vector<double> ds(1001), ws(1001);
+    for (int c = 0; c < 3000; c++) {
+      int r = 2 + int(400 * rnd());
+      int a = int(r * rnd());
+      while (std::gcd(a, r) != 1) a = (a + 1) % r;
+      double al = double(a) / r + (2 * rnd() - 1) / (double(r) * r) + int(20 * rnd()) - 10;
+      for (int k = 1; k <= r / 2; k++) ok = ok && dist1(k * al) >= 1.0 / (2 * r) - 1e-12;
+      int H = int(1000 * rnd());
+      for (int h = 1; h <= H; h++) ds[h] = dist1(h * al);
+      for (int z = 0; z < 3; z++) {
+        double t = 0.5 * rnd();
+        int cntt = 0;
+        for (int h = 1; h <= H; h++) cntt += ds[h] < t;
+        ok = ok && cntt <= (4.0 * H / r + 1) * (4 * r * t + 1);
+      }
+      double M = 0.5 + 1000 * rnd();
+      int K = std::max(0, int(std::ceil(std::log2(M))));
+      double sa = 0, sb = 0;
+      for (int h = 1; h <= H; h++) {
+        ws[h] = ds[h] < 1 / M ? M : 1 / ds[h];
+        sa += ws[h];
+        sb += ws[h] * ws[h];
+      }
+      ok = ok && sa <= (4.0 * H / r + 1) * (3 * M + 4 * r + 8.0 * r * K) &&
+           sb <= (4.0 * H / r + 1) * (20 * r * M + 3 * M * M);
+    }
+    for (int c = 0; c < 2000; c++) {
+      double th = 2 * rnd() - 1, U = 0.5 + 300 * rnd();
+      int A = int(1000 * rnd()), B = A + int(U * rnd());
+      std::complex<double> S = 0;
+      for (int x = A + 1; x <= B; x++) S += ex(x * th);
+      ok = ok && std::abs(S) <= wM(U, th) * (1 + 1e-9);
+    }
+    for (int c = 0; c < 300; c++) {
+      double al = rnd(), U = 1 + 50 * rnd();
+      int A = int(100 * rnd()), B = A + int(U), N = int(2000 * rnd()) + 1;
+      int nv = 1 + int(20 * rnd());
+      std::vector<int> V;
+      for (int z = 0; z < nv; z++) {
+        int v = 1 + int(60 * rnd());
+        if (std::find(V.begin(), V.end(), v) == V.end()) V.push_back(v);
+      }
+      std::vector<std::complex<double>> b;
+      for (size_t y = 0; y < V.size(); y++) {
+        std::complex<double> e = ex(rnd());
+        b.push_back(e * rnd());
+      }
+      double lhs = 0, rhs = 0;
+      for (int u = A + 1; u <= B; u++) {
+        std::complex<double> t = 0;
+        for (size_t y = 0; y < V.size(); y++)
+          if ((long long)u * V[y] <= N) t += b[y] * ex(double(u) * V[y] * al);
+        lhs += std::norm(t);
+      }
+      for (size_t y = 0; y < V.size(); y++)
+        for (size_t z = 0; z < V.size(); z++) rhs += std::abs(b[y]) * std::abs(b[z]) * wM(U, (V[y] - V[z]) * al);
+      ok = ok && lhs <= rhs * (1 + 1e-9) + 1e-9;
+      int Hh = int(80 * rnd());
+      double Mm = 0.5 + 100 * rnd(), l2 = 0, sw = 0;
+      for (int x = 1; x <= Hh; x++)
+        for (int y = 1; y <= Hh; y++) l2 += wM(Mm, (x - y) * al);
+      for (int h = 1; h <= Hh; h++) sw += wM(Mm, h * al);
+      ok = ok && l2 <= Hh * (Mm + 2 * sw) * (1 + 1e-12);
+    }
+    std::printf("%s M: Lemma 6.2 (i)-(iii) for 3000 random (alpha, a/r), Lemma 6.3 (i) at 2000 and (ii), (iii) at "
+                "300 random cases\n", ok ? "PASS" : "FAIL");
+    fails += !ok;
+  }
+  // (N) Lemma 6.4
+  {
+    const double pi = std::acos(-1.0);
+    auto ex = [&](double x) { return std::polar(1.0, 2 * pi * x); };
+    auto spf = spf_upto(3000);
+    const int qs[6] = {3, 5, 7, 11, 101, 997};
+    bool ok = true;
+    double worst = 0;
+    for (int trial = 0; trial < 60; trial++) {
+      int N = 2 + int(2998 * rnd());
+      double al = rnd();
+      std::vector<std::complex<double>> f(N + 1), fp(N + 1);
+      std::vector<bool> seen(N + 1, false);
+      if (trial % 3 == 0) {
+        int q = qs[trial / 3 % 6];
+        for (int n = 1; n <= N; n++) f[n] = legendre_q(n, q);
+      } else {
+        f[1] = 1;
+        for (int n = 2; n <= N; n++) {
+          int p = spf[n];
+          if (!seen[p]) {
+            seen[p] = true;
+            fp[p] = ex(rnd());
+            if (trial % 3 == 2) fp[p] *= rnd();
+          }
+          f[n] = fp[p] * f[n / p];
+        }
+      }
+      std::complex<double> S = 0, T = 0;
+      for (int n = 1; n <= N; n++) S += f[n] * ex(n * al);
+      for (int p = 2; p <= N; p++) {
+        if (spf[p] != p) continue;
+        std::complex<double> in = 0;
+        for (int m = 1; m <= N / p; m++) in += f[m] * ex(double(p) * m * al);
+        T += std::log(double(p)) * f[p] * in;
+      }
+      double err = std::abs(S * std::log(double(N)) - T) / N;
+      worst = std::max(worst, err);
+      ok = ok && err <= 1 + 4 * ZETA32;
+    }
+    std::printf("%s N: Lemma 6.4 for 60 completely multiplicative f, N <= 3000: max error / N = %.4f <= C5 = %.4f\n",
+                ok ? "PASS" : "FAIL", worst, 1 + 4 * ZETA32);
+    fails += !ok;
+  }
+  // (O) Lemma 6.5
+  {
+    const int XO = 100000;
+    auto spf = spf_upto(XO + 200);
+    auto isp = [&](long long n) { return n >= 2 && spf[n] == n; };
+    bool ok = true;
+    double worst = 0, worstG = 0;
+    for (int h = -100; h <= 100; h += 2) {
+      if (h == 0) continue;
+      double g2 = Gof(h, spf) * Gof(h, spf);
+      int cntp = 0;
+      for (int X = 2; X <= XO; X++) {
+        int n = X - 1;
+        bool jump = n + h >= 0 && isp(n) && isp(n + h);
+        cntp += jump;
+        if (jump || X <= 8) {
+          double bd = 400 * g2 * X / (std::log(double(X)) * std::log(double(X))) + 3 * std::pow(X, 0.6);
+          ok = ok && cntp <= bd;
+          worst = std::max(worst, cntp / bd);
+        }
+      }
+    }
+    for (int X : {1, 2, 7, 100, 1001, 2000})
+      for (int h : {2, 6, 30, 98, -4})
+        for (int d : {1, 3, 5, 7, 15, 21, 35, 105, 11, 143, 1155}) {
+          if (std::gcd(d, h) != 1) continue;
+          int tau = 1, cn = 0;
+          for (int p : {3, 5, 7, 11, 13})
+            if (d % p == 0) tau *= 2;
+          for (int n = 0; n < X; n++) cn += ((long long)n * (n + h)) % d == 0;
+          ok = ok && std::fabs(cn - double(tau) * X / d) <= tau;
+        }
+    for (unsigned long long X = 2; X <= 1000000000000000000ULL; X = X < 100000 ? X + 1 : X * 10) {
+      unsigned long long m = (unsigned long long)std::llround(std::pow(double(X), 0.1)) + 2;
+      for (;;) {
+        unsigned __int128 p10 = 1;
+        for (int z = 0; z < 10; z++) p10 *= m;
+        if (p10 <= X) break;
+        m--;
+      }
+      unsigned long long T = (unsigned long long)std::sqrt(double(m));
+      while ((T + 1) * (T + 1) <= m) T++;
+      while (T * T > m) T--;
+      unsigned __int128 p20 = 1;
+      for (int z = 0; z < 20; z++) p20 *= (T + 1);
+      ok = ok && p20 > X;
+    }
+    double acc = 0;
+    for (int h = 1; h <= XO; h++) {
+      double g = Gof(h, spf);
+      acc += g * g * g * g;
+      worstG = std::max(worstG, acc / h);
+    }
+    const double pi = std::acos(-1.0);
+    ok = ok && worstG <= std::exp(30.0) && pi * pi / 6 - 1 <= 1;
+    for (__int128 t = 1; t < 100000; t++) ok = ok && (t + 1) * (t + 1) * (t + 1) * (t + 1) * (t + 1) <= (t + 31) * t * t * t * t;
+    std::printf("%s O: prime pairs: count <= 400 G(h)^2 X/log^2 X + 3 X^(3/5) for X <= 10^5, 0 < |h| <= 100 even "
+                "(max ratio %.4f); |R_d| <= tau(d); (T+1)^20 > X; max_X X^-1 sum G(h)^4 = %.3f <= e^30\n",
+                ok ? "PASS" : "FAIL", worst, worstG);
+    fails += !ok;
+  }
+  // (P) constants and parameters in the proof of Theorem 6.1
+  {
+    bool ok = 64 * std::log(2.0) < 45;
+    for (long long l = 64; l <= 10000; l++) {
+      int Ib = 0;
+      while ((1LL << Ib) <= l) Ib++;
+      long long J = l + 1 - 4 * Ib;
+      __int128 p16 = 1;
+      for (int z = 0; z < Ib; z++) p16 *= 16;
+      __int128 L4 = (__int128)l * l * l * l;
+      ok = ok && p16 > L4 && 1 <= J && J <= l && 4 * Ib <= l && (1LL << Ib) <= 2 * l && J + 4 * Ib == l + 1;
+      ok = ok && (__int128)J * J * L4 <= (__int128)(l + 1) * (l + 1) * p16 && (__int128)(l + 1) * (l + 1) <= L4;
+    }
+    ok = ok && std::log(2.0) >= 0.5;
+    double tail = 0;
+    for (int j = 0; j < 400; j++) tail += (j + 1.0) * (j + 1.0) * std::pow(0.75, j);
+    ok = ok && tail > 111.99 && tail <= 112 + 1e-9 && Frac(7, 4) / (Frac(1, 4) * Frac(1, 4) * Frac(1, 4)) == Frac(112);
+    for (int j = 0; j < 2000; j++) {
+      if (j <= 30) {
+        __int128 l8 = 1 + 2 * j, r9 = 2 * (__int128)(j + 1) * (j + 1);
+        for (int z = 0; z < j; z++) { l8 *= 8; r9 *= 9; }
+        ok = ok && l8 <= r9;
+      } else {
+        ok = ok && std::log(1 + 2.0 * j) + j * std::log(8.0) < std::log(2.0) + 2 * std::log(j + 1.0) + j * std::log(9.0) - 1;
+      }
+    }
+    for (int J = 1; J < 200; J++) {
+      double s = 0;
+      for (int j = 0; j < J; j++) s += std::pow(2.0, j / 2.0);
+      ok = ok && s <= 3 * std::pow(2.0, J / 2.0);
+    }
+    ok = ok && 3 * std::sqrt(14.0) <= 12 && std::sqrt(24.0) <= 5 && 8 * 112 + 12 == 908 && 6 * 225 == 1350 &&
+         1350 <= 37 * 37 && 15 + 37 == 52;
+    for (long long c : {320LL * 3375, 48LL * 50625, 80LL * 3375, 180LL * 3375}) ok = ok && c <= 2560000;
+    ok = ok && std::pow(2.0, 0.25) <= 2 && std::pow(2.0, 0.3) <= 2 && 2 + 16 + 32 * 2 * 3375 == 216018;
+    for (int k = 0; k < 3000; k++) {
+      double x = 1 + std::pow(10.0, k / 10.0);
+      ok = ok && std::log(x) <= 15 * std::pow(x, 1.0 / 15) && std::log(x) <= 4 * std::pow(x, 0.25);
+    }
+    double lf = 0;
+    for (int N = 1; N < 10000; N++) {
+      lf += std::log(double(N));
+      ok = ok && N * std::log(double(N)) - lf <= N;
+    }
+    double s1 = 0, s2 = 0;
+    for (u64 p : primes) {
+      if (p > 1000000) break;
+      double q = double(p);
+      s1 += std::log(q) / (q * (q - 1));
+      s2 += std::log(q) / (q * q);
+    }
+    ok = ok && s1 <= 2 * s2 && 2 * s2 <= 2 * ZETA32;
+    double Kb = 80 * std::sqrt(800 * std::exp(15.0)) + 52, C1 = 45 + 1 + 4 * ZETA32 + 908 + 216018 * Kb + 60 + 2 * Kb;
+    std::printf("%s P: constants of Theorem 6.1: coefficients <= 40^4, 896 = 8*112, I, J for 64 <= ell <= 10^4; K_b = "
+                "%.4e, C_1 = %.4e\n", ok ? "PASS" : "FAIL", Kb, C1);
+    fails += !ok;
+  }
+  // (Q) Lemma 8.1: Psi(x, y) log x <= x (1 + 2 log y + 2 log 4), and sum_{n<=x} log(x/n) <= x
+  {
+    const int X = 200000;
+    std::vector<int> lpf(X + 1, 1);
+    for (int p = 2; p <= X; p++)
+      if (lpf[p] == 1)
+        for (int j = p; j <= X; j += p) lpf[j] = p;
+    const long ys[12] = {1, 2, 3, 5, 7, 10, 20, 50, 100, 1000, 10000, 100000};
+    bool ok = true;
+    double worst = 0;
+    for (long y : ys) {
+      long cnt = 0;
+      double rhs0 = 1 + 2 * std::log(double(y)) + 2 * std::log(4.0);
+      for (int x = 1; x <= X; x++) {
+        if (lpf[x] <= y) cnt++;
+        double r = cnt * std::log(double(x)) / (x * rhs0);
+        worst = std::max(worst, r);
+        ok = ok && r <= 1 + 1e-12;
+      }
+    }
+    for (int k = 0; k <= 40000; k++) {
+      double x = 1 + k / 4.0, N = std::floor(x);
+      ok = ok && N * std::log(x) - std::lgamma(N + 1) <= x + 1e-9;
+    }
+    std::printf("%s Q: Lemma 8.1 for integers x <= 200000 and 12 values of y, max ratio %.4f; sum log(x/n) <= x on "
+                "a grid of 1 <= x <= 10^4\n", ok ? "PASS" : "FAIL", worst);
+    fails += !ok;
+  }
+  // (R) proof of Theorem 1.8: L = log q, M = ceil(L), Y = M^40
+  {
+    const double c = std::log(std::log(3.0)), cR = 85 / c + 80;
+    bool ok = c > 0 && 40 * std::log(2.0) > 1 && std::log(2.0) < 1 && std::log(4.0) < 2;
+    for (long q = 3; q <= 1000000; q++) {
+      double L = std::log(double(q)), M = std::ceil(L);
+      ok = ok && M >= 2 && L <= M && M <= L + 1 && L + 1 <= 2 * L && q + 2 <= q * q;
+      double lhs = 1 + 2 * (40 * std::log(M) + std::log(4.0)), mid = 85 + 80 * std::log(L);
+      ok = ok && lhs <= mid && mid <= cR * std::log(L);
+    }
+    for (int k = 0; k <= 9000; k++) {
+      double L = std::log(3.0) * std::pow(10.0, k / 1000.0), M = std::ceil(L);
+      ok = ok && M >= 2 && M <= 2 * L && 40 * std::log(M) <= 40 * std::log(2.0) + 40 * std::log(L) + 1e-9;
+      ok = ok && 1 + 2 * (40 * std::log(M) + std::log(4.0)) <= cR * std::log(L) + 1e-9;
+    }
+    std::printf("%s R: parameter inequalities of Theorem 1.8 for 3 <= q <= 10^6 and log 3 <= log q <= 10^9 log 3; "
+                "85/log log 3 + 80 = %.2f\n", ok ? "PASS" : "FAIL", cR);
+    fails += !ok;
+  }
   std::printf("%s\n", fails ? "SOME FAILED" : "ALL PASS");
   return fails ? 1 : 0;
 }
