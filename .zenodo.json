@@ -1,0 +1,35 @@
+{
+  "title": "The Pólya–Vinogradov inequality with log log q: Lean 4 formalization and verification code",
+  "upload_type": "software",
+  "description": "<p>Lean 4 formalization of the paper <em>The Pólya–Vinogradov inequality with log log q</em> by Deep Bhattacharjee and Ushashi Bhattacharya, with the LaTeX source, the paper as a PDF, and four programs (Python, Julia, C, C++) that check its numerical steps.</p><p>The paper proves that every primitive Dirichlet character modulo q ≥ 3 has character sums of size at most C√q log log q, the bound Montgomery and Vaughan proved under the generalised Riemann hypothesis, and that |L'/L(1, χ)| ≤ C log log q and −C log q log log q ≤ γ_q ≤ C log q for the Euler–Kronecker constants of the cyclotomic fields Q(ζ_q), q prime. The input is the zero-free half-plane Re s &gt; 7/8 for Dirichlet L-functions proved and formalised by OpenAI (https://github.com/openai/math, 30 September 2026), whose Lean sources are compiled here unchanged. The Lean proofs use only the axioms propext, Classical.choice and Quot.sound.</p>",
+  "creators": [
+    {
+      "name": "Bhattacharjee, Deep",
+      "affiliation": "Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India",
+      "orcid": "0000-0003-0466-750X"
+    },
+    {
+      "name": "Bhattacharya, Ushashi",
+      "affiliation": "Formerly, National Taiwan University, Taipei 106319, Taiwan",
+      "orcid": "0009-0002-2254-3914"
+    }
+  ],
+  "keywords": [
+    "Pólya–Vinogradov inequality",
+    "character sums",
+    "Dirichlet L-functions",
+    "zero-free region",
+    "Euler–Kronecker constants",
+    "Selberg sieve",
+    "Lean 4"
+  ],
+  "license": "Apache-2.0",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/openai/math",
+      "relation": "references",
+      "resource_type": "software",
+      "scheme": "url"
+    }
+  ]
+}

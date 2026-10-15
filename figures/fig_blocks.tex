@@ -1,0 +1,18 @@
+\documentclass[border=4pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,decorations.pathreplacing}
+\begin{document}
+\begin{tikzpicture}[line join=round,>={Stealth[length=2mm]}]
+  \draw[->,gray!60!black] (-0.2,0)--(9.3,0) node[right,font=\small]{$j$};
+  \draw[->,gray!60!black] (-0.2,0)--(-0.2,4.4);
+  \input{src/blocks_body.tex}
+  \draw[decorate,decoration={brace,amplitude=4pt,mirror},thick,gray!60!black] (-0.35,0)--(-0.35,0.55)
+     node[midway,left=5pt,font=\small,align=right] {$2\log 2$};
+  \node[font=\small,align=left,teal!40!black] at (3.6,3.3) {$\dfrac{\log q}{j+1}$};
+  \draw[->,teal!40!black] (3.1,3.3)--(0.9,3.3);
+  \node[font=\small,align=left] at (6.6,2.2) {block $2^j\le m<2^{j+1}$, $n=1+mq$:\\[2pt]
+       $\displaystyle\sum_{n}\frac{\Lambda(n)}n\le\frac{C}{q}\Bigl(2\log2+\frac{\log q}{j+1}\Bigr)$};
+  \node[font=\small] at (4.4,-0.75) {$0\le j<J\approx 16\log_2 q$};
+\end{tikzpicture}
+\end{document}

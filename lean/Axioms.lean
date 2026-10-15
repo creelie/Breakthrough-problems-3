@@ -17,3 +17,5 @@ import Vinogradov
 #print axioms Vinogradov.PV.nonsmooth_sum
 #print axioms Vinogradov.PV.character_sum_psi
 #print axioms Vinogradov.PV.character_sum_range
+#print axioms Vinogradov.logDeriv_one_le
+#print axioms Vinogradov.sum_logDeriv_one
