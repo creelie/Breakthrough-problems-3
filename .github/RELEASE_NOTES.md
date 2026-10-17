@@ -9,7 +9,8 @@ The input is OpenAI's zero-free half-plane Re s > 7/8 (https://github.com/openai
 Lean 4 proof is compiled with ours. The Lean proofs use only propext, Classical.choice and
 Quot.sound; four programs in Python, Julia, C and C++ check the numerical steps.
 
-In this release every reference of the paper is in its bibliography, each checked against
+Deep Bhattacharjee's author block now also gives his second affiliation, formerly University of
+Calcutta, Kolkata, India. In release v1.1.0 every reference of the paper is in its bibliography, each checked against
 its publisher or Crossref record, and the paper ends with data and code availability and
 ethical declarations. The paper is set in the IMPAN template of Acta Arithmetica, its title-page
 footnote names the Hexagon preprint 2610.00256v1, and `journal/submission-acta/` holds the
