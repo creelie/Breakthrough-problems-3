@@ -1,0 +1,15 @@
+To the Editors of Acta Arithmetica
+
+Dear Editors,
+
+We submit the manuscript "The Pólya–Vinogradov inequality with log log q" by Deep Bhattacharjee and Ushashi Bhattacharya for consideration in Acta Arithmetica.
+
+The paper proves that every primitive Dirichlet character modulo q has character sums of size at most C √q log log q, the bound that Montgomery and Vaughan obtained under the generalised Riemann hypothesis and that Paley showed to be optimal. The only input not proved in the paper is the zero-free half-plane Re s > 7/8 for Dirichlet L-functions, proved and formalised in Lean 4 in a preprint released by OpenAI on 30 September 2026; that preprint has not been refereed, and the paper states this dependence explicitly. On the minor arcs we prove a weak form of the Montgomery–Vaughan bound for exponential sums with multiplicative coefficients, with Selberg's sieve as the only arithmetic input. The same half-plane gives |L'/L(1, χ)| ≪ log log q and the two-sided bound −C log q log log q ≤ γ_q ≤ C log q for the Euler–Kronecker constants of the cyclotomic fields Q(ζ_q), q prime, which improves the bound |γ_q| ≪ q^ε of Ihara, Murty and Shimura published in Acta Arithmetica 137 (2009).
+
+All proofs are formalised in Lean 4 together with the compiled sources of the half-plane theorem, using only the standard axioms; the formalisation is archived at Zenodo (doi:10.5281/zenodo.23383715). As required by the journal's policy, the manuscript discloses that the proofs, the text and the verifications were drafted with the help of AI assistance (Claude, Anthropic); the authors have verified the manuscript and take full responsibility for it.
+
+An earlier version is the preprint 2610.00256v1 at hexagonmath.org. The manuscript is not under consideration elsewhere. Deep Bhattacharjee is the corresponding author.
+
+Yours sincerely,
+Deep Bhattacharjee (itsdeep@live.com, d.bhattacharjee@erl-forschung.de; ORCID 0000-0003-0466-750X)
+Ushashi Bhattacharya (rai.bhattacharya.in@gmail.com; ORCID 0009-0002-2254-3914)

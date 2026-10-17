@@ -1,23 +1,37 @@
 \documentclass[12pt]{amsart}
-\usepackage[textwidth=13.5cm,textheight=21cm]{geometry}
 \usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{tikz-cd}
+\usepackage{url}
 \usepackage[hidelinks]{hyperref}
 \usepackage{etoolbox}
 \makeatletter
 \patchcmd{\@setaddresses}{\footnotesize}{\footnotesize\raggedright}{}{}
 \makeatother
+\makeatletter
+\@namedef{subjclassname@2020}{\textup{2020} Mathematics Subject Classification}
+\makeatother
 \emergencystretch=3em
-\newcommand{\zenodoID}{10.5281/zenodo.23383716}
+
+\frenchspacing
+\textwidth=13.5cm
+\textheight=23cm
+\parindent=16pt
+\oddsidemargin=-0.5cm
+\evensidemargin=-0.5cm
+\topmargin=-0.5cm
+\linespread{1.2}
+\numberwithin{equation}{section}
+\raggedbottom
+\newcommand{\zenodoID}{10.5281/zenodo.23383715}
 \newcommand{\preprintURL}{https://github.com/creelie/Breakthrough-problems-3/blob/main/preprintPolyaVinogradovLogLog/PolyaVinogradovLogLog.pdf}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
-\theoremstyle{remark}
+\theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
 \renewcommand{\Re}{\operatorname{Re}}
@@ -25,22 +39,24 @@
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
 
-\title{The P\'olya--Vinogradov inequality with $\log\log q$}
+\title[P\'olya--Vinogradov with $\log\log q$]{The P\'olya--Vinogradov inequality with $\log\log q$}
 
-\author{Deep Bhattacharjee}
+\author[D. Bhattacharjee]{Deep Bhattacharjee}
 \address{Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL),
 Bhubaneswar, Odisha 751030, India}
 \email{itsdeep@live.com}
 \email{d.bhattacharjee@erl-forschung.de}
 \urladdr{https://orcid.org/0000-0003-0466-750X}
-\thanks{Corresponding author: Deep Bhattacharjee}
+\thanks{Corresponding author: Deep Bhattacharjee. An earlier version of this paper is the
+Hexagon preprint \texttt{2610.00256v1}, \url{https://hexagonmath.org/2610.00256v1}.}
 
-\author{Ushashi Bhattacharya}
+\author[U. Bhattacharya]{Ushashi Bhattacharya}
 \address{Formerly, National Taiwan University, Taipei 106319, Taiwan}
 \email{rai.bhattacharya.in@gmail.com}
 \urladdr{https://orcid.org/0009-0002-2254-3914}
 
 \subjclass[2020]{Primary 11L40; Secondary 11M06, 11M20, 11L07, 11N13, 11N36, 11R42}
+\date{}
 \keywords{P\'olya--Vinogradov inequality, character sums, zero-free regions, Selberg sieve,
 Euler--Kronecker constants}
 
@@ -59,17 +75,18 @@ bounds for the Euler--Kronecker constants of the cyclotomic fields $\mathbb Q(\z
 \section{Introduction}
 
 Let $\chi$ be a primitive Dirichlet character modulo $q\ge3$. The P\'olya--Vinogradov inequality
-states that $\bigl|\sum_{n\le x}\chi(n)\bigr|\ll\sqrt q\log q$ uniformly in $x$.\footnote{See
-H.~Davenport, \emph{Multiplicative Number Theory}, 3rd ed., Grad. Texts in Math.~74, Springer,
-2000, Chapter~23.} Paley proved that the factor $\log q$ cannot be replaced by anything smaller
+states that $\bigl|\sum_{n\le x}\chi(n)\bigr|\ll\sqrt q\log q$ uniformly in
+$x$~\cite[Chapter~23]{Dav00}.\footnote{The proof expands $\chi$ in additive characters through the
+Gauss sum $\tau(\bar\chi)$, whose modulus is $\sqrt q$ for primitive $\chi$, and bounds the
+resulting geometric series trivially; Lemma~\ref{lem:polya} below is the same argument with the
+harmonic sums kept.} Paley proved that the factor $\log q$ cannot be replaced by anything smaller
 than $\log\log q$: for infinitely many primitive quadratic characters the maximum over $x$ exceeds
-$c\sqrt q\log\log q$.\footnote{R.~E.~A.~C. Paley, \emph{A theorem on characters}, J. London Math.
-Soc. \textbf{7} (1932), 28--32.} Montgomery and Vaughan~\cite{MV77} proved the upper bound
+$c\sqrt q\log\log q$~\cite{Pal32}. Montgomery and Vaughan~\cite{MV77} proved the upper bound
 $\sqrt q\log\log q$ under the generalised Riemann hypothesis. Without hypothesis, Granville and
 Soundararajan lowered the exponent of $\log q$ for characters of fixed odd
-order.\footnote{A.~Granville and K.~Soundararajan, \emph{Large character sums: pretentious
-characters and the P\'olya--Vinogradov theorem}, J. Amer. Math. Soc. \textbf{20} (2007),
-357--384.} We prove the bound of Montgomery and Vaughan for every primitive character.
+order~\cite{GS07}.\footnote{For a primitive character of odd order $g$ they obtain
+$\sqrt q(\log q)^{1-\delta_g/2+o(1)}$ with $\delta_g=1-\frac g\pi\sin\frac\pi g$, and under the
+generalised Riemann hypothesis the same exponent of $\log\log q$.} We prove the bound of Montgomery and Vaughan for every primitive character.
 
 \begin{theorem}\label{thm:pv}
 There is an absolute constant $C$ such that for every primitive character $\chi$ modulo $q\ge3$
@@ -114,9 +131,9 @@ field $K$ write $\zeta_K(s)=c_{-1}(s-1)^{-1}+c_0+O(s-1)$ near $s=1$; the Euler--
 constant of $K$ is $\gamma_K=c_0/c_{-1}$. Let $\gamma_q$ be the Euler--Kronecker constant of
 $\mathbb Q(\zeta_q)$. For a prime $q$ the factorisation $\zeta_{\mathbb Q(\zeta_q)}(s)
 =\zeta(s)\prod_{\chi\ne\chi_0}L(s,\chi)$, the product over the nonprincipal characters modulo
-$q$,\footnote{L.~C. Washington, \emph{Introduction to Cyclotomic Fields}, 2nd ed., Grad. Texts in
-Math.~83, Springer, 1997, Theorem~4.3. All nonprincipal characters modulo a prime are
-primitive.} gives
+$q$~\cite[Theorem~4.3]{Was97},\footnote{All nonprincipal characters modulo a prime are
+primitive, so no Euler factors have to be removed: the conductor of each nonprincipal $\chi$ is
+$q$ itself, and $L(s,\chi)$ is the $L$-function of the corresponding primitive character.} gives
 \begin{equation}\label{eq:gammaq}
   \gamma_q=\gamma+\sum_{\chi\ne\chi_0}\frac{L'}{L}(1,\chi),
 \end{equation}
@@ -135,17 +152,13 @@ $-C\log q\log\log q\le\gamma_q\le C\log q$.
 \end{theorem}
 
 Under the generalised Riemann hypothesis the bound~(i) is classical, Ihara proved
-$\gamma_q\le(2+o(1))\log q$ and Badzyan proved a lower bound of the order of~(ii);\footnote{Y.~Ihara,
-\emph{On the Euler--Kronecker constants of global fields and primes with small norms}, in:
-Algebraic Geometry and Number Theory, Progr. Math.~253, Birkh\"auser, 2006, 407--451;
-A.~I. Badzyan, \emph{The Euler--Kronecker constant}, Math. Notes \textbf{87} (2010), 31--42.}
-Ford, Luca and Moree proved the two bounds of~(ii) without hypothesis for a set of primes $q$ of
-density one.\footnote{K.~Ford, F.~Luca and P.~Moree, \emph{Values of the Euler $\phi$-function
-not divisible by a given odd prime, and the distribution of Euler--Kronecker constants for
-cyclotomic fields}, Math. Comp. \textbf{83} (2014), 1447--1476; see also P.~Moree,
-\emph{Irregular behaviour of class numbers and Euler--Kronecker constants of cyclotomic fields:
-the log log log devil at play}, in: Irregularities in the Distribution of Prime Numbers,
-Springer, 2018, 143--163.} For all primes the best unconditional bound we know is
+$\gamma_q\le(2+o(1))\log q$ and Badzyan proved a lower bound of the order
+of~(ii)~\cite{Iha06,Bad10}. Ford, Luca and Moree proved the two bounds of~(ii) without hypothesis
+for a set of primes $q$ of density one~\cite{FLM14,Mor18}.\footnote{The difficulty for an
+individual prime $q$ lies in the prime powers $n\equiv1\pmod q$, which enter $\gamma_q$ with the
+weight $(q-1)\Lambda(n)/n$. Below $q^{17}$ we bound them for each prime $q$ separately by
+Lemma~\ref{lem:progression}; beyond $q^{17}$ the zero-free half-plane makes their contribution
+bounded.} For all primes the best unconditional bound we know is
 $|\gamma_q|\ll_\varepsilon q^\varepsilon$, due to Ihara, Murty and Shimura~\cite{IMS09}. The
 upper bound in~(ii) needs only Chebyshev's bound. The lower bound needs an upper bound for the
 prime powers $n\le q^{17}$ with $n\equiv1\pmod q$, which we obtain from Selberg's sieve applied
@@ -205,9 +218,11 @@ $(\log x/\log2)\sqrt x\log4=2\sqrt x\log x$. Since $\log x\le\sqrt x$, $\psi(x)\
 and the integral is at most $\log\log N-\log\log2+2$.
 \end{proof}
 
-We use Selberg's upper bound sieve in the following form.\footnote{For the method see
-H.~Halberstam and H.-E. Richert, \emph{Sieve Methods}, Academic Press, 1974, Chapter~3. We give
-the proof of the form we need.}
+We use Selberg's upper bound sieve in the following form; for the method
+see~\cite[Chapter~3]{HR74}, and we give the proof of the form we need.\footnote{The weights
+$\lambda_d$ are those of Selberg's quadratic form, and the only feature used later is the bound
+$|\lambda_d|\le1$, which makes the remainder term at most a sum of $3^{\omega(d)}|R_d|$ over
+$d\le y$.}
 
 \begin{lemma}\label{lem:selberg}
 Let $a_1,\dots,a_X$ be integers, $P$ a squarefree integer, $\nu$ a multiplicative function with
@@ -603,9 +618,9 @@ $G(h)^4\le\sum_d30^{\omega(d)}/d$ over the squarefree $d\mid h$, and
 \end{proof}
 
 \begin{proof}[Proof of Theorem~\ref{thm:mv}]
-Let $S=\sum_{n\le N}f(n)e(n\alpha)$, $L=\log N$ and $\ell=\lfloor\log_2N\rfloor$. Since
-$N\ge rR\ge4$, $L\ge1$. If $\ell<64$, then $L<64\log2<45$ and $|S|\le N\le45N/L$. Let $\ell\ge64$,
-$I=\lfloor\log_2\ell\rfloor+1$ and $J=\ell+1-4I$. Then $16^I>\ell^4$, $1\le J\le\ell\le2L$,
+Let $S$ be the sum in the theorem, $L=\log N$ and $\ell=\lfloor\log_2N\rfloor$. Since
+$N\ge rR\ge4$, we have $L\ge1$. If $\ell<64$, then $L<64\log2<45$ and $|S|\le N\le45N/L$. Let now
+$\ell\ge64$, and put $I=\lfloor\log_2\ell\rfloor+1$ and $J=\ell+1-4I$. Then $16^I>\ell^4$, $1\le J\le\ell\le2L$,
 $I\le\ell\le2L$, $2^I\le2\ell$, $N<2^{\ell+1}=2^J16^I$ and
 $J^22^J\le(\ell+1)^22^{\ell+1}\ell^{-4}\le2N$. By Lemma~\ref{lem:reduction},
 $|S|L\le C_5N+|T_1|+|T_2|$, where $T_1$ and $T_2$ are the parts of
@@ -953,34 +968,72 @@ which is at most $\frac{C_0}2\log q\log\log q$ by Lemma~\ref{lem:progression}. H
 and both bounds follow since $\log q>1$ and $\log\log q>1/11$.
 \end{proof}
 
-\section*{Data availability}
+\subsection*{Data and code availability}
 \begingroup\raggedright
-Deep Bhattacharjee computed the Lean formalisation and the Julia, C, C++, shell and Python
-computations with the help of AI assistance (Claude, Anthropic). The Lean formalisation of the
-proofs in this paper is archived at Zenodo, doi:\href{https://doi.org/\zenodoID}{\zenodoID}. The
-paper is available at \url{\preprintURL}.\par
+The \LaTeX{} source of the paper, the Lean~4 formalisation of its proofs together with the
+compiled sources of the zero-free half-plane~\cite{OAI26}, and the Python, Julia, C, C\texttt{++}
+and shell programs that check its numerical steps are archived at Zenodo under
+\href{https://doi.org/\zenodoID}{\nolinkurl{doi:\zenodoID}}~\cite{BB26code}; the compiled paper is
+the only file of the folder \texttt{preprintPolyaVinogradovLogLog} of that archive and is
+available at \url{\preprintURL}. Deep Bhattacharjee carried out the computations and the Lean,
+Julia, C, C\texttt{++}, Python and shell verifications, and the proofs and the text were drafted,
+with the help of AI assistance (Claude, Anthropic); the authors take full responsibility for every
+statement. Both authors approved the final version.\par
 \endgroup
 
-\section*{Competing interests}
-None.
+\subsection*{Ethical declarations}
+Funding: none. Competing interests: none.
 
-\section*{Funding}
-None.
+\normalsize
 
-\begin{thebibliography}{9}
+\begingroup\raggedright
+\begin{thebibliography}{99}
+\normalsize
+
+\bibitem{Bad10} A.~I. Badzyan, \emph{The Euler--Kronecker constant}, Math. Notes 87
+(2010), 31--42.\newline doi:\href{https://doi.org/10.1134/S0001434610010050}{10.1134/S0001434610010050}
+
+\bibitem{BB26code} D.~Bhattacharjee and U.~Bhattacharya, \emph{The P\'olya--Vinogradov inequality
+with $\log\log q$: Lean~4 formalization and verification code}, Zenodo, 2026.\newline doi:\href{https://doi.org/\zenodoID}{\zenodoID}
+
+\bibitem{Dav00} H.~Davenport, \emph{Multiplicative Number Theory}, 3rd ed., revised by
+H.~L. Montgomery, Grad. Texts in Math.~74, Springer, New York, 2000.\newline doi:\href{https://doi.org/10.1007/978-1-4757-5927-3}{10.1007/978-1-4757-5927-3}
+
+\bibitem{FLM14} K.~Ford, F.~Luca and P.~Moree, \emph{Values of the Euler $\phi$-function not
+divisible by a given odd prime, and the distribution of Euler--Kronecker constants for cyclotomic
+fields}, Math. Comp. 83 (2014), 1447--1476.\newline doi:\href{https://doi.org/10.1090/S0025-5718-2013-02749-4}{10.1090/S0025-5718-2013-02749-4}
+
+\bibitem{GS07} A.~Granville and K.~Soundararajan, \emph{Large character sums: pretentious
+characters and the P\'olya--Vinogradov theorem}, J. Amer. Math. Soc. 20 (2007),
+357--384.\newline doi:\href{https://doi.org/10.1090/S0894-0347-06-00536-4}{10.1090/S0894-0347-06-00536-4}
+
+\bibitem{HR74} H.~Halberstam and H.-E. Richert, \emph{Sieve Methods}, London Math. Soc.
+Monographs~4, Academic Press, London, 1974.
+
+\bibitem{Iha06} Y.~Ihara, \emph{On the Euler--Kronecker constants of global fields and primes
+with small norms}, in: Algebraic Geometry and Number Theory, Progr. Math.~253, Birkh\"auser,
+Boston, 2006, 407--451.\newline doi:\href{https://doi.org/10.1007/978-0-8176-4532-8_5}{10.1007/978-0-8176-4532-8\_5}
 
 \bibitem{IMS09} Y.~Ihara, V.~K. Murty and M.~Shimura, \emph{On the logarithmic derivatives of
-Dirichlet $L$-functions at $s=1$}, Acta Arith. \textbf{137} (2009), 253--276,
-doi:\href{https://doi.org/10.4064/aa137-3-6}{10.4064/aa137-3-6}.
+Dirichlet $L$-functions at $s=1$}, Acta Arith. 137 (2009), 253--276.\newline doi:\href{https://doi.org/10.4064/aa137-3-6}{10.4064/aa137-3-6}
 
 \bibitem{MV77} H.~L. Montgomery and R.~C. Vaughan, \emph{Exponential sums with multiplicative
-coefficients}, Invent. Math. \textbf{43} (1977), 69--82,
-doi:\href{https://doi.org/10.1007/BF01390204}{10.1007/BF01390204}.
+coefficients}, Invent. Math. 43 (1977), 69--82.\newline doi:\href{https://doi.org/10.1007/BF01390204}{10.1007/BF01390204}
+
+\bibitem{Mor18} P.~Moree, \emph{Irregular behaviour of class numbers and Euler--Kronecker
+constants of cyclotomic fields: the log log log devil at play}, in: Irregularities in the
+Distribution of Prime Numbers, Springer, Cham, 2018, 143--163.\newline doi:\href{https://doi.org/10.1007/978-3-319-92777-0_8}{10.1007/978-3-319-92777-0\_8}
 
 \bibitem{OAI26} OpenAI, \emph{The quasi-Riemann hypothesis: a zero-free half-plane
-$\Re s>7/8$}, preprint, 30 September 2026, with a Lean~4 formalisation,
-\url{https://github.com/openai/math}.
+$\Re s>7/8$}, OpenAI Math Release preprint, 30 September 2026, with a Lean~4 formalisation.\newline \url{https://github.com/openai/math/blob/main/preprints/The-Quasi-Riemann-Hypothesis-September-30-2026/paper.pdf}
+
+\bibitem{Pal32} R.~E.~A.~C. Paley, \emph{A theorem on characters}, J. London Math. Soc.
+s1-7 (1932), 28--32.\newline doi:\href{https://doi.org/10.1112/jlms/s1-7.1.28}{10.1112/jlms/s1-7.1.28}
+
+\bibitem{Was97} L.~C. Washington, \emph{Introduction to Cyclotomic Fields}, 2nd ed., Grad. Texts
+in Math.~83, Springer, New York, 1997.\newline doi:\href{https://doi.org/10.1007/978-1-4612-1934-7}{10.1007/978-1-4612-1934-7}
 
 \end{thebibliography}
+\endgroup
 
 \end{document}

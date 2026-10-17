@@ -16,8 +16,8 @@ type: software
 license: Apache-2.0
 repository-code: "https://github.com/creelie/Breakthrough-problems-3"
 doi: 10.5281/zenodo.23383715
-version: 1.0.0
-date-released: 2026-10-15
+version: 1.1.0
+date-released: 2026-10-17
 keywords:
   - Pólya–Vinogradov inequality
   - character sums

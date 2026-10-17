@@ -9,6 +9,12 @@ The input is OpenAI's zero-free half-plane Re s > 7/8 (https://github.com/openai
 Lean 4 proof is compiled with ours. The Lean proofs use only propext, Classical.choice and
 Quot.sound; four programs in Python, Julia, C and C++ check the numerical steps.
 
+In this release every reference of the paper is in its bibliography, each checked against
+its publisher or Crossref record, and the paper ends with data and code availability and
+ethical declarations. The paper is set in the IMPAN template of Acta Arithmetica, its title-page
+footnote names the Hexagon preprint 2610.00256v1, and `journal/submission-acta/` holds the
+submission package. The mathematics is unchanged.
+
 Files: the paper (`PolyaVinogradovLogLog_final2.pdf`), its LaTeX source with the figures as PNG
 (`PolyaVinogradovLogLog_final2-tex.zip`) and the arXiv tarball
 (`PolyaVinogradovLogLog_final2-arxiv.tar.gz`). The archive of the tag holds the Lean project, the
