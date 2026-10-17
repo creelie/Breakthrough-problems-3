@@ -4,7 +4,7 @@ title: "The Pólya–Vinogradov inequality with log log q: Lean 4 formalization 
 authors:
   - family-names: Bhattacharjee
     given-names: Deep
-    affiliation: "Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India; Formerly, University of Calcutta, Kolkata, India"
+    affiliation: "Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India; Formerly, University of Calcutta, Senate House, 87/1 College Street, Kolkata 700073, West Bengal, India"
     email: itsdeep@live.com
     orcid: "https://orcid.org/0000-0003-0466-750X"
   - family-names: Bhattacharya
@@ -16,7 +16,7 @@ type: software
 license: Apache-2.0
 repository-code: "https://github.com/creelie/Breakthrough-problems-3"
 doi: 10.5281/zenodo.23383715
-version: 1.1.1
+version: 1.1.2
 date-released: 2026-10-17
 keywords:
   - Pólya–Vinogradov inequality

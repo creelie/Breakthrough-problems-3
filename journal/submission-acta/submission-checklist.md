@@ -13,7 +13,7 @@ Submit through MSP EditFlow at https://ef.msp.org/submit/impan_ActaArith. The jo
 ## Metadata
 
 - **Title:** The Pólya–Vinogradov inequality with log log q
-- **Authors:** Deep Bhattacharjee (corresponding; Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India; Formerly, University of Calcutta, Kolkata, India; itsdeep@live.com, d.bhattacharjee@erl-forschung.de; ORCID 0000-0003-0466-750X) and Ushashi Bhattacharya (Formerly, National Taiwan University, Taipei 106319, Taiwan; rai.bhattacharya.in@gmail.com; ORCID 0009-0002-2254-3914). The journal corresponds with one author only.
+- **Authors:** Deep Bhattacharjee (corresponding; Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India; Formerly, University of Calcutta, Senate House, 87/1 College Street, Kolkata 700073, West Bengal, India; itsdeep@live.com, d.bhattacharjee@erl-forschung.de; ORCID 0000-0003-0466-750X) and Ushashi Bhattacharya (Formerly, National Taiwan University, Taipei 106319, Taiwan; rai.bhattacharya.in@gmail.com; ORCID 0009-0002-2254-3914). The journal corresponds with one author only.
 - **MSC 2020:** 11L40 (primary); 11M06, 11M20, 11L07, 11N13, 11N36, 11R42 (secondary)
 - **Keywords:** Pólya–Vinogradov inequality, character sums, zero-free regions, Selberg sieve, Euler–Kronecker constants
 - **Abstract:** copy it from page 1 (three sentences, under 200 words).
