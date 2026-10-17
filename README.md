@@ -2,6 +2,7 @@
 
 Deep Bhattacharjee (corresponding author; Formerly, Electro-Gravitational
 Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India;
+Formerly, University of Calcutta, Kolkata, India;
 itsdeep@live.com, d.bhattacharjee@erl-forschung.de; ORCID 0000-0003-0466-750X)
 and Ushashi Bhattacharya (Formerly, National Taiwan University, Taipei 106319,
 Taiwan; rai.bhattacharya.in@gmail.com; ORCID 0009-0002-2254-3914).
