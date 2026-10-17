@@ -4,6 +4,7 @@
 #   dist/PolyaVinogradovLogLog_final2-tex.zip         LaTeX source with the figures as PNG
 #   dist/PolyaVinogradovLogLog_final2-arxiv.tar.gz    the same source as an arXiv tarball
 #   preprintPolyaVinogradovLogLog/PolyaVinogradovLogLog.pdf   the paper (only file there)
+#   journal/submission-acta/   the PDF and source zip of the Acta Arithmetica submission
 #   MasterPolyaVinogradovLogLog_masterzipfinal2.zip   every tracked file with dist/
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -34,6 +35,8 @@ cp paper/figures/*.png "$tmp/${name}_final2-tex/figures/"
 (cd "$tmp" && zip -qr -X "${name}_final2-tex.zip" "${name}_final2-tex")
 mv "$tmp/${name}_final2-tex.zip" dist/
 tar -czf "dist/${name}_final2-arxiv.tar.gz" -C "$tmp/${name}_final2-tex" pvloglog.tex figures
+cp paper/pvloglog.pdf "journal/submission-acta/${name}.pdf"
+cp "dist/${name}_final2-tex.zip" "journal/submission-acta/${name}-source.zip"
 
 mkdir "$tmp/Master${name}"
 git ls-files -z | grep -zvE "^(dist/|${master}$)" \

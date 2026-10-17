@@ -32,25 +32,37 @@ The Journal of Number Theory and Mathematika are alternatives.
 
 ## Length and format
 
-- 20 pages in `amsart` 12 pt with a 13.5 cm text width, four figures.
-- Front matter, all present: title; two authors with addresses, emails and
-  ORCID iDs, Deep Bhattacharjee marked as corresponding author; abstract
-  (three sentences); MSC 2020 primary 11L40, secondary 11M06, 11M20, 11L07,
-  11N13, 11N36, 11R42; keywords.
-- Back matter: Data availability (the Zenodo DOI of the Lean formalisation and
-  the link to the PDF in `preprintPolyaVinogradovLogLog/`), Competing
-  interests (none), Funding (none).
+- 22 pages in the IMPAN `amsart` template (12 pt, text width 13.5 cm, text
+  height 23 cm, line spread 1.2, equations numbered by section, French
+  spacing), four figures; no overfull or underfull boxes, all fonts Type 1.
+- Front matter: title with running head; two authors with affiliations,
+  emails and ORCID iDs; title-page footnote naming Deep Bhattacharjee as
+  corresponding author and the Hexagon preprint 2610.00256v1
+  (https://hexagonmath.org/2610.00256v1); abstract of three sentences; MSC
+  2020 primary 11L40, secondary 11M06, 11M20, 11L07, 11N13, 11N36, 11R42;
+  keywords.
+- Back matter: Data and code availability (the Zenodo concept DOI
+  10.5281/zenodo.23383715 and the PDF in `preprintPolyaVinogradovLogLog/`,
+  with the AI disclosure), Ethical declarations (funding none, competing
+  interests none).
+- References in alphabetical order of surnames, styled as in the journal's
+  examples (no boldface), MathSciNet abbreviations, each DOI on its own line
+  below the item; every entry checked against Crossref or the publisher.
 - Submission is a single PDF on EditFlow; the LaTeX source is sent after
-  acceptance. `dist/PolyaVinogradovLogLog_final2-tex.zip` and
-  `dist/PolyaVinogradovLogLog_final2-arxiv.tar.gz` contain the source with
-  the figures as PNG.
-- The submission form asks for a cover letter, suggested referees if wished,
-  and competing interests.
+  acceptance. The submission package is in `journal/submission-acta/`.
 
 ## Policy on AI assistance
 
-The journal page (checked 14 October 2026) states no policy on generative AI.
-The Data availability section states that Deep Bhattacharjee computed the Lean
-formalisation and the Julia, C, C++, shell and Python computations with the
-help of AI assistance (Claude, Anthropic). The authors are responsible for
-every statement, the references included.
+The journal page (read 17 October 2026) says: AI tools may not be authors;
+"the principal mathematical ideas, results, arguments, and proofs presented
+in a paper must originate with the authors"; use of AI should as a rule be
+limited to language, formatting and checking arguments the authors wrote;
+"any substantial use of AI tools beyond such limited assistance must be fully
+disclosed in the manuscript"; papers generated in substantial part by AI
+without adequate human contribution may be rejected on editorial grounds.
+The proofs and the text of this paper were drafted with Claude under Deep
+Bhattacharjee's direction (see the AI provenance file), so the Data and code
+availability section discloses that, and the authors must have read and
+verified every proof before submitting. The Journal of Number Theory
+(Elsevier), whose policy asks only for a declaration of generative AI use,
+is the alternative.

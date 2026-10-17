@@ -71,13 +71,14 @@ in the paper.
 | Path | Contents |
 |---|---|
 | `preprintPolyaVinogradovLogLog/` | the paper as a PDF |
-| `paper/` | LaTeX source `pvloglog.tex` (amsart) with its figures in `paper/figures/` |
+| `paper/` | LaTeX source `pvloglog.tex` (IMPAN amsart template) with its figures in `paper/figures/` |
 | `figures/` | TikZ sources of the figures and the scripts that generate them |
 | `lean/` | Lean 4 project: `Vinogradov/` (this proof: `MV/` for the exponential sum bound, `PV/` for Theorem 1.1, `EulerKronecker/` for Theorem 1.3, `Final.lean`, `CharacterSums.lean` and `PV/Range.lean` for the earlier consequences), OpenAI's `OAI/` sources with the `PrimeNumberTheoremAnd/` and `RellichKondrachov/` files they import, the four Selberg sieve files of PrimeNumberTheoremAnd, and `Axioms.lean` |
 | `checks/` | `check.py`, `check.jl`, `check.c`, `check.cpp`: four independent programs that check the numerical steps of the proofs |
 | `run_all.sh` | runs the four programs, the Lean build and the axiom check |
 | `make_dist.sh` | builds `dist/` and the master zip |
-| `journal/JOURNAL.md` | target journal, format and policy |
+| `journal/JOURNAL.md` | target journal (Acta Arithmetica), format and policy |
+| `journal/submission-acta/` | the submission: PDF, source zip, cover letter, checklist |
 | `dist/` | `PolyaVinogradovLogLog_final2.pdf`, `PolyaVinogradovLogLog_final2-tex.zip` (source with PNG figures) and `PolyaVinogradovLogLog_final2-arxiv.tar.gz` |
 | `MasterPolyaVinogradovLogLog_masterzipfinal2.zip` | every tracked file of the repository with `dist/` |
 | `NOTICE` | provenance and licences of the third-party Lean sources |

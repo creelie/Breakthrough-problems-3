@@ -1,5 +1,4 @@
 \documentclass[12pt]{amsart}
-\usepackage[textwidth=13.5cm,textheight=21cm]{geometry}
 \usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
@@ -10,7 +9,21 @@
 \makeatletter
 \patchcmd{\@setaddresses}{\footnotesize}{\footnotesize\raggedright}{}{}
 \makeatother
+\makeatletter
+\@namedef{subjclassname@2020}{\textup{2020} Mathematics Subject Classification}
+\makeatother
 \emergencystretch=3em
+
+\frenchspacing
+\textwidth=13.5cm
+\textheight=23cm
+\parindent=16pt
+\oddsidemargin=-0.5cm
+\evensidemargin=-0.5cm
+\topmargin=-0.5cm
+\linespread{1.2}
+\numberwithin{equation}{section}
+\raggedbottom
 \newcommand{\zenodoID}{10.5281/zenodo.23383715}
 \newcommand{\preprintURL}{https://github.com/creelie/Breakthrough-problems-3/blob/main/preprintPolyaVinogradovLogLog/PolyaVinogradovLogLog.pdf}
 
@@ -18,7 +31,7 @@
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
-\theoremstyle{remark}
+\theoremstyle{definition}
 \newtheorem{remark}[theorem]{Remark}
 
 \renewcommand{\Re}{\operatorname{Re}}
@@ -26,22 +39,24 @@
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
 
-\title{The P\'olya--Vinogradov inequality with $\log\log q$}
+\title[P\'olya--Vinogradov with $\log\log q$]{The P\'olya--Vinogradov inequality with $\log\log q$}
 
-\author{Deep Bhattacharjee}
+\author[D. Bhattacharjee]{Deep Bhattacharjee}
 \address{Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL),
 Bhubaneswar, Odisha 751030, India}
 \email{itsdeep@live.com}
 \email{d.bhattacharjee@erl-forschung.de}
 \urladdr{https://orcid.org/0000-0003-0466-750X}
-\thanks{Corresponding author: Deep Bhattacharjee}
+\thanks{Corresponding author: Deep Bhattacharjee. An earlier version of this paper is the
+Hexagon preprint \texttt{2610.00256v1}, \url{https://hexagonmath.org/2610.00256v1}.}
 
-\author{Ushashi Bhattacharya}
+\author[U. Bhattacharya]{Ushashi Bhattacharya}
 \address{Formerly, National Taiwan University, Taipei 106319, Taiwan}
 \email{rai.bhattacharya.in@gmail.com}
 \urladdr{https://orcid.org/0009-0002-2254-3914}
 
 \subjclass[2020]{Primary 11L40; Secondary 11M06, 11M20, 11L07, 11N13, 11N36, 11R42}
+\date{}
 \keywords{P\'olya--Vinogradov inequality, character sums, zero-free regions, Selberg sieve,
 Euler--Kronecker constants}
 
@@ -603,9 +618,9 @@ $G(h)^4\le\sum_d30^{\omega(d)}/d$ over the squarefree $d\mid h$, and
 \end{proof}
 
 \begin{proof}[Proof of Theorem~\ref{thm:mv}]
-Let $S=\sum_{n\le N}f(n)e(n\alpha)$, $L=\log N$ and $\ell=\lfloor\log_2N\rfloor$. Since
-$N\ge rR\ge4$, $L\ge1$. If $\ell<64$, then $L<64\log2<45$ and $|S|\le N\le45N/L$. Let $\ell\ge64$,
-$I=\lfloor\log_2\ell\rfloor+1$ and $J=\ell+1-4I$. Then $16^I>\ell^4$, $1\le J\le\ell\le2L$,
+Let $S$ be the sum in the theorem, $L=\log N$ and $\ell=\lfloor\log_2N\rfloor$. Since
+$N\ge rR\ge4$, we have $L\ge1$. If $\ell<64$, then $L<64\log2<45$ and $|S|\le N\le45N/L$. Let now
+$\ell\ge64$, and put $I=\lfloor\log_2\ell\rfloor+1$ and $J=\ell+1-4I$. Then $16^I>\ell^4$, $1\le J\le\ell\le2L$,
 $I\le\ell\le2L$, $2^I\le2\ell$, $N<2^{\ell+1}=2^J16^I$ and
 $J^22^J\le(\ell+1)^22^{\ell+1}\ell^{-4}\le2N$. By Lemma~\ref{lem:reduction},
 $|S|L\le C_5N+|T_1|+|T_2|$, where $T_1$ and $T_2$ are the parts of
@@ -953,7 +968,7 @@ which is at most $\frac{C_0}2\log q\log\log q$ by Lemma~\ref{lem:progression}. H
 and both bounds follow since $\log q>1$ and $\log\log q>1/11$.
 \end{proof}
 
-\section*{Data and code availability}
+\subsection*{Data and code availability}
 \begingroup\raggedright
 The \LaTeX{} source of the paper, the Lean~4 formalisation of its proofs together with the
 compiled sources of the zero-free half-plane~\cite{OAI26}, and the Python, Julia, C, C\texttt{++}
@@ -961,68 +976,62 @@ and shell programs that check its numerical steps are archived at Zenodo under
 \href{https://doi.org/\zenodoID}{\nolinkurl{doi:\zenodoID}}~\cite{BB26code}; the compiled paper is
 the only file of the folder \texttt{preprintPolyaVinogradovLogLog} of that archive and is
 available at \url{\preprintURL}. Deep Bhattacharjee carried out the computations and the Lean,
-Julia, C, C\texttt{++}, Python and shell verifications with the help of AI assistance (Claude,
-Anthropic). Both authors approved the final version.\par
+Julia, C, C\texttt{++}, Python and shell verifications, and the proofs and the text were drafted,
+with the help of AI assistance (Claude, Anthropic); the authors take full responsibility for every
+statement. Both authors approved the final version.\par
 \endgroup
 
-\section*{Ethical declarations}
+\subsection*{Ethical declarations}
 Funding: none. Competing interests: none.
+
+\normalsize
 
 \begingroup\raggedright
 \begin{thebibliography}{99}
+\normalsize
 
-\bibitem{Bad10} A.~I. Badzyan, \emph{The Euler--Kronecker constant}, Math. Notes \textbf{87}
-(2010), 31--42, doi:\href{https://doi.org/10.1134/S0001434610010050}{10.1134/S0001434610010050}.
+\bibitem{Bad10} A.~I. Badzyan, \emph{The Euler--Kronecker constant}, Math. Notes 87
+(2010), 31--42.\newline doi:\href{https://doi.org/10.1134/S0001434610010050}{10.1134/S0001434610010050}
 
 \bibitem{BB26code} D.~Bhattacharjee and U.~Bhattacharya, \emph{The P\'olya--Vinogradov inequality
-with $\log\log q$: Lean~4 formalization and verification code}, Zenodo, 2026,
-doi:\href{https://doi.org/\zenodoID}{\zenodoID}.
+with $\log\log q$: Lean~4 formalization and verification code}, Zenodo, 2026.\newline doi:\href{https://doi.org/\zenodoID}{\zenodoID}
 
 \bibitem{Dav00} H.~Davenport, \emph{Multiplicative Number Theory}, 3rd ed., revised by
-H.~L. Montgomery, Grad. Texts in Math.~74, Springer, New York, 2000,
-doi:\href{https://doi.org/10.1007/978-1-4757-5927-3}{10.1007/978-1-4757-5927-3}.
+H.~L. Montgomery, Grad. Texts in Math.~74, Springer, New York, 2000.\newline doi:\href{https://doi.org/10.1007/978-1-4757-5927-3}{10.1007/978-1-4757-5927-3}
 
 \bibitem{FLM14} K.~Ford, F.~Luca and P.~Moree, \emph{Values of the Euler $\phi$-function not
 divisible by a given odd prime, and the distribution of Euler--Kronecker constants for cyclotomic
-fields}, Math. Comp. \textbf{83} (2014), 1447--1476,
-doi:\href{https://doi.org/10.1090/S0025-5718-2013-02749-4}{10.1090/S0025-5718-2013-02749-4}.
+fields}, Math. Comp. 83 (2014), 1447--1476.\newline doi:\href{https://doi.org/10.1090/S0025-5718-2013-02749-4}{10.1090/S0025-5718-2013-02749-4}
 
 \bibitem{GS07} A.~Granville and K.~Soundararajan, \emph{Large character sums: pretentious
-characters and the P\'olya--Vinogradov theorem}, J. Amer. Math. Soc. \textbf{20} (2007),
-357--384, doi:\href{https://doi.org/10.1090/S0894-0347-06-00536-4}{10.1090/S0894-0347-06-00536-4}.
+characters and the P\'olya--Vinogradov theorem}, J. Amer. Math. Soc. 20 (2007),
+357--384.\newline doi:\href{https://doi.org/10.1090/S0894-0347-06-00536-4}{10.1090/S0894-0347-06-00536-4}
 
 \bibitem{HR74} H.~Halberstam and H.-E. Richert, \emph{Sieve Methods}, London Math. Soc.
 Monographs~4, Academic Press, London, 1974.
 
 \bibitem{Iha06} Y.~Ihara, \emph{On the Euler--Kronecker constants of global fields and primes
 with small norms}, in: Algebraic Geometry and Number Theory, Progr. Math.~253, Birkh\"auser,
-Boston, 2006, 407--451,
-doi:\href{https://doi.org/10.1007/978-0-8176-4532-8_5}{10.1007/978-0-8176-4532-8\_5}.
+Boston, 2006, 407--451.\newline doi:\href{https://doi.org/10.1007/978-0-8176-4532-8_5}{10.1007/978-0-8176-4532-8\_5}
 
 \bibitem{IMS09} Y.~Ihara, V.~K. Murty and M.~Shimura, \emph{On the logarithmic derivatives of
-Dirichlet $L$-functions at $s=1$}, Acta Arith. \textbf{137} (2009), 253--276,
-doi:\href{https://doi.org/10.4064/aa137-3-6}{10.4064/aa137-3-6}.
+Dirichlet $L$-functions at $s=1$}, Acta Arith. 137 (2009), 253--276.\newline doi:\href{https://doi.org/10.4064/aa137-3-6}{10.4064/aa137-3-6}
 
 \bibitem{MV77} H.~L. Montgomery and R.~C. Vaughan, \emph{Exponential sums with multiplicative
-coefficients}, Invent. Math. \textbf{43} (1977), 69--82,
-doi:\href{https://doi.org/10.1007/BF01390204}{10.1007/BF01390204}.
+coefficients}, Invent. Math. 43 (1977), 69--82.\newline doi:\href{https://doi.org/10.1007/BF01390204}{10.1007/BF01390204}
 
 \bibitem{Mor18} P.~Moree, \emph{Irregular behaviour of class numbers and Euler--Kronecker
 constants of cyclotomic fields: the log log log devil at play}, in: Irregularities in the
-Distribution of Prime Numbers, Springer, Cham, 2018, 143--163,
-doi:\href{https://doi.org/10.1007/978-3-319-92777-0_8}{10.1007/978-3-319-92777-0\_8}.
+Distribution of Prime Numbers, Springer, Cham, 2018, 143--163.\newline doi:\href{https://doi.org/10.1007/978-3-319-92777-0_8}{10.1007/978-3-319-92777-0\_8}
 
 \bibitem{OAI26} OpenAI, \emph{The quasi-Riemann hypothesis: a zero-free half-plane
-$\Re s>7/8$}, OpenAI Math Release preprint, 30 September 2026, with a Lean~4 formalisation,
-\url{https://github.com/openai/math/blob/main/preprints/The-Quasi-Riemann-Hypothesis-September-30-2026/paper.pdf}.
+$\Re s>7/8$}, OpenAI Math Release preprint, 30 September 2026, with a Lean~4 formalisation.\newline \url{https://github.com/openai/math/blob/main/preprints/The-Quasi-Riemann-Hypothesis-September-30-2026/paper.pdf}
 
 \bibitem{Pal32} R.~E.~A.~C. Paley, \emph{A theorem on characters}, J. London Math. Soc.
-\textbf{s1-7} (1932), 28--32,
-doi:\href{https://doi.org/10.1112/jlms/s1-7.1.28}{10.1112/jlms/s1-7.1.28}.
+s1-7 (1932), 28--32.\newline doi:\href{https://doi.org/10.1112/jlms/s1-7.1.28}{10.1112/jlms/s1-7.1.28}
 
 \bibitem{Was97} L.~C. Washington, \emph{Introduction to Cyclotomic Fields}, 2nd ed., Grad. Texts
-in Math.~83, Springer, New York, 1997,
-doi:\href{https://doi.org/10.1007/978-1-4612-1934-7}{10.1007/978-1-4612-1934-7}.
+in Math.~83, Springer, New York, 1997.\newline doi:\href{https://doi.org/10.1007/978-1-4612-1934-7}{10.1007/978-1-4612-1934-7}
 
 \end{thebibliography}
 \endgroup
