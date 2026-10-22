@@ -8,7 +8,7 @@ and Ushashi Bhattacharya (Formerly, National Taiwan University, Taipei 106319,
 Taiwan; rai.bhattacharya.in@gmail.com; ORCID 0009-0002-2254-3914).
 
 Paper: [`preprintPolyaVinogradovLogLog/PolyaVinogradovLogLog.pdf`](preprintPolyaVinogradovLogLog/PolyaVinogradovLogLog.pdf).
-Annals of Mathematics version (Hexagon 2610.00256v3): [`paper/paper1/PolyaVinogradovLogLog-Annals.pdf`](paper/paper1/PolyaVinogradovLogLog-Annals.pdf), source [`paper/paper2/PolyaVinogradovLogLog-Annals-tex.zip`](paper/paper2/PolyaVinogradovLogLog-Annals-tex.zip) (built from `paper/annals/`), submission files in [`journal/submission-annals/`](journal/submission-annals/); release v1.2.0: https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.2.0.
+Annals of Mathematics version (Hexagon 2610.00256v3): [`paper/paper1/PolyaVinogradovLogLog-Annals.pdf`](paper/paper1/PolyaVinogradovLogLog-Annals.pdf), source [`paper/paper2/PolyaVinogradovLogLog-Annals-tex.zip`](paper/paper2/PolyaVinogradovLogLog-Annals-tex.zip) (built from `paper/annals/`), submission files in [`journal/submission-annals/`](journal/submission-annals/); release v1.2.0: https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.2.0, Zenodo doi:[10.5281/zenodo.23563651](https://doi.org/10.5281/zenodo.23563651).
 Lean formalisation and verification code on Zenodo: doi:[10.5281/zenodo.23383716](https://doi.org/10.5281/zenodo.23383716) (release v1.0.0; all versions: doi:[10.5281/zenodo.23383715](https://doi.org/10.5281/zenodo.23383715)).
 
 ## Results

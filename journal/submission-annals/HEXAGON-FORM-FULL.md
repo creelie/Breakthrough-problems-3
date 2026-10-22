@@ -90,4 +90,4 @@ CC BY 4.0 - Creative Commons Attribution 4.0
 - Earlier versions of this record: https://hexagonmath.org/2610.00256v1 and https://hexagonmath.org/2610.00256v2
 - Journal field (if asked): submitted to the Annals of Mathematics.
 
-The GitHub release link stands for the code; the Zenodo DOI of release v1.2.0 is added here when Zenodo mints it.
+Release v1.2.0 is archived at Zenodo under doi:10.5281/zenodo.23563651 (https://doi.org/10.5281/zenodo.23563651).
