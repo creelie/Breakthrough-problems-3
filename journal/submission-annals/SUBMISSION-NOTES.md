@@ -5,7 +5,7 @@
 - Author fee: none. The Annals charges no article publishing charges.
 - Format: the journal's own class `aomart`; abstract of about 130 words with no citations; MSC 2020 and keywords; every reference is cited, with titles and page ranges; no forced line or page breaks.
 - AI: see `AI-USE-NOTE.md`; the manuscript has a "Use of AI tools" section as the journal asks.
-- The paper's own archive is cited as the GitHub release v1.2.0; its Zenodo DOI is added when Zenodo mints it.
+- The paper's own archive is cited as the GitHub release v1.2.0; it is archived at Zenodo under doi:10.5281/zenodo.23563651, which the paper also cites.
 - Paste the text of `COVER-LETTER-ANNALS.md` into the cover-letter field.
 
 ## Changes from the Acta Arithmetica version
