@@ -52,7 +52,9 @@ jobs:
           for f in dist/PolyaVinogradovLogLog_final2.pdf dist/PolyaVinogradovLogLog_final2-tex.zip \
                    dist/PolyaVinogradovLogLog_final2-arxiv.tar.gz \
                    preprintPolyaVinogradovLogLog/PolyaVinogradovLogLog.pdf \
-                   MasterPolyaVinogradovLogLog_masterzipfinal2.zip; do
+                   MasterPolyaVinogradovLogLog_masterzipfinal2.zip \
+                   paper/paper1/PolyaVinogradovLogLog-Annals.pdf \
+                   paper/paper2/PolyaVinogradovLogLog-Annals-tex.zip; do
             test -s "$f" || { echo "missing $f"; exit 1; }
           done
       - name: Publish the release
@@ -63,6 +65,7 @@ jobs:
           TITLE: ${{ inputs.title }}
         run: |
           gh release create "$TAG" dist/PolyaVinogradovLogLog_final2* \
+            paper/paper1/PolyaVinogradovLogLog-Annals.pdf paper/paper2/PolyaVinogradovLogLog-Annals-tex.zip \
             --target "$TARGET" \
             --title "$TAG: $TITLE" \
             --notes-file .github/RELEASE_NOTES.md

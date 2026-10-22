@@ -9,15 +9,16 @@ The input is OpenAI's zero-free half-plane Re s > 7/8 (https://github.com/openai
 Lean 4 proof is compiled with ours. The Lean proofs use only propext, Classical.choice and
 Quot.sound; four programs in Python, Julia, C and C++ check the numerical steps.
 
-Deep Bhattacharjee's second affiliation now carries its full address, University of Calcutta,
-Senate House, 87/1 College Street, Kolkata 700073, and the introduction cites three related works
-of the first author (Preprints.org and Research Square). In release v1.1.0 every reference of the paper is in its bibliography, each checked against
-its publisher or Crossref record, and the paper ends with data and code availability and
-ethical declarations. The paper is set in the IMPAN template of Acta Arithmetica, its title-page
-footnote names the Hexagon preprint 2610.00256v1, and `journal/submission-acta/` holds the
-submission package. The mathematics is unchanged.
+Release v1.2.0 adds the version of the paper submitted to the Annals of Mathematics and posted as
+Hexagon 2610.00256v3: `paper/paper1/PolyaVinogradovLogLog-Annals.pdf` (22 pages, class aomart) and
+its source `paper/paper2/PolyaVinogradovLogLog-Annals-tex.zip`, both also attached to the release.
+After Theorem 1.2 it names the Lean theorem
+`OAI.DirichletCharacter.LFunction_ne_zero_of_seven_eighths_lt_re` and states that this archive
+compiles OpenAI's Lean sources unchanged with the paper's own proofs. The submission notes, cover
+letter and Hexagon form are in `journal/submission-annals/`. The mathematics and the Lean
+formalisation are unchanged.
 
-Files: the paper (`PolyaVinogradovLogLog_final2.pdf`), its LaTeX source with the figures as PNG
+Files: the Annals version (`PolyaVinogradovLogLog-Annals.pdf`, `PolyaVinogradovLogLog-Annals-tex.zip`), the Acta Arithmetica version (`PolyaVinogradovLogLog_final2.pdf`), its LaTeX source with the figures as PNG
 (`PolyaVinogradovLogLog_final2-tex.zip`) and the arXiv tarball
 (`PolyaVinogradovLogLog_final2-arxiv.tar.gz`). The archive of the tag holds the Lean project, the
 check programs and the master zip `MasterPolyaVinogradovLogLog_masterzipfinal2.zip`.
