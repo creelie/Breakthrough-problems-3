@@ -1,4 +1,4 @@
-cff-version: 1.3.0
+cff-version: 1.2.0
 message: "If you use this work, please cite it as below."
 title: "The Pólya–Vinogradov inequality with log log q: Lean 4 formalization and verification code"
 authors:
