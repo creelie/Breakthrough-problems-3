@@ -1,13 +1,13 @@
 """Negative controls for the report gate; these tests do not prove the manuscript."""
 from pathlib import Path
-import tempfile,unittest
+import unittest
+from unittest.mock import patch
 from verify_axioms import inspect
 
 class ReportGate(unittest.TestCase):
     def check_report(self,text):
-        with tempfile.TemporaryDirectory() as d:
-            p=Path(d)/'report.log';p.write_text(text,encoding='utf-8')
-            return inspect(p,['target'])
+        with patch.object(Path,'read_text',return_value=text):
+            return inspect('report.log',['target'])
     def test_standard_axioms(self):
         self.assertEqual(self.check_report("'target' depends on axioms: [propext, Classical.choice, Quot.sound]"),
                          {'target':['Classical.choice','Quot.sound','propext']})
