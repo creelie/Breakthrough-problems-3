@@ -1,0 +1,28 @@
+{
+  "pages": 29,
+  "embedded_third_party_article_pages": 0,
+  "single_manuscript": true,
+  "precise_zero_free_theorem_citation": true,
+  "both_original_authors_present": true,
+  "scope": "Structure and attribution only; full proof audit has its own result.",
+  "pdf_sha256": "19e1f0c1c7b832c8b5164822513be0a3292efda783e453efe6887aa2042021b8",
+  "main_abstract_words": 100,
+  "line_numbering_disabled": true,
+  "visual_review_complete": true,
+  "whole_proof_verified": false,
+  "independent_zero_free_replacement_proved": false,
+  "contact_sheets_reviewed": [
+    1,
+    2,
+    3
+  ],
+  "full_size_pages_reviewed": [
+    2,
+    25,
+    26,
+    27,
+    28
+  ],
+  "visual_findings": "All pages inspected in contact sheets; changed input and complete new appendix inspected at full size. No clipping, overlap, missing glyphs or margin line numbers.",
+  "new_analytic_proof_scope": "M\u00f6bius consequence of the credited 7/8 theorem and converse equivalence; not a new zero-free proof or new Lean formalisation."
+}

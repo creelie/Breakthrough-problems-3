@@ -1,0 +1,31 @@
+{
+  "source_repo": "https://github.com/creelie/Breakthrough-problems-3",
+  "source_head": "ce39df5c8b06423beb7ea665fe320158f6efd475",
+  "upstream_repo": "https://github.com/openai/math",
+  "upstream_head": "1581d4cbdd69a0faf34b2089614fe2a814316a6a",
+  "current_external_input": {
+    "repository": "https://github.com/openai/math",
+    "commit": "1581d4cbdd69a0faf34b2089614fe2a814316a6a",
+    "path": "lean/OAI/NumberTheory/DirichletL/Nonvanishing.lean",
+    "boundary": "7/8",
+    "used_boundary": "11/12",
+    "proof": "7/8 < 11/12",
+    "short_11_12_paper_required": false
+  },
+  "historical_short_paper_not_current_dependency": true,
+  "historical_short_paper_receipt_not_a_current_dependency": {
+    "directory": "preprints/The-Quasi-Riemann-Hypothesis-October-5-2026",
+    "files": [
+      {
+        "name": "README.md",
+        "bytes": 537,
+        "sha256": "35c877a13fd9208ac0d4fb82a21560d9d7c79679982387760c73da9f82220026"
+      },
+      {
+        "name": "paper2.pdf",
+        "bytes": 784503,
+        "sha256": "f919b57829b178c8e60e7c17b018cf773e7907cf642ef5a3347d8a826e8dbf18"
+      }
+    ]
+  }
+}

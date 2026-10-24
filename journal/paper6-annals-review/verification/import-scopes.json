@@ -1,0 +1,21 @@
+{
+  "targets": [
+    {
+      "root": "OAI.NumberTheory.DirichletL.Foundation",
+      "local_imports": 302,
+      "existing_oleans": 302
+    },
+    {
+      "root": "OAI.NumberTheory.DirichletL.Detector.FinalAssemblyUnconditional",
+      "local_imports": 2942,
+      "existing_oleans": 482
+    },
+    {
+      "root": "OAI.NumberTheory.DirichletL.Nonvanishing",
+      "local_imports": 2943,
+      "existing_oleans": 483
+    }
+  ],
+  "foundation_only_modules": 0,
+  "scope": "Module imports, not proof-term dependencies. Existing compiled objects are not a claim of a completed audit."
+}

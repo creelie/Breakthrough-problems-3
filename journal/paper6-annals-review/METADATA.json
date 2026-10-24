@@ -1,0 +1,46 @@
+{
+  "title": "The optimal log log q bound in the P\u00f3lya\u2013Vinogradov inequality",
+  "authors": [
+    {
+      "name": "Deep Bhattacharjee",
+      "orcid": "0000-0003-0466-750X"
+    },
+    {
+      "name": "Ushashi Bhattacharya",
+      "orcid": "0009-0002-2254-3914"
+    }
+  ],
+  "status": "credited formal-input author review; fresh full audit pending",
+  "date": "2026-10-24",
+  "repository": "https://github.com/creelie/Breakthrough-problems-3",
+  "requested_preprint": "https://hexagonmath.org/2610.00256v2",
+  "source_commit": "ce39df5c8b06423beb7ea665fe320158f6efd475",
+  "pages": 29,
+  "credited_reproduced_proof_pages": 0,
+  "pdf_sha256": "19e1f0c1c7b832c8b5164822513be0a3292efda783e453efe6887aa2042021b8",
+  "aomart_screen": true,
+  "line_numbers": false,
+  "included_external_proof": null,
+  "independent_zero_free_replacement_proved": false,
+  "complete_fresh_zero_free_kernel_audit": false,
+  "new_parameter_lean_proofs_passed": true,
+  "desktop_compiler": "success",
+  "journal_submission_performed": false,
+  "new_doi": null,
+  "final_zip_created": false,
+  "whole_proof_verified": false,
+  "embedded_third_party_article_pages": 0,
+  "external_zero_free_input": {
+    "author": "OpenAI",
+    "title": "The quasi-Riemann hypothesis: a zero-free half-plane Re(s)>7/8",
+    "date": "2026-09-30",
+    "part_used": "Theorem 1.1: 7/8 Dirichlet nonvanishing, hence 11/12 by rational comparison",
+    "source_commit": "1581d4cbdd69a0faf34b2089614fe2a814316a6a",
+    "formal_declaration": "OAI.DirichletCharacter.LFunction_ne_zero_of_seven_eighths_lt_re",
+    "source": "https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Nonvanishing.lean"
+  },
+  "primary_pdf": "Polya_Vinogradov_Annals_MOBIUS_REVIEW.pdf",
+  "smoothed_mobius_written_deduction": true,
+  "smoothed_mobius_new_lean_formalisation": false,
+  "independent_mobius_cancellation_proof": false
+}

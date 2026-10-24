@@ -1,0 +1,19 @@
+{
+  "theta": "11/12",
+  "delta": "1/2000",
+  "sigma0": "2759/3000",
+  "prime_exponent": "49/50",
+  "unsmoothing_exponent": "47/50",
+  "prime_exponent_margin": "1/3000",
+  "smoothness_cutoff_power": 1800,
+  "major_arc_margin": "2",
+  "cyclotomic_cutoff_power": 25,
+  "tail_margin": "1/120",
+  "block_denominator": 48,
+  "block_constant": 600,
+  "progression_constant": 370200,
+  "old_700_cutoff_fails_new_major_arc_margin": true,
+  "old_17_cutoff_fails_new_tail_margin": true,
+  "zero_free_theorem_proved_by_this_program": false,
+  "status": "PASS"
+}

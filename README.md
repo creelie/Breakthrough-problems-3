@@ -1,5 +1,20 @@
 # The Pólya–Vinogradov inequality with log log q
 
+## Paper_6: corrected single-manuscript review
+
+The current [Annals-format review](journal/paper6-annals-review/README.md)
+cites OpenAI's exact zero-free theorem and contains no appended third-party
+article. The byline remains Deep Bhattacharjee and Ushashi Bhattacharya.
+The failed independent attempts and verification status are separate notes.
+The full formal source/endpoint audit is pending; no new independent zero-free
+proof is claimed. The supplied preprint is [Hexagon 2610.00256v2](https://hexagonmath.org/2610.00256v2).
+No final DOI or final ZIP has been issued for this corrected review.
+
+## Earlier release description
+
+The historical release claims and artifacts below are distinct from the
+current review and its pending fresh audit.
+
 Deep Bhattacharjee (corresponding author; Formerly, Electro-Gravitational
 Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India;
 Formerly, University of Calcutta, Senate House, 87/1 College Street, Kolkata 700073, West Bengal, India;
@@ -8,7 +23,7 @@ and Ushashi Bhattacharya (Formerly, National Taiwan University, Taipei 106319,
 Taiwan; rai.bhattacharya.in@gmail.com; ORCID 0009-0002-2254-3914).
 
 Paper: [`preprintPolyaVinogradovLogLog/PolyaVinogradovLogLog.pdf`](preprintPolyaVinogradovLogLog/PolyaVinogradovLogLog.pdf).
-Annals of Mathematics version (Hexagon 2610.00256v3): [`paper/paper1/PolyaVinogradovLogLog-Annals.pdf`](paper/paper1/PolyaVinogradovLogLog-Annals.pdf), source [`paper/paper2/PolyaVinogradovLogLog-Annals-tex.zip`](paper/paper2/PolyaVinogradovLogLog-Annals-tex.zip) (built from `paper/annals/`), submission files in [`journal/submission-annals/`](journal/submission-annals/); release v1.2.0: https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.2.0.
+Earlier Annals of Mathematics layout: [`paper/paper1/PolyaVinogradovLogLog-Annals.pdf`](paper/paper1/PolyaVinogradovLogLog-Annals.pdf), source [`paper/paper2/PolyaVinogradovLogLog-Annals-tex.zip`](paper/paper2/PolyaVinogradovLogLog-Annals-tex.zip) (built from `paper/annals/`), submission files in [`journal/submission-annals/`](journal/submission-annals/); release v1.2.0: https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.2.0.
 Lean formalisation and verification code on Zenodo: doi:[10.5281/zenodo.23383716](https://doi.org/10.5281/zenodo.23383716) (release v1.0.0; all versions: doi:[10.5281/zenodo.23383715](https://doi.org/10.5281/zenodo.23383715)).
 
 ## Results

@@ -1,0 +1,3 @@
+'Paper6.transfer_margins' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Paper6.old_cutoffs_insufficient' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Paper6.progression_constants' depends on axioms: [propext, Classical.choice, Quot.sound]
