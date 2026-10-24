@@ -65,6 +65,7 @@ jobs:
     timeout-minutes: 35
     defaults:
       run:
+        shell: bash
         working-directory: lean
     steps:
       - uses: actions/checkout@v4

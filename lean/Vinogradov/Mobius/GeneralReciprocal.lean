@@ -22,8 +22,8 @@ theorem negative_real_part_bound_general
     (fun w hw => by simpa only [Complex.sub_re] using sub_le_sub_right (hupper w hw) _)
     (by simp) hz
   have hb' : ‖g z - g c‖ ≤ (2 * r / (R - r)) * (U - (g c).re) := by
-    convert hb using 1 <;> ring
-  have hλ : 0 ≤ 2 * r / (R - r) := by positivity
+    convert hb using 1; ring
+  have hRatioNonneg : 0 ≤ 2 * r / (R - r) := by positivity
   have hreal := (neg_le_abs (g z - g c).re).trans (Complex.abs_re_le_norm (g z - g c))
   simp only [Complex.sub_re] at hreal
   calc
@@ -125,11 +125,11 @@ theorem polynomial_reciprocal_of_nonvanishing
   have hscale : B ≤ D * q * (1 + |t|) := by
     dsimp [B, D]
     have hqt : 0 ≤ (q : ℝ) * |t| := mul_nonneg hqp.le (abs_nonneg t)
-    apply (mul_le_mul_right hv).mp
+    apply le_of_mul_le_mul_right (a := v) ?_ hv
     have hleft : (2 + (q : ℝ) * (|t| + 4) / v) * v =
-        2 * v + (q : ℝ) * (|t| + 4) := by field_simp; ring
+        2 * v + (q : ℝ) * (|t| + 4) := by field_simp
     have hright : ((2 + 4 / v) * (q : ℝ) * (1 + |t|)) * v =
-        (2 * v + 4) * (q : ℝ) * (1 + |t|) := by field_simp; ring
+        (2 * v + 4) * (q : ℝ) * (1 + |t|) := by field_simp
     rw [hleft, hright]
     nlinarith [mul_nonneg (show 0 ≤ (q : ℝ) - 1 by linarith) hv.le,
       mul_nonneg hqt (show 0 ≤ 2 * v + 3 by linarith)]

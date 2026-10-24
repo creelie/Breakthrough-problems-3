@@ -41,7 +41,8 @@ theorem kernel_integrable_of_reciprocal {q : ℕ} [NeZero q]
   have hc : Continuous (fun t : ℝ => forwardKernel χ W X ((u : ℂ) + (t : ℂ) * I)) := by
     apply continuous_iff_continuousAt.mpr
     intro t
-    exact (kernel_differentiableAt_of_nonzero χ hχ hW X _ (hzero t)).continuousAt.comp
+    exact ContinuousAt.comp (f := fun v : ℝ => (u : ℂ) + (v : ℂ) * I)
+      (kernel_differentiableAt_of_nonzero χ hχ hW X _ (hzero t)).continuousAt
       (by fun_prop)
   apply ((mellin_polynomial_weight_integrable u hW N).const_mul (X ^ u * D)).mono'
     hc.aestronglyMeasurable

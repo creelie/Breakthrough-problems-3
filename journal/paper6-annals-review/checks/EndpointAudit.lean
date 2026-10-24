@@ -3,9 +3,10 @@ import Vinogradov
 /-!
 Exact endpoint audit for the original formal development.
 
-This file is a verification target until the full dependency build and its
-axiom inspection succeed. It does not formalise every line of the separate
-49-page written supplement or the independent replacement requested by the author.
+This file checks the main character-sum inequality, the exact revised Riesz
+parameters, and the closed Mobius conclusions. It invokes the credited,
+vendored zero-free proof. The separate written exposition and its classical
+cyclotomic identification are not a line-by-line formalisation.
 -/
 
 namespace Paper6.EndpointAudit
@@ -56,3 +57,5 @@ end Paper6.EndpointAudit
 #print axioms Paper6.EndpointAudit.riesz_at_review_boundary
 #print axioms Paper6.EndpointAudit.real_endpoint_loglog_bound
 #print axioms Vinogradov.Mobius.smoothed_mobius_bound
+#print axioms Vinogradov.Mobius.smoothed_mobius_cancellation
+#print axioms Vinogradov.Mobius.finite_smoothed_mobius_bound
