@@ -1,9 +1,12 @@
 {
-  "external_input": "OpenAI, The Quasi-Riemann Hypothesis, Theorem 1.1 (11/12 Dirichlet conclusion)",
+  "external_input": "OpenAI formalised 7/8 theorem, Theorem 1.1; elementary 11/12 consequence",
   "current_manuscript_embeds_external_article": false,
   "parameter_lean_proofs_passed": true,
   "full_original_formal_audit": "in_progress",
   "new_11_12_written_presentation_end_to_end_formalised": false,
   "independent_zero_free_replacement_proved": false,
-  "whole_proof_verified": false
+  "whole_proof_verified": false,
+  "smoothed_mobius_written_deduction": true,
+  "smoothed_mobius_new_lean_formalisation": false,
+  "independent_mobius_cancellation_proof": false
 }

@@ -1,0 +1,19 @@
+{
+  "official_repository": "https://github.com/openai/math",
+  "official_commit": "adc7f1241b42e322a6451854ab7e4b4c146bf78a",
+  "official_source_prefix": "lean/",
+  "local_repository": "https://github.com/creelie/Breakthrough-problems-3",
+  "local_commit": "b204ca373c3d777b822b2d30fa89f87fc20d2c46",
+  "official_OAI_lean_files": 2926,
+  "local_OAI_lean_files": 2924,
+  "exact_git_blob_matches": 2924,
+  "different_blob_paths": [],
+  "local_paths_absent_from_official_pin": [],
+  "official_paths_absent_locally": [
+    "OAI/NumberTheory/DirichletL/Hecke/ConditionalNonvanishing.lean",
+    "OAI/NumberTheory/DirichletL/Hecke/Nonvanishing.lean"
+  ],
+  "scope": "Source provenance only; not a successful kernel build or a new independent proof.",
+  "whole_proof_verified": false,
+  "independent_zero_free_replacement_proved": false
+}

@@ -1,19 +1,20 @@
 # Author-review status
 
-This revision repairs the earlier concatenation of two articles. The OpenAI
-preprint is cited, not appended. Theorem 1.1 of that preprint supplies the
-uniform nonvanishing input at Re(s)>11/12. The paper does not claim its authors
-independently proved the zero-free theorem.
+The uniform nonvanishing input is the credited formalised OpenAI 7/8 theorem.
+The stated 11/12 boundary follows by a rational comparison. No independent
+zero-free proof by the manuscript authors is claimed. No third-party article
+is appended to this single article.
 
-The explicit downstream written deductions, corrected parameters, two coherent
-appendices and original coauthor byline are retained. The full original formal
-source/endpoint audit remains in progress at this snapshot. A successful small
-parameter audit or finite numerical check must not be described as that result.
+Appendix C now proves the smoothed twisted Möbius estimate from that theorem,
+with explicit reciprocal growth and Mellin contour details, and proves the
+converse equivalence. This does not remove the external input. These new written
+analytic deductions are not claimed to be formalised in Lean. The exact original
+formal endpoints and their axiom closures remain under a fresh source audit;
+observe its result before describing that audit as complete.
 
-This is an Annals-format research draft. Novelty, significance and the analytic
-input need the stated review; acceptance is not guaranteed by formatting.
-The cover letter is unsent. The author must confirm any current journal status
-before a submission. No arXiv submission is attempted. The Hexagon v2 record is
-the verified preprint link; no unverified replacement identifier is inserted.
-
-No final DOI, final ZIP, or journal submission is created by this correction.
+The original two-author byline, explicit parameter appendix, and generic
+fixed-boundary transfer appendix are retained. This is an Annals-format research
+draft. Novelty, significance and acceptance do not follow from formatting or
+successful compilation. The cover letter is unsent. No arXiv or journal submission
+has been attempted. The verified earlier preprint is Hexagon 2610.00256v2.
+No final DOI, final ZIP or release has been created for this revision.

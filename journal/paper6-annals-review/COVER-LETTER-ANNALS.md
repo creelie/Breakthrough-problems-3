@@ -7,10 +7,12 @@ by Deep Bhattacharjee and Ushashi Bhattacharya.
 
 The manuscript deduces the uniform character-sum bound C sqrt(q) log log(q)
 and bounds for logarithmic derivatives and cyclotomic Euler–Kronecker constants
-using OpenAI's zero-free theorem as a precisely cited external input. It gives
+using OpenAI's formalised 7/8 zero-free theorem as a precisely cited external input. It gives
 the downstream contour, exponential-sum and sieve arguments in detail, tracks
 explicit parameters for the 11/12 boundary, and explains the general transfer
-from any fixed boundary below one. It does not claim a new independent proof
+from any fixed boundary below one. An additional appendix proves the resulting
+smoothed Möbius estimate and its equivalence with nonvanishing, retaining the
+credited input. It does not claim a new independent proof
 of the external zero-free theorem.
 
 The public preprint is https://hexagonmath.org/2610.00256v2 . Sources and the

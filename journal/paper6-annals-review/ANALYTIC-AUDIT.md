@@ -21,6 +21,7 @@ The full proof is not yet certified by this record.
 | Logarithmic derivative at one | Dominated convergence is justified by sigma0<1. Splitting the integral at log(q+2)^(1/(1-sigma0)) gives the claimed log-log bound. | Conditional written deduction checked. The original formal theorem uses log(log(q+2)), whose conversion is explicitly shown in the manuscript. |
 | Progression prime powers | For p<=z at most one p-power lies in (Mq,2Mq); p>z is handled by the sieve. Dyadic blocks, denominator 48 and constant 600 give C0=370200. | Rational constants checked. The primality of q and z<q are necessary hypotheses and remain explicit. |
 | Cyclotomic tail | Orthogonality gives c(n)=(q-1)1[n=1 mod q]-1[q does not divide n]. The q^25 tail is bounded because 25(1-sigma0)>2; the low integral is bounded by 100 log q. | The factorisation of the cyclotomic Dedekind zeta function is an explicitly cited classical input. The sum of logarithmic derivatives is not silently identified with an unrelated formal definition. |
+| Möbius implication and converse | Period sums give holomorphic polynomial growth of L. Harnack on nested discs bounds 1/L; compact smooth Mellin decay permits the contour shift. The reverse direction uses a weight chosen to be nonzero at a hypothetical zero. Radii 53/48 and 52/48 give the explicit q^104 loss. | New written proof from the credited theorem; not an independent replacement and not a Lean formalisation. |
 | Generic fixed boundary | Appendix B chooses delta, a and eta before taking A eta>=36. All constants may depend on theta but not q, chi or x. The case a=1/2, empty nonsmooth sum and small q are explicit. | A conditional transfer proof, not an independent zero-free construction or a completed new formalisation. |
 
 The central unconditional obligation is nonvanishing. It is now supplied by a precise external theorem citation,
@@ -30,5 +31,5 @@ original stronger formal theorem is undergoing a source build and an exact
 endpoint/axiom audit. No success receipt has been substituted for a running job.
 
 Even a successful original formal audit would not establish a new independent
-proof by the present authors, or formalise every line of the different 11/12
-cited external argument. Those distinctions remain necessary in a final assessment.
+proof by the present authors, or formalise every line of the revised 11/12
+presentation and the new Möbius appendix. Those distinctions remain necessary in a final assessment.

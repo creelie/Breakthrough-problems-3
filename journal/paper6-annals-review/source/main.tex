@@ -60,8 +60,8 @@ Euler--Kronecker constants}
 \begin{document}
 
 \begin{abstract}
-Using OpenAI's uniform zero-free half-plane $\Re s>11/12$ for nonprincipal
-Dirichlet $L$-functions, we derive the bound $C\sqrt q\log\log q$ for every
+Using the $11/12$ consequence of OpenAI's formalised $7/8$ zero-free theorem
+for nonprincipal Dirichlet $L$-functions, we derive the bound $C\sqrt q\log\log q$ for every
 primitive Dirichlet character modulo $q\ge3$. The zero-free theorem is cited
 as an external input. We give the subsequent contour, prime-sum, major-arc
 and minor-arc arguments in detail and prove the required weak
@@ -90,25 +90,25 @@ order~\cite{GS07}.\footnote{For a primitive character of odd order $g$ they obta
 $\sqrt q(\log q)^{1-\delta_g/2+o(1)}$ with $\delta_g=1-\frac g\pi\sin\frac\pi g$, and under the
 generalised Riemann hypothesis the same exponent of $\log\log q$.} We use the following precisely identified external theorem to obtain the bound of Montgomery and Vaughan.
 
-\begin{theorem}[OpenAI, {\cite[Theorem 1.1]{OAI26short}}]
+\begin{theorem}[Consequence of OpenAI, {\cite[Theorem 1.1]{OAI26}}]
 \label{thm:zerofree}
 For every nonprincipal Dirichlet character $\xi$, one has
 $L(s,\xi)\ne0$ whenever $\Re s>11/12$.
 \end{theorem}
 
-\begin{proof}[Source of the input]
-This is the Dirichlet conclusion of Theorem~1.1 of~\cite{OAI26short}.
-That paper's Section~3 deduces its theorem from Proposition~3.1, whose
-proof is completed in Section~5.6. We invoke that result and do not
-reproduce its article here. If the result is first stated for a primitive
-character $\xi^*$, then an imprimitive $\xi$ has
-\[
- L(s,\xi)=L(s,\xi^*)\prod_{p\mid q,\ p\nmid\operatorname{cond}(\xi^*)}
-             (1-\xi^*(p)p^{-s}).
-\]
-The primitive inducing character is nonprincipal whenever $\xi$ is.
-Each finite factor is nonzero for $\Re s>0$, since its second term has
-modulus less than one. Thus the same boundary holds at imprimitive levels.
+\begin{proof}[External theorem and deduction of the stated boundary]
+We use the stronger $7/8$ theorem of~\cite{OAI26}. Its formal statement
+applies to every Dirichlet character, with only the principal pole at
+$s=1$ excepted. Nonprincipality excludes that exception. Since
+$7/8<11/12$, the displayed conclusion follows. No primitivity assumption
+or additional Euler-factor argument is needed for this formal statement.
+The corresponding declaration is
+\begin{center}\footnotesize
+\path{OAI.DirichletCharacter.LFunction_ne_zero_of_seven_eighths_lt_re}.
+\end{center}
+The source and its attribution are retained in the accompanying repository.
+We invoke the credited formal theorem; no new independent proof of it is
+claimed here.
 \end{proof}
 
 \begin{theorem}[Using the cited zero-free input]\label{thm:pv}
@@ -122,11 +122,12 @@ $\chi$ modulo $q\ge3$ and every $x\ge1$,
 By Paley's theorem the order of this upper bound is optimal. The
 deductions in this article begin after Theorem~\ref{thm:zerofree}; the
 zero-free theorem is explicitly attributed to its source. An independent
-proof of that theorem by the present authors is not claimed. The stronger
-formal development cited in~\cite{OAI26} is a separate verification route
-for the external input. Appendix~\ref{app:parameters} gives the explicit
+proof of that theorem by the present authors is not claimed. The formal declaration above is the input used throughout; the numerical
+weaker boundary is chosen only to keep the following explicit parameters. Appendix~\ref{app:parameters} gives the explicit
 constants at the boundary $11/12$, and Appendix~\ref{app:uniformtransfer}
 proves the transfer for every fixed boundary strictly smaller than one.
+Appendix~\ref{app:mobius} proves the resulting smoothed twisted M\"obius
+estimate, including its dependence on nonvanishing and the converse implication.
 
 Montgomery and Vaughan use the Riemann hypothesis in one place: on the major arcs, for prime sums
 of the characters $\chi\psi$ twisted by additive characters, where $\psi$ runs over the characters
@@ -1203,6 +1204,174 @@ the stated character-sum bound. It does not prove the existence of such a
 boundary. Theorem~\ref{thm:zerofree} is the cited external result that supplies
 that antecedent in the main application.
 
+\section{Smoothed twisted M\"obius cancellation}
+\label{app:mobius}
+
+This appendix makes the dependence of a smoothed M\"obius estimate on the
+zero-free input precise. The forward implication below is a consequence of
+nonvanishing, not an independent proof of it. We allow complex-valued weights.
+For $W\in C_c^\infty((1,2);\C)$ put
+\[
+ S_{\chi,W}(X)=\sum_{n\ge1}\mu(n)\chi(n)W(n/X),\qquad
+ \widehat W(s)=\int_0^\infty W(y)y^{s-1}\,dy.
+\]
+The sum is finite for every $X>0$.
+
+\begin{lemma}[Polynomial growth of the reciprocal]\label{lem:reciprocal}
+Let $0<\theta<1$, let $\chi$ be a nonprincipal character modulo $q$, and
+suppose $L(s,\chi)\ne0$ on $\Re s>\theta$. If $0<d<1-\theta$, there are
+constants $B>0$ and $C>0$, depending only on $\theta,d$, such that
+\[
+ |L(u+it,\chi)^{-1}|\le Cq^B(1+|t|)^B
+ \quad(\theta+d\le u\le2).
+\]
+For $\theta=7/8$ and $d=1/24$ one may take the explicit bound
+\begin{equation}\label{eq:reciprocal-explicit}
+ |L(u+it,\chi)^{-1}|
+ \le 2^{105}\bigl(7q(1+|t|)\bigr)^{104}
+ \quad(11/12\le u\le2).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Since $\chi$ is nonprincipal, the sum over a full period vanishes. Thus
+$A(v)=\sum_{n\le v}\chi(n)$ satisfies $|A(v)|\le q$. Partial summation gives
+\[
+ L(s,\chi)=s\int_1^\infty A(v)v^{-s-1}\,dv,
+ \qquad |L(s,\chi)|\le\frac{q|s|}{\Re s}\quad(\Re s>0).
+\]
+The integral is locally uniformly convergent, together with its derivatives,
+on that half-plane. It therefore gives the needed holomorphic continuation.
+
+Fix $t\in\R$ and centre a disc at $c=2+it$. Set
+\[
+ R=2-\theta-d/2,\quad r=2-\theta-d,\quad
+ U=\log\left(2+\frac{q(|t|+4)}{\theta+d/2}\right).
+\]
+The closed disc of radius $R$ lies inside the assumed zero-free half-plane.
+There is a holomorphic branch $g=\log L$ on a neighbourhood of this disc,
+normalised at $c$ by the absolutely convergent Euler-product logarithm.
+Consequently $|g(c)|\le\log\zeta(2)<\log2$, whereas $\Re g<U$ throughout
+the disc. The positive harmonic function $U-\Re g$ obeys Harnack's inequality:
+for $|s-c|\le r$,
+\[
+ U-\Re g(s)\le K\bigl(U-\Re g(c)\bigr),\qquad
+ K=\frac{R+r}{R-r}.
+\]
+For completeness, this inequality follows from the Poisson integral on a
+concentric circle of radius $R'<R$: its positive kernel at radius at most
+$r$ is at most $(R'+r)/(R'-r)$ times the kernel at the centre. Letting
+$R'\uparrow R$ gives the stated factor.
+It follows that
+\[
+ |L(s,\chi)^{-1}|\le 2^K e^{(K-1)U}.
+\]
+Every $u+it$ in the stated segment is in the smaller disc. Since $K>1$,
+this proves the first assertion with $B=K-1$. For the specified numerical
+values, $R=53/48$, $r=52/48$, $K=105$, and $\theta+d/2=43/48$.
+Finally
+\[
+ 2+\frac{48q(|t|+4)}{43}\le 7q(1+|t|)
+\]
+for $q\ge1$. This proves~\eqref{eq:reciprocal-explicit}.
+\end{proof}
+
+\begin{proposition}[The zero-free and smoothed formulations]\label{prop:mobius-equivalence}
+Fix a nonprincipal Dirichlet character $\chi$ and $0<\theta<1$.
+The following statements are equivalent:
+\begin{enumerate}
+\item[(i)] $L(s,\chi)\ne0$ whenever $\Re s>\theta$.
+\item[(ii)] For every $\varepsilon>0$ and every
+$W\in C_c^\infty((1,2);\C)$ there is a constant $C_{\chi,W,\varepsilon}$
+such that, for all $X\ge1$,
+\[
+ |S_{\chi,W}(X)|\le C_{\chi,W,\varepsilon}X^{\theta+\varepsilon}.
+\]
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Assume~(i). It suffices to consider $0<\varepsilon<1-\theta$; larger
+$\varepsilon$ follow from the trivial bound
+$|S_{\chi,W}(X)|\le3\|W\|_\infty X$ for $X\ge1$.
+The Euler product, absolute convergence and Mellin inversion give
+\begin{equation}\label{eq:mobius-mellin}
+ S_{\chi,W}(X)=\frac{1}{2\pi i}
+ \int_{2-i\infty}^{2+i\infty}
+ \frac{\widehat W(s)X^s}{L(s,\chi)}\,ds.
+\end{equation}
+Indeed, $L(s,\chi)^{-1}=\sum_{n\ge1}\mu(n)\chi(n)n^{-s}$ on $\Re s>1$;
+the series and integral can be interchanged absolutely on $\Re s=2$.
+The substitution $y=e^v$ and repeated integration by parts show that
+for every integer $J\ge0$,
+\[
+ |\widehat W(u+it)|\le C_{W,J,\theta,\varepsilon}(1+|t|)^{-J}
+ \quad(\theta+\varepsilon\le u\le2).
+\]
+The boundary terms vanish because $W$ has compact support inside $(1,2)$.
+Lemma~\ref{lem:reciprocal}, with $d=\varepsilon$, supplies a polynomial
+bound for the reciprocal throughout this strip. Choose $J>B+2$.
+There are no poles in the strip, the horizontal sides of the contour tend
+to zero as their heights tend to infinity, and both vertical integrals
+converge absolutely. Shifting~\eqref{eq:mobius-mellin} to
+$\Re s=\theta+\varepsilon$ proves~(ii). The constants in this implication
+may be bounded by a constant depending on $W,\theta,\varepsilon$ times $q^B$.
+
+Conversely assume~(ii). For each fixed $W$ the function
+\[
+ F_W(s)=\int_0^\infty S_{\chi,W}(X)X^{-s-1}\,dX
+\]
+is holomorphic on $\Re s>\theta$. Near zero the integrand vanishes for
+$X\le1/2$; near infinity, choose $\varepsilon$ smaller than the distance
+of a compact subset from $\Re s=\theta$. This gives locally uniform
+convergence of the integral and its derivatives. For $\Re s>1$, absolute
+convergence and the substitution $y=n/X$ give
+\[
+ F_W(s)=\frac{\widehat W(s)}{L(s,\chi)}.
+\]
+Since $L(s,\chi)$ is holomorphic on $\Re s>0$, the identity theorem gives
+$L(s,\chi)F_W(s)=\widehat W(s)$ on $\Re s>\theta$.
+If $\rho$ were a zero in this region, choose a nonzero nonnegative
+$\varphi\in C_c^\infty((1,2);\R)$ and set $W(y)=y^{-\rho}\varphi(y)$.
+This is an admissible complex weight, with
+\[
+ \widehat W(\rho)=\int_1^2\frac{\varphi(y)}{y}\,dy>0.
+\]
+Evaluating the continued identity at $\rho$ gives a contradiction.
+\end{proof}
+
+\begin{corollary}[M\"obius consequence of the credited input]\label{cor:mobius}
+Using OpenAI's $7/8$ theorem cited in Theorem~\ref{thm:zerofree}, for every
+$\varepsilon>0$ and fixed nonprincipal $\chi$,
+\[
+ S_{\chi,W}(X)\ll_{\chi,W,\varepsilon} X^{7/8+\varepsilon}.
+\]
+In particular, for every $W\in C_c^\infty((1,2);\C)$ there is a constant
+$C_W$ such that, uniformly in nonprincipal characters modulo $q$,
+\begin{equation}\label{eq:mobius-consequence}
+ |S_{\chi,W}(X)|\le C_W q^{104}X^{11/12}\qquad(X\ge1).
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+The first assertion is Proposition~\ref{prop:mobius-equivalence} with
+$\theta=7/8$. For the second, shift~\eqref{eq:mobius-mellin} to $11/12$
+and use~\eqref{eq:reciprocal-explicit}. The finite quantity
+\[
+ A_W=\sup_{\substack{11/12\le u\le2\\t\in\R}}
+       (1+|t|)^{107}|\widehat W(u+it)|
+\]
+gives the choice $C_W=2^{105}7^{104}A_W/(2\pi)$, since
+$\int_{-\infty}^{\infty}(1+|t|)^{-3}\,dt=1$.
+\end{proof}
+
+The corollary proves the requested smoothed estimate from the cited theorem.
+Proposition~\ref{prop:mobius-equivalence} also shows precisely why using
+that estimate to reprove the same nonvanishing would not remove the
+dependency. No independent proof of assertion~(i) or~(ii) is supplied here.
+These are written analytic deductions; they are not asserted to be new
+Lean declarations or a new zero-free theorem.
+
 \section*{Source and computational material}
 The source archive~\cite{BB26code} and the public preprint
 \url{https://hexagonmath.org/2610.00256v2} provide the earlier coauthored
@@ -1217,7 +1386,8 @@ the authors' direction, as recorded in the source archive. OpenAI Codex
 prepared the explicit parameter conversion in Section~\ref{sec:riesz},
 Lemma~\ref{lem:major}, Proposition~\ref{prop:hsum}, and the progression and
 tail estimates in Section~\ref{sec:ek}. It expanded the Mellin inversion
-justification and supplied Appendix~\ref{app:uniformtransfer}.
+justification and supplied Appendices~\ref{app:uniformtransfer}
+and~\ref{app:mobius}.
 Appendix~\ref{app:parameters} identifies the exact numerical margins.
 The authors remain responsible for the mathematics and references.
 
@@ -1258,11 +1428,11 @@ coefficients}, Invent. Math. 43 (1977), 69--82. doi:\href{https://doi.org/10.100
 constants of cyclotomic fields: the log log log devil at play}, in: Irregularities in the
 Distribution of Prime Numbers, Springer, Cham, 2018, 143--163. doi:\href{https://doi.org/10.1007/978-3-319-92777-0_8}{10.1007/978-3-319-92777-0\_8}
 
-\bibitem{OAI26short} OpenAI, \emph{The Quasi-Riemann Hypothesis},
-preprint (not refereed), 5 October 2026,
-\href{https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/preprints/The-Quasi-Riemann-Hypothesis-October-5-2026/paper2.pdf}{official repository copy}.
 \bibitem{OAI26} OpenAI, \emph{The quasi-Riemann hypothesis: a zero-free half-plane
-$\Re s>7/8$}, preprint (not refereed), 30 September 2026, with a Lean~4 formalisation, repository \url{https://github.com/openai/math}
+$\Re s>7/8$}, preprint (not refereed), 30 September 2026, with a Lean~4 formalisation,
+Theorem~1.1 and the
+\href{https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Nonvanishing.lean}{formal Dirichlet nonvanishing statement},
+repository commit \path{1581d4cbdd69a0faf34b2089614fe2a814316a6a}.
 
 \bibitem{Pal32} R.~E.~A.~C. Paley, \emph{A theorem on characters}, J. London Math. Soc.
 s1-7 (1932), 28--32. doi:\href{https://doi.org/10.1112/jlms/s1-7.1.28}{10.1112/jlms/s1-7.1.28}

@@ -7,9 +7,9 @@ def verify(pdf,tex):
     s=tex.read_text(encoding='utf-8');r=PdfReader(pdf)
     assert len(re.findall(r'\\title(?:\[[^\n]*\])?\{',s))==1
     assert '\\includepdf' not in s and '\\usepackage{pdfpages}' not in s
-    assert 'OpenAI, {\\cite[Theorem 1.1]{OAI26short}}' in s
+    assert 'Consequence of OpenAI, {\\cite[Theorem 1.1]{OAI26}}' in s
     assert '\\label{thm:zerofree}' in s
-    assert 'An independent\nproof of that theorem by the present authors is not claimed.' in s
+    assert 'no new independent proof of it is\nclaimed here.' in s
     borrowed=[]
     for i,p in enumerate(r.pages):
         for obj in p.get('/Resources',{}).get('/XObject',{}).values():

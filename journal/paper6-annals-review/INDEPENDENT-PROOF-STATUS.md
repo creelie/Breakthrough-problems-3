@@ -1,42 +1,44 @@
-# Independent proof status
+# Möbius estimate and independent-proof status
 
-No new independent proof of the zero-free theorem has been obtained. This note
-is separate from the manuscript. Its purpose is to state the outstanding
-mathematical obligation exactly, not to claim that finite tests discharge it.
+Appendix C now gives complete written analytic proofs of the following.
 
-One sufficient replacement is the following assertion. For each nonprincipal
-Dirichlet character chi, every epsilon>0 and every smooth W supported in (1,2),
-prove, for all X>=1,
+For fixed nonprincipal chi and 0 < theta < 1, nonvanishing of L(s,chi) on
+Re(s)>theta is equivalent to the estimate
 
-    abs(sum_n mu(n) chi(n) W(n/X)) <= C(chi,W,epsilon) X^(11/12+epsilon).
+    |sum_n mu(n) chi(n) W(n/X)| <= C(chi,W,epsilon) X^(theta+epsilon)
 
-The constant may depend on the fixed character and weight; the exponent must
-have the same boundary 11/12 for every character. This implies the required
-nonvanishing, as follows. If L(s,chi) had a zero rho with Re(rho)>11/12, choose
-epsilon smaller than that gap and a nonnegative nonzero smooth phi supported
-in (1,2). Put W(y)=y^(-rho) phi(y). Its Mellin transform at rho is the strictly
-positive integral of phi(y)/y. The displayed bound makes the Mellin transform
-in X of the smoothed sum holomorphic on Re(s)>11/12. For Re(s)>1, absolute
-convergence identifies it with Mellin(W)(s)/L(s,chi). Analytic continuation
-then gives L(s,chi) M(s)=Mellin(W)(s) throughout that half-plane. Evaluation at
-rho contradicts the chosen positive value. For the holomorphy assertion at any
-point, choose epsilon smaller than its distance from 11/12; constants need not
-be uniform in epsilon. The integral near X=0 vanishes by compact support.
+for every epsilon>0, every complex smooth W compactly supported in (1,2), and
+all X>=1. Constants may depend on the fixed character and weight.
 
-This reduction does not prove the displayed Möbius bound. The cited OpenAI
-argument obtains the corresponding cancellation through a specialised mean
-square, theta transformation and transfer iteration. Restating those steps
-with attribution would be a reconstruction of that argument, not an
-independent replacement.
+Forward: bounded character partial sums give polynomial growth of L; a positive
+harmonic logarithm and Harnack's inequality give polynomial growth of 1/L on
+each smaller closed half-strip. Rapid Mellin decay then justifies a contour
+shift. All boundaries and convergence justifications are written in the article.
 
-The Burgess-shaped substitution considered earlier gives no nontrivial bound
-at the required polylogarithmic lengths. A coefficient-uniform substitute for
-the special Möbius mean square is also false because coherent sixth-power rows
-can align the selected prime columns. Neither observation disproves OpenAI's
-special-coefficient theorem; neither supplies the missing replacement.
+Reverse: integrate the smoothed sum against X^(-s-1). The assumed bound gives a
+holomorphic function F_W on Re(s)>theta and L F_W = Mellin(W). At a hypothetical
+zero rho choose W(y)=y^(-rho) phi(y), with nonzero nonnegative smooth phi inside
+(1,2). Then Mellin(W)(rho)=integral phi(y)/y > 0, a contradiction.
 
-The current manuscript therefore uses the author's authorised fallback: the
-exact external theorem is cited and credited. A successful Lean rebuild would
-verify the stated formal dependency and endpoints. Python, Julia, C and C++
-checks test specified arithmetic and finite ranges; they do not prove the
-displayed estimate for all X or construct a new proof of nonvanishing.
+Using OpenAI's credited 7/8 theorem, the forward implication proves the estimate
+with exponent 7/8+epsilon. Choosing the line 11/12 gives the explicit bound
+C_W q^104 X^(11/12), uniformly over nonprincipal characters modulo q.
+The disc radii are 53/48 and 52/48, the Harnack ratio is 105, and the reciprocal
+growth power is 104. The 107th Mellin decay bound makes the final integral
+absolutely convergent. This is a mathematical consequence of the external
+theorem, not an independent replacement for it.
+
+No independent proof of the zero-free theorem, or of the equivalent Möbius
+estimate without it, has been obtained here. In particular, applying the reverse
+implication after the forward implication would be circular as a purported
+removal of that input. A successful Lean rebuild of the cited proof would verify
+that formal proof, not invent a distinct one. The new Appendix C is not claimed
+to be formalised in Lean.
+
+The earlier Burgess-shaped substitution gives no nontrivial saving at the
+required polylogarithmic lengths. A bound uniform over arbitrary coefficients
+cannot replace the special Möbius mean square: coherent sixth-power rows can
+align the prime columns. These failures do not refute the special theorem.
+Python, Julia, C, C++ and finite search do not supply the missing universal
+analytic argument. The article uses the precise cited-theorem fallback which
+the author authorised.
