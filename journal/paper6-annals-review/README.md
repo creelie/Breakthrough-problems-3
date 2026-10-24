@@ -32,5 +32,5 @@ proofs. These numerical programs do not establish global nonvanishing.
 
 The sources use aomart screen mode, without margin line numbers. Compile
 source/main.tex twice with pdfLaTeX. The current PDF is
-Polya_Vinogradov_Annals_REVIEW.pdf. The structural verifier rejects an appended
+Polya_Vinogradov_Annals_CITED_REVIEW.pdf. The structural verifier rejects an appended
 third-party article. No journal submission, final DOI or final ZIP is issued.
