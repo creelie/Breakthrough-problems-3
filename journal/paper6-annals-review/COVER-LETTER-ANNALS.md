@@ -1,6 +1,6 @@
 Dear Editors,
 
-Please consider “The Pólya–Vinogradov inequality with log log q” by Deep
+Please consider “The optimal log log q bound in the Pólya–Vinogradov inequality” by Deep
 Bhattacharjee and Ushashi Bhattacharya.
 
 The manuscript develops the uniform bound C sqrt(q) log log(q) for primitive

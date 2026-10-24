@@ -1,0 +1,7 @@
+/source/*.aux
+/source/*.log
+/source/*.out
+/source/*.rpi
+/source/main.pdf
+/checks/__pycache__/
+*.pyc

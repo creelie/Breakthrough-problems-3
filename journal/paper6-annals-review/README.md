@@ -1,6 +1,6 @@
 # Paper_6 — Annals author-review edition
 
-Title: The Pólya–Vinogradov inequality with log log q.
+Title: The optimal log log q bound in the Pólya–Vinogradov inequality.
 Authors: Deep Bhattacharjee and Ushashi Bhattacharya, preserving the public
 preprint byline. Requested preprint: https://hexagonmath.org/2610.00256v2 .
 Repository: https://github.com/creelie/Breakthrough-problems-3 .
@@ -48,3 +48,19 @@ COVER-LETTER-ANNALS.md is an unsent working draft. SUBMISSION-STATUS.md records
 what must be resolved before describing this as a completed final submission.
 No new DOI, final ZIP, journal submission or acceptance is asserted here.
 The instruction to confirm a published DOI before a final ZIP is preserved.
+
+The current review is 78 pages, including the unchanged 49-page credited proof.
+Appendix D supplies a conditional transfer theorem for any fixed boundary below
+one, with explicit treatment of its uniform constants and small moduli. The
+Mellin inversion proof now gives the horizontal and shifted vertical integral
+bounds, and the contour caption identifies the indicated nontrivial zeros.
+
+`checks/EndpointAudit.lean` states the exact original character-sum endpoint,
+its real-endpoint form, the 11/12 boundary and the revised Riesz exponent in
+standard Mathlib definitions. `checks/verify_axioms.py` rejects missing theorem
+reports, any additional axiom and unaccepted reduction shortcuts. These are
+full-audit targets until a successful build and axiom report are actually
+recorded; supplying the files does not constitute a completed verification.
+The manual full-proof CI job builds the original formal argument from source
+and inspects all 19 original theorem reports plus these four endpoints.
+The routine PR jobs have only the smaller TeX/inclusion and parameter scopes.

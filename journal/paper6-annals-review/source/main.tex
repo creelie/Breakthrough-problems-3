@@ -8,7 +8,7 @@
 \usepackage{tikz-cd}
 \usepackage{url}
 \usepackage{xurl}
-\hypersetup{pdftitle={The Polya-Vinogradov inequality with log log q},
+\hypersetup{pdftitle={The optimal log log q bound in the Polya-Vinogradov inequality},
 pdfauthor={Deep Bhattacharjee; Ushashi Bhattacharya},
 pdfsubject={Author review with attributed proof appendix; independent replacement not established}}
 \numberwithin{equation}{section}
@@ -36,7 +36,7 @@ pdfsubject={Author review with attributed proof appendix; independent replacemen
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
 
-\title[P\'olya--Vinogradov with $\log\log q$]{The P\'olya--Vinogradov inequality with $\log\log q$}
+\title[The optimal $\log\log q$ bound]{The optimal $\log\log q$ bound in the P\'olya--Vinogradov inequality}
 
 \author[D. Bhattacharjee]{Deep Bhattacharjee}
 \address{Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL),
@@ -325,8 +325,18 @@ $\sum_n|a(n)|\int_n^\infty x^{-\sigma-1}dx=\sigma^{-1}\sum_n|a(n)|n^{-\sigma}<\i
 and the integral may be exchanged.
 
 (ii) For $y>0$ let $k(y)=\frac1{2\pi i}\int_{(2)}y^s\,\frac{ds}{s(s+1)}$. If $y\ge1$, moving the
-line of integration to $\Re s=-U$ and letting $U\to\infty$ picks up the residues $1$ at $s=0$ and
-$-1/y$ at $s=-1$, so $k(y)=1-1/y$; if $y<1$, moving it to the right gives $k(y)=0$. As
+line of integration to $\Re s=-U$, with $U>2$, picks up the residues $1$ at $s=0$ and
+$-1/y$ at $s=-1$. For each fixed $U$, the horizontal integrals tend to zero as their
+height tends to infinity: their lengths are fixed and the denominator is of order
+the square of that height. On the new vertical line,
+\[
+ \int_{-\infty}^{\infty}\frac{|y^{-U+it}|}{|(-U+it)(1-U+it)|}\,dt
+ \le y^{-U}\int_{-\infty}^{\infty}\frac{dt}{(U-1)^2+t^2}
+ =\frac{\pi y^{-U}}{U-1}.
+\]
+This tends to zero for $y\ge1$, including $y=1$, so $k(y)=1-1/y$ there.
+For $y<1$, shifting instead to $\Re s=U$ crosses no pole and leaves an integral
+bounded by $\pi y^U/U$, which tends to zero. As
 $|s(s+1)|^{-1}$ is integrable on $\Re s=2$ and $\sum_n|a(n)|n^{-2}<\infty$, summation and
 integration may be exchanged, and the right side equals $\sum_na(n)k(x/n)=S(a;x)$.
 \end{proof}
@@ -349,7 +359,8 @@ there, and $|E(s)|\le A_0$ for $\Re s\ge3/2$.
 
 \begin{proof}
 For $\Re s\ge1$ we have $|\chi(\ell)\ell^{-s}|\le1/2$, and $|\log(1-w)|\le\sum_k|w|^k/k
-\le\frac32|w|$ for $|w|\le1/2$. The series therefore converges locally uniformly on $\Re s>1$
+\le\frac32|w|$ for $|w|\le1/2$: indeed, the terms with $k\ge2$ have total at most
+$|w|^2/(2(1-|w|))\le |w|/2$. The series therefore converges locally uniformly on $\Re s>1$
 and is bounded by $A_0$ on $\Re s\ge3/2$, and the Euler product gives $e^E=L$.
 \end{proof}
 
@@ -439,8 +450,8 @@ $|S(\chi;x)|\le\frac{160K_1}{\pi}x^{\sigma_0}\log(q+2)$.
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_splane.pdf}
-\caption{The contour shift in the proof of Proposition~\ref{prop:riesz}. The zeros of
-$L(s,\chi)$ lie in the strip $0\le\Re s\le11/12$ (dots), the kernel $x^s/(s(s+1))$ has poles at
+\caption{The contour shift in the proof of Proposition~\ref{prop:riesz}. The indicated nontrivial zeros of
+$L(s,\chi)$ lie in $0\le\Re s\le11/12$ (dots), the kernel $x^s/(s(s+1))$ has poles at
 $0$ and $-1$ (crosses), and the line of integration moves from $\Re s=2$ to
 $\Re s=\sigma_0$ inside the zero-free half-plane. Horizontal spacing is schematic.}
 \label{fig:splane}
@@ -1232,6 +1243,84 @@ use the special coefficients, or supply some other genuinely stronger
 mechanism; that step has not been constructed here.
 
 
+
+\section{Uniform transfer from a fixed zero-free boundary}
+\label{app:uniformtransfer}
+
+The role of the zero-free theorem can be separated from the numerical
+choices of Appendix~\ref{app:parameters}. The following is a conditional
+transfer statement; its proof supplies no independent zero-free theorem.
+
+\begin{proposition}\label{prop:fixedboundary}
+Fix $1/2\le\theta<1$. Suppose that every nonprincipal Dirichlet character
+$\xi$ has $L(s,\xi)\ne0$ for $\Re s>\theta$. There exists $C_\theta>0$
+such that every primitive character $\chi$ modulo $q\ge3$ satisfies
+\[
+ \sup_{x\ge0}\left|\sum_{n\le x}\chi(n)\right|
+ \le C_\theta\sqrt q\log\log q.
+\]
+The constant is uniform in the modulus, the character and the summation
+endpoint. Its dependence on $\theta$ is allowed.
+\end{proposition}
+
+\begin{proof}
+Choose $\delta=\min(1/2000,(1-\theta)/100)$ and put
+$a=\max(1/2,\theta-2\delta)$, $\sigma=a+8\delta$ and
+$\eta=(1-\sigma)/4$. If $a=\theta-2\delta$, then
+$\sigma=\theta+6\delta\le\theta+6(1-\theta)/100<1$.
+If $a=1/2$, then $\sigma\le1/2+8/2000<1$.
+Thus $1/2\le a\le1$, $0<\delta<1/1000$, $0<\eta\le1/8$ and
+$a+2\delta\ge\theta$. Proposition~\ref{prop:riesz} therefore gives,
+uniformly for nonprincipal $\xi$ modulo $k$,
+\[
+ |S(\xi;x)|\ll_\theta x^\sigma\log(k+2).
+\]
+The unsmoothing identity in Corollary~\ref{cor:prime}, with
+$h=x^{(1+\sigma)/2}=x^{1-2\eta}$, gives
+\[
+ \left|\sum_{p\le x}\xi(p)\log p\right|
+ \ll_\theta x^{1-\eta}\log(k+2).
+\]
+Here the difference of the two Riesz means divided by $h$ has exponent
+$1-2\eta$, the interval error is $O(x^{1-2\eta}\log(2x))$, and the
+prime-power error is $O(\sqrt x\log x)$. The inequality
+$\log x\le x^\eta/\eta$ absorbs both logarithms; $\sigma\ge1/2$
+ensures $1/2+\eta\le1-\eta$. Partial summation gives the corresponding
+additively twisted prime bound.
+
+The proof of Lemma~\ref{lem:major} now uses
+\[
+ \sum_{m\le M}m^{-1+\eta}\le M^\eta/\eta
+\]
+and gives the same conclusion with $Y^\eta$ in the denominator,
+with an implied constant depending on $\theta$. For $L=\log q\ge200$
+and $M=\lceil L\rceil$, take $R=M^{16}$ and $Y=M^A$, where $A$ is
+an integer with $A\eta\ge36$ and $A\ge16$.
+The minor-arc theorem is unchanged. Its weighted contribution is bounded
+by $O(1+\log L)$, since $\rho(1+L)\le1$. For the major arcs the
+coefficient after Abel summation is bounded by
+\[
+ \frac{R\log(qR+2)(2+2\pi R)(1+L)}{Y^\eta\log Y}
+ \le \frac{288 M^{34-A\eta}}{A\log M}\le288.
+\]
+Finally, the two smooth-number contributions have total at most
+$2e^{11}\log Y\le4Ae^{11}\log L$. This proves the harmonic-sum
+bound $O_\theta(\log\log q)$ exactly as in
+Proposition~\ref{prop:hsum}, including the case $Y\ge H$, in which
+the nonsmooth sum is empty. Lemma~\ref{lem:polya} proves the result
+for $L\ge200$. For $L<200$ its elementary harmonic bound gives
+$207\sqrt q$, absorbed using $\log\log q\ge\log\log3>0$.
+\end{proof}
+
+This proposition explains why a fixed boundary strictly smaller than $1$
+suffices. It does not establish such a boundary. The included OpenAI
+argument and its attribution remain essential to the unconditional claim.
+The formal endpoint audit supplied with this revision separately states
+the desired character-sum inequality in standard Lean definitions and
+checks its derivation from the original formal theorem when that full
+development successfully builds. Until that audit finishes, its presence
+is a verification target, not a completed certificate.
+
 \section*{Data, provenance and verification}
 The original source archive~\cite{BB26code} is the coauthored repository
 \url{https://github.com/creelie/Breakthrough-problems-3}, pinned for this
@@ -1259,8 +1348,9 @@ prepared the $11/12$ parameter conversion in Section~\ref{sec:riesz},
 Lemma~\ref{lem:major}, Proposition~\ref{prop:hsum}, and the progression
 and tail estimates in Section~\ref{sec:ek}; Appendix~\ref{app:parameters}
 identifies their exact margins. It also reconstructed the elementary
-obstruction arguments in Appendix~\ref{app:independent} and prepared this
-layout. The zero-free proof reproduced in Appendix~\ref{app:creditedproof}
+obstruction arguments in Appendix~\ref{app:independent}, expanded the
+Mellin inversion justification, and supplied the conditional transfer argument
+in Appendix~\ref{app:uniformtransfer}. It prepared this layout. The zero-free proof reproduced in Appendix~\ref{app:creditedproof}
 is OpenAI's published repository text, unchanged and explicitly credited;
 it is not claimed as a new discovery by these authors. The authors remain
 responsible for reviewing the mathematics and references.

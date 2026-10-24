@@ -1,5 +1,5 @@
 {
-  "title": "The Pólya–Vinogradov inequality with log log q",
+  "title": "The optimal log log q bound in the P\u00f3lya\u2013Vinogradov inequality",
   "authors": [
     {
       "name": "Deep Bhattacharjee",
@@ -15,9 +15,9 @@
   "repository": "https://github.com/creelie/Breakthrough-problems-3",
   "requested_preprint": "https://hexagonmath.org/2610.00256v2",
   "source_commit": "ce39df5c8b06423beb7ea665fe320158f6efd475",
-  "pages": 76,
+  "pages": 78,
   "credited_reproduced_proof_pages": 49,
-  "pdf_sha256": "b828dbacfc76521848d2cb811cc48a2da60b434f3bb91c3c5f57e85abb6685f3",
+  "pdf_sha256": "5afb3530f6c801a29ced77dfed71a2fe28886333e6a4b7be3c327844e052a529",
   "aomart_screen": true,
   "line_numbers": false,
   "included_external_proof": "OpenAI 11/12 argument; complete attributed reproduction",
@@ -27,5 +27,6 @@
   "desktop_compiler": "success",
   "journal_submission_performed": false,
   "new_doi": null,
-  "final_zip_created": false
+  "final_zip_created": false,
+  "whole_proof_verified": false
 }

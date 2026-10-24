@@ -1,11 +1,12 @@
 {
-  "pdf": "D:\\CLAUDE PAPERS\\polya-paper6-2026-10-24\\annals-review\\Polya_Vinogradov_Annals_REVIEW.pdf",
-  "pdf_sha256": "b828dbacfc76521848d2cb811cc48a2da60b434f3bb91c3c5f57e85abb6685f3",
-  "pages": 76,
+  "pdf_sha256": "5afb3530f6c801a29ced77dfed71a2fe28886333e6a4b7be3c327844e052a529",
+  "pages": 78,
   "overfull": [],
   "undefined": [],
   "unused_bibliography": [],
   "missing_bibliography": [],
+  "whole_proof_verified": false,
   "independent_zero_free_replacement_proved": false,
-  "status": "author-review"
+  "status": "author-review",
+  "local_compiler": "pdflatex success"
 }

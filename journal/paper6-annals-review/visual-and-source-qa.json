@@ -1,13 +1,14 @@
 {
-  "pages": 76,
+  "pages": 78,
   "third_party_proof_pages": 49,
-  "third_party_proof_start_pdf_page": 22,
+  "third_party_proof_start_pdf_page": 23,
   "all_49_source_page_drawing_streams_byte_identical": true,
   "both_original_authors_present": true,
   "main_abstract_words": 133,
-  "pdf_sha256": "b828dbacfc76521848d2cb811cc48a2da60b434f3bb91c3c5f57e85abb6685f3",
+  "pdf_sha256": "5afb3530f6c801a29ced77dfed71a2fe28886333e6a4b7be3c327844e052a529",
   "line_numbering_disabled": true,
   "visual_review_complete": true,
   "independent_zero_free_replacement_proved": false,
-  "review": "All 76 rendered pages inspected; title, contour diagram, parameter proof and final references inspected at full size."
+  "review": "All 78 rendered pages inspected in contact sheets; title, expanded Mellin proof, corrected contour caption, new conditional transfer proof and declarations inspected at full size.",
+  "whole_proof_verified": false
 }

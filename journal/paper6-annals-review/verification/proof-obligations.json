@@ -1,0 +1,17 @@
+{
+  "checked": {
+    "rational_parameter_lean": true,
+    "rational_parameter_independent": true,
+    "pdf_build_and_visual_review": true,
+    "all_49_credited_proof_page_streams_match": true
+  },
+  "pending": {
+    "full_original_formal_source_build": true,
+    "exact_endpoint_axiom_inspection": true,
+    "end_to_end_new_parameter_formalisation": true,
+    "every_analytic_estimate_in_written_supplement": true,
+    "wholly_independent_zero_free_replacement": true
+  },
+  "whole_proof_verified": false,
+  "independent_zero_free_replacement_proved": false
+}
