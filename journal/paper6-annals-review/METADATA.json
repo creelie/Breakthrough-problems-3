@@ -54,5 +54,6 @@
     "RellichKondrachov",
     "Vinogradov"
   ],
-  "manuscript_tex_sha256_lf": "c346f955188b6e8ee6bc2d726afe471701db73f02252cce5e6ce3718d589ca25"
+  "manuscript_tex_sha256_lf": "c346f955188b6e8ee6bc2d726afe471701db73f02252cce5e6ce3718d589ca25",
+  "current_linux_mobius_component_audit": "PASS; 20 standard-axiom reports; verification/component-audit.json"
 }

@@ -13,7 +13,9 @@ Those dependencies are listed by exact commit in `lean/lake-manifest.json`.
 Their source/cache download needs network access on the first build. The package
 does not claim to be an offline installation of Lean or Mathlib.
 
-From the archive root, with Lean's `elan` installer and Python 3 available:
+In a repository checkout use its root. In the final submission packet, first
+enter `formal-proof/`, which preserves the project's build layout. With Lean's
+`elan` installer and Python 3 available, run:
 
 ```sh
 cd lean

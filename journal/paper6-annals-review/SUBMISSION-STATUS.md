@@ -9,7 +9,8 @@ closed main theorem uses the proved OpenAI zero-free theorem, rather than
 an unproved nonvanishing assumption. This does not constitute a new independent
 proof of that theorem. Standard Lean and Mathlib dependencies remain pinned.
 
-The new analytic Möbius modules have passed local Lean checks. The current
+The new analytic Möbius modules passed local Lean checks and a Linux source
+build with all 20 named standard-axiom reports. The current
 complete root build and its closed endpoint reports are still pending. No
 success is inferred from a running job. PROOF-COVERAGE.md records each scope.
 
