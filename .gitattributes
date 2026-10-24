@@ -1,0 +1,12 @@
+# Keep historical binary distributions in Git and their published releases,
+# but omit them from new source archives. The current article and proof sources
+# remain in journal/paper6-annals-review and lean/.
+/MasterPolyaVinogradovLogLog_masterzipfinal2.zip export-ignore
+/dist/*.pdf export-ignore
+/dist/*.zip export-ignore
+/dist/*.tar.gz export-ignore
+/journal/submission-acta/*.pdf export-ignore
+/journal/submission-acta/*.zip export-ignore
+/paper/paper1/*.pdf export-ignore
+/paper/paper2/*.zip export-ignore
+/preprintPolyaVinogradovLogLog/*.pdf export-ignore
