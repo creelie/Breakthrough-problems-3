@@ -1,0 +1,38 @@
+{
+  "upstream_repository": "https://github.com/openai/math",
+  "upstream_pin": "1581d4cbdd69a0faf34b2089614fe2a814316a6a",
+  "license": "Apache-2.0",
+  "scope": "Generic analytic helper extraction with retained credit; not a new independent zero-free proof.",
+  "excerpts": [
+    {
+      "source": "OAI/NumberTheory/DirichletL/Mellin/ExponentialSmoothing.lean",
+      "start": "theorem inverse_mellin_analytic",
+      "end_before": "theorem dirichlet_zero_free_of_mellin_bound",
+      "original_excerpt_sha256": "f5cfda1c1de321d91890f94eec95fc41172fa861c1ace2602b809b2d7060a7e9"
+    },
+    {
+      "source": "OAI/NumberTheory/DirichletL/Mellin/CompactScale.lean",
+      "start": "theorem compact_weight_mellin_convergent",
+      "end_before": "noncomputable def finiteEulerFactor",
+      "original_excerpt_sha256": "b8c818c3821c0875ac777c596689d3077c44c6b6a491849f5577e2a2a09187a7"
+    },
+    {
+      "source": "OAI/NumberTheory/DirichletL/Mellin/FiniteEulerRestoration.lean",
+      "start": "theorem mellin_weighted_sum",
+      "end_before": "theorem normFiber_compact_euler_identity",
+      "original_excerpt_sha256": "7a4a7be94842681579b88b43ec8c34c3ca2feb8337480dd8ccb75f9f60b46f8d"
+    },
+    {
+      "source": "OAI/NumberTheory/DirichletL/Mellin/FiniteEulerRestoration.lean",
+      "start": "theorem weighted_sum_zero_of_large_t",
+      "end_before": "theorem pair_zero_free_of_compact_weight_bound",
+      "original_excerpt_sha256": "b7e7fbe7572684e80d59be93ce100f1a8bd358e23b7b24822fb7eb564a88bf3e"
+    },
+    {
+      "source": "OAI/NumberTheory/DirichletL/Mellin/CompactWeights.lean",
+      "start": "noncomputable def bumpData :",
+      "end_before": "theorem weight_norm_le_one",
+      "original_excerpt_sha256": "1603a4118e9fd08e1582e90891efe086729afbc3d7d5feec01e0b1d220a18557"
+    }
+  ]
+}
