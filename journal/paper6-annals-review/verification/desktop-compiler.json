@@ -1,0 +1,9 @@
+{
+  "kind": "success",
+  "source": "source/main.tex",
+  "source_sha256_lf": "c346f955188b6e8ee6bc2d726afe471701db73f02252cce5e6ce3718d589ca25",
+  "compiler": "Codex desktop editor built-in compiler",
+  "message": "The current source compiled successfully with the desktop editor compiler.",
+  "checked_at_utc": "2026-10-24T23:12:45.104601+00:00",
+  "scope": "Compilation of the current source only; exported PDF is the separately built and visually checked pdfLaTeX result."
+}
