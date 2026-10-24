@@ -39,8 +39,27 @@ jobs:
           pdflatex -interaction=nonstopmode -halt-on-error main.tex > build-first.log || { tail -n 70 build-first.log; exit 1; }
           pdflatex -interaction=nonstopmode -halt-on-error main.tex > build-final.log || { tail -n 70 build-final.log; exit 1; }
           if grep -E 'Overfull|Citation.*undefined|Reference.*undefined' main.log; then exit 1; fi
-      - name: Verify faithful inclusion of all 49 proof pages
-        run: python checks/verify_proof_inclusion.py source/main.pdf source/third-party/OpenAI-QRH-11-12.pdf
+      - name: Verify a single manuscript with precise external theorem attribution
+        run: python checks/verify_manuscript.py source/main.pdf source/main.tex
+  numerical:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.11'
+      - name: Original Python, Julia, C, C++ and shell checks
+        run: ./run_all.sh --skip-lean
+      - name: Revised 11/12 constants in four languages
+        run: |
+          cd journal/paper6-annals-review
+          python3 checks/parameter_checks.py
+          julia checks/parameter_checks.jl
+          cc -O2 -o /tmp/paper6-parameters-c checks/parameter_checks.c
+          /tmp/paper6-parameters-c
+          c++ -O2 -std=c++17 -o /tmp/paper6-parameters-cpp checks/parameter_checks.cpp
+          /tmp/paper6-parameters-cpp
   parameter-lean:
     runs-on: ubuntu-24.04
     timeout-minutes: 35

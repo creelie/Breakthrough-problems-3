@@ -3,5 +3,8 @@
 /source/*.out
 /source/*.rpi
 /source/main.pdf
+/source/figures/*.aux
+/source/figures/*.log
+/source/figures/*.out
 /checks/__pycache__/
 *.pyc

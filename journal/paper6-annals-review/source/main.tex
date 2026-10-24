@@ -2,7 +2,6 @@
 \usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
-\usepackage{pdfpages}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{tikz-cd}
@@ -10,7 +9,7 @@
 \usepackage{xurl}
 \hypersetup{pdftitle={The optimal log log q bound in the Polya-Vinogradov inequality},
 pdfauthor={Deep Bhattacharjee; Ushashi Bhattacharya},
-pdfsubject={Author review with attributed proof appendix; independent replacement not established}}
+pdfsubject={Character-sum deductions using a precisely cited external zero-free theorem}}
 \numberwithin{equation}{section}
 \emergencystretch=3em
 \raggedbottom
@@ -18,7 +17,7 @@ pdfsubject={Author review with attributed proof appendix; independent replacemen
 \copyrightnote{}
 \doinumber{}
 \fancypagestyle{firstpage}{\fancyhf{}\renewcommand{\headrulewidth}{0pt}
-\fancyhead[C]{\scriptsize Proof-integrated author review, 24 October 2026}
+\fancyhead[C]{\scriptsize Research draft, 24 October 2026}
 \cfoot{\footnotesize\thepage}}
 \makeatother
 \newcommand{\releaseURL}{https://github.com/creelie/Breakthrough-problems-3}
@@ -61,17 +60,16 @@ Euler--Kronecker constants}
 \begin{document}
 
 \begin{abstract}
-We prove that every primitive Dirichlet character $\chi$ modulo $q\ge3$ has character sums
-$\sum_{n\le x}\chi(n)$ of size at most $C\sqrt q\log\log q$, with an absolute constant $C$.
-Montgomery and Vaughan proved this bound under the generalised Riemann hypothesis, and Paley
-showed that it is optimal. A complete attributed zero-free argument for
-$\Re s>11/12$ is included in a proof supplement. On the major arcs this half-plane gives a power saving for
-twisted prime sums; on the minor arcs we prove a weak form of the Montgomery--Vaughan bound for
-exponential sums with multiplicative coefficients, with Selberg's sieve as the only arithmetic
-input. The same half-plane gives $|L'/L(1,\chi)|\ll\log\log q$ for every nonprincipal $\chi$
-and, for every prime $q$, the two-sided bound
-$-C\log q\log\log q\le\gamma_q\le C\log q$ for the Euler--Kronecker constant of the cyclotomic
-field $\mathbb Q(\zeta_q)$.
+Using OpenAI's uniform zero-free half-plane $\Re s>11/12$ for nonprincipal
+Dirichlet $L$-functions, we derive the bound $C\sqrt q\log\log q$ for every
+primitive Dirichlet character modulo $q\ge3$. The zero-free theorem is cited
+as an external input. We give the subsequent contour, prime-sum, major-arc
+and minor-arc arguments in detail and prove the required weak
+Montgomery--Vaughan exponential-sum estimate using Selberg's sieve.
+The same input yields $|L'/L(1,\chi)|\ll\log\log q$ and two-sided bounds
+for cyclotomic Euler--Kronecker constants. Explicit parameters and a general
+transfer argument show why any fixed uniform zero-free boundary below one
+suffices. No independent proof of the external zero-free theorem is claimed.
 \end{abstract}
 
 \maketitle
@@ -90,44 +88,45 @@ $\sqrt q\log\log q$ under the generalised Riemann hypothesis. Without hypothesis
 Soundararajan lowered the exponent of $\log q$ for characters of fixed odd
 order~\cite{GS07}.\footnote{For a primitive character of odd order $g$ they obtain
 $\sqrt q(\log q)^{1-\delta_g/2+o(1)}$ with $\delta_g=1-\frac g\pi\sin\frac\pi g$, and under the
-generalised Riemann hypothesis the same exponent of $\log\log q$.} We prove the bound of Montgomery and Vaughan for every primitive character.
+generalised Riemann hypothesis the same exponent of $\log\log q$.} We use the following precisely identified external theorem to obtain the bound of Montgomery and Vaughan.
 
-\begin{theorem}\label{thm:pv}
-There is an absolute constant $C$ such that for every primitive character $\chi$ modulo $q\ge3$
-and every $x\ge1$,
+\begin{theorem}[OpenAI, {\cite[Theorem 1.1]{OAI26short}}]
+\label{thm:zerofree}
+For every nonprincipal Dirichlet character $\xi$, one has
+$L(s,\xi)\ne0$ whenever $\Re s>11/12$.
+\end{theorem}
+
+\begin{proof}[Source of the input]
+This is the Dirichlet conclusion of Theorem~1.1 of~\cite{OAI26short}.
+That paper's Section~3 deduces its theorem from Proposition~3.1, whose
+proof is completed in Section~5.6. We invoke that result and do not
+reproduce its article here. If the result is first stated for a primitive
+character $\xi^*$, then an imprimitive $\xi$ has
+\[
+ L(s,\xi)=L(s,\xi^*)\prod_{p\mid q,\ p\nmid\operatorname{cond}(\xi^*)}
+             (1-\xi^*(p)p^{-s}).
+\]
+The primitive inducing character is nonprincipal whenever $\xi$ is.
+Each finite factor is nonzero for $\Re s>0$, since its second term has
+modulus less than one. Thus the same boundary holds at imprimitive levels.
+\end{proof}
+
+\begin{theorem}[Using the cited zero-free input]\label{thm:pv}
+There is an absolute constant $C$ such that for every primitive character
+$\chi$ modulo $q\ge3$ and every $x\ge1$,
 \[
   \Bigl|\sum_{n\le x}\chi(n)\Bigr|\le C\sqrt q\log\log q.
 \]
 \end{theorem}
 
-By Paley's theorem, Theorem~\ref{thm:pv} is optimal up to the value of $C$. The input that
-replaces the Riemann hypothesis is the following theorem.
-
-\begin{theorem}[OpenAI; proof included]\label{thm:zerofree}
-If $\chi$ is a nonprincipal Dirichlet character, then $L(s,\chi)\ne0$ for $\Re s>11/12$.
-\end{theorem}
-
-\begin{proof}
-Appendix~\ref{app:creditedproof} includes the complete argument of
-OpenAI~\cite{OAI26short}. Its Proposition~3.1 is proved in its Section~5.6;
-its Section~3 derives nonvanishing for finite-order Hecke characters over
-$\mathbb Q(\sqrt{-3})$ and transfers it to Dirichlet characters. No assertion
-from the stronger $7/8$ preprint is used in that derivation. For an
-imprimitive character, the removed factors $1-\chi^*(p)p^{-s}$ cannot vanish
-when $\Re s>0$, because their second term has modulus less than one.
-Thus the same half-plane applies to every nonprincipal character.
-\end{proof}
-
-The included argument is OpenAI's work. The attribution is retained; its
-reproduction supplies a proof within this document and is not a new
-independent proof by the present authors. Appendix~\ref{app:parameters}
-checks every numerical change needed to use $11/12$ in place of $7/8$.
-The separate attempt to replace the zero-free argument independently has
-not produced a replacement theorem; Appendix~\ref{app:independent} records
-two precise barriers encountered in that attempt. The existing Lean
-development based on the stronger theorem remains separately attributed
-to OpenAI~\cite{OAI26}; it is not represented as a formalisation of the
-newly changed parameters or of every sentence in the proof supplement.
+By Paley's theorem the order of this upper bound is optimal. The
+deductions in this article begin after Theorem~\ref{thm:zerofree}; the
+zero-free theorem is explicitly attributed to its source. An independent
+proof of that theorem by the present authors is not claimed. The stronger
+formal development cited in~\cite{OAI26} is a separate verification route
+for the external input. Appendix~\ref{app:parameters} gives the explicit
+constants at the boundary $11/12$, and Appendix~\ref{app:uniformtransfer}
+proves the transfer for every fixed boundary strictly smaller than one.
 
 Montgomery and Vaughan use the Riemann hypothesis in one place: on the major arcs, for prime sums
 of the characters $\chi\psi$ twisted by additive characters, where $\psi$ runs over the characters
@@ -162,7 +161,7 @@ $q$ itself, and $L(s,\chi)$ is the $L$-function of the corresponding primitive c
 where $\gamma$ is Euler's constant.
 
 \begin{theorem}\label{thm:ek}
-There is an absolute constant $C$ with the following properties.
+Using Theorem~\ref{thm:zerofree}, there is an absolute constant $C$ with the following properties.
 \begin{enumerate}
 \item[(i)] For every nonprincipal character $\chi$ modulo $q$,
 \[
@@ -186,8 +185,7 @@ upper bound in~(ii) needs only Chebyshev's bound. The lower bound needs an upper
 prime powers $n\le q^{25}$ with $n\equiv1\pmod q$, which we obtain from Selberg's sieve applied
 in dyadic blocks (Lemma~\ref{lem:progression}).
 
-Theorems~\ref{thm:pv} and~\ref{thm:ek} are not among the consequences of
-Theorem~\ref{thm:zerofree} drawn in~\cite{OAI26}. The arguments work, with other constants, whenever $L(s,\chi)\ne0$ on $\Re s>\theta$ for all nonprincipal $\chi$
+The arguments of Theorems~\ref{thm:pv} and~\ref{thm:ek} work, with other constants, whenever $L(s,\chi)\ne0$ on $\Re s>\theta$ for all nonprincipal $\chi$
 and some fixed $\theta<1$.
 The paper is organised as follows. Section~\ref{sec:prelim} collects Chebyshev's bounds and
 Selberg's sieve. Section~\ref{sec:riesz} bounds Riesz means of $\chi\Lambda$ by a contour shift.
@@ -1000,53 +998,13 @@ and both bounds follow since $\log q>1$ and $\log\log q>1/11$.
 \end{proof}
 
 \appendix
-\section{The included zero-free argument: source, statement and attribution}
-\label{app:creditedproof}
-
-This appendix reproduces the complete 49-page repository document
-\emph{The Quasi-Riemann Hypothesis}, dated 5 October 2026, by OpenAI.
-The document proves nonvanishing on $\Re s>11/12$ for finite-order Hecke
-$L$-functions over $\mathbb Q(\sqrt{-3})$ and transfers this to Dirichlet
-$L$-functions. Its original page labels are retained, so references below
-to its sections, propositions and pages can be checked directly.
-
-The copy is pinned to the official repository commit
-\path{1581d4cbdd69a0faf34b2089614fe2a814316a6a}; its SHA-256 is
-{\footnotesize\path{f919b57829b178c8e60e7c17b018cf773e7907cf642ef5a3347d8a826e8dbf18}}.
-It is included under the repository's Apache License 2.0; the source,
-license and provenance notice are retained in the accompanying files.
-No wording or formula in the reproduced document has been changed.
-OpenAI's attribution and original reference list remain visible. Its
-incidental applications are not presented as new results of this article.
-
-The logical chain used here is specific. The reproduced Proposition 3.1
-bounds the mean square of a family of twisted M\"obius sums. Section 4
-reduces that statement to an auxiliary norm estimate. Section 5 proves
-the latter by cube inversion, a transfer estimate and iteration; Sections
-6 and 7 and Appendices A and B supply the estimates and identities used
-in that iteration. Section 3 obtains cancellation in a fixed M\"obius
-sum and then continues its Mellin transform to exclude zeros. The
-Dirichlet statement follows by quadratic base change and restoration of
-the finitely omitted Euler factors. These parts of the argument, rather
-than the stronger $7/8$ statement mentioned in its introduction, are the
-input to the present article.
-
-Including the complete argument removes an omitted \emph{external proof}
-from this review document. It does not turn the OpenAI argument into an
-independent discovery by the present authors. Nor does reproduction alone
-certify every proof step: its analytic estimates remain part of the
-mathematics that a referee must assess. The separately recorded formal
-audit and the exact parameter audit have the scopes stated below.
-
-\includepdf[pages=-,pagecommand={\thispagestyle{empty}}]{third-party/OpenAI-QRH-11-12.pdf}
-
 \section{Transfer parameters for the eleven-twelfths half-plane}
 \label{app:parameters}
 
 The purpose of this appendix is to check the numerical consequences of
 changing the zero-free boundary. The arithmetic here does not prove the
 zero-free theorem. It checks that the subsequent deductions use only the
-weaker included statement. No claim of novelty is made for these
+cited zero-free input. No claim of novelty is made for these
 elementary parameter choices.
 
 \subsection{The contour and unsmoothing margins}
@@ -1058,7 +1016,7 @@ Put
 \]
 We have $1/2<a<1$, $0<\delta<1/1000$, and $a+2\delta=\theta$.
 Thus the hypothesis of Proposition~\ref{prop:riesz} follows from the
-included nonvanishing theorem. That proposition gives
+cited nonvanishing statement. That proposition gives
 $|S(\chi;x)|\le Kx^{\sigma_0}\log(q+2)$.
 
 In Corollary~\ref{cor:prime} choose $h=x^{47/50}$. The two exponents
@@ -1169,80 +1127,8 @@ cutoffs, were proved using \texttt{norm\_num} in the accompanying
 Lean file \path{ParameterAudit.lean}. Fresh axiom output lists only
 \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}.
 The file does not claim to formalise all analytic estimates in this
-appendix or to prove the included zero-free theorem. The exact rational
+appendix or to prove the cited zero-free theorem. The exact rational
 Python program is a separate consistency check, with the same limits.
-
-\section{Independent replacement attempts and their remaining obligations}
-\label{app:independent}
-
-This appendix records two attempted substitutions for the zero-free
-argument. It proves limitations of those specific substitutions. It
-does not claim that all possible independent approaches are ruled out,
-and it does not prove a new zero-free half-plane.
-
-\subsection{The Burgess-shaped bound at polylogarithmic lengths}
-Consider an upper-bound expression of the classical Burgess shape
-\[
- B_r(N,q)=N^{1-1/r}q^{(r+1)/(4r^2)},\qquad r\ge1.
-\]
-This is only an examination of that expression; no hypothesis about
-when a particular version of the Burgess theorem applies is needed.
-Let $A>0$, $L=\log q$, and $N=L^A$. If $L>4A\log L$, then for every
-$r\ge1$,
-\[
- \log\frac{B_r(N,q)}N
- =\frac{L/4-A\log L}{r}+\frac{L}{4r^2}>0.
-\]
-Thus the expression alone is larger than the trivial bound $N$ for
-every $r$, even before introducing its implicit constants. Using it
-at these lengths does not supply the uniform cancellation needed for
-the major-arc argument. This calculation does not refute cancellation
-in the actual character sums, or prove that another method cannot give it.
-
-\subsection{Coherent sixth-power rows}
-An attempted coefficient-uniform replacement for the specific M\"obius
-mean square in the included proof also faces a concrete obstruction.
-Write $\mathcal O=\mathbb Z[\omega]$ and let $\chi_{\mathfrak n}$ be
-the sextic residue characters in the primary convention used there.
-For a primary generator $v$ coprime to $\mathfrak n$,
-\[
- \chi_{\mathfrak n}(v^6)=1.
-\]
-Suppose $H=D^{1+\vartheta}$ with $0<\vartheta<1/5$. Select prime
-ideal columns $\mathfrak p$ of norm in $[D,2D]$, outside a fixed
-finite excluded set, and put $a_{\mathfrak p}=1$, with all other
-coefficients zero. The prime ideal theorem in the fixed field gives
-$\asymp D/\log D$ such columns. The elementary lattice count for
-primary generators gives $\asymp H^{1/6}$ distinct rows $v^6$ of
-norm at most $H$; choosing one generator per unit class makes these
-rows distinct. Since $N(v)\le H^{1/6}<D$ for sufficiently large $D$,
-these generators are coprime to every selected prime ideal. Every
-selected column therefore contributes $1$ in each of these rows.
-
-Consequently the unrestricted-coefficient row energy is at least
-\[
- c\,H^{1/6}\left(\frac D{\log D}\right)^2.
-\]
-It cannot in general be bounded by
-\[
- C_{\varepsilon}(H+D)D^{\varepsilon}\sum_{\mathfrak n}|a_{\mathfrak n}|^2
-\]
-when $\varepsilon<(1-5\vartheta)/6$: dividing the lower bound by the
-proposed upper-bound expression leaves a constant times
-$D^{(1-5\vartheta)/6-\varepsilon}/\log D$, which tends to infinity.
-The counting facts used here are the classical fixed-field prime ideal
-theorem and the lattice count recorded in the included argument; this
-observation is not claimed as a new large-sieve result.
-
-The actual proposition in the included proof has the special coefficients
-$\mu(\mathfrak n)\nu(\mathfrak n)W(N\mathfrak n/D)$, with a fixed
-smooth weight and controlled seminorms. It does not assert the false
-coefficient-uniform estimate. The obstruction above is therefore not a
-counterexample to that proposition. An independent replacement must
-use the special coefficients, or supply some other genuinely stronger
-mechanism; that step has not been constructed here.
-
-
 
 \section{Uniform transfer from a fixed zero-free boundary}
 \label{app:uniformtransfer}
@@ -1312,48 +1198,28 @@ for $L\ge200$. For $L<200$ its elementary harmonic bound gives
 $207\sqrt q$, absorbed using $\log\log q\ge\log\log3>0$.
 \end{proof}
 
-This proposition explains why a fixed boundary strictly smaller than $1$
-suffices. It does not establish such a boundary. The included OpenAI
-argument and its attribution remain essential to the unconditional claim.
-The formal endpoint audit supplied with this revision separately states
-the desired character-sum inequality in standard Lean definitions and
-checks its derivation from the original formal theorem when that full
-development successfully builds. Until that audit finishes, its presence
-is a verification target, not a completed certificate.
+This proposition proves the transfer from a fixed zero-free boundary to
+the stated character-sum bound. It does not prove the existence of such a
+boundary. Theorem~\ref{thm:zerofree} is the cited external result that supplies
+that antecedent in the main application.
 
-\section*{Data, provenance and verification}
-The original source archive~\cite{BB26code} is the coauthored repository
-\url{https://github.com/creelie/Breakthrough-problems-3}, pinned for this
-review at commit \texttt{ce39df5c8b06423beb7ea665fe320158f6efd475}.
-The author's requested preprint is
-\url{https://hexagonmath.org/2610.00256v2}. The revised text, four vector
-figures, credited proof supplement, source and license notices are supplied
-together. No new Hexagon version identifier is asserted.
-
-The three rational parameter statements in Appendix~\ref{app:parameters}
-were freshly checked in Lean~4.34.1 with only \texttt{propext},
-\texttt{Classical.choice} and \texttt{Quot.sound}; an independent exact
-rational program checked the same margins. These checks do not themselves
-prove nonvanishing or the character-sum estimates. The full source-level
-audit of the previously bundled zero-free development is separately logged;
-this review does not assert that it has completed successfully. The original
-Lean statements use the $7/8$ route and do not yet formalise all changes in
-this $11/12$ presentation. Consequently this document is an author-review
-revision, not a certificate that all proposed research tasks are complete.
+\section*{Source and computational material}
+The source archive~\cite{BB26code} and the public preprint
+\url{https://hexagonmath.org/2610.00256v2} provide the earlier coauthored
+versions. Sources for this revision, vector figures, numerical checks and
+separate verification notes are available in the same repository. The
+parameter checks verify stated arithmetic margins; they do not establish
+Theorem~\ref{thm:zerofree}.
 
 \section*{Use of AI tools}
-The original coauthored manuscript and Lean development used Claude under
+The earlier coauthored manuscript and Lean development used Claude under
 the authors' direction, as recorded in the source archive. OpenAI Codex
-prepared the $11/12$ parameter conversion in Section~\ref{sec:riesz},
-Lemma~\ref{lem:major}, Proposition~\ref{prop:hsum}, and the progression
-and tail estimates in Section~\ref{sec:ek}; Appendix~\ref{app:parameters}
-identifies their exact margins. It also reconstructed the elementary
-obstruction arguments in Appendix~\ref{app:independent}, expanded the
-Mellin inversion justification, and supplied the conditional transfer argument
-in Appendix~\ref{app:uniformtransfer}. It prepared this layout. The zero-free proof reproduced in Appendix~\ref{app:creditedproof}
-is OpenAI's published repository text, unchanged and explicitly credited;
-it is not claimed as a new discovery by these authors. The authors remain
-responsible for reviewing the mathematics and references.
+prepared the explicit parameter conversion in Section~\ref{sec:riesz},
+Lemma~\ref{lem:major}, Proposition~\ref{prop:hsum}, and the progression and
+tail estimates in Section~\ref{sec:ek}. It expanded the Mellin inversion
+justification and supplied Appendix~\ref{app:uniformtransfer}.
+Appendix~\ref{app:parameters} identifies the exact numerical margins.
+The authors remain responsible for the mathematics and references.
 
 \begin{thebibliography}{99}
 
@@ -1393,7 +1259,7 @@ constants of cyclotomic fields: the log log log devil at play}, in: Irregulariti
 Distribution of Prime Numbers, Springer, Cham, 2018, 143--163. doi:\href{https://doi.org/10.1007/978-3-319-92777-0_8}{10.1007/978-3-319-92777-0\_8}
 
 \bibitem{OAI26short} OpenAI, \emph{The Quasi-Riemann Hypothesis},
-5 October 2026, complete proof reproduced in Appendix~\ref{app:creditedproof},
+preprint (not refereed), 5 October 2026,
 \href{https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/preprints/The-Quasi-Riemann-Hypothesis-October-5-2026/paper2.pdf}{official repository copy}.
 \bibitem{OAI26} OpenAI, \emph{The quasi-Riemann hypothesis: a zero-free half-plane
 $\Re s>7/8$}, preprint (not refereed), 30 September 2026, with a Lean~4 formalisation, repository \url{https://github.com/openai/math}

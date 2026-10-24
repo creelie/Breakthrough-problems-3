@@ -1,14 +1,15 @@
 {
-  "pages": 78,
-  "third_party_proof_pages": 49,
-  "third_party_proof_start_pdf_page": 23,
-  "all_49_source_page_drawing_streams_byte_identical": true,
+  "pages": 26,
+  "embedded_third_party_article_pages": 0,
+  "single_manuscript": true,
+  "precise_zero_free_theorem_citation": true,
   "both_original_authors_present": true,
-  "main_abstract_words": 133,
-  "pdf_sha256": "5afb3530f6c801a29ced77dfed71a2fe28886333e6a4b7be3c327844e052a529",
+  "scope": "Structure and attribution only; full proof audit has its own result.",
+  "pdf_sha256": "cddd7285a9090c02f0ce194f6e157720e7003b1f364eb94760c8ce7d555cf006",
+  "main_abstract_words": 97,
   "line_numbering_disabled": true,
   "visual_review_complete": true,
+  "whole_proof_verified": false,
   "independent_zero_free_replacement_proved": false,
-  "review": "All 78 rendered pages inspected in contact sheets; title, expanded Mellin proof, corrected contour caption, new conditional transfer proof and declarations inspected at full size.",
-  "whole_proof_verified": false
+  "review": "All 26 rendered pages inspected in contact sheets; title, precise input citation, pages 22 and 23, and final bibliography inspected at full size. No second paper or title page is included."
 }

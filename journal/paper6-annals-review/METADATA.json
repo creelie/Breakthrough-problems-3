@@ -10,17 +10,17 @@
       "orcid": "0009-0002-2254-3914"
     }
   ],
-  "status": "author-review; independent replacement unproved",
+  "status": "citation-based author review; full formal audit pending",
   "date": "2026-10-24",
   "repository": "https://github.com/creelie/Breakthrough-problems-3",
   "requested_preprint": "https://hexagonmath.org/2610.00256v2",
   "source_commit": "ce39df5c8b06423beb7ea665fe320158f6efd475",
-  "pages": 78,
-  "credited_reproduced_proof_pages": 49,
-  "pdf_sha256": "5afb3530f6c801a29ced77dfed71a2fe28886333e6a4b7be3c327844e052a529",
+  "pages": 26,
+  "credited_reproduced_proof_pages": 0,
+  "pdf_sha256": "cddd7285a9090c02f0ce194f6e157720e7003b1f364eb94760c8ce7d555cf006",
   "aomart_screen": true,
   "line_numbers": false,
-  "included_external_proof": "OpenAI 11/12 argument; complete attributed reproduction",
+  "included_external_proof": null,
   "independent_zero_free_replacement_proved": false,
   "complete_fresh_zero_free_kernel_audit": false,
   "new_parameter_lean_proofs_passed": true,
@@ -28,5 +28,13 @@
   "journal_submission_performed": false,
   "new_doi": null,
   "final_zip_created": false,
-  "whole_proof_verified": false
+  "whole_proof_verified": false,
+  "embedded_third_party_article_pages": 0,
+  "external_zero_free_input": {
+    "author": "OpenAI",
+    "title": "The Quasi-Riemann Hypothesis",
+    "date": "2026-10-05",
+    "part_used": "Theorem 1.1, Dirichlet nonvanishing for Re(s)>11/12",
+    "source_commit": "1581d4cbdd69a0faf34b2089614fe2a814316a6a"
+  }
 }
