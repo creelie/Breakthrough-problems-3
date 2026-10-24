@@ -16,3 +16,10 @@ No third-party article is embedded or bundled in this manuscript. Appendix C
 proves analytic implications of the cited theorem and explicitly retains that
 dependency. Original OpenAI, Mathlib, PrimeNumberTheoremAnd and RellichKondrachov
 notices remain in the parent repository's NOTICE and source trees.
+
+The source-complete proof bundle includes those nonstandard source trees,
+their NOTICE and their compatibility patches. Generic analytic helper
+extractions in the new Möbius modules are credited in
+lean/Vinogradov/Mobius/HELPER-PROVENANCE.json. Their inclusion is not a new
+independent zero-free proof and does not transfer authorship to the article's
+authors. The standard Mathlib dependencies are pinned, not relabelled.

@@ -1,14 +1,20 @@
 # The Pólya–Vinogradov inequality with log log q
 
-## Paper_6: corrected single-manuscript review
+## Paper_6: source-complete verification edition
 
-The current [Annals-format review](journal/paper6-annals-review/README.md)
-cites OpenAI's exact zero-free theorem and contains no appended third-party
-article. The byline remains Deep Bhattacharjee and Ushashi Bhattacharya.
-The failed independent attempts and verification status are separate notes.
-The full formal source/endpoint audit is pending; no new independent zero-free
-proof is claimed. The supplied preprint is [Hexagon 2610.00256v2](https://hexagonmath.org/2610.00256v2).
-No final DOI or final ZIP has been issued for this corrected review.
+The current [single article and proof package](journal/paper6-annals-review/README.md)
+includes the nonstandard Lean sources for OpenAI's credited zero-free theorem
+and the downstream character-sum proof. The new Möbius modules formalise the
+general equivalence, quantitative bound and finite-sum identity. The byline
+remains Deep Bhattacharjee and Ushashi Bhattacharya. No third-party article
+is appended and no new independent zero-free proof is claimed.
+
+The original source build and 19 axiom reports passed; the current closed
+endpoint audit is a separate release gate. See the precise
+[proof coverage](journal/paper6-annals-review/PROOF-COVERAGE.md) and
+[rebuild instructions](journal/paper6-annals-review/PROOF-SOURCES.md).
+The verified preprint is [Hexagon 2610.00256v2](https://hexagonmath.org/2610.00256v2).
+No new final DOI or final ZIP is claimed until its actual publication receipt.
 
 ## Earlier release description
 

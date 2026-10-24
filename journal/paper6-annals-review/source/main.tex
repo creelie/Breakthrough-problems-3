@@ -17,7 +17,7 @@ pdfsubject={Character-sum deductions using a precisely cited external zero-free 
 \copyrightnote{}
 \doinumber{}
 \fancypagestyle{firstpage}{\fancyhf{}\renewcommand{\headrulewidth}{0pt}
-\fancyhead[C]{\scriptsize Research draft, 24 October 2026}
+\fancyhead[C]{\scriptsize Preprint, 25 October 2026}
 \cfoot{\footnotesize\thepage}}
 \makeatother
 \newcommand{\releaseURL}{https://github.com/creelie/Breakthrough-problems-3}
@@ -1225,10 +1225,14 @@ constants $B>0$ and $C>0$, depending only on $\theta,d$, such that
  |L(u+it,\chi)^{-1}|\le Cq^B(1+|t|)^B
  \quad(\theta+d\le u\le2).
 \]
-For $\theta=7/8$ and $d=1/24$ one may take the explicit bound
+Put
+\[
+ A_0=1+\frac32\sum_p p^{-3/2},
+\]
+an absolute finite constant. For $\theta=7/8$ and $d=1/24$ one may take the explicit bound
 \begin{equation}\label{eq:reciprocal-explicit}
  |L(u+it,\chi)^{-1}|
- \le 2^{105}\bigl(7q(1+|t|)\bigr)^{104}
+ \le e^{105A_0}\bigl(7q(1+|t|)\bigr)^{104}
  \quad(11/12\le u\le2).
 \end{equation}
 \end{lemma}
@@ -1251,20 +1255,21 @@ Fix $t\in\R$ and centre a disc at $c=2+it$. Set
 The closed disc of radius $R$ lies inside the assumed zero-free half-plane.
 There is a holomorphic branch $g=\log L$ on a neighbourhood of this disc,
 normalised at $c$ by the absolutely convergent Euler-product logarithm.
-Consequently $|g(c)|\le\log\zeta(2)<\log2$, whereas $\Re g<U$ throughout
-the disc. The positive harmonic function $U-\Re g$ obeys Harnack's inequality:
-for $|s-c|\le r$,
+The convergent logarithmic Euler product gives $|g(c)|\le A_0$: use
+$|\log(1-z)|\le(3/2)|z|$ for $|z|\le1/2$, followed by
+$\sum_p p^{-2}\le\sum_p p^{-3/2}$. Also $\Re g<U$ throughout the disc.
+Apply the Borel--Carath\'eodory inequality to $g-g(c)$, which vanishes at the centre.
+For $|s-c|\le r$ this gives
 \[
- U-\Re g(s)\le K\bigl(U-\Re g(c)\bigr),\qquad
- K=\frac{R+r}{R-r}.
+ |g(s)-g(c)|\le\frac{2r}{R-r}\bigl(U-\Re g(c)\bigr).
 \]
-For completeness, this inequality follows from the Poisson integral on a
-concentric circle of radius $R'<R$: its positive kernel at radius at most
-$r$ is at most $(R'+r)/(R'-r)$ times the kernel at the centre. Letting
-$R'\uparrow R$ gives the stated factor.
-It follows that
+Thus, with $K=(R+r)/(R-r)$,
 \[
- |L(s,\chi)^{-1}|\le 2^K e^{(K-1)U}.
+ -\Re g(s)\le (K-1)U-K\Re g(c)\le (K-1)U+KA_0,
+\]
+and consequently
+\[
+ |L(s,\chi)^{-1}|\le e^{KA_0+(K-1)U}.
 \]
 Every $u+it$ in the stated segment is in the smaller disc. Since $K>1$,
 this proves the first assertion with $B=K-1$. For the specified numerical
@@ -1356,21 +1361,23 @@ $C_W$ such that, uniformly in nonprincipal characters modulo $q$,
 \begin{proof}
 The first assertion is Proposition~\ref{prop:mobius-equivalence} with
 $\theta=7/8$. For the second, shift~\eqref{eq:mobius-mellin} to $11/12$
-and use~\eqref{eq:reciprocal-explicit}. The finite quantity
+and use~\eqref{eq:reciprocal-explicit}. One may take
 \[
- A_W=\sup_{\substack{11/12\le u\le2\\t\in\R}}
-       (1+|t|)^{107}|\widehat W(u+it)|
+ C_W=\frac{e^{105A_0}7^{104}}{2\pi}
+       \int_{-\infty}^{\infty}(1+|t|)^{104}
+       |\widehat W(11/12+it)|\,dt.
 \]
-gives the choice $C_W=2^{105}7^{104}A_W/(2\pi)$, since
-$\int_{-\infty}^{\infty}(1+|t|)^{-3}\,dt=1$.
+The integral is finite by the rapid decay already proved, and the absolute
+value of the shifted integral is bounded by $C_Wq^{104}X^{11/12}$.
 \end{proof}
 
-The corollary proves the requested smoothed estimate from the cited theorem.
+The corollary proves the smoothed estimate from the cited theorem.
 Proposition~\ref{prop:mobius-equivalence} also shows precisely why using
 that estimate to reprove the same nonvanishing would not remove the
-dependency. No independent proof of assertion~(i) or~(ii) is supplied here.
-These are written analytic deductions; they are not asserted to be new
-Lean declarations or a new zero-free theorem.
+dependency. The accompanying Lean sources implement the general equivalence,
+the quantitative estimate, and the identity with the finite sum above.
+They retain the credited zero-free theorem and do not assert a new
+independent proof of that theorem.
 
 \section*{Source and computational material}
 The source archive~\cite{BB26code} and the public preprint

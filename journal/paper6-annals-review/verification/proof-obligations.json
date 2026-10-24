@@ -1,12 +1,12 @@
 {
-  "external_input": "OpenAI formalised 7/8 theorem, Theorem 1.1; elementary 11/12 consequence",
-  "current_manuscript_embeds_external_article": false,
-  "parameter_lean_proofs_passed": true,
-  "full_original_formal_audit": "in_progress",
-  "new_11_12_written_presentation_end_to_end_formalised": false,
-  "independent_zero_free_replacement_proved": false,
-  "whole_proof_verified": false,
-  "smoothed_mobius_written_deduction": true,
-  "smoothed_mobius_new_lean_formalisation": false,
-  "independent_mobius_cancellation_proof": false
+  "credited_nonvanishing_proof_bundled": true,
+  "original_source_build_and_19_axiom_reports": "PASS; original-source-audit.json",
+  "current_closed_endpoints": "PENDING",
+  "current_linux_mobius_component_audit": "PENDING",
+  "four_named_local_analytic_modules": "PASS; local-general-components.json",
+  "new_11_12_written_presentation_line_by_line_formalised": false,
+  "new_mobius_analytic_formalisation": true,
+  "independent_zero_free_proof_by_manuscript_authors": false,
+  "standard_libraries_pinned": true,
+  "unproved_nonvanishing_axiom_permitted": false
 }

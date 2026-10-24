@@ -1,0 +1,1 @@
+'Vinogradov.Mobius.polynomial_reciprocal_of_nonvanishing' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1,20 +1,19 @@
-# Author-review status
+# Author-review and archival status
 
-The uniform nonvanishing input is the credited formalised OpenAI 7/8 theorem.
-The stated 11/12 boundary follows by a rational comparison. No independent
-zero-free proof by the manuscript authors is claimed. No third-party article
-is appended to this single article.
+The single 29-page article is prepared in aomart screen format. The coauthors
+remain Deep Bhattacharjee and Ushashi Bhattacharya. The verified public
+preprint is Hexagon 2610.00256v2; no later Hexagon identifier is claimed.
 
-Appendix C now proves the smoothed twisted Möbius estimate from that theorem,
-with explicit reciprocal growth and Mellin contour details, and proves the
-converse equivalence. This does not remove the external input. These new written
-analytic deductions are not claimed to be formalised in Lean. The exact original
-formal endpoints and their axiom closures remain under a fresh source audit;
-observe its result before describing that audit as complete.
+All nonstandard proof sources are supplied with their original credits. The
+closed main theorem uses the proved OpenAI zero-free theorem, rather than
+an unproved nonvanishing assumption. This does not constitute a new independent
+proof of that theorem. Standard Lean and Mathlib dependencies remain pinned.
 
-The original two-author byline, explicit parameter appendix, and generic
-fixed-boundary transfer appendix are retained. This is an Annals-format research
-draft. Novelty, significance and acceptance do not follow from formatting or
-successful compilation. The cover letter is unsent. No arXiv or journal submission
-has been attempted. The verified earlier preprint is Hexagon 2610.00256v2.
-No final DOI, final ZIP or release has been created for this revision.
+The new analytic Möbius modules have passed local Lean checks. The current
+complete root build and its closed endpoint reports are still pending. No
+success is inferred from a running job. PROOF-COVERAGE.md records each scope.
+
+The cover letter is unsent. No arXiv or journal submission has been made by
+this workflow. Formatting and a kernel audit do not guarantee novelty,
+significance or acceptance. No final DOI or final ZIP has yet been created
+for this revision; those are subsequent publication gates.

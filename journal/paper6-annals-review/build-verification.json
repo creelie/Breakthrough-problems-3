@@ -1,12 +1,11 @@
 {
-  "pdf_sha256": "19e1f0c1c7b832c8b5164822513be0a3292efda783e453efe6887aa2042021b8",
+  "pdf_sha256": "9ffcb740ab866df7b93b65fb9d42211dfcec5e459820670ec72a4198d6c34918",
   "pages": 29,
   "overfull": [],
   "undefined": [],
   "unused_bibliography": [],
   "missing_bibliography": [],
-  "whole_proof_verified": false,
-  "independent_zero_free_replacement_proved": false,
+  "scope": "PDF compilation, citation consistency and layout diagnostics only; proof coverage is recorded separately.",
   "status": "author-review",
   "local_compiler": "pdflatex success"
 }

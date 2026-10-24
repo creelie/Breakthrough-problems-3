@@ -1,6 +1,5 @@
 {
   "source_repo": "https://github.com/creelie/Breakthrough-problems-3",
-  "source_head": "ce39df5c8b06423beb7ea665fe320158f6efd475",
   "upstream_repo": "https://github.com/openai/math",
   "upstream_head": "1581d4cbdd69a0faf34b2089614fe2a814316a6a",
   "current_external_input": {
@@ -10,7 +9,9 @@
     "boundary": "7/8",
     "used_boundary": "11/12",
     "proof": "7/8 < 11/12",
-    "short_11_12_paper_required": false
+    "short_11_12_paper_required": false,
+    "proof_sources_bundled": true,
+    "preprint_pdf_required_for_rebuild": false
   },
   "historical_short_paper_not_current_dependency": true,
   "historical_short_paper_receipt_not_a_current_dependency": {
@@ -27,5 +28,7 @@
         "sha256": "f919b57829b178c8e60e7c17b018cf773e7907cf642ef5a3347d8a826e8dbf18"
       }
     ]
-  }
+  },
+  "original_base_commit": "ce39df5c8b06423beb7ea665fe320158f6efd475",
+  "formal_revision_commit": "1cfac699dd028d0fc82659d47a3919107a69ffab"
 }

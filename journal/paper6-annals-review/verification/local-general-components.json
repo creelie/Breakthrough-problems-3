@@ -1,0 +1,72 @@
+{
+  "status": "PASS",
+  "scope": "Four named analytic modules checked locally; not the closed external-input root audit.",
+  "modules": [
+    {
+      "source": "lean/Vinogradov/Mobius/ReviewBoundary.lean",
+      "source_sha256_local_bytes": "b9a4e21eb29651c00860fc429a18c924fe19b49df0f4db42b2bfb9a0b482cd09",
+      "source_sha256_lf": "b9a4e21eb29651c00860fc429a18c924fe19b49df0f4db42b2bfb9a0b482cd09",
+      "exit_code": 0,
+      "log": "verification/local-general-components/ReviewBoundary.log",
+      "log_sha256": "29d1125c6098435682c2fd64f03fb07a64f72cf81bb556a698485cb53bc18bb9",
+      "axioms": {
+        "Vinogradov.Mobius.ReviewBoundary.riesz_at_boundary_of_nonvanishing": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      }
+    },
+    {
+      "source": "lean/Vinogradov/Mobius/GeneralReciprocal.lean",
+      "source_sha256_local_bytes": "e14953785bb3875f1baa988eba2f2efc7d739030c8009651a036e1f7d90d0b8f",
+      "source_sha256_lf": "e14953785bb3875f1baa988eba2f2efc7d739030c8009651a036e1f7d90d0b8f",
+      "exit_code": 0,
+      "log": "verification/local-general-components/GeneralReciprocal.log",
+      "log_sha256": "ce7ba6fa3e217d45c79bbbada5740cfea5dc2a806820fc5d21a88aebafa23d5b",
+      "axioms": {
+        "Vinogradov.Mobius.polynomial_reciprocal_of_nonvanishing": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      }
+    },
+    {
+      "source": "lean/Vinogradov/Mobius/GeneralForward.lean",
+      "source_sha256_local_bytes": "af4f72a5a70ac68c93d99638f25874a91d9e762043d47cf321c5f86de59f30e6",
+      "source_sha256_lf": "af4f72a5a70ac68c93d99638f25874a91d9e762043d47cf321c5f86de59f30e6",
+      "exit_code": 0,
+      "log": "verification/local-general-components/GeneralForward.log",
+      "log_sha256": "e826db39491e936dd7e5717c9582549c7c184e86e409134f626ce6e39886a6a2",
+      "axioms": {
+        "Vinogradov.Mobius.smoothed_bounds_of_nonvanishing": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "Vinogradov.Mobius.nonvanishing_iff_smoothed_bounds": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      }
+    },
+    {
+      "source": "lean/Vinogradov/Mobius/FiniteSums.lean",
+      "source_sha256_local_bytes": "d968b03d308335ca53477fb7e55bc3d4a02e070f40be0f35a8a55775f21906ed",
+      "source_sha256_lf": "d968b03d308335ca53477fb7e55bc3d4a02e070f40be0f35a8a55775f21906ed",
+      "exit_code": 0,
+      "log": "verification/local-general-components/FiniteSums.log",
+      "log_sha256": "5b01cde8a1615b33f52aa8737863aee83641e89194eaaaee4fdff01513b379f4",
+      "axioms": {
+        "Vinogradov.Mobius.smoothedSum_eq_sum_range": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      }
+    }
+  ],
+  "independent_zero_free_proof": false
+}

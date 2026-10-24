@@ -15,7 +15,7 @@ verification/upstream-lean-provenance-adc7f1241b42.json. They record their sourc
 snapshot, counts, and scope. The current fresh build is recorded separately.
 
 Two outside reports were read at fixed revisions. These are external reports,
-not results of the still-running local build and not new independent proofs.
+not results of the current endpoint audit and not new independent proofs.
 
 - https://github.com/davegoldblatt/openai-zeta-proof-check/tree/3f11b2203b76902f1b6b234115437302a94b79c3
   reports an independent rebuild, exact comparison and both Lean and nanoda
@@ -29,3 +29,13 @@ not results of the still-running local build and not new independent proofs.
 
 The source equality connects those pins; it does not extend either report's
 stated scope. This packet does not present an outside report as its own audit.
+
+The original Linux source rebuild completed successfully with 19 standard-axiom
+reports, including the credited nonvanishing theorem. Its separate revised
+wrapper audit failed on a Riesz notation syntax error, now repaired. The
+historical receipt preserves that failure rather than converting it into a
+pass. The new current-root audit and analytic component audit are separate.
+The source inventory checks all 2,997 bundled Lean files and their nonstandard
+import closure. Standard-library commits are pinned in lake-manifest.json.
+New generic helper extractions retain their OpenAI provenance in
+lean/Vinogradov/Mobius/HELPER-PROVENANCE.json.
