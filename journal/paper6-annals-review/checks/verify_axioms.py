@@ -4,6 +4,7 @@ import argparse, json, re
 
 def inspect(log, expected):
     text=Path(log).read_text(encoding='utf-8')
+    assert not re.search(r'(^|\n).*\berror(?:\([^\n]*?\))?:',text), 'Lean compiler error in report'
     entries={}
     for name, body in re.findall(r"'([^']+)' depends on axioms:\s*\[([^\]]*)\]",text,re.S):
         entries[name]=set(re.findall(r'[A-Za-z_][A-Za-z0-9_.]*',body))

@@ -67,7 +67,7 @@ theorem reciprocal_bound_of_nonvanishing
       exact (div_le_div_of_nonneg_left (mul_nonneg hq.le (norm_nonneg z))
         (by norm_num) hzr.le).trans
           (div_le_div_of_nonneg_right (mul_le_mul_of_nonneg_left hzn hq.le) (by norm_num))
-    apply hab.trans_le hratio |>.trans_lt
+    apply lt_of_le_of_lt (hab.trans hratio)
     dsimp [B]
     nlinarith [abs_nonneg t]
   obtain ⟨g, hg, he, hgc⟩ :=
@@ -85,7 +85,7 @@ theorem reciprocal_bound_of_nonvanishing
   have hcentre : -(g c).re ≤ EulerLog.eulerLogBound := by
     rw [hgc]
     exact ((neg_le_abs _).trans (Complex.abs_re_le_norm _)).trans
-      (EulerLog.eulerLog_norm_le χ (by simp [c]))
+      (EulerLog.eulerLog_norm_le χ (by norm_num [c]))
   let z : ℂ := (u : ℂ) + (t : ℂ) * I
   have hz : z ∈ closedBall c (52 / 48 : ℝ) := by
     simp only [mem_closedBall, dist_eq_norm]

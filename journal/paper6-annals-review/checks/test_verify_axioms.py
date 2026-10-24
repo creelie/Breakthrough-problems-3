@@ -19,5 +19,9 @@ class ReportGate(unittest.TestCase):
         with self.assertRaises(AssertionError):self.check_report("'target' depends on axioms: [ofReduceBool]")
     def test_wrong_endpoint(self):
         with self.assertRaises(AssertionError):self.check_report("'different_target' depends on axioms: [propext]")
+    def test_compiler_error_with_standard_report(self):
+        with self.assertRaises(AssertionError):
+            self.check_report("Audit.lean:3:1: error: expected token\n"
+                "'target' depends on axioms: [propext, Classical.choice, Quot.sound]")
 
 if __name__=='__main__':unittest.main()

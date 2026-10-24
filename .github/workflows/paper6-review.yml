@@ -84,9 +84,10 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 360
     env:
-      LEAN_NUM_THREADS: '1'
+      LEAN_NUM_THREADS: '2'
     defaults:
       run:
+        shell: bash
         working-directory: lean
     steps:
       - uses: actions/checkout@v4
@@ -96,8 +97,25 @@ jobs:
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
       - name: Fetch the pinned Mathlib dependency cache
         run: lake exe cache get Mathlib
+      - uses: actions/cache/restore@v4
+        id: proof-cache
+        with:
+          path: |
+            lean/.lake/build/lib/lean
+            lean/.lake/build/ir
+          key: paper6-full-lean-${{ runner.os }}-${{ hashFiles('lean/lean-toolchain', 'lean/lake-manifest.json', 'lean/**/*.lean') }}
+          restore-keys: |
+            paper6-full-lean-${{ runner.os }}-
       - name: Build the complete original formal argument from source
+        id: full-build
         run: lake --no-cache build '+Vinogradov:olean' 2>&1 | tee full-build.log
+      - uses: actions/cache/save@v4
+        if: always() && steps.full-build.outcome == 'success'
+        with:
+          path: |
+            lean/.lake/build/lib/lean
+            lean/.lake/build/ir
+          key: ${{ steps.proof-cache.outputs.cache-primary-key }}
       - name: Check exact endpoints and inspect axiom dependencies
         run: |
           lake env lean ../journal/paper6-annals-review/checks/EndpointAudit.lean 2>&1 | tee endpoint-axioms.log
@@ -112,3 +130,9 @@ jobs:
             lean/endpoint-axioms.log
             lean/original-axioms.log
             lean/full-audit.json
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.full-build.outcome == 'success'
+        with:
+          name: paper6-compiled-proof
+          compression-level: 1
+          path: lean/.lake/build/lib/lean

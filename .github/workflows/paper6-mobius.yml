@@ -17,6 +17,7 @@ jobs:
       LEAN_NUM_THREADS: '1'
     defaults:
       run:
+        shell: bash
         working-directory: lean
     steps:
       - uses: actions/checkout@v4
@@ -27,7 +28,7 @@ jobs:
       - name: Fetch the pinned Mathlib dependency cache
         run: lake exe cache get Mathlib
       - name: Build the named analytic components
-        run: lake --no-cache build '+Vinogradov.Mobius.Reciprocal:olean' '+Vinogradov.Mobius.MellinCriterion:olean' 2>&1 | tee mobius-build.log
+        run: lake --no-cache build '+Vinogradov.Mobius.Main:olean' 2>&1 | tee mobius-build.log
       - name: Inspect component axiom closures
         run: |
           lake env lean ../journal/paper6-annals-review/checks/MobiusAudit.lean 2>&1 | tee mobius-axioms.log

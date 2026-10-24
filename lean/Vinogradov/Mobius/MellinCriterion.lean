@@ -62,14 +62,15 @@ theorem coefficient_euler_identity {q : ℕ} [NeZero q]
     (χ : DirichletCharacter ℂ q) {s : ℂ} (hs : 1 < s.re) :
     χ.LFunction s * LSeries (coefficient χ) s = 1 := by
   rw [χ.LFunction_eq_LSeries hs]
-  exact χ.LSeries.mul_mu_eq_one hs
+  exact DirichletCharacter.LSeries.mul_mu_eq_one χ hs
 
 theorem smoothed_mellin_identity {q : ℕ} [NeZero q]
     (χ : DirichletCharacter ℂ q) {W : ℝ → ℂ} (hW : IsTestWeight W)
     {s : ℂ} (hs : 1 < s.re) :
     χ.LFunction s * mellin (smoothedSum χ W) (-s) = mellin W s := by
   have hsupp := hW.vanishes
-  have hF := fun t ht => scaledSum_hasSum χ W (fun y hy => hsupp y (Or.inr hy)) ht
+  have hF := fun (t : ℝ) (ht : 0 < t) =>
+    scaledSum_hasSum χ W (fun y hy => hsupp y (Or.inr hy)) (t := t) ht
   have hconv := CompactMellin.compact_weight_mellin_convergent W hW.1 hsupp s
   have hls := coefficient_LSeriesSummable χ hs
   have hM := CompactMellin.mellin_weighted_sum (coefficient χ) W (scaledSum χ W) s
@@ -93,7 +94,8 @@ theorem nonvanishing_of_one_smoothed_bound {q : ℕ} [NeZero q]
   let U : Set ℂ := {s : ℂ | σ < s.re}
   have hopen : IsOpen U := Complex.isOpen_re_gt σ
   have hsupp := hW.vanishes
-  have hF := fun t ht => scaledSum_hasSum χ W (fun y hy => hsupp y (Or.inr hy)) ht
+  have hF := fun (t : ℝ) (ht : 0 < t) =>
+    scaledSum_hasSum χ W (fun y hy => hsupp y (Or.inr hy)) (t := t) ht
   have hlocal : LocallyIntegrableOn (smoothedSum χ W) (Ioi 0) :=
     CompactMellin.weighted_sum_inv_locallyIntegrableOn_pos (coefficient χ) W
       (scaledSum χ W) hW.1 (fun y hy => hsupp y (Or.inr hy)) hF

@@ -1,0 +1,124 @@
+{
+  "original_source_build": "PASS",
+  "original_axiom_audit": "PASS",
+  "source_commit": "7acdc9d4aa892ab78dbfaa00a3c5f1dae11062b3",
+  "workflow_run": "https://github.com/creelie/Breakthrough-problems-3/actions/runs/40107912718",
+  "job": "https://github.com/creelie/Breakthrough-problems-3/actions/runs/40107912718/job/120913345597",
+  "artifact_id": 12570138160,
+  "artifact_sha256": "7d9883f1508185d8339f705c2d8adab72a125596687d60d00c8deaab2c6bf16a",
+  "original_theorem_count": 19,
+  "original_theorem_axioms": {
+    "OAI.DirichletCharacter.LFunction_ne_zero_of_seven_eighths_lt_re": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.zeroFree": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.least_prime_primitive_root_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.least_prime_primitive_root_le_rpow": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.erdos_985_of_large": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.CharSum.lindelof": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.CharSum.character_sum_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.CharSum.character_sum_le_rpow": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.MV.weak_mv": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.mv_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.polya_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.partial_le": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.hsum_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.polya_vinogradov_loglog": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.nonsmooth_sum": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.character_sum_psi": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.character_sum_range": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.logDeriv_one_le": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.sum_logDeriv_one": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "new_endpoint_audit": "FAIL: Riesz wrapper syntax error; other three wrappers printed only standard axioms.",
+  "whole_revised_proof_audit": "PENDING: repaired wrappers and new Mobius endpoint require a new check.",
+  "independent_zero_free_replacement_proved": false,
+  "files": [
+    {
+      "path": "endpoint-axioms.log",
+      "sha256": "52d049dcc2d1f73f0101041997f2c4e98cd949836c1a44edd35cec5866818747"
+    },
+    {
+      "path": "full-build.log",
+      "sha256": "7f14bd63a7f14e2cf56eb13b78c3064d21c7d1aa47fd5a6a29f770ca0e5b74f7"
+    },
+    {
+      "path": "original-axioms.log",
+      "sha256": "390ef8d253eaf16f9af4ce57c89cdc5feb9cde9123f489f9d99c4a4f577a5ef3"
+    }
+  ]
+}

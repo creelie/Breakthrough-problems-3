@@ -1,0 +1,5 @@
+../journal/paper6-annals-review/checks/EndpointAudit.lean:37:36: error: expected token
+'Paper6.EndpointAudit.optimal_loglog_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Paper6.EndpointAudit.eleven_twelfths_nonvanishing' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Paper6.EndpointAudit.riesz_at_review_boundary' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'Paper6.EndpointAudit.real_endpoint_loglog_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
