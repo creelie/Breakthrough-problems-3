@@ -1,0 +1,6 @@
+{
+  "exit_code": 0,
+  "seconds": 8.26,
+  "output": "'Paper6.transfer_margins' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Paper6.old_cutoffs_insufficient' depends on axioms: [propext, Classical.choice, Quot.sound]\n'Paper6.progression_constants' depends on axioms: [propext, Classical.choice, Quot.sound]\n",
+  "scope": "Exact rational parameter margins only; this does not prove zero-freeness or the character-sum theorem."
+}

@@ -1,0 +1,31 @@
+{
+  "title": "The Pólya–Vinogradov inequality with log log q",
+  "authors": [
+    {
+      "name": "Deep Bhattacharjee",
+      "orcid": "0000-0003-0466-750X"
+    },
+    {
+      "name": "Ushashi Bhattacharya",
+      "orcid": "0009-0002-2254-3914"
+    }
+  ],
+  "status": "author-review; independent replacement unproved",
+  "date": "2026-10-24",
+  "repository": "https://github.com/creelie/Breakthrough-problems-3",
+  "requested_preprint": "https://hexagonmath.org/2610.00256v2",
+  "source_commit": "ce39df5c8b06423beb7ea665fe320158f6efd475",
+  "pages": 76,
+  "credited_reproduced_proof_pages": 49,
+  "pdf_sha256": "b828dbacfc76521848d2cb811cc48a2da60b434f3bb91c3c5f57e85abb6685f3",
+  "aomart_screen": true,
+  "line_numbers": false,
+  "included_external_proof": "OpenAI 11/12 argument; complete attributed reproduction",
+  "independent_zero_free_replacement_proved": false,
+  "complete_fresh_zero_free_kernel_audit": false,
+  "new_parameter_lean_proofs_passed": true,
+  "desktop_compiler": "success",
+  "journal_submission_performed": false,
+  "new_doi": null,
+  "final_zip_created": false
+}

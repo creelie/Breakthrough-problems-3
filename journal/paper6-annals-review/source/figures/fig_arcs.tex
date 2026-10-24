@@ -1,0 +1,14 @@
+\documentclass[border=4pt]{standalone}
+\usepackage{amsmath,amssymb}
+\usepackage{tikz}
+\begin{document}
+\colorlet{majtop}{orange!85!yellow}\colorlet{majtopside}{orange!75!black}\colorlet{mintop}{blue!30}\colorlet{mintopside}{blue!45!black!70}
+\begin{tikzpicture}[line join=round]
+\input{src/arcs_body.tex}
+\fill[majtop] (5.1,1.35) rectangle (5.4,1.65);
+\node[right,font=\small,align=left] at (5.45,1.5) {major arcs, $r\le R$:\\twisted prime sums and\\the half-plane $\operatorname{Re}s>\tfrac78$};
+\fill[mintop] (5.1,-0.05) rectangle (5.4,0.25);
+\node[right,font=\small,align=left] at (5.45,0.1) {minor arcs, $R<r\le t/R$:\\bilinear forms and\\the Selberg sieve};
+\node[font=\small] at (0,-2.15) {$\beta\in\mathbb R/\mathbb Z$};
+\end{tikzpicture}
+\end{document}

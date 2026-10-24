@@ -1,0 +1,13 @@
+{
+  "pages": 76,
+  "third_party_proof_pages": 49,
+  "third_party_proof_start_pdf_page": 22,
+  "all_49_source_page_drawing_streams_byte_identical": true,
+  "both_original_authors_present": true,
+  "main_abstract_words": 133,
+  "pdf_sha256": "b828dbacfc76521848d2cb811cc48a2da60b434f3bb91c3c5f57e85abb6685f3",
+  "line_numbering_disabled": true,
+  "visual_review_complete": true,
+  "independent_zero_free_replacement_proved": false,
+  "review": "All 76 rendered pages inspected; title, contour diagram, parameter proof and final references inspected at full size."
+}
