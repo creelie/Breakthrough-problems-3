@@ -1,7 +1,7 @@
 {
   "title": "The Pólya–Vinogradov inequality with log log q: Lean 4 formalization and verification code",
   "upload_type": "software",
-  "description": "<p>Lean 4 formalization of the paper <em>The Pólya–Vinogradov inequality with log log q</em> by Deep Bhattacharjee and Ushashi Bhattacharya, with the LaTeX source, the paper as a PDF, and four programs (Python, Julia, C, C++) that check its numerical steps.</p><p>The paper proves that every primitive Dirichlet character modulo q ≥ 3 has character sums of size at most C√q log log q, the bound Montgomery and Vaughan proved under the generalised Riemann hypothesis, and that |L'/L(1, χ)| ≤ C log log q and −C log q log log q ≤ γ_q ≤ C log q for the Euler–Kronecker constants of the cyclotomic fields Q(ζ_q), q prime. The input is the zero-free half-plane Re s &gt; 7/8 for Dirichlet L-functions proved and formalised by OpenAI (https://github.com/openai/math, 30 September 2026), whose Lean sources are compiled here unchanged. The Lean proofs use only the axioms propext, Classical.choice and Quot.sound.</p>",
+  "description": "<p>Source-complete research revision of The optimal log log q bound in the Pólya–Vinogradov inequality, by Deep Bhattacharjee and Ushashi Bhattacharya. The current single 29-page aomart manuscript is journal/paper6-annals-review/Polya_Vinogradov_Annals_2026-10-25.pdf. Earlier preprint: https://hexagonmath.org/2610.00256v2 . No new Hexagon identifier or journal submission is claimed.</p><p>All 2,997 nonstandard Lean sources are supplied, including OpenAI's credited 7/8 Dirichlet nonvanishing proof and the new compact smooth Möbius analytic development. The standard Lean/Mathlib dependencies are pinned. Reading an external preprint PDF is not a build prerequisite, but the credited mathematical contribution is retained. No newly independent zero-free proof by the manuscript authors is claimed.</p><p>The original complete source build and 19 original theorem axiom reports passed, and the new Linux analytic component source build and all 20 named reports passed. The accepted axioms in those reports are propext, Classical.choice and Quot.sound. The fresh current root build and new closed endpoint audit remain pending at publication; they are not represented as passed. Exact source commits, provenance, audit scopes and failure history are included. The PDF passed compilation and visual checks. This is an archival research revision, not a claim of completed line-by-line formalisation or journal acceptance.</p>",
   "creators": [
     {
       "name": "Bhattacharjee, Deep",
@@ -31,5 +31,6 @@
       "resource_type": "software",
       "scheme": "url"
     }
-  ]
+  ],
+  "version": "1.3.0"
 }

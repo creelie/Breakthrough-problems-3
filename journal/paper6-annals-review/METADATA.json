@@ -10,7 +10,7 @@
       "orcid": "0009-0002-2254-3914"
     }
   ],
-  "status": "source-complete verification edition; current closed endpoint audit pending",
+  "status": "pre-archive source-complete research revision; current closed endpoint audit pending",
   "date": "2026-10-25",
   "repository": "https://github.com/creelie/Breakthrough-problems-3",
   "requested_preprint": "https://hexagonmath.org/2610.00256v2",
@@ -55,5 +55,9 @@
     "Vinogradov"
   ],
   "manuscript_tex_sha256_lf": "c346f955188b6e8ee6bc2d726afe471701db73f02252cce5e6ce3718d589ca25",
-  "current_linux_mobius_component_audit": "PASS; 20 standard-axiom reports; verification/component-audit.json"
+  "current_linux_mobius_component_audit": "PASS; 20 standard-axiom reports; verification/component-audit.json",
+  "version": "1.3.0",
+  "release_scope": "Current research revision with separately scoped verification; not a completed fresh current-root audit",
+  "independent_zero_free_proof_by_manuscript_authors": false,
+  "prearchive_metadata": true
 }

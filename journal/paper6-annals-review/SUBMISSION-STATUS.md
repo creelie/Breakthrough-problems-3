@@ -16,5 +16,7 @@ success is inferred from a running job. PROOF-COVERAGE.md records each scope.
 
 The cover letter is unsent. No arXiv or journal submission has been made by
 this workflow. Formatting and a kernel audit do not guarantee novelty,
-significance or acceptance. No final DOI or final ZIP has yet been created
-for this revision; those are subsequent publication gates.
+significance or acceptance. The author requested archival publication of this current research revision
+while the fresh audit continues. The pre-archive source commit predates its
+DOI registration; the published DOI receipt is supplied separately. The final
+submission ZIP is created only after the published archive is verified.

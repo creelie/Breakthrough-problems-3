@@ -31,5 +31,8 @@ Read PROOF-COVERAGE.md for the exact verified statements and current status,
 and PROOF-SOURCES.md for rebuild commands and library pins. Successful source
 compilation, finite numerical checks and peer review have different scopes.
 The cover letter is unsent. No journal or arXiv submission is performed here.
-The final DOI, release and ZIP will be recorded only after the current closed
-endpoint audit passes and the archival record exists.
+At the author's request, this current research revision is being archived
+while the fresh closed endpoint audit continues. Its pending status is retained
+explicitly; it is not relabelled as passed. The DOI receipt is recorded after
+publication, and the single final submission ZIP is created only after the
+published archive is checksum-verified.

@@ -1,0 +1,11 @@
+Source-complete research revision of **The optimal log log q bound in the Pólya–Vinogradov inequality**, by **Deep Bhattacharjee and Ushashi Bhattacharya**.
+
+The current article is one 29-page aomart manuscript without margin line numbers or an appended third-party article. The archive supplies all 2,997 nonstandard Lean source files, including OpenAI's credited 7/8 nonvanishing proof, with the pinned Lean/Mathlib manifest, source provenance, original notices, verification logs and rebuild instructions. The new Möbius modules implement the arbitrary-boundary equivalence, reciprocal estimate, Mellin argument and finite-sum identity. Standard library downloads remain necessary on a clean installation.
+
+**Verification at publication:** the original complete source build and all 19 original theorem axiom reports passed. The original theorem sources are unchanged; its historical revised-wrapper failure is explicitly preserved in the receipt. The new Linux analytic component source build and all 20 named axiom reports passed. Only propext, Classical.choice and Quot.sound occur in those reports. The fresh current root build and the new closed endpoint audit are **still pending** and are not reported as passed. See PROOF-COVERAGE.md and the receipts for the exact scopes.
+
+The PDF passed local and desktop compilation, citation checks and visual review. A read-only GitHub source-export check confirmed one current article, no historical compiled distributions, and matching contents of every bundled Lean source. Historical assets remain available in Git and earlier releases.
+
+This release retains the mathematical contribution and authorship of the supplied OpenAI zero-free proof. No newly independent zero-free proof by the manuscript authors is claimed. It is an archival research revision, not a certificate that every line of the written exposition is formally verified or that a journal has accepted the paper. The cover letter is unsent; no journal submission is performed.
+
+Earlier public preprint: https://hexagonmath.org/2610.00256v2 . The current PDF and notes are in journal/paper6-annals-review/. The new DOI will be recorded after Zenodo publication is confirmed; the final submission ZIP will be created only after that confirmation.
