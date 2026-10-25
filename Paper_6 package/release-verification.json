@@ -2,12 +2,12 @@
   "status": "published-and-archive-verified",
   "paper": 6,
   "repo": "Breakthrough-problems-3",
-  "doi": "10.5281/zenodo.23629649",
-  "doi_url": "https://doi.org/10.5281/zenodo.23629649",
-  "record_id": 23629649,
+  "doi": "10.5281/zenodo.23637263",
+  "doi_url": "https://doi.org/10.5281/zenodo.23637263",
+  "record_id": 23637263,
   "conceptdoi": "10.5281/zenodo.23383715",
-  "public_api": "https://zenodo.org/api/records/23629649",
-  "version": "1.4.0",
+  "public_api": "https://zenodo.org/api/records/23637263",
+  "version": "1.5.0",
   "license": {
     "id": "apache2.0"
   },
@@ -23,22 +23,22 @@
       "orcid": "0009-0002-2254-3914"
     }
   ],
-  "release": "https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.4.0",
-  "release_commit": "6a34fd2a7e84e50903f1532ad33ba54f58f71d50",
-  "package_url": "https://github.com/creelie/Breakthrough-problems-3/tree/v1.4.0/Paper_6%20package",
+  "release": "https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.5.0",
+  "release_commit": "2d7645cb394c80e3509600f65734d681a25e7fd2",
+  "package_url": "https://github.com/creelie/Breakthrough-problems-3/tree/v1.5.0/Paper_6%20package",
   "package_path": "Paper_6 package",
   "archival_file": {
-    "id": "995208c1-7d2d-470d-a306-c76b4e1d9560",
-    "key": "creelie/Breakthrough-problems-3-v1.4.0.zip",
-    "size": 12192674,
-    "checksum": "md5:cf908e3af2a50a5b9c91b1be1233c39d",
+    "id": "707c1461-8095-4f7e-b48a-a9bb01dc83e1",
+    "key": "creelie/Breakthrough-problems-3-v1.5.0.zip",
+    "size": 27613131,
+    "checksum": "md5:d365209100c21edd89cae86364e05ee9",
     "links": {
-      "self": "https://zenodo.org/api/records/23629649/files/creelie/Breakthrough-problems-3-v1.4.0.zip/content"
+      "self": "https://zenodo.org/api/records/23637263/files/creelie/Breakthrough-problems-3-v1.5.0.zip/content"
     }
   },
-  "archive_sha256": "6f3194c9d58e802d11fa0a742529c359c028fe7d11fd53c1e88e917dfe4e8f58",
-  "matching_payloads": 13,
+  "archive_sha256": "8a86976b75d2adf5333cee46451e70e299ea495a4e4c31234115b17659feca58",
+  "matching_payloads": 44,
   "payloads_match_committed_git_and_archived_bytes": true,
-  "verified_at_utc": "2026-10-25T00:33:39.297495+00:00",
+  "verified_at_utc": "2026-10-25T08:15:56.526563+00:00",
   "journal_submission_performed": false
 }

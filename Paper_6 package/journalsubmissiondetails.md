@@ -29,21 +29,21 @@ Access note: The journal-specific guide returned HTTP 403 to automated retrieval
 
 ## Disclosure and scope
 
-The manuscript derives the optimal-order log log q character-sum bound and related logarithmic-derivative results from the credited zero-free theorem, with explicit parameters and a smooth Mobius equivalence. The complete formal source and exact endpoint audit passed. OpenAI's zero-free proof remains credited; no newly independent proof is claimed.
+The unchanged article derives the optimal-order character-sum bound from the credited zero-free theorem. The research supplement supplies a separate full formal-source ZIP and studies a sufficient mean-square input for a weaker 15/16 boundary. That input is not proved; no independent zero-free replacement is claimed.
 
-Formal-check scope: The complete current source build, all 19 original and seven closed endpoint axiom reports, and all 20 analytic component reports passed. The reports use only propext, Classical.choice and Quot.sound. The separate written cyclotomic identification is not a new Lean statement, and the revised exposition is not a line-by-line formalisation. No independent zero-free proof is claimed.
+Formal-check scope: The unchanged proof tree has the completed 19 original, seven endpoint and 20 component axiom reports, using only propext, Classical.choice and Quot.sound. Source identity and historical receipts were rechecked. No new full Lean build or independent zero-free proof is claimed; the new conditional research note is not formalized.
 
 Existing preprint: https://hexagonmath.org/2610.00256v2
-Existing manuscript/source DOI: https://doi.org/10.5281/zenodo.23629139
+Existing manuscript/source DOI: https://doi.org/10.5281/zenodo.23629649
 No arXiv identifier is supplied or invented. No journal acceptance or existing
 journal publication is asserted. The new package archive DOI is recorded in
 release-verification.json after Zenodo actually publishes it.
 
 ## AI disclosure
 
-Claude through Claude Code assisted the earlier coauthored manuscript, formal development and checking programs. OpenAI Codex assisted the explicit 11/12 parameter conversion, proof and scope auditing, Mellin arguments, the general smooth Mobius equivalence, new Lean analytic modules, verification records, editing and typesetting. OpenAI's original zero-free theorem remains a credited external mathematical contribution whose proof sources are supplied in the repository.
+Claude through Claude Code assisted the earlier coauthored manuscript, formal development and checking programs. OpenAI Codex assisted the explicit 11/12 parameter conversion, proof and scope auditing, Mellin arguments, the general smooth Mobius equivalence, new Lean analytic modules, verification records, editing and typesetting. OpenAI's original zero-free theorem remains a credited external mathematical contribution whose proof sources are supplied in the repository. This reproducibility revision adds a portable formal-source archive, fresh source and historical-report checks, a conditional mean-square target, a proof obstructing a coefficient-independent shortcut and exact parameter controls. The added research notes await author review.
 
-The author has stated that all parts are checked and understood by a human.
+The earlier archived manuscript had the all-parts human-understanding declaration; added research material awaits author review.
 This is recorded as the user's declaration, not a substitute for the journal's
 editorial review. The standalone disclosure is provided in addition to the
 manuscript's existing AI section; it does not replace any declaration required
@@ -61,6 +61,6 @@ does not certify exclusivity, financial disclosures, reviewer suggestions or
 signatures that the author has not supplied. Submit to one journal at a time.
 
 
-Confirmed package archive: https://doi.org/10.5281/zenodo.23629649 .
-Release: https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.4.0 .
-The DOI receipt was added after the archived release; see ARCHIVE-DOI.md.
+Confirmed research archive: https://doi.org/10.5281/zenodo.23637263
+Release: https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.5.0
+The receipt was added after the immutable source checkpoint. See ARCHIVE-DOI.md and RESEARCH-STATUS.md.

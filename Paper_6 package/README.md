@@ -15,12 +15,16 @@ journalaideclarationform.pdf and journalsubmissiondetails.md. The declaration
 is author-prepared, not an official publisher form or a signed document.
 No PDF has row or margin line numbering.
 
-Manuscript/source archive: https://doi.org/10.5281/zenodo.23629139
+Manuscript/source archive: https://doi.org/10.5281/zenodo.23629649
 Existing preprint: https://hexagonmath.org/2610.00256v2
 The new package release DOI is recorded only after its public record is
 verified. Package manifests distinguish archive content from later DOI receipts.
 
+Read RESEARCH-STATUS.md before using the submission files.
 
-Confirmed package archive: https://doi.org/10.5281/zenodo.23629649 .
-Release: https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.4.0 .
-The DOI receipt was added after the archived release; see ARCHIVE-DOI.md.
+Read RESEARCH-STATUS.md before using the submission files.
+
+
+Confirmed research archive: https://doi.org/10.5281/zenodo.23637263
+Release: https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.5.0
+The receipt was added after the immutable source checkpoint. See ARCHIVE-DOI.md and RESEARCH-STATUS.md.

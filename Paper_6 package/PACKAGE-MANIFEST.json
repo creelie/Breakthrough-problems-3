@@ -1,95 +1,252 @@
 {
-  "status": "published and checksum-verified package; DOI receipt added after publication",
+  "status": "Published checksum-verified research revision; DOI receipt added after archive publication",
   "paper_number": 6,
   "title": "The optimal log log q bound in the Pólya-Vinogradov inequality",
   "authors": [
     {
       "name": "Deep Bhattacharjee",
       "orcid": "0000-0003-0466-750X",
-      "affiliation": "Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India",
-      "email": "itsdeep@live.com"
+      "email": "itsdeep@live.com",
+      "affiliation": "Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India"
     },
     {
       "name": "Ushashi Bhattacharya",
       "orcid": "0009-0002-2254-3914",
-      "affiliation": "Formerly, National Taiwan University, Taipei 106319, Taiwan",
-      "email": "rai.bhattacharya.in@gmail.com"
+      "email": "rai.bhattacharya.in@gmail.com",
+      "affiliation": "Formerly, National Taiwan University, Taipei 106319, Taiwan"
     }
   ],
   "repository": "https://github.com/creelie/Breakthrough-problems-3",
   "github_package_directory": "Paper_6 package",
-  "planned_release": "v1.4.0",
+  "planned_release": "v1.5.0",
   "journal": "Journal of Number Theory",
-  "prior_manuscript_or_source_doi": "10.5281/zenodo.23629139",
-  "new_package_doi": "10.5281/zenodo.23629649",
+  "prior_manuscript_or_source_doi": "10.5281/zenodo.23629649",
+  "new_package_doi": "10.5281/zenodo.23637263",
   "row_or_margin_line_numbers": false,
+  "full_requested_closure_proved": false,
+  "new_material_human_review_pending": true,
   "journal_submission_performed": false,
   "hexagon_submission_performed": false,
   "files": [
     {
       "path": "AI_PROVENANCE.md",
-      "bytes": 2480,
-      "sha256": "9e4690cab31bdfe56b06954c30ab6debdf77bb552a4de9a2bee1c01773e3fb08"
+      "bytes": 3071,
+      "sha256": "2ac3ed912594f5d98a8900ae1c5a420d7c0bd1a185e6ba5eb7232471228b525f"
     },
     {
       "path": "aiprovinance.md",
-      "bytes": 2480,
-      "sha256": "9e4690cab31bdfe56b06954c30ab6debdf77bb552a4de9a2bee1c01773e3fb08"
+      "bytes": 3071,
+      "sha256": "2ac3ed912594f5d98a8900ae1c5a420d7c0bd1a185e6ba5eb7232471228b525f"
     },
     {
       "path": "ARCHIVE-DOI.md",
-      "bytes": 1182,
-      "sha256": "e578e7f27ab3e3638aa37f355ad7d33ba5040e31eb0a923b58e6ab774ebbaec6"
+      "bytes": 906,
+      "sha256": "9fe357a0a68c8afc7f148fe33881de88ffaeb330d20bb89807c6198d02dc0357"
     },
     {
       "path": "build-verification.json",
-      "bytes": 1092,
-      "sha256": "e2719b8eb2c83f5a2137f3578cd1c4a74a0bba6174a6dced30ff30155482e35f"
+      "bytes": 1087,
+      "sha256": "249c7ed1e81ba6a5d18fb64cd75689796867551ec0676860646779053ae1e60d"
     },
     {
       "path": "coverletterjournal.pdf",
-      "bytes": 84835,
-      "sha256": "2e69253b1b9730658d01768741ecd0e4862b32b87d5d1bf02a5da2293f32676c"
+      "bytes": 85151,
+      "sha256": "fae3fec16ff7a2165e0f685ac60bf1d92964225b7c7bc22838f7abe5a63261bf"
     },
     {
       "path": "coverlettertex.zip",
-      "bytes": 1330,
-      "sha256": "de2c3f90d00abe6a823b489e16a71d4bdd67e2cb9ae2528c428f8d8c394fb3bd"
+      "bytes": 1325,
+      "sha256": "65a121b2d9aa4d6f666909f57e677de967a8b0e4b20d83117a31512df742b2a3"
     },
     {
       "path": "hexagonsubmissionform.md",
-      "bytes": 5445,
-      "sha256": "38b8fd3aca836e18cb6c30c9921dfc7515ed2bdf0bd09f72509ec69b8829f357"
+      "bytes": 5873,
+      "sha256": "c8abbccec27dae55f1302f2962e225579519cb8901189ed2e906fb6d4edc9ab2"
     },
     {
       "path": "journalaideclarationform.pdf",
-      "bytes": 110354,
-      "sha256": "e1e0ef0fb81c30c099601f2c9a192f6a10f24e62ad582f1e40264b4325d08955"
+      "bytes": 110836,
+      "sha256": "c9383bf66b0167eb4b80ac23ef0155c97758b949550e2afe390a9eda2e6994ab"
     },
     {
       "path": "journalaideclarationform.tex",
-      "bytes": 2501,
-      "sha256": "7d4c600f61b256e18bd14989e1d1f370767fd30c21bed35f90b0d23f1685f4c5"
+      "bytes": 2776,
+      "sha256": "556d78006ab65da1956d117b0cdf939934f06bc70db25c54ccce546264d39af2"
     },
     {
       "path": "journalsubmissiondetails.md",
-      "bytes": 5000,
-      "sha256": "dae3c14968c3a289632b5ce491471ec962f03c23d86d853128fc044decc9340e"
+      "bytes": 5272,
+      "sha256": "d1c1e2f023a52f6540693737886b93f07c2d3dad064518a919135ce84ac32dab"
     },
     {
       "path": "README.md",
-      "bytes": 1552,
-      "sha256": "bbf56c44277dec2dcf57585a03373b40954c501a3821c8a987340ac171c1238a"
+      "bytes": 1699,
+      "sha256": "69056f11304e0e8832491bd02e18546594f0a08bb57397328cf9b86f59d3969c"
     },
     {
       "path": "release-verification.json",
       "bytes": 1696,
-      "sha256": "5385c334d45433ced474b709863bc1c0cd3ce63185b5be6d49c87aaebb228ac5"
+      "sha256": "1d7bd4f672ce511577c39a30a16128bee077e3001c3c93b074debd4436366a55"
+    },
+    {
+      "path": "research/AI_PROVENANCE.md",
+      "bytes": 463,
+      "sha256": "713963fc59a8a365850ac4fabe0ae527355eed3d52b28109591508d58a7325a6"
+    },
+    {
+      "path": "research/ATTEMPT-REGISTER.md",
+      "bytes": 5641,
+      "sha256": "32339fc0acad74345c183d3b62465b317a4512c69e3039d301b099d313036489"
+    },
+    {
+      "path": "research/FORMAL-PROOF-BUILD.md",
+      "bytes": 1798,
+      "sha256": "e6123ddb87f0e6e7421f55a4bf5e2b178a68b364a1912f83ed8239d77261783e"
+    },
+    {
+      "path": "research/formal-proof-sources.zip",
+      "bytes": 7805741,
+      "sha256": "9af68c0415d75fc95e2abd281fff9081398c23a60aabcb8f955177c70aaaaa2e"
+    },
+    {
+      "path": "research/GAUSS-JACOBI-CONSTRUCTION.md",
+      "bytes": 3777,
+      "sha256": "0772027eb27f44019d5fafc325ce585bfb95e86d45243b61bf86bfb8ce019ed1"
+    },
+    {
+      "path": "research/gauss_jacobi_controls.py",
+      "bytes": 2002,
+      "sha256": "f0eb790e9225b8f2dcbab814108d79cbbc8d3d2b4c236aae3467d9699bbcd04f"
+    },
+    {
+      "path": "research/INDEPENDENT-PROOF-STATUS.md",
+      "bytes": 1719,
+      "sha256": "5b99405c692aa9d830611339ccc62e83c95d88454546b87132c40d451b482724"
+    },
+    {
+      "path": "research/mean_square_controls.py",
+      "bytes": 1620,
+      "sha256": "5b9cdc6088d34396a615f7aad204d77a2de12fa8247f8a4466ab24d5da968a97"
+    },
+    {
+      "path": "research/OFF-DIAGONAL-ATTEMPT.md",
+      "bytes": 2587,
+      "sha256": "2b8b6a731720eff158b04f1b9252fa68cdfa4de762fc397baa9fb6d46e4b50f0"
+    },
+    {
+      "path": "research/POLYA-DEPENDENCY-REVIEW.md",
+      "bytes": 5072,
+      "sha256": "48eb74c606a6ee485acc159f36f8a2e7fc9b07f388d390edd10a1596890fc5a8"
+    },
+    {
+      "path": "research/POLYA-MEAN-SQUARE-TARGET.md",
+      "bytes": 5601,
+      "sha256": "0736e840808999f6c7b159355cd3d4079acc689f8f368178d287be1d595e2c91"
+    },
+    {
+      "path": "research/PROOF-COVERAGE.md",
+      "bytes": 4274,
+      "sha256": "ec3192d5a3ef04056e6014cd83d9dc9a37e9e1e4bbecbaf1f70beb287c6b4912"
+    },
+    {
+      "path": "research/THIRD-PARTY-NOTICES.md",
+      "bytes": 1517,
+      "sha256": "eea57abce9062856ec5c8d406904ae13949080bf7bb07632f2a2eaa7d47700c4"
+    },
+    {
+      "path": "research/verification/axiom-gate-controls.log",
+      "bytes": 104,
+      "sha256": "c6b9b1f09add0403cc07e90bfdf272129b1ddfa2f8f7675ea8218862f2516371"
+    },
+    {
+      "path": "research/verification/component-audit-1cfac69/mobius-axioms.log",
+      "bytes": 2216,
+      "sha256": "de4d7686cbb6073b5020acc9b546d7c7119877c185c6741aae57945c396965f9"
+    },
+    {
+      "path": "research/verification/component-audit-1cfac69/mobius-build.log",
+      "bytes": 4078,
+      "sha256": "42014f70b82b3d495c3f8b48fe7ba1318474bf22c3e0719822363c8d5b2e0be7"
+    },
+    {
+      "path": "research/verification/component-audit-1cfac69/mobius-components.json",
+      "bytes": 3034,
+      "sha256": "3098b5a90bcecc88336d99dab59dd39e28f6da0486cacfedd8849899b3b8f674"
+    },
+    {
+      "path": "research/verification/component-audit.json",
+      "bytes": 3700,
+      "sha256": "d64dfde586caf561b26c5801140290ea576d9d596a2ca28934d7aa0e0f06a662"
+    },
+    {
+      "path": "research/verification/formal-source-archive.json",
+      "bytes": 539574,
+      "sha256": "77d0fd110480c539e6e4c3435966053dc55f3556b4acb731b97275a6b9ac4d12"
+    },
+    {
+      "path": "research/verification/full-audit-5c06ee0/endpoint-axioms.log",
+      "bytes": 747,
+      "sha256": "c821cd4fc857d7cf4c676d72bb5ed6e5031b3c7682e3a149f18a107b13cdef17"
+    },
+    {
+      "path": "research/verification/full-audit-5c06ee0/full-audit.json",
+      "bytes": 3280,
+      "sha256": "2c537e9576e76cdad7ab64457e4c8fd686441211cc884d9b107824d7a8ace350"
+    },
+    {
+      "path": "research/verification/full-audit-5c06ee0/full-build.log",
+      "bytes": 9377,
+      "sha256": "8249f203c3a6e8d0cc502252f7016c2d530ed398e7c34c7a4f66c30cf70b326e"
+    },
+    {
+      "path": "research/verification/full-audit-5c06ee0/original-axioms.log",
+      "bytes": 1781,
+      "sha256": "390ef8d253eaf16f9af4ce57c89cdc5feb9cde9123f489f9d99c4a4f577a5ef3"
+    },
+    {
+      "path": "research/verification/full-audit.json",
+      "bytes": 4281,
+      "sha256": "60b487c3b92a6b4f091d01120a95aaffb95c983537af6f24e7caaada0b9543b8"
+    },
+    {
+      "path": "research/verification/gauss-jacobi-controls.json",
+      "bytes": 4612,
+      "sha256": "eb63e3957cb937ea47ea1be37b66e54b41b0070d07e44fb8570fcfcb0d6984f1"
+    },
+    {
+      "path": "research/verification/mean-square-controls.json",
+      "bytes": 1114,
+      "sha256": "081c2232c533ab2901a467c3633b42714d2a596d32e6f39663ea6e6d1db8ab3b"
+    },
+    {
+      "path": "research/verification/polya-dependency-review.json",
+      "bytes": 1117,
+      "sha256": "b3cbac83d6d9fc94b47e1767e88d688f1899fb9d6bb6f771a1bef838d7c25fd4"
+    },
+    {
+      "path": "research/verification/polya-import-source-manifest.json",
+      "bytes": 1039173,
+      "sha256": "d16ca0673e8767ce46eaf4faea4973b4a00e7c7f40e23797b2fd18c62e53fa40"
+    },
+    {
+      "path": "research/verification/remote-historical-audit-recheck.json",
+      "bytes": 1214,
+      "sha256": "19971e751fcdf48d404c26c702114dc89d6fb6d0be146b9c64aec144d076d22d"
+    },
+    {
+      "path": "research/verify_packet.py",
+      "bytes": 1207,
+      "sha256": "8d43acb527e752543f91f3096cc78a28a8ff6859bd075fb3c7679accba95d2ec"
+    },
+    {
+      "path": "RESEARCH-STATUS.md",
+      "bytes": 858,
+      "sha256": "165871621a84c23e1d57a1ced51d1880af6d3e625fbc199119518431b8b02372"
     },
     {
       "path": "submission-metadata.json",
-      "bytes": 6266,
-      "sha256": "58417ab468c9fe9f9f02251f246ba62971cd923ba518f4ef1a320cb6f061838d"
+      "bytes": 6613,
+      "sha256": "3ddcc01a97a1d8e527ea3c4e40e86346f9d757c83c9505dbf70d62e36f553083"
     },
     {
       "path": "The_optimal_log_log_q_bound_in_the_Polya-Vinogradov_inequality.pdf",
@@ -102,9 +259,9 @@
       "sha256": "640a7d877b403787f53c062c833bdba201b3b2430e1ae23eaf4219497910e690"
     }
   ],
-  "release_commit": "6a34fd2a7e84e50903f1532ad33ba54f58f71d50",
+  "release_commit": "2d7645cb394c80e3509600f65734d681a25e7fd2",
   "post_archive_receipt_files": [
-    "release-verification.json",
-    "ARCHIVE-DOI.md"
+    "ARCHIVE-DOI.md",
+    "release-verification.json"
   ]
 }

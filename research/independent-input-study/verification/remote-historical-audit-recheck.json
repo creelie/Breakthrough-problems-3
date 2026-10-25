@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "scope": "Read-only confirmation of previous CI runs and matching proof trees; no new CI run dispatched.",
+  "runs": [
+    {
+      "run_id": 40145560153,
+      "url": "https://github.com/creelie/Breakthrough-problems-3/actions/runs/40145560153",
+      "head_sha": "5c06ee00f451d7a79ba579fea4b960156f3611a9",
+      "conclusion": "success",
+      "lean_tree": "9914e7a2b60b10d441513e64eacc0856025c9eec",
+      "jobs": [
+        {
+          "name": "parameter-lean",
+          "conclusion": "success"
+        },
+        {
+          "name": "paper",
+          "conclusion": "success"
+        },
+        {
+          "name": "full-proof",
+          "conclusion": "success"
+        },
+        {
+          "name": "numerical",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "run_id": 40139438840,
+      "url": "https://github.com/creelie/Breakthrough-problems-3/actions/runs/40139438840",
+      "head_sha": "1cfac699dd028d0fc82659d47a3919107a69ffab",
+      "conclusion": "success",
+      "lean_tree": "9914e7a2b60b10d441513e64eacc0856025c9eec",
+      "jobs": [
+        {
+          "name": "mobius-components",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ]
+}

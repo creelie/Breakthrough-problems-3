@@ -1,0 +1,45 @@
+{
+  "status": "PASS",
+  "parameter_cases": [
+    {
+      "alpha": "1",
+      "main_exponent": "11/12",
+      "row_error_exponent": "5/6",
+      "power_saving_if_input_proved": true
+    },
+    {
+      "alpha": "21/20",
+      "main_exponent": "15/16",
+      "row_error_exponent": "33/40",
+      "power_saving_if_input_proved": true
+    },
+    {
+      "alpha": "11/10",
+      "main_exponent": "23/24",
+      "row_error_exponent": "49/60",
+      "power_saving_if_input_proved": true
+    },
+    {
+      "alpha": "6/5",
+      "main_exponent": "1",
+      "row_error_exponent": "4/5",
+      "power_saving_if_input_proved": false
+    },
+    {
+      "alpha": "5/4",
+      "main_exponent": "49/48",
+      "row_error_exponent": "19/24",
+      "power_saving_if_input_proved": false
+    },
+    {
+      "alpha": "2",
+      "main_exponent": "4/3",
+      "row_error_exponent": "2/3",
+      "power_saving_if_input_proved": false
+    }
+  ],
+  "finite_sixth_power_residue_checks": 102,
+  "generic_coefficient_counterexample_exponent_gap": "3/32",
+  "mean_square_input_proved": false,
+  "independent_zero_free_theorem_proved": false
+}

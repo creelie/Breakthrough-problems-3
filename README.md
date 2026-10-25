@@ -1,6 +1,25 @@
+## Research revision v1.5.0
+
+Research DOI: https://doi.org/10.5281/zenodo.23637263
+Release: https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.5.0
+Package: [Paper_6 package](Paper_6%20package/README.md).
+
+The article is unchanged and retains the credited OpenAI zero-free input.
+The new research notes prove classical arithmetic identities and study an
+unproved sufficient mean-square estimate. No independent replacement or
+stronger closure is claimed. Added material awaits author review.
+
+The complete matching formal-source snapshot and historical audit receipts
+are in the release and separate source ZIP. Mathematical source files on
+this default branch are not replaced by this package promotion.
+
+Earlier repository documentation follows.
+
+---
+
 # The Pólya–Vinogradov inequality with log log q
 
-## Current Paper_6 upload package
+## Earlier Paper_6 upload package (v1.4.0)
 
 [Paper_6 package](Paper_6%20package/README.md) contains the manuscript PDF,
 compilable Hexagon/Overleaf TeX ZIP, AI provenance, complete Hexagon fields,

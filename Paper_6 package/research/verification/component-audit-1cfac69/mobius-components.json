@@ -1,0 +1,112 @@
+{
+  "component_axioms": {
+    "Vinogradov.Mobius.negative_real_part_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.reciprocal_bound_of_nonvanishing": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.smoothed_mellin_identity": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.nonvanishing_of_one_smoothed_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.explicit_test_weight": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.nonvanishing_of_smoothed_mobius_cancellation": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.mellin_eq_mellinSchwartz": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.mellin_polynomial_weight_integrable": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.mellin_uniform_strip_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.scaledSum_mellin_convergent_two": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.forward_mellin_inversion": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.forwardKernel_line_integrable": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.smoothedSum_eq_forward_integral": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.shifted_forward_integral": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.smoothed_mobius_bound_of_seven_eighths": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.polynomial_reciprocal_of_nonvanishing": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.smoothed_bounds_of_nonvanishing": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.nonvanishing_iff_smoothed_bounds": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.smoothedSum_eq_sum_range": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.ReviewBoundary.riesz_at_boundary_of_nonvanishing": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "component_kernel_audit": "PASS",
+  "forward_smoothed_mobius_bound_formalised": true,
+  "forward_scope": "7/8 nonvanishing implies C_W q^104 X^(11/12); actual sum and analytic steps are formalised.",
+  "arbitrary_boundary_forward_formalised": true,
+  "arbitrary_boundary_equivalence_formalised": true,
+  "finite_sum_identity_formalised": true,
+  "closed_instantiations_audited_separately": true,
+  "independent_zero_free_replacement_proved": false
+}
