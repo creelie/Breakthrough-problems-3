@@ -1,7 +1,7 @@
 {
   "title": "The optimal log log q bound in the Pólya-Vinogradov inequality - research revision",
   "upload_type": "software",
-  "description": "<p>The unchanged article derives the optimal-order character-sum bound from the credited zero-free theorem. The research supplement supplies a separate full formal-source ZIP and studies a sufficient mean-square input for a weaker 15/16 boundary. That input is not proved; no independent zero-free replacement is claimed.</p><p>Verification: The unchanged proof tree has the completed 19 original, seven endpoint and 20 component axiom reports, using only propext, Classical.choice and Quot.sound. Source identity and historical receipts were rechecked. No new full Lean build or independent zero-free proof is claimed; the new conditional research note is not formalized.</p><p>Full requested closure: not established. New written research material awaits author review. Existing authorship and source credit are preserved. This is a research archive, not journal acceptance or a new independent zero-free theorem.</p>",
+  "description": "<p>This consolidated submission-package release retains the unchanged article and credited zero-free theorem, the matching complete formal-source ZIP, historical axiom-audit receipts and scoped independent-input research notes. No new mathematical theorem or independent zero-free replacement is claimed by this packaging revision.</p><p>Verification: The formal source tree is unchanged from the audited 19 original, seven closed endpoint and 20 analytic component reports. This release verifies that source identity and archive bytes. It does not claim a newly rerun full Lean build or a proof of the proposed independent mean-square input.</p><p>Existing authorship and source credit are preserved. New material awaits author review. This is a research archive, not journal acceptance or a full requested closure.</p>",
   "creators": [
     {
       "name": "Bhattacharjee, Deep",
@@ -48,7 +48,7 @@
       "relation": "isSupplementTo"
     }
   ],
-  "version": "1.5.0",
+  "version": "1.6.0",
   "publication_date": "2026-10-25",
   "notes": "The package includes exact source archives, proof/attempt notes and scoped verification records. Component licences remain authoritative. No new full-conjecture closure is claimed."
 }

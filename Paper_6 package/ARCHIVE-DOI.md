@@ -1,12 +1,12 @@
 # Confirmed research archive
 
-Version: v1.5.0
-DOI: https://doi.org/10.5281/zenodo.23637263
-Release: https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.5.0
-Source checkpoint: 2d7645cb394c80e3509600f65734d681a25e7fd2
-Package: https://github.com/creelie/Breakthrough-problems-3/tree/v1.5.0/Paper_6%20package
+Version: v1.6.0
+DOI: https://doi.org/10.5281/zenodo.23638793
+Release: https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.6.0
+Source checkpoint: 29e8e119657c67090e8e8be067bd542050d58f0b
+Package: https://github.com/creelie/Breakthrough-problems-3/tree/v1.6.0/Paper_6%20package
 
-All 44 listed archived payloads were verified against
+All 47 listed archived payloads were verified against
 the committed Git bytes and published Zenodo file. The receipt was added after
 publication and is not asserted to have been in that earlier checkpoint.
 

@@ -1,4 +1,21 @@
-## Research revision v1.5.0
+## Research revision v1.6.0
+
+Research DOI: https://doi.org/10.5281/zenodo.23638793
+Release: https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.6.0
+Package: [Paper_6 package](Paper_6%20package/README.md).
+
+This consolidates the submission files, formal-source snapshot, dependency
+map and scoped verification records. The article is unchanged and retains
+its credited OpenAI zero-free input. No new independent zero-free theorem
+or proof of the proposed mean-square input is claimed. Added material
+awaits author review. Mathematical source files on this default branch
+are preserved by this package-only promotion.
+
+Earlier repository documentation follows.
+
+---
+
+## Earlier research revision v1.5.0
 
 Research DOI: https://doi.org/10.5281/zenodo.23637263
 Release: https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.5.0

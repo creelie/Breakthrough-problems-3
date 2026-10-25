@@ -2,12 +2,12 @@
   "status": "published-and-archive-verified",
   "paper": 6,
   "repo": "Breakthrough-problems-3",
-  "doi": "10.5281/zenodo.23637263",
-  "doi_url": "https://doi.org/10.5281/zenodo.23637263",
-  "record_id": 23637263,
+  "doi": "10.5281/zenodo.23638793",
+  "doi_url": "https://doi.org/10.5281/zenodo.23638793",
+  "record_id": 23638793,
   "conceptdoi": "10.5281/zenodo.23383715",
-  "public_api": "https://zenodo.org/api/records/23637263",
-  "version": "1.5.0",
+  "public_api": "https://zenodo.org/api/records/23638793",
+  "version": "1.6.0",
   "license": {
     "id": "apache2.0"
   },
@@ -23,22 +23,31 @@
       "orcid": "0009-0002-2254-3914"
     }
   ],
-  "release": "https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.5.0",
-  "release_commit": "2d7645cb394c80e3509600f65734d681a25e7fd2",
-  "package_url": "https://github.com/creelie/Breakthrough-problems-3/tree/v1.5.0/Paper_6%20package",
+  "release": "https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.6.0",
+  "release_commit": "29e8e119657c67090e8e8be067bd542050d58f0b",
+  "package_url": "https://github.com/creelie/Breakthrough-problems-3/tree/v1.6.0/Paper_6%20package",
   "package_path": "Paper_6 package",
   "archival_file": {
-    "id": "707c1461-8095-4f7e-b48a-a9bb01dc83e1",
-    "key": "creelie/Breakthrough-problems-3-v1.5.0.zip",
-    "size": 27613131,
-    "checksum": "md5:d365209100c21edd89cae86364e05ee9",
+    "id": "5c32c585-6bb9-48b9-aaa6-27ff1d8dedcc",
+    "key": "creelie/Breakthrough-problems-3-v1.6.0.zip",
+    "size": 27616944,
+    "checksum": "md5:cadb6f4c6939ca5f427cebd8495984f3",
     "links": {
-      "self": "https://zenodo.org/api/records/23637263/files/creelie/Breakthrough-problems-3-v1.5.0.zip/content"
+      "self": "https://zenodo.org/api/records/23638793/files/creelie/Breakthrough-problems-3-v1.6.0.zip/content"
     }
   },
-  "archive_sha256": "8a86976b75d2adf5333cee46451e70e299ea495a4e4c31234115b17659feca58",
-  "matching_payloads": 44,
+  "archive_sha256": "9b28fbb50846bff8cbbad883d0e4613877e1016102a95510f6350d334756c324",
+  "matching_payloads": 47,
   "payloads_match_committed_git_and_archived_bytes": true,
-  "verified_at_utc": "2026-10-25T08:15:56.526563+00:00",
-  "journal_submission_performed": false
+  "verified_at_utc": "2026-10-25T09:37:18.271043+00:00",
+  "journal_submission_performed": false,
+  "fresh_release_commit_checks": [
+    {
+      "name": "research-controls",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/creelie/Breakthrough-problems-3/actions/runs/40181231267/job/121132549143"
+    }
+  ],
+  "full_requested_closure_proved": false
 }

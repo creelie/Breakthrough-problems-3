@@ -15,7 +15,7 @@ authors:
 type: software
 license: Apache-2.0
 repository-code: "https://github.com/creelie/Breakthrough-problems-3"
-version: 1.5.0
+version: 1.6.0
 date-released: 2026-10-25
 keywords:
   - Pólya–Vinogradov inequality
@@ -26,4 +26,4 @@ keywords:
   - Selberg sieve
   - Lean 4
 
-doi: 10.5281/zenodo.23637263
+doi: 10.5281/zenodo.23638793
