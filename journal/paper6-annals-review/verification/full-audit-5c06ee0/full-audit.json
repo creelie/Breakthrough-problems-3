@@ -1,0 +1,139 @@
+{
+  "status": "PASS",
+  "endpoint_axioms": {
+    "Paper6.EndpointAudit.optimal_loglog_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Paper6.EndpointAudit.eleven_twelfths_nonvanishing": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Paper6.EndpointAudit.riesz_at_review_boundary": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Paper6.EndpointAudit.real_endpoint_loglog_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.smoothed_mobius_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.smoothed_mobius_cancellation": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.finite_smoothed_mobius_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "original_axioms": {
+    "OAI.DirichletCharacter.LFunction_ne_zero_of_seven_eighths_lt_re": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.zeroFree": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.least_prime_primitive_root_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.least_prime_primitive_root_le_rpow": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.erdos_985_of_large": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.CharSum.lindelof": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.CharSum.character_sum_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.CharSum.character_sum_le_rpow": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.MV.weak_mv": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.mv_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.polya_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.partial_le": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.hsum_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.polya_vinogradov_loglog": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.nonsmooth_sum": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.character_sum_psi": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.character_sum_range": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.logDeriv_one_le": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.sum_logDeriv_one": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "scope": "Exact compiled formal statements and their axiom closures. This is not an independent zero-free proof or a formalisation of every line of the written 11/12 supplement.",
+  "independent_zero_free_replacement_proved": false
+}

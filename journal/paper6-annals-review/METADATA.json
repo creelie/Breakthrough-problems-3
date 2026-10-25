@@ -10,7 +10,7 @@
       "orcid": "0009-0002-2254-3914"
     }
   ],
-  "status": "pre-archive source-complete research revision; current closed endpoint audit pending",
+  "status": "source-complete edition with current source and endpoint audits passed",
   "date": "2026-10-25",
   "repository": "https://github.com/creelie/Breakthrough-problems-3",
   "requested_preprint": "https://hexagonmath.org/2610.00256v2",
@@ -23,7 +23,7 @@
   "new_parameter_lean_proofs_passed": true,
   "desktop_compiler": "success",
   "journal_submission_performed": false,
-  "new_doi": null,
+  "new_doi": "10.5281/zenodo.23629139",
   "final_zip_created": false,
   "embedded_third_party_article_pages": 0,
   "external_zero_free_input": {
@@ -43,7 +43,7 @@
   "external_preprint_pdf_required_for_rebuild": false,
   "new_mobius_analytic_modules_locally_checked": true,
   "original_zero_free_source_audit": "PASS; verification/original-source-audit.json",
-  "current_closed_endpoint_audit": "PENDING",
+  "current_closed_endpoint_audit": "PASS; verification/full-audit.json",
   "standard_libraries_pinned": true,
   "base_commit": "ce39df5c8b06423beb7ea665fe320158f6efd475",
   "formal_source_commit": "1cfac699dd028d0fc82659d47a3919107a69ffab",
@@ -59,5 +59,7 @@
   "version": "1.3.0",
   "release_scope": "Current research revision with separately scoped verification; not a completed fresh current-root audit",
   "independent_zero_free_proof_by_manuscript_authors": false,
-  "prearchive_metadata": true
+  "prearchive_metadata": true,
+  "verified_proof_source_tree": "9914e7a2b60b10d441513e64eacc0856025c9eec",
+  "v1_3_0_audit_snapshot": "Pending at publication; now passed in the later recorded audit."
 }

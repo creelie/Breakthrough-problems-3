@@ -39,3 +39,13 @@ The source inventory checks all 2,997 bundled Lean files and their nonstandard
 import closure. Standard-library commits are pinned in lake-manifest.json.
 New generic helper extractions retain their OpenAI provenance in
 lean/Vinogradov/Mobius/HELPER-PROVENANCE.json.
+
+Current audit update, 25 October 2026: the complete source build and all
+19 original plus seven closed endpoint axiom reports passed at commit
+5c06ee00f451d7a79ba579fea4b960156f3611a9. The separate analytic audit passed all 20 named
+statements. Both source-tree hashes match the current Lean tree. The reports
+contain only propext, Classical.choice and Quot.sound. Receipt and verified
+artifact digest: verification/full-audit.json. This updates the earlier
+pending status; it does not constitute a new independent zero-free proof or
+a line-by-line formalisation of the written article. The existing v1.3.0
+release accurately records the pending status at its publication time.

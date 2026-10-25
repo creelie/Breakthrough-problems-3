@@ -15,7 +15,7 @@ filename also prevents an open viewer from displaying the locked old edition
 as though it were the newly corrected file.
 
 Reverification of an existing proof is distinct from constructing an independent
-proof. The full formal audit continues; the independent replacement remains
+proof. The full formal source and endpoint audit passed; the independent replacement remains
 unobtained. Neither the page count nor the numerical checks change that status.
 
 The current revision cites the formalised 7/8 theorem directly and adds a
@@ -26,4 +26,14 @@ The source-complete edition now supplies Lean implementations of the general
 Möbius equivalence and finite-sum identity as well as the analytic bound. The
 credited nonvanishing proof is included in the proof-source tree, not pasted
 as another article. This does not change its authorship or claim a new
-independent proof. The exact closed endpoints are a separate release gate.
+independent proof. The exact closed endpoints passed their separate release gate.
+
+Current audit update, 25 October 2026: the complete source build and all
+19 original plus seven closed endpoint axiom reports passed at commit
+5c06ee00f451d7a79ba579fea4b960156f3611a9. The separate analytic audit passed all 20 named
+statements. Both source-tree hashes match the current Lean tree. The reports
+contain only propext, Classical.choice and Quot.sound. Receipt and verified
+artifact digest: verification/full-audit.json. This updates the earlier
+pending status; it does not constitute a new independent zero-free proof or
+a line-by-line formalisation of the written article. The existing v1.3.0
+release accurately records the pending status at its publication time.

@@ -1,0 +1,86 @@
+{
+  "number": 6,
+  "title": "The optimal log log q bound in the Pólya-Vinogradov inequality",
+  "display_title": "The optimal log log q bound in the Pólya-Vinogradov inequality",
+  "slug": "The_optimal_log_log_q_bound_in_the_Polya-Vinogradov_inequality",
+  "source": "C:/FNL_2/Annals/Paper_6/source",
+  "pdf": "C:/FNL_2/Annals/Paper_6/Polya_Vinogradov_Annals_2026-10-25.pdf",
+  "repo": "Breakthrough-problems-3",
+  "local_repo": "D:/CLAUDE PAPERS/research-audit-2026-10-23/polya/repository",
+  "repo_package_dir": "Paper_6 package",
+  "next_version": "1.4.0",
+  "manuscript_doi": "10.5281/zenodo.23629139",
+  "preprint": "https://hexagonmath.org/2610.00256v2",
+  "primary_subject": "math.NT",
+  "cross_list": [
+    "math.CA"
+  ],
+  "msc2020": [
+    "11L40",
+    "11M06",
+    "11M20",
+    "11L07",
+    "11N13",
+    "11N36",
+    "11R42"
+  ],
+  "tags": [
+    "Polya-Vinogradov inequality",
+    "character sums",
+    "zero-free regions",
+    "Mobius cancellation",
+    "Selberg sieve",
+    "Euler-Kronecker constants"
+  ],
+  "journal": "Journal of Number Theory",
+  "journal_slug": "journal-of-number-theory",
+  "journal_scope_url": "https://shop.elsevier.com/journals/journal-of-number-theory/0022-314X",
+  "journal_fit": "The character-sum, Dirichlet L-function and logarithmic-derivative results fit analytic number theory and the journal's detailed technical-article scope.",
+  "contribution": "The manuscript derives the optimal-order log log q character-sum bound and related logarithmic-derivative results from the credited zero-free theorem, with explicit parameters and a smooth Mobius equivalence. The complete formal source and exact endpoint audit passed. OpenAI's zero-free proof remains credited; no newly independent proof is claimed.",
+  "ai_scope": "Claude through Claude Code assisted the earlier coauthored manuscript, formal development and checking programs. OpenAI Codex assisted the explicit 11/12 parameter conversion, proof and scope auditing, Mellin arguments, the general smooth Mobius equivalence, new Lean analytic modules, verification records, editing and typesetting. OpenAI's original zero-free theorem remains a credited external mathematical contribution whose proof sources are supplied in the repository.",
+  "formalization_scope": "The complete current source build, all 19 original and seven closed endpoint axiom reports, and all 20 analytic component reports passed. The reports use only propext, Classical.choice and Quot.sound. The separate written cyclotomic identification is not a new Lean statement, and the revised exposition is not a line-by-line formalisation. No independent zero-free proof is claimed.",
+  "formalization_urls": [
+    "https://github.com/creelie/Breakthrough-problems-3/tree/v1.3.0/lean"
+  ],
+  "tools": [
+    "Anthropic Claude / Claude Code",
+    "OpenAI Codex",
+    "Lean 4 / Mathlib",
+    "Python",
+    "Julia",
+    "C and C++",
+    "LaTeX / pdfLaTeX"
+  ],
+  "audit_url": "https://github.com/creelie/Breakthrough-problems-3/actions/runs/40145560153",
+  "authors": [
+    {
+      "name": "Deep Bhattacharjee",
+      "orcid": "0000-0003-0466-750X",
+      "affiliation": "Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India",
+      "email": "itsdeep@live.com"
+    },
+    {
+      "name": "Ushashi Bhattacharya",
+      "orcid": "0009-0002-2254-3914",
+      "affiliation": "Formerly, National Taiwan University, Taipei 106319, Taiwan",
+      "email": "rai.bhattacharya.in@gmail.com"
+    }
+  ],
+  "abstract_tex": "Using the $11/12$ consequence of OpenAI's formalised $7/8$ zero-free theorem for nonprincipal Dirichlet $L$-functions, we derive the bound $C\\sqrt q\\log\\log q$ for every primitive Dirichlet character modulo $q\\ge3$. The zero-free theorem is cited as an external input. We give the subsequent contour, prime-sum, major-arc and minor-arc arguments in detail and prove the required weak Montgomery--Vaughan exponential-sum estimate using Selberg's sieve. The same input yields $|L'/L(1,\\chi)|\\ll\\log\\log q$ and two-sided bounds for cyclotomic Euler--Kronecker constants. Explicit parameters and a general transfer argument show why any fixed uniform zero-free boundary below one suffices. No independent proof of the external zero-free theorem is claimed.",
+  "abstract_plain": "Using the 11/12 consequence of OpenAI's formalised 7/8 zero-free theorem for nonprincipal Dirichlet L-functions, we derive the bound Csqrt qloglog q for every primitive Dirichlet character modulo q>=3. The zero-free theorem is cited as an external input. We give the subsequent contour, prime-sum, major-arc and minor-arc arguments in detail and prove the required weak Montgomery--Vaughan exponential-sum estimate using Selberg's sieve. The same input yields |L'/L(1,chi)| << loglog q and two-sided bounds for cyclotomic Euler--Kronecker constants. Explicit parameters and a general transfer argument show why any fixed uniform zero-free boundary below one suffices. No independent proof of the external zero-free theorem is claimed.",
+  "human_understanding": "All parts of this contribution have been checked and understood by a human.",
+  "human_understanding_basis": "Explicit declaration by the user in this conversation on 25 October 2026.",
+  "text_classification": "A mix of human-written and AI-generated",
+  "primary_pdf": "The_optimal_log_log_q_bound_in_the_Polya-Vinogradov_inequality.pdf",
+  "tex_zip": "The_optimal_log_log_q_bound_in_the_Polya-Vinogradov_inequalitytex.zip",
+  "pdf_sha256": "9ffcb740ab866df7b93b65fb9d42211dfcec5e459820670ec72a4198d6c34918",
+  "tex_zip_sha256": "640a7d877b403787f53c062c833bdba201b3b2430e1ae23eaf4219497910e690",
+  "pages": 29,
+  "hexagon_license": "CC BY 4.0 (manuscript record)",
+  "row_or_margin_line_numbers": false,
+  "source_changes_for_upload": [],
+  "journal_submission_performed": false,
+  "doi_of_new_package": null,
+  "package_release_pending": true,
+  "package_license": "Apache-2.0 for repository proof/code; manuscript preprint available under CC BY 4.0"
+}

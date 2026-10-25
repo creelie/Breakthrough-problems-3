@@ -1,5 +1,10 @@
 # The Pólya–Vinogradov inequality with log log q
 
+## Current upload package
+
+[Paper_6 package](Paper_6%20package/README.md) contains the reviewed Hexagon/Overleaf source ZIP, the current PDF, AI provenance, complete Hexagon fields and supporting files for **Journal of Number Theory**. The package records the current proof/check scope and has no margin line numbers. No journal submission or acceptance is claimed. Version: 1.4.0.
+
+
 ## Paper_6: source-complete verification edition
 
 The current [single article and proof package](journal/paper6-annals-review/README.md)

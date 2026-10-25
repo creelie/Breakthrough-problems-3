@@ -11,8 +11,8 @@ proof of that theorem. Standard Lean and Mathlib dependencies remain pinned.
 
 The new analytic Möbius modules passed local Lean checks and a Linux source
 build with all 20 named standard-axiom reports. The current
-complete root build and its closed endpoint reports are still pending. No
-success is inferred from a running job. PROOF-COVERAGE.md records each scope.
+complete root build and its closed endpoint reports passed. All 19 original and seven closed endpoint axiom reports passed.
+The verified logs are in verification/full-audit.json. PROOF-COVERAGE.md records each scope.
 
 The cover letter is unsent. No arXiv or journal submission has been made by
 this workflow. Formatting and a kernel audit do not guarantee novelty,
@@ -20,3 +20,13 @@ significance or acceptance. The author requested archival publication of this cu
 while the fresh audit continues. The pre-archive source commit predates its
 DOI registration; the published DOI receipt is supplied separately. The final
 submission ZIP is created only after the published archive is verified.
+
+Current audit update, 25 October 2026: the complete source build and all
+19 original plus seven closed endpoint axiom reports passed at commit
+5c06ee00f451d7a79ba579fea4b960156f3611a9. The separate analytic audit passed all 20 named
+statements. Both source-tree hashes match the current Lean tree. The reports
+contain only propext, Classical.choice and Quot.sound. Receipt and verified
+artifact digest: verification/full-audit.json. This updates the earlier
+pending status; it does not constitute a new independent zero-free proof or
+a line-by-line formalisation of the written article. The existing v1.3.0
+release accurately records the pending status at its publication time.
