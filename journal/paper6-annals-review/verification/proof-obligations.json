@@ -1,0 +1,14 @@
+{
+  "credited_nonvanishing_proof_bundled": true,
+  "original_source_build_and_19_axiom_reports": "PASS; original-source-audit.json",
+  "current_closed_endpoints": "PASS; verification/full-audit.json",
+  "current_linux_mobius_component_audit": "PASS; 20 standard-axiom reports; verification/component-audit.json",
+  "four_named_local_analytic_modules": "PASS; local-general-components.json",
+  "new_11_12_written_presentation_line_by_line_formalised": false,
+  "new_mobius_analytic_formalisation": true,
+  "independent_zero_free_proof_by_manuscript_authors": false,
+  "standard_libraries_pinned": true,
+  "unproved_nonvanishing_axiom_permitted": false,
+  "current_closed_endpoint_audit": "PASS; verification/full-audit.json",
+  "verified_proof_source_tree": "9914e7a2b60b10d441513e64eacc0856025c9eec"
+}

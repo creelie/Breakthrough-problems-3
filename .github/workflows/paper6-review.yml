@@ -1,0 +1,141 @@
+name: Paper6 Annals review checks
+on:
+  pull_request:
+    paths:
+      - 'journal/paper6-annals-review/**'
+      - '.github/workflows/paper6-review.yml'
+  workflow_dispatch:
+    inputs:
+      full_audit:
+        description: Build the full original proof and inspect all endpoint axiom closures
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  paper:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: journal/paper6-annals-review
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install pypdf
+      - name: Install TeX and Poppler
+        run: |
+          sudo apt-get -o Acquire::Retries=3 update
+          sudo apt-get -o Acquire::Retries=3 install -y --no-install-recommends texlive-latex-extra texlive-publishers texlive-science texlive-fonts-recommended lmodern poppler-utils
+      - name: Exact rational conversion checks
+        run: python checks/parameter_checks.py
+      - name: Check the bundled nonstandard source import closure
+        run: python checks/source_inventory.py
+      - name: Check that the axiom verifier rejects invalid reports
+        run: python -m unittest discover -s checks -p 'test_verify_axioms.py'
+      - name: Build author-review manuscript
+        run: |
+          cd source
+          pdflatex -interaction=nonstopmode -halt-on-error main.tex > build-first.log || { tail -n 70 build-first.log; exit 1; }
+          pdflatex -interaction=nonstopmode -halt-on-error main.tex > build-final.log || { tail -n 70 build-final.log; exit 1; }
+          if grep -E 'Overfull|Citation.*undefined|Reference.*undefined' main.log; then exit 1; fi
+      - name: Verify a single manuscript with precise external theorem attribution
+        run: python checks/verify_manuscript.py source/main.pdf source/main.tex
+  numerical:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: '1.11'
+      - name: Original Python, Julia, C, C++ and shell checks
+        run: ./run_all.sh --skip-lean
+      - name: Revised 11/12 constants in four languages
+        run: |
+          cd journal/paper6-annals-review
+          python3 checks/parameter_checks.py
+          julia checks/parameter_checks.jl
+          cc -O2 -o /tmp/paper6-parameters-c checks/parameter_checks.c
+          /tmp/paper6-parameters-c
+          c++ -O2 -std=c++17 -o /tmp/paper6-parameters-cpp checks/parameter_checks.cpp
+          /tmp/paper6-parameters-cpp
+  parameter-lean:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    defaults:
+      run:
+        shell: bash
+        working-directory: lean
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install the pinned Lean toolchain
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Fetch only the parameter proof's Mathlib cache
+        run: lake exe cache get Mathlib.Tactic.NormNum
+      - name: Kernel-check the three parameter statements
+        run: |
+          lake env lean ../journal/paper6-annals-review/checks/ParameterAudit.lean | tee parameter-axioms.log
+          if grep -E 'sorryAx|ofReduceBool' parameter-axioms.log; then exit 1; fi
+          test "$(grep -c 'depends on axioms' parameter-axioms.log)" = 3
+  full-proof:
+    if: github.event_name == 'workflow_dispatch' && inputs.full_audit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 360
+    env:
+      LEAN_NUM_THREADS: '2'
+    defaults:
+      run:
+        shell: bash
+        working-directory: lean
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install the pinned Lean toolchain
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Fetch the pinned Mathlib dependency cache
+        run: lake exe cache get Mathlib
+      - uses: actions/cache/restore@v4
+        id: proof-cache
+        with:
+          path: |
+            lean/.lake/build/lib/lean
+            lean/.lake/build/ir
+          key: paper6-full-lean-${{ runner.os }}-${{ hashFiles('lean/lean-toolchain', 'lean/lake-manifest.json', 'lean/**/*.lean') }}
+          restore-keys: |
+            paper6-full-lean-${{ runner.os }}-
+      - name: Build the complete original formal argument from source
+        id: full-build
+        run: lake --no-cache build '+Vinogradov:olean' 2>&1 | tee full-build.log
+      - uses: actions/cache/save@v4
+        if: always() && steps.full-build.outcome == 'success'
+        with:
+          path: |
+            lean/.lake/build/lib/lean
+            lean/.lake/build/ir
+          key: ${{ steps.proof-cache.outputs.cache-primary-key }}
+      - name: Check exact endpoints and inspect axiom dependencies
+        run: |
+          lake env lean ../journal/paper6-annals-review/checks/EndpointAudit.lean 2>&1 | tee endpoint-axioms.log
+          lake env lean Axioms.lean 2>&1 | tee original-axioms.log
+          python ../journal/paper6-annals-review/checks/verify_axioms.py endpoint-axioms.log original-axioms.log full-audit.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: paper6-full-proof-audit
+          path: |
+            lean/full-build.log
+            lean/endpoint-axioms.log
+            lean/original-axioms.log
+            lean/full-audit.json
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.full-build.outcome == 'success'
+        with:
+          name: paper6-compiled-proof
+          compression-level: 1
+          path: lean/.lake/build/lib/lean

@@ -1,0 +1,11 @@
+{
+  "pdf_sha256": "9ffcb740ab866df7b93b65fb9d42211dfcec5e459820670ec72a4198d6c34918",
+  "pages": 29,
+  "overfull": [],
+  "undefined": [],
+  "unused_bibliography": [],
+  "missing_bibliography": [],
+  "scope": "PDF compilation, citation consistency and layout diagnostics only; proof coverage is recorded separately.",
+  "status": "author-review",
+  "local_compiler": "pdflatex success"
+}

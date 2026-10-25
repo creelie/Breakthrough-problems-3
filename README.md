@@ -1,5 +1,31 @@
 # The Pólya–Vinogradov inequality with log log q
 
+## Current upload package
+
+[Paper_6 package](Paper_6%20package/README.md) contains the reviewed Hexagon/Overleaf source ZIP, the current PDF, AI provenance, complete Hexagon fields and supporting files for **Journal of Number Theory**. The package records the current proof/check scope and has no margin line numbers. No journal submission or acceptance is claimed. Version: 1.4.0. Package DOI: [10.5281/zenodo.23629649](https://doi.org/10.5281/zenodo.23629649).
+
+
+## Paper_6: source-complete verification edition
+
+The current [single article and proof package](journal/paper6-annals-review/README.md)
+includes the nonstandard Lean sources for OpenAI's credited zero-free theorem
+and the downstream character-sum proof. The new Möbius modules formalise the
+general equivalence, quantitative bound and finite-sum identity. The byline
+remains Deep Bhattacharjee and Ushashi Bhattacharya. No third-party article
+is appended and no new independent zero-free proof is claimed.
+
+The original source build and 19 axiom reports passed; the current closed
+endpoint audit is a separate release gate. See the precise
+[proof coverage](journal/paper6-annals-review/PROOF-COVERAGE.md) and
+[rebuild instructions](journal/paper6-annals-review/PROOF-SOURCES.md).
+The verified preprint is [Hexagon 2610.00256v2](https://hexagonmath.org/2610.00256v2).
+No new final DOI or final ZIP is claimed until its actual publication receipt.
+
+## Earlier release description
+
+The historical release claims and artifacts below are distinct from the
+current review and its pending fresh audit.
+
 Deep Bhattacharjee (corresponding author; Formerly, Electro-Gravitational
 Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India;
 Formerly, University of Calcutta, Senate House, 87/1 College Street, Kolkata 700073, West Bengal, India;
@@ -8,7 +34,7 @@ and Ushashi Bhattacharya (Formerly, National Taiwan University, Taipei 106319,
 Taiwan; rai.bhattacharya.in@gmail.com; ORCID 0009-0002-2254-3914).
 
 Paper: [`preprintPolyaVinogradovLogLog/PolyaVinogradovLogLog.pdf`](preprintPolyaVinogradovLogLog/PolyaVinogradovLogLog.pdf).
-Annals of Mathematics version (Hexagon 2610.00256v3): [`paper/paper1/PolyaVinogradovLogLog-Annals.pdf`](paper/paper1/PolyaVinogradovLogLog-Annals.pdf), source [`paper/paper2/PolyaVinogradovLogLog-Annals-tex.zip`](paper/paper2/PolyaVinogradovLogLog-Annals-tex.zip) (built from `paper/annals/`), submission files in [`journal/submission-annals/`](journal/submission-annals/); release v1.2.0: https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.2.0.
+Earlier Annals of Mathematics layout: [`paper/paper1/PolyaVinogradovLogLog-Annals.pdf`](paper/paper1/PolyaVinogradovLogLog-Annals.pdf), source [`paper/paper2/PolyaVinogradovLogLog-Annals-tex.zip`](paper/paper2/PolyaVinogradovLogLog-Annals-tex.zip) (built from `paper/annals/`), submission files in [`journal/submission-annals/`](journal/submission-annals/); release v1.2.0: https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.2.0.
 Lean formalisation and verification code on Zenodo: doi:[10.5281/zenodo.23383716](https://doi.org/10.5281/zenodo.23383716) (release v1.0.0; all versions: doi:[10.5281/zenodo.23383715](https://doi.org/10.5281/zenodo.23383715)).
 
 ## Results

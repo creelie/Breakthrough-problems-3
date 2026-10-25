@@ -1,0 +1,65 @@
+{
+  "title": "The optimal log log q bound in the P\u00f3lya\u2013Vinogradov inequality",
+  "authors": [
+    {
+      "name": "Deep Bhattacharjee",
+      "orcid": "0000-0003-0466-750X"
+    },
+    {
+      "name": "Ushashi Bhattacharya",
+      "orcid": "0009-0002-2254-3914"
+    }
+  ],
+  "status": "source-complete edition with current source and endpoint audits passed",
+  "date": "2026-10-25",
+  "repository": "https://github.com/creelie/Breakthrough-problems-3",
+  "requested_preprint": "https://hexagonmath.org/2610.00256v2",
+  "pages": 29,
+  "credited_reproduced_proof_pages": 0,
+  "pdf_sha256": "9ffcb740ab866df7b93b65fb9d42211dfcec5e459820670ec72a4198d6c34918",
+  "aomart_screen": true,
+  "line_numbers": false,
+  "independent_zero_free_replacement_proved": false,
+  "new_parameter_lean_proofs_passed": true,
+  "desktop_compiler": "success",
+  "journal_submission_performed": false,
+  "new_doi": "10.5281/zenodo.23629139",
+  "final_zip_created": false,
+  "embedded_third_party_article_pages": 0,
+  "external_zero_free_input": {
+    "author": "OpenAI",
+    "title": "The quasi-Riemann hypothesis: a zero-free half-plane Re(s)>7/8",
+    "date": "2026-09-30",
+    "part_used": "Theorem 1.1: 7/8 Dirichlet nonvanishing, hence 11/12 by rational comparison",
+    "source_commit": "1581d4cbdd69a0faf34b2089614fe2a814316a6a",
+    "formal_declaration": "OAI.DirichletCharacter.LFunction_ne_zero_of_seven_eighths_lt_re",
+    "source": "https://github.com/openai/math/blob/1581d4cbdd69a0faf34b2089614fe2a814316a6a/lean/OAI/NumberTheory/DirichletL/Nonvanishing.lean"
+  },
+  "primary_pdf": "Polya_Vinogradov_Annals_2026-10-25.pdf",
+  "smoothed_mobius_written_deduction": true,
+  "smoothed_mobius_new_lean_formalisation": true,
+  "independent_mobius_cancellation_proof": false,
+  "nonstandard_proof_sources_bundled": true,
+  "external_preprint_pdf_required_for_rebuild": false,
+  "new_mobius_analytic_modules_locally_checked": true,
+  "original_zero_free_source_audit": "PASS; verification/original-source-audit.json",
+  "current_closed_endpoint_audit": "PASS; verification/full-audit.json",
+  "standard_libraries_pinned": true,
+  "base_commit": "ce39df5c8b06423beb7ea665fe320158f6efd475",
+  "formal_source_commit": "1cfac699dd028d0fc82659d47a3919107a69ffab",
+  "credited_zero_free_source_rebuild_passed": true,
+  "bundled_proof_roots": [
+    "OAI",
+    "PrimeNumberTheoremAnd",
+    "RellichKondrachov",
+    "Vinogradov"
+  ],
+  "manuscript_tex_sha256_lf": "c346f955188b6e8ee6bc2d726afe471701db73f02252cce5e6ce3718d589ca25",
+  "current_linux_mobius_component_audit": "PASS; 20 standard-axiom reports; verification/component-audit.json",
+  "version": "1.3.0",
+  "release_scope": "Current research revision with separately scoped verification; not a completed fresh current-root audit",
+  "independent_zero_free_proof_by_manuscript_authors": false,
+  "prearchive_metadata": true,
+  "verified_proof_source_tree": "9914e7a2b60b10d441513e64eacc0856025c9eec",
+  "v1_3_0_audit_snapshot": "Pending at publication; now passed in the later recorded audit."
+}

@@ -31,3 +31,9 @@ preprintPolyaVinogradovLogLog/ are by Deep Bhattacharjee and Ushashi
 Bhattacharya. The headers of Vinogradov/MRT.lean,
 Vinogradov/Riesz.lean, Vinogradov/ContourShift.lean and
 Vinogradov/EulerLog.lean name the OpenAI files they adapt.
+
+The source-complete Paper_6 revision and Vinogradov/Mobius/ were prepared with
+OpenAI Codex assistance under the authors' direction, as disclosed in the
+article. Generic analytic helper extractions retain the OpenAI source pins,
+excerpt boundaries and hashes in Vinogradov/Mobius/HELPER-PROVENANCE.json.
+They do not constitute a newly independent proof of the zero-free theorem.

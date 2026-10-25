@@ -1,0 +1,153 @@
+{
+  "status": "PASS",
+  "scope": "full source build and named theorem axiom closures",
+  "source_commit": "f2c763b16b620dcbf38d26ab8ffc8f193b6ac80b",
+  "run_url": "https://github.com/creelie/Breakthrough-problems-3/actions/runs/40136373924",
+  "job_url": "https://github.com/creelie/Breakthrough-problems-3/actions/runs/40136373924/job/120998651060",
+  "proof_source_tree": "c108007bd53d3f70e4eade5a9b55f9051c600b40",
+  "artifact_id": 12580755638,
+  "artifact_sha256": "deb1c7d8b4e5faf6aed7e49f455f09488a158b7825ad67e32aed4c0ae39a9dc3",
+  "axioms": {
+    "Paper6.EndpointAudit.optimal_loglog_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Paper6.EndpointAudit.eleven_twelfths_nonvanishing": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Paper6.EndpointAudit.riesz_at_review_boundary": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Paper6.EndpointAudit.real_endpoint_loglog_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.Mobius.smoothed_mobius_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "independent_zero_free_proof_by_manuscript_authors": false,
+  "files": [
+    {
+      "path": "verification/full-audit-f2c763b/endpoint-axioms.log",
+      "sha256": "664872ca7e65d9f5b94fe1654b44a8cc64e8dbc51903e23cf15dfc67ee5f1737"
+    },
+    {
+      "path": "verification/full-audit-f2c763b/full-audit.json",
+      "sha256": "7f795889704f1c405866f098d0ba3fde2790823ce2ec056e301b0e05a789c90b"
+    },
+    {
+      "path": "verification/full-audit-f2c763b/full-build.log",
+      "sha256": "50fea7b9e9a7e4fbe807882db47852dd7af53366054089a9f2132afc63ab97db"
+    },
+    {
+      "path": "verification/full-audit-f2c763b/original-axioms.log",
+      "sha256": "390ef8d253eaf16f9af4ce57c89cdc5feb9cde9123f489f9d99c4a4f577a5ef3"
+    }
+  ],
+  "original_axioms": {
+    "OAI.DirichletCharacter.LFunction_ne_zero_of_seven_eighths_lt_re": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.zeroFree": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.least_prime_primitive_root_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.least_prime_primitive_root_le_rpow": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.erdos_985_of_large": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.CharSum.lindelof": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.CharSum.character_sum_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.CharSum.character_sum_le_rpow": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.MV.weak_mv": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.mv_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.polya_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.partial_le": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.hsum_bound": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.polya_vinogradov_loglog": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.nonsmooth_sum": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.character_sum_psi": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.PV.character_sum_range": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.logDeriv_one_le": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Vinogradov.sum_logDeriv_one": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+name: Paper6 Mobius analytic component audit
+on:
+  pull_request:
+    paths:
+      - 'lean/Vinogradov/Mobius/**'
+      - 'journal/paper6-annals-review/checks/MobiusAudit.lean'
+      - 'journal/paper6-annals-review/checks/verify_mobius_axioms.py'
+      - '.github/workflows/paper6-mobius.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  mobius-components:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      LEAN_NUM_THREADS: '1'
+    defaults:
+      run:
+        shell: bash
+        working-directory: lean
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install the pinned Lean toolchain
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Fetch the pinned Mathlib dependency cache
+        run: lake exe cache get Mathlib
+      - name: Build the named analytic components
+        run: lake --no-cache build '+Vinogradov.Mobius.Main:olean' '+Vinogradov.Mobius.GeneralForward:olean' '+Vinogradov.Mobius.FiniteSums:olean' '+Vinogradov.Mobius.ReviewBoundary:olean' 2>&1 | tee mobius-build.log
+      - name: Inspect component axiom closures
+        run: |
+          lake env lean ../journal/paper6-annals-review/checks/MobiusAudit.lean 2>&1 | tee mobius-axioms.log
+          python ../journal/paper6-annals-review/checks/verify_mobius_axioms.py mobius-axioms.log mobius-components.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: paper6-mobius-component-audit
+          path: |
+            lean/mobius-build.log
+            lean/mobius-axioms.log
+            lean/mobius-components.json

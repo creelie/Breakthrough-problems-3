@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "scope": "Read-only verification of GitHub source export in memory; no final submission ZIP created.",
+  "source_commit": "2b6e34d37d6002f93c73c9e7766fc7e94d889af2",
+  "source_archive_sha256": "d341aa2f97ceb1f9902ed784e7f2f93f39cfe73f0f42577624067e03f08cf2cc",
+  "source_archive_bytes": 10912820,
+  "single_article_pdf": true,
+  "historical_binary_distributions_omitted": true,
+  "matching_nonstandard_lean_sources": 2997,
+  "final_submission_zip_created": false,
+  "export_rules_sha256": "8a17843b5623ad0dbd5a77816d36e8ba3081d50bc146528b2d2fa6300bf0b91a"
+}
