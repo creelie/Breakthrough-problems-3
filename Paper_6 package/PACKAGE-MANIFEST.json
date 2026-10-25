@@ -1,0 +1,110 @@
+{
+  "status": "published and checksum-verified package; DOI receipt added after publication",
+  "paper_number": 6,
+  "title": "The optimal log log q bound in the Pólya-Vinogradov inequality",
+  "authors": [
+    {
+      "name": "Deep Bhattacharjee",
+      "orcid": "0000-0003-0466-750X",
+      "affiliation": "Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India",
+      "email": "itsdeep@live.com"
+    },
+    {
+      "name": "Ushashi Bhattacharya",
+      "orcid": "0009-0002-2254-3914",
+      "affiliation": "Formerly, National Taiwan University, Taipei 106319, Taiwan",
+      "email": "rai.bhattacharya.in@gmail.com"
+    }
+  ],
+  "repository": "https://github.com/creelie/Breakthrough-problems-3",
+  "github_package_directory": "Paper_6 package",
+  "planned_release": "v1.4.0",
+  "journal": "Journal of Number Theory",
+  "prior_manuscript_or_source_doi": "10.5281/zenodo.23629139",
+  "new_package_doi": "10.5281/zenodo.23629649",
+  "row_or_margin_line_numbers": false,
+  "journal_submission_performed": false,
+  "hexagon_submission_performed": false,
+  "files": [
+    {
+      "path": "AI_PROVENANCE.md",
+      "bytes": 2480,
+      "sha256": "9e4690cab31bdfe56b06954c30ab6debdf77bb552a4de9a2bee1c01773e3fb08"
+    },
+    {
+      "path": "aiprovinance.md",
+      "bytes": 2480,
+      "sha256": "9e4690cab31bdfe56b06954c30ab6debdf77bb552a4de9a2bee1c01773e3fb08"
+    },
+    {
+      "path": "ARCHIVE-DOI.md",
+      "bytes": 1182,
+      "sha256": "e578e7f27ab3e3638aa37f355ad7d33ba5040e31eb0a923b58e6ab774ebbaec6"
+    },
+    {
+      "path": "build-verification.json",
+      "bytes": 1092,
+      "sha256": "e2719b8eb2c83f5a2137f3578cd1c4a74a0bba6174a6dced30ff30155482e35f"
+    },
+    {
+      "path": "coverletterjournal.pdf",
+      "bytes": 84835,
+      "sha256": "2e69253b1b9730658d01768741ecd0e4862b32b87d5d1bf02a5da2293f32676c"
+    },
+    {
+      "path": "coverlettertex.zip",
+      "bytes": 1330,
+      "sha256": "de2c3f90d00abe6a823b489e16a71d4bdd67e2cb9ae2528c428f8d8c394fb3bd"
+    },
+    {
+      "path": "hexagonsubmissionform.md",
+      "bytes": 5445,
+      "sha256": "38b8fd3aca836e18cb6c30c9921dfc7515ed2bdf0bd09f72509ec69b8829f357"
+    },
+    {
+      "path": "journalaideclarationform.pdf",
+      "bytes": 110354,
+      "sha256": "e1e0ef0fb81c30c099601f2c9a192f6a10f24e62ad582f1e40264b4325d08955"
+    },
+    {
+      "path": "journalaideclarationform.tex",
+      "bytes": 2501,
+      "sha256": "7d4c600f61b256e18bd14989e1d1f370767fd30c21bed35f90b0d23f1685f4c5"
+    },
+    {
+      "path": "journalsubmissiondetails.md",
+      "bytes": 5000,
+      "sha256": "dae3c14968c3a289632b5ce491471ec962f03c23d86d853128fc044decc9340e"
+    },
+    {
+      "path": "README.md",
+      "bytes": 1552,
+      "sha256": "bbf56c44277dec2dcf57585a03373b40954c501a3821c8a987340ac171c1238a"
+    },
+    {
+      "path": "release-verification.json",
+      "bytes": 1696,
+      "sha256": "5385c334d45433ced474b709863bc1c0cd3ce63185b5be6d49c87aaebb228ac5"
+    },
+    {
+      "path": "submission-metadata.json",
+      "bytes": 6266,
+      "sha256": "58417ab468c9fe9f9f02251f246ba62971cd923ba518f4ef1a320cb6f061838d"
+    },
+    {
+      "path": "The_optimal_log_log_q_bound_in_the_Polya-Vinogradov_inequality.pdf",
+      "bytes": 736799,
+      "sha256": "9ffcb740ab866df7b93b65fb9d42211dfcec5e459820670ec72a4198d6c34918"
+    },
+    {
+      "path": "The_optimal_log_log_q_bound_in_the_Polya-Vinogradov_inequalitytex.zip",
+      "bytes": 299338,
+      "sha256": "640a7d877b403787f53c062c833bdba201b3b2430e1ae23eaf4219497910e690"
+    }
+  ],
+  "release_commit": "6a34fd2a7e84e50903f1532ad33ba54f58f71d50",
+  "post_archive_receipt_files": [
+    "release-verification.json",
+    "ARCHIVE-DOI.md"
+  ]
+}

@@ -1,5 +1,21 @@
 # The Pólya–Vinogradov inequality with log log q
 
+## Current Paper_6 upload package
+
+[Paper_6 package](Paper_6%20package/README.md) contains the manuscript PDF,
+compilable Hexagon/Overleaf TeX ZIP, AI provenance, complete Hexagon fields,
+journal details, an unsent Journal of Number Theory cover letter and an
+author-prepared AI declaration. No PDF has margin line numbers.
+
+Package DOI: [10.5281/zenodo.23629649](https://doi.org/10.5281/zenodo.23629649).
+The [v1.4.0 release](https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.4.0)
+contains the current full proof-source snapshot and its completed formal-audit
+receipts. The package records exact verification scopes and preserves the
+credited OpenAI zero-free theorem; it does not claim an independent replacement
+or journal acceptance. The mathematical sources on this default branch are
+not changed by this package-folder addition.
+
+
 Deep Bhattacharjee (corresponding author; Formerly, Electro-Gravitational
 Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India;
 Formerly, University of Calcutta, Senate House, 87/1 College Street, Kolkata 700073, West Bengal, India;

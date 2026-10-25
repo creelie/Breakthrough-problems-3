@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "scope": "Extracted source ZIP compilation and full PDF text/page comparison, not a new proof audit.",
+  "main_document": "main.tex",
+  "compiler": "pdfLaTeX (TeX Live 2023)",
+  "source_zip_members": [
+    "figures/fig_arcs.pdf",
+    "figures/fig_blocks.pdf",
+    "figures/fig_flow.pdf",
+    "figures/fig_splane.pdf",
+    "main.tex"
+  ],
+  "source_changes": [],
+  "matches_existing_pdf_text_and_pages": true,
+  "pages": 29,
+  "manuscript_pdf_sha256": "9ffcb740ab866df7b93b65fb9d42211dfcec5e459820670ec72a4198d6c34918",
+  "source_zip_sha256": "640a7d877b403787f53c062c833bdba201b3b2430e1ae23eaf4219497910e690",
+  "cover_letter_pages": 1,
+  "ai_declaration_pages": 1,
+  "overfull_boxes": [],
+  "line_numbering_disabled": true,
+  "visual_review_complete": true,
+  "visual_review_scope": "All 12 supporting PDFs inspected in rendered contact sheets, with full-size inspection of Papers 2 and 6; manuscript first/last pages inspected. Manuscript bytes are unchanged and the extracted ZIP rebuild matches every page text and page count.",
+  "no_margin_line_numbers": true
+}
