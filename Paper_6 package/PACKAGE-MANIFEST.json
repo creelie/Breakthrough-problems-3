@@ -38,8 +38,8 @@
     },
     {
       "path": "build-verification.json",
-      "bytes": 1117,
-      "sha256": "3b225327c519a3af089c1da0f5739a6fca8262738be8db0889732bc4b2b56e3e"
+      "bytes": 1092,
+      "sha256": "e2719b8eb2c83f5a2137f3578cd1c4a74a0bba6174a6dced30ff30155482e35f"
     },
     {
       "path": "coverletterjournal.pdf",
@@ -78,8 +78,8 @@
     },
     {
       "path": "submission-metadata.json",
-      "bytes": 6116,
-      "sha256": "9bce104a4ecddf0ea21022c865ae0dd96678a87cddb8075ef3a10575a6027b79"
+      "bytes": 6030,
+      "sha256": "3d0f499d779324a94180e34b0ec4ed77b78bf9b83b18b5a9776390ec37d7d28a"
     },
     {
       "path": "The_optimal_log_log_q_bound_in_the_Polya-Vinogradov_inequality.pdf",
