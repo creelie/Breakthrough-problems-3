@@ -19,3 +19,8 @@ Manuscript/source archive: https://doi.org/10.5281/zenodo.23629139
 Existing preprint: https://hexagonmath.org/2610.00256v2
 The new package release DOI is recorded only after its public record is
 verified. Package manifests distinguish archive content from later DOI receipts.
+
+
+Confirmed package archive: https://doi.org/10.5281/zenodo.23629649 .
+Release: https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.4.0 .
+The DOI receipt was added after the archived release; see ARCHIVE-DOI.md.

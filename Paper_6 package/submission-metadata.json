@@ -80,7 +80,10 @@
   "row_or_margin_line_numbers": false,
   "source_changes_for_upload": [],
   "journal_submission_performed": false,
-  "doi_of_new_package": null,
-  "package_release_pending": true,
-  "package_license": "Apache-2.0 for repository proof/code; manuscript preprint available under CC BY 4.0"
+  "doi_of_new_package": "10.5281/zenodo.23629649",
+  "package_release_pending": false,
+  "package_license": "Apache-2.0 for repository proof/code; manuscript preprint available under CC BY 4.0",
+  "package_release": "https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.4.0",
+  "package_release_commit": "6a34fd2a7e84e50903f1532ad33ba54f58f71d50",
+  "doi_receipt_added_after_publication": true
 }

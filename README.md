@@ -2,7 +2,7 @@
 
 ## Current upload package
 
-[Paper_6 package](Paper_6%20package/README.md) contains the reviewed Hexagon/Overleaf source ZIP, the current PDF, AI provenance, complete Hexagon fields and supporting files for **Journal of Number Theory**. The package records the current proof/check scope and has no margin line numbers. No journal submission or acceptance is claimed. Version: 1.4.0.
+[Paper_6 package](Paper_6%20package/README.md) contains the reviewed Hexagon/Overleaf source ZIP, the current PDF, AI provenance, complete Hexagon fields and supporting files for **Journal of Number Theory**. The package records the current proof/check scope and has no margin line numbers. No journal submission or acceptance is claimed. Version: 1.4.0. Package DOI: [10.5281/zenodo.23629649](https://doi.org/10.5281/zenodo.23629649).
 
 
 ## Paper_6: source-complete verification edition
