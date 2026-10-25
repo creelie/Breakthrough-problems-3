@@ -1,6 +1,6 @@
 ## Research revision v1.5.0 (25 October 2026)
 
-Version: 1.5.0.
+Version: 1.5.0. DOI: [10.5281/zenodo.23637263](https://doi.org/10.5281/zenodo.23637263).
 
 The unchanged article derives the optimal-order character-sum bound from the credited zero-free theorem. The research supplement supplies a separate full formal-source ZIP and studies a sufficient mean-square input for a weaker 15/16 boundary. That input is not proved; no independent zero-free replacement is claimed.
 
