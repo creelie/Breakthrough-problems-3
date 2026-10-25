@@ -1,4 +1,16 @@
-## Research revision v1.5.0 (25 October 2026)
+## Research revision v1.6.0 (25 October 2026)
+
+Version: 1.6.0.
+
+This consolidated submission-package release retains the unchanged article and credited zero-free theorem, the matching complete formal-source ZIP, historical axiom-audit receipts and scoped independent-input research notes. No new mathematical theorem or independent zero-free replacement is claimed by this packaging revision.
+
+The formal source tree is unchanged from the audited 19 original, seven closed endpoint and 20 analytic component reports. This release verifies that source identity and archive bytes. It does not claim a newly rerun full Lean build or a proof of the proposed independent mean-square input.
+
+See [Paper_6 package](Paper_6%20package/README.md). The new archive DOI is added after publication. New material awaits author review.
+
+---
+
+## Earlier research revision v1.5.0 (25 October 2026)
 
 Version: 1.5.0. DOI: [10.5281/zenodo.23637263](https://doi.org/10.5281/zenodo.23637263).
 

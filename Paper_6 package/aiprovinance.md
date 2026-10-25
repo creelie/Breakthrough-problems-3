@@ -29,3 +29,10 @@ Research manuscript/source DOI: https://doi.org/10.5281/zenodo.23629649
 Repository: https://github.com/creelie/Breakthrough-problems-3
 
 Codex also assisted the self-contained derivation of the classical Gauss/Jacobi identity, its CRT construction, exact polynomial controls, and the off-diagonal investigation. The analytic mean-square input remains unproved; these notes do not claim a new independent zero-free theorem.
+
+## Current release 1.6.0
+
+This consolidated submission-package release retains the unchanged article and credited zero-free theorem, the matching complete formal-source ZIP, historical axiom-audit receipts and scoped independent-input research notes. No new mathematical theorem or independent zero-free replacement is claimed by this packaging revision.
+
+The formal source tree is unchanged from the audited 19 original, seven closed endpoint and 20 analytic component reports. This release verifies that source identity and archive bytes. It does not claim a newly rerun full Lean build or a proof of the proposed independent mean-square input.
+New or consolidated material awaits author review.

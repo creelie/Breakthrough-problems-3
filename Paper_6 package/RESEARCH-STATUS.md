@@ -1,7 +1,7 @@
-# Research revision: scope and remaining gap
+# Current research scope
 
-The 29-page article is unchanged and still credits the zero-free theorem. This package adds a separate source archive and a conditional 15/16 mean-square target with exact controls. The target estimate is not proved, and the existing Mobius bounds are not independent of the credited theorem.
+This consolidated submission-package release retains the unchanged article and credited zero-free theorem, the matching complete formal-source ZIP, historical axiom-audit receipts and scoped independent-input research notes. No new mathematical theorem or independent zero-free replacement is claimed by this packaging revision.
 
-The added research material awaits author review. No new all-parts-understood declaration is inferred. No journal or Hexagon submission or acceptance is asserted. A DOI archives this research scope; it does not certify the stronger closure.
+The formal source tree is unchanged from the audited 19 original, seven closed endpoint and 20 analytic component reports. This release verifies that source identity and archive bytes. It does not claim a newly rerun full Lean build or a proof of the proposed independent mean-square input.
 
-The classical finite-field Gauss/Jacobi identity and its CRT construction are proved in the new research notes. All 21 indicated prime-field controls pass in exact arithmetic. This closes the arithmetic identity, not the coefficient-specific short-range mean-square estimate.
+The manuscript PDF, manuscript-source ZIP and journal correspondence PDFs are byte-for-byte unchanged from the previous release. This release adds or consolidates research verification and submission metadata. New material awaits author review. No journal or Hexagon submission is performed.

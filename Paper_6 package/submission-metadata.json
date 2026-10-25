@@ -8,7 +8,7 @@
   "repo": "Breakthrough-problems-3",
   "local_repo": "D:/CLAUDE PAPERS/research-audit-2026-10-23/polya/repository",
   "repo_package_dir": "Paper_6 package",
-  "next_version": "1.5.0",
+  "next_version": "1.6.0",
   "manuscript_doi": "10.5281/zenodo.23629649",
   "preprint": "https://hexagonmath.org/2610.00256v2",
   "primary_subject": "math.NT",
@@ -36,9 +36,9 @@
   "journal_slug": "journal-of-number-theory",
   "journal_scope_url": "https://shop.elsevier.com/journals/journal-of-number-theory/0022-314X",
   "journal_fit": "The character-sum, Dirichlet L-function and logarithmic-derivative results fit analytic number theory and the journal's detailed technical-article scope.",
-  "contribution": "The unchanged article derives the optimal-order character-sum bound from the credited zero-free theorem. The research supplement supplies a separate full formal-source ZIP and studies a sufficient mean-square input for a weaker 15/16 boundary. That input is not proved; no independent zero-free replacement is claimed.",
+  "contribution": "This consolidated submission-package release retains the unchanged article and credited zero-free theorem, the matching complete formal-source ZIP, historical axiom-audit receipts and scoped independent-input research notes. No new mathematical theorem or independent zero-free replacement is claimed by this packaging revision.",
   "ai_scope": "Claude through Claude Code assisted the earlier coauthored manuscript, formal development and checking programs. OpenAI Codex assisted the explicit 11/12 parameter conversion, proof and scope auditing, Mellin arguments, the general smooth Mobius equivalence, new Lean analytic modules, verification records, editing and typesetting. OpenAI's original zero-free theorem remains a credited external mathematical contribution whose proof sources are supplied in the repository. This reproducibility revision adds a portable formal-source archive, fresh source and historical-report checks, a conditional mean-square target, a proof obstructing a coefficient-independent shortcut and exact parameter controls. The added research notes await author review.",
-  "formalization_scope": "The unchanged proof tree has the completed 19 original, seven endpoint and 20 component axiom reports, using only propext, Classical.choice and Quot.sound. Source identity and historical receipts were rechecked. No new full Lean build or independent zero-free proof is claimed; the new conditional research note is not formalized.",
+  "formalization_scope": "The formal source tree is unchanged from the audited 19 original, seven closed endpoint and 20 analytic component reports. This release verifies that source identity and archive bytes. It does not claim a newly rerun full Lean build or a proof of the proposed independent mean-square input.",
   "formalization_urls": [
     "https://github.com/creelie/Breakthrough-problems-3/tree/v1.3.0/lean"
   ],
@@ -80,12 +80,13 @@
   "row_or_margin_line_numbers": false,
   "source_changes_for_upload": [],
   "journal_submission_performed": false,
-  "doi_of_new_package": "10.5281/zenodo.23637263",
-  "package_release_pending": false,
+  "doi_of_new_package": null,
+  "package_release_pending": true,
   "full_requested_closure_proved": false,
   "new_material_human_review_pending": true,
   "package_license": "Apache-2.0 for proof/code; CC BY 4.0 for the existing manuscript record",
-  "package_release": "https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.5.0",
-  "package_release_commit": "2d7645cb394c80e3509600f65734d681a25e7fd2",
-  "doi_receipt_added_after_publication": true
+  "package_release": "https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.6.0",
+  "package_release_commit": null,
+  "doi_receipt_added_after_publication": false,
+  "previous_package_doi": "10.5281/zenodo.23637263"
 }
