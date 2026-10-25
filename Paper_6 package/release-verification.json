@@ -1,0 +1,53 @@
+{
+  "status": "published-and-archive-verified",
+  "paper": 6,
+  "repo": "Breakthrough-problems-3",
+  "doi": "10.5281/zenodo.23638793",
+  "doi_url": "https://doi.org/10.5281/zenodo.23638793",
+  "record_id": 23638793,
+  "conceptdoi": "10.5281/zenodo.23383715",
+  "public_api": "https://zenodo.org/api/records/23638793",
+  "version": "1.6.0",
+  "license": {
+    "id": "apache2.0"
+  },
+  "creators": [
+    {
+      "name": "Bhattacharjee, Deep",
+      "affiliation": "Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India",
+      "orcid": "0000-0003-0466-750X"
+    },
+    {
+      "name": "Bhattacharya, Ushashi",
+      "affiliation": "Formerly, National Taiwan University, Taipei 106319, Taiwan",
+      "orcid": "0009-0002-2254-3914"
+    }
+  ],
+  "release": "https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.6.0",
+  "release_commit": "29e8e119657c67090e8e8be067bd542050d58f0b",
+  "package_url": "https://github.com/creelie/Breakthrough-problems-3/tree/v1.6.0/Paper_6%20package",
+  "package_path": "Paper_6 package",
+  "archival_file": {
+    "id": "5c32c585-6bb9-48b9-aaa6-27ff1d8dedcc",
+    "key": "creelie/Breakthrough-problems-3-v1.6.0.zip",
+    "size": 27616944,
+    "checksum": "md5:cadb6f4c6939ca5f427cebd8495984f3",
+    "links": {
+      "self": "https://zenodo.org/api/records/23638793/files/creelie/Breakthrough-problems-3-v1.6.0.zip/content"
+    }
+  },
+  "archive_sha256": "9b28fbb50846bff8cbbad883d0e4613877e1016102a95510f6350d334756c324",
+  "matching_payloads": 47,
+  "payloads_match_committed_git_and_archived_bytes": true,
+  "verified_at_utc": "2026-10-25T09:37:18.271043+00:00",
+  "journal_submission_performed": false,
+  "fresh_release_commit_checks": [
+    {
+      "name": "research-controls",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/creelie/Breakthrough-problems-3/actions/runs/40181231267/job/121132549143"
+    }
+  ],
+  "full_requested_closure_proved": false
+}

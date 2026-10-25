@@ -1,6 +1,6 @@
 ## Research revision v1.6.0 (25 October 2026)
 
-Version: 1.6.0.
+Version: 1.6.0. DOI: [10.5281/zenodo.23638793](https://doi.org/10.5281/zenodo.23638793).
 
 This consolidated submission-package release retains the unchanged article and credited zero-free theorem, the matching complete formal-source ZIP, historical axiom-audit receipts and scoped independent-input research notes. No new mathematical theorem or independent zero-free replacement is claimed by this packaging revision.
 

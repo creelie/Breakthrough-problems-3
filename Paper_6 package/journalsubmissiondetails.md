@@ -67,3 +67,8 @@ This consolidated submission-package release retains the unchanged article and c
 Formal verification scope: The formal source tree is unchanged from the audited 19 original, seven closed endpoint and 20 analytic component reports. This release verifies that source identity and archive bytes. It does not claim a newly rerun full Lean build or a proof of the proposed independent mean-square input.
 
 The current package DOI will be added only after Zenodo confirms publication. Earlier manuscript/source DOIs above are historical citations.
+
+
+Confirmed research archive: https://doi.org/10.5281/zenodo.23638793
+Release: https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.6.0
+The receipt was added after the immutable source checkpoint. See ARCHIVE-DOI.md and RESEARCH-STATUS.md.

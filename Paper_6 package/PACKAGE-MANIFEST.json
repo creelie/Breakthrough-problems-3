@@ -1,5 +1,5 @@
 {
-  "status": "Checked submission and verification refresh; new archive DOI pending",
+  "status": "Published checksum-verified research revision; DOI receipt added after archive publication",
   "paper_number": 6,
   "title": "The optimal log log q bound in the Pólya-Vinogradov inequality",
   "authors": [
@@ -20,7 +20,7 @@
   "github_package_directory": "Paper_6 package",
   "planned_release": "v1.6.0",
   "journal": "Journal of Number Theory",
-  "new_package_doi": null,
+  "new_package_doi": "10.5281/zenodo.23638793",
   "previous_package_doi": "10.5281/zenodo.23637263",
   "row_or_margin_line_numbers": false,
   "full_requested_closure_proved": false,
@@ -44,6 +44,11 @@
       "sha256": "736499070a6773d3fa9b24b0613d95a578392984b95814b012f602815c261bfe"
     },
     {
+      "path": "ARCHIVE-DOI.md",
+      "bytes": 906,
+      "sha256": "387fef77901058f7f9c9ff7f061bf5db92a0ef759aa5cac21f219bf2e42c35e3"
+    },
+    {
       "path": "build-verification.json",
       "bytes": 1248,
       "sha256": "be11d2e86fd66cc103f7deb98bdea69a0b6a481030e15a14aaf2103a73c92424"
@@ -60,8 +65,8 @@
     },
     {
       "path": "hexagonsubmissionform.md",
-      "bytes": 6445,
-      "sha256": "ce463a6fb4fc0ac08d1a471066cd235d53b4e328e9acc8bccd61e1425c26e8df"
+      "bytes": 6699,
+      "sha256": "fc6fc475964c88543a5263a0bd241c1abceade7daa9da074e23716187a996b92"
     },
     {
       "path": "journalaideclarationform.pdf",
@@ -75,18 +80,23 @@
     },
     {
       "path": "journalsubmissiondetails.md",
-      "bytes": 5844,
-      "sha256": "b06ed48b166b426c57c100aef03381f5f954042446916f18d2d3e6f3fa17c1a1"
+      "bytes": 6098,
+      "sha256": "f240fd9d83971511d525285eeaba54b72ed5e6d96cf603d7378e4f66c61a9afa"
     },
     {
       "path": "README.md",
-      "bytes": 2211,
-      "sha256": "646fb49382745035ce9503934949ea4339b659e08c3a91a6f727388605f67b67"
+      "bytes": 2465,
+      "sha256": "d31f86b9e132e816f67a8a95b12215a50c04ceec5fb78db12ce4d19cc004e73e"
     },
     {
       "path": "RELEASE-CONTENTS.md",
       "bytes": 1158,
       "sha256": "6f80087acdd98d34992d465dce8f649f4e53c6b01103189554934dc5d0720b75"
+    },
+    {
+      "path": "release-verification.json",
+      "bytes": 1993,
+      "sha256": "9617b36f717324dd1416a448bb9dc0e9a42eff117642e342cdced3ebffdaeb0e"
     },
     {
       "path": "research/AI_PROVENANCE.md",
@@ -250,8 +260,8 @@
     },
     {
       "path": "submission-metadata.json",
-      "bytes": 6577,
-      "sha256": "b7e1056e6cc2215efffb1f4e1f99ee544624dedaa53c0ece41ddd48336e540af"
+      "bytes": 6636,
+      "sha256": "4e21f27df932aa4344fd35e5f1803c5223ae0289773c10ea684641247baf0bf9"
     },
     {
       "path": "The_optimal_log_log_q_bound_in_the_Polya-Vinogradov_inequality.pdf",
@@ -263,5 +273,10 @@
       "bytes": 299338,
       "sha256": "640a7d877b403787f53c062c833bdba201b3b2430e1ae23eaf4219497910e690"
     }
+  ],
+  "release_commit": "29e8e119657c67090e8e8be067bd542050d58f0b",
+  "post_archive_receipt_files": [
+    "ARCHIVE-DOI.md",
+    "release-verification.json"
   ]
 }
