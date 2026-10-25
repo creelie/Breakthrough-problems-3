@@ -1,6 +1,8 @@
 # Hexagon submission fields
 
-Submit a replacement version of 2610.00256v2; do not create a duplicate work.
+The article is unchanged in this research revision. The new research notes and
+formal-source bundle are separate; no new Hexagon manuscript version is claimed.
+Review those materials before deciding whether to prepare a replacement for 2610.00256v2.
 The new version identifier is assigned by Hexagon after submission and is not
 asserted in advance. Existing record: https://hexagonmath.org/2610.00256v2
 
@@ -38,14 +40,13 @@ The affiliations are former affiliations, not assertions of current employment.
 ## Authorship and understanding selections
 
 Text: A mix of human-written and AI-generated.
-Human understanding: All parts of this contribution have been checked and understood by a human.
-The user explicitly supplied both declarations for all six papers on 25 October 2026.
+Human understanding: Author selection pending for the added research material; the earlier archived manuscript had the all-parts confirmation.
+The earlier declaration concerned the archived manuscripts. Author selection is pending for the added research material.
 
 ## Provenance statement - copy this paragraph
 
-Claude through Claude Code assisted the earlier coauthored manuscript, formal development and checking programs. OpenAI Codex assisted the explicit 11/12 parameter conversion, proof and scope auditing, Mellin arguments, the general smooth Mobius equivalence, new Lean analytic modules, verification records, editing and typesetting. OpenAI's original zero-free theorem remains a credited external mathematical contribution whose proof sources are supplied in the repository. The submitting author declares that all parts have been
-checked and understood by a human and takes responsibility for the content.
-The complete current source build, all 19 original and seven closed endpoint axiom reports, and all 20 analytic component reports passed. The reports use only propext, Classical.choice and Quot.sound. The separate written cyclotomic identification is not a new Lean statement, and the revised exposition is not a line-by-line formalisation. No independent zero-free proof is claimed.
+Claude through Claude Code assisted the earlier coauthored manuscript, formal development and checking programs. OpenAI Codex assisted the explicit 11/12 parameter conversion, proof and scope auditing, Mellin arguments, the general smooth Mobius equivalence, new Lean analytic modules, verification records, editing and typesetting. OpenAI's original zero-free theorem remains a credited external mathematical contribution whose proof sources are supplied in the repository. This reproducibility revision adds a portable formal-source archive, fresh source and historical-report checks, a conditional mean-square target, a proof obstructing a coefficient-independent shortcut and exact parameter controls. The added research notes await author review. The added research material requires author review before a new human-understanding declaration is selected.
+The unchanged proof tree has the completed 19 original, seven endpoint and 20 component axiom reports, using only propext, Classical.choice and Quot.sound. Source identity and historical receipts were rechecked. No new full Lean build or independent zero-free proof is claimed; the new conditional research note is not formalized.
 
 ## Tools used
 
@@ -64,7 +65,7 @@ tool. Do not invent a model version for an entry that is not documented.
 
 https://github.com/creelie/Breakthrough-problems-3/tree/v1.3.0/lean
 
-Scope: The complete current source build, all 19 original and seven closed endpoint axiom reports, and all 20 analytic component reports passed. The reports use only propext, Classical.choice and Quot.sound. The separate written cyclotomic identification is not a new Lean statement, and the revised exposition is not a line-by-line formalisation. No independent zero-free proof is claimed.
+Scope: The unchanged proof tree has the completed 19 original, seven endpoint and 20 component axiom reports, using only propext, Classical.choice and Quot.sound. Source identity and historical receipts were rechecked. No new full Lean build or independent zero-free proof is claimed; the new conditional research note is not formalized.
 If the portal rejects a host/path, leave it for manual review rather than
 uploading Lean material in the article source ZIP.
 
@@ -85,8 +86,3 @@ Use pdfLaTeX, main document main.tex. The extracted ZIP was rebuilt locally and
 its full extracted text and page count matched the supplied PDF. Confirm the
 rendered title, abstract, byline, references and final portal preview. This
 packet does not press the portal's Process or Submit button on the author's behalf.
-
-
-Confirmed package archive: https://doi.org/10.5281/zenodo.23629649 .
-Release: https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.4.0 .
-The DOI receipt was added after the archived release; see ARCHIVE-DOI.md.

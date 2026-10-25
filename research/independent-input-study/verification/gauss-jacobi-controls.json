@@ -1,0 +1,303 @@
+{
+  "status": "PASS",
+  "prime_cases": 21,
+  "cases": [
+    {
+      "p": 7,
+      "primitive_root": 3,
+      "J": [
+        -1,
+        -3
+      ],
+      "pi": [
+        1,
+        3
+      ],
+      "norm_J": 7,
+      "polynomial_cubic_identity": "PASS"
+    },
+    {
+      "p": 13,
+      "primitive_root": 2,
+      "J": [
+        -4,
+        -3
+      ],
+      "pi": [
+        4,
+        3
+      ],
+      "norm_J": 13,
+      "polynomial_cubic_identity": "PASS"
+    },
+    {
+      "p": 19,
+      "primitive_root": 2,
+      "J": [
+        2,
+        -3
+      ],
+      "pi": [
+        -2,
+        3
+      ],
+      "norm_J": 19,
+      "polynomial_cubic_identity": "PASS"
+    },
+    {
+      "p": 31,
+      "primitive_root": 3,
+      "J": [
+        5,
+        6
+      ],
+      "pi": [
+        -5,
+        -6
+      ],
+      "norm_J": 31,
+      "polynomial_cubic_identity": "PASS"
+    },
+    {
+      "p": 37,
+      "primitive_root": 2,
+      "J": [
+        -4,
+        3
+      ],
+      "pi": [
+        4,
+        -3
+      ],
+      "norm_J": 37,
+      "polynomial_cubic_identity": "PASS"
+    },
+    {
+      "p": 43,
+      "primitive_root": 3,
+      "J": [
+        -1,
+        6
+      ],
+      "pi": [
+        1,
+        -6
+      ],
+      "norm_J": 43,
+      "polynomial_cubic_identity": "PASS"
+    },
+    {
+      "p": 61,
+      "primitive_root": 2,
+      "J": [
+        -4,
+        -9
+      ],
+      "pi": [
+        4,
+        9
+      ],
+      "norm_J": 61,
+      "polynomial_cubic_identity": "PASS"
+    },
+    {
+      "p": 67,
+      "primitive_root": 2,
+      "J": [
+        2,
+        9
+      ],
+      "pi": [
+        -2,
+        -9
+      ],
+      "norm_J": 67,
+      "polynomial_cubic_identity": "PASS"
+    },
+    {
+      "p": 73,
+      "primitive_root": 5,
+      "J": [
+        -1,
+        -9
+      ],
+      "pi": [
+        1,
+        9
+      ],
+      "norm_J": 73,
+      "polynomial_cubic_identity": "PASS"
+    },
+    {
+      "p": 79,
+      "primitive_root": 3,
+      "J": [
+        -10,
+        -3
+      ],
+      "pi": [
+        10,
+        3
+      ],
+      "norm_J": 79,
+      "polynomial_cubic_identity": "PASS"
+    },
+    {
+      "p": 97,
+      "primitive_root": 5,
+      "J": [
+        8,
+        -3
+      ],
+      "pi": [
+        -8,
+        3
+      ],
+      "norm_J": 97,
+      "polynomial_cubic_identity": "PASS"
+    },
+    {
+      "p": 103,
+      "primitive_root": 5,
+      "J": [
+        11,
+        9
+      ],
+      "pi": [
+        -11,
+        -9
+      ],
+      "norm_J": 103,
+      "polynomial_cubic_identity": "PASS"
+    },
+    {
+      "p": 109,
+      "primitive_root": 6,
+      "J": [
+        -7,
+        -12
+      ],
+      "pi": [
+        7,
+        12
+      ],
+      "norm_J": 109,
+      "polynomial_cubic_identity": "PASS"
+    },
+    {
+      "p": 127,
+      "primitive_root": 3,
+      "J": [
+        -7,
+        6
+      ],
+      "pi": [
+        7,
+        -6
+      ],
+      "norm_J": 127,
+      "polynomial_cubic_identity": "PASS"
+    },
+    {
+      "p": 139,
+      "primitive_root": 2,
+      "J": [
+        -10,
+        3
+      ],
+      "pi": [
+        10,
+        -3
+      ],
+      "norm_J": 139,
+      "polynomial_cubic_identity": "PASS"
+    },
+    {
+      "p": 151,
+      "primitive_root": 6,
+      "J": [
+        14,
+        9
+      ],
+      "pi": [
+        -14,
+        -9
+      ],
+      "norm_J": 151,
+      "polynomial_cubic_identity": "PASS"
+    },
+    {
+      "p": 157,
+      "primitive_root": 5,
+      "J": [
+        -13,
+        -12
+      ],
+      "pi": [
+        13,
+        12
+      ],
+      "norm_J": 157,
+      "polynomial_cubic_identity": "PASS"
+    },
+    {
+      "p": 163,
+      "primitive_root": 2,
+      "J": [
+        14,
+        3
+      ],
+      "pi": [
+        -14,
+        -3
+      ],
+      "norm_J": 163,
+      "polynomial_cubic_identity": "PASS"
+    },
+    {
+      "p": 181,
+      "primitive_root": 2,
+      "J": [
+        -4,
+        -15
+      ],
+      "pi": [
+        4,
+        15
+      ],
+      "norm_J": 181,
+      "polynomial_cubic_identity": "PASS"
+    },
+    {
+      "p": 193,
+      "primitive_root": 5,
+      "J": [
+        -16,
+        -9
+      ],
+      "pi": [
+        16,
+        9
+      ],
+      "norm_J": 193,
+      "polynomial_cubic_identity": "PASS"
+    },
+    {
+      "p": 199,
+      "primitive_root": 3,
+      "J": [
+        2,
+        15
+      ],
+      "pi": [
+        -2,
+        -15
+      ],
+      "norm_J": 199,
+      "polynomial_cubic_identity": "PASS"
+    }
+  ],
+  "arithmetic_scope": "Finite exact controls for the written classical finite-field identity.",
+  "mean_square_estimate_proved": false,
+  "independent_zero_free_theorem_proved": false
+}

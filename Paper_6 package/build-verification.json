@@ -20,6 +20,6 @@
   "overfull_boxes": [],
   "line_numbering_disabled": true,
   "visual_review_complete": true,
-  "visual_review_scope": "All 12 supporting PDFs inspected in rendered contact sheets, with full-size inspection of Papers 2 and 6; manuscript first/last pages inspected. Manuscript bytes are unchanged and the extracted ZIP rebuild matches every page text and page count.",
-  "no_margin_line_numbers": true
+  "visual_review_scope": "All 64 revised Lehmer pages rendered and inspected in four contact sheets; changed title and construction pages and all four support PDFs inspected at full size. The Polya article bytes match the previously checked 29-page delivery.",
+  "full_requested_closure_proved": false
 }

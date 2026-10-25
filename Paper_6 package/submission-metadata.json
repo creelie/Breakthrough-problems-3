@@ -8,8 +8,8 @@
   "repo": "Breakthrough-problems-3",
   "local_repo": "D:/CLAUDE PAPERS/research-audit-2026-10-23/polya/repository",
   "repo_package_dir": "Paper_6 package",
-  "next_version": "1.4.0",
-  "manuscript_doi": "10.5281/zenodo.23629139",
+  "next_version": "1.5.0",
+  "manuscript_doi": "10.5281/zenodo.23629649",
   "preprint": "https://hexagonmath.org/2610.00256v2",
   "primary_subject": "math.NT",
   "cross_list": [
@@ -36,9 +36,9 @@
   "journal_slug": "journal-of-number-theory",
   "journal_scope_url": "https://shop.elsevier.com/journals/journal-of-number-theory/0022-314X",
   "journal_fit": "The character-sum, Dirichlet L-function and logarithmic-derivative results fit analytic number theory and the journal's detailed technical-article scope.",
-  "contribution": "The manuscript derives the optimal-order log log q character-sum bound and related logarithmic-derivative results from the credited zero-free theorem, with explicit parameters and a smooth Mobius equivalence. The complete formal source and exact endpoint audit passed. OpenAI's zero-free proof remains credited; no newly independent proof is claimed.",
-  "ai_scope": "Claude through Claude Code assisted the earlier coauthored manuscript, formal development and checking programs. OpenAI Codex assisted the explicit 11/12 parameter conversion, proof and scope auditing, Mellin arguments, the general smooth Mobius equivalence, new Lean analytic modules, verification records, editing and typesetting. OpenAI's original zero-free theorem remains a credited external mathematical contribution whose proof sources are supplied in the repository.",
-  "formalization_scope": "The complete current source build, all 19 original and seven closed endpoint axiom reports, and all 20 analytic component reports passed. The reports use only propext, Classical.choice and Quot.sound. The separate written cyclotomic identification is not a new Lean statement, and the revised exposition is not a line-by-line formalisation. No independent zero-free proof is claimed.",
+  "contribution": "The unchanged article derives the optimal-order character-sum bound from the credited zero-free theorem. The research supplement supplies a separate full formal-source ZIP and studies a sufficient mean-square input for a weaker 15/16 boundary. That input is not proved; no independent zero-free replacement is claimed.",
+  "ai_scope": "Claude through Claude Code assisted the earlier coauthored manuscript, formal development and checking programs. OpenAI Codex assisted the explicit 11/12 parameter conversion, proof and scope auditing, Mellin arguments, the general smooth Mobius equivalence, new Lean analytic modules, verification records, editing and typesetting. OpenAI's original zero-free theorem remains a credited external mathematical contribution whose proof sources are supplied in the repository. This reproducibility revision adds a portable formal-source archive, fresh source and historical-report checks, a conditional mean-square target, a proof obstructing a coefficient-independent shortcut and exact parameter controls. The added research notes await author review.",
+  "formalization_scope": "The unchanged proof tree has the completed 19 original, seven endpoint and 20 component axiom reports, using only propext, Classical.choice and Quot.sound. Source identity and historical receipts were rechecked. No new full Lean build or independent zero-free proof is claimed; the new conditional research note is not formalized.",
   "formalization_urls": [
     "https://github.com/creelie/Breakthrough-problems-3/tree/v1.3.0/lean"
   ],
@@ -56,20 +56,20 @@
     {
       "name": "Deep Bhattacharjee",
       "orcid": "0000-0003-0466-750X",
-      "affiliation": "Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India",
-      "email": "itsdeep@live.com"
+      "email": "itsdeep@live.com",
+      "affiliation": "Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India"
     },
     {
       "name": "Ushashi Bhattacharya",
       "orcid": "0009-0002-2254-3914",
-      "affiliation": "Formerly, National Taiwan University, Taipei 106319, Taiwan",
-      "email": "rai.bhattacharya.in@gmail.com"
+      "email": "rai.bhattacharya.in@gmail.com",
+      "affiliation": "Formerly, National Taiwan University, Taipei 106319, Taiwan"
     }
   ],
   "abstract_tex": "Using the $11/12$ consequence of OpenAI's formalised $7/8$ zero-free theorem for nonprincipal Dirichlet $L$-functions, we derive the bound $C\\sqrt q\\log\\log q$ for every primitive Dirichlet character modulo $q\\ge3$. The zero-free theorem is cited as an external input. We give the subsequent contour, prime-sum, major-arc and minor-arc arguments in detail and prove the required weak Montgomery--Vaughan exponential-sum estimate using Selberg's sieve. The same input yields $|L'/L(1,\\chi)|\\ll\\log\\log q$ and two-sided bounds for cyclotomic Euler--Kronecker constants. Explicit parameters and a general transfer argument show why any fixed uniform zero-free boundary below one suffices. No independent proof of the external zero-free theorem is claimed.",
   "abstract_plain": "Using the 11/12 consequence of OpenAI's formalised 7/8 zero-free theorem for nonprincipal Dirichlet L-functions, we derive the bound Csqrt qloglog q for every primitive Dirichlet character modulo q>=3. The zero-free theorem is cited as an external input. We give the subsequent contour, prime-sum, major-arc and minor-arc arguments in detail and prove the required weak Montgomery--Vaughan exponential-sum estimate using Selberg's sieve. The same input yields |L'/L(1,chi)| << loglog q and two-sided bounds for cyclotomic Euler--Kronecker constants. Explicit parameters and a general transfer argument show why any fixed uniform zero-free boundary below one suffices. No independent proof of the external zero-free theorem is claimed.",
-  "human_understanding": "All parts of this contribution have been checked and understood by a human.",
-  "human_understanding_basis": "Explicit declaration by the user in this conversation on 25 October 2026.",
+  "human_understanding": "Author selection pending for the added research material; the earlier archived manuscript had the all-parts confirmation.",
+  "human_understanding_basis": "The user confirmed the earlier manuscripts. No new confirmation for this pass's added material is inferred.",
   "text_classification": "A mix of human-written and AI-generated",
   "primary_pdf": "The_optimal_log_log_q_bound_in_the_Polya-Vinogradov_inequality.pdf",
   "tex_zip": "The_optimal_log_log_q_bound_in_the_Polya-Vinogradov_inequalitytex.zip",
@@ -80,10 +80,9 @@
   "row_or_margin_line_numbers": false,
   "source_changes_for_upload": [],
   "journal_submission_performed": false,
-  "doi_of_new_package": "10.5281/zenodo.23629649",
-  "package_release_pending": false,
-  "package_license": "Apache-2.0 for repository proof/code; manuscript preprint available under CC BY 4.0",
-  "package_release": "https://github.com/creelie/Breakthrough-problems-3/releases/tag/v1.4.0",
-  "package_release_commit": "6a34fd2a7e84e50903f1532ad33ba54f58f71d50",
-  "doi_receipt_added_after_publication": true
+  "doi_of_new_package": null,
+  "package_release_pending": true,
+  "full_requested_closure_proved": false,
+  "new_material_human_review_pending": true,
+  "package_license": "Apache-2.0 for proof/code; CC BY 4.0 for the existing manuscript record"
 }

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "scope": "Fresh import, LF-normalized source identity, recorded-log and axiom-gate checks; no new full Lean build.",
+  "proof_source_tree": "9914e7a2b60b10d441513e64eacc0856025c9eec",
+  "shortest_module_import_path_to_credited_theorem": [
+    "Vinogradov.PV.Main",
+    "Vinogradov.PV.Polya",
+    "Vinogradov.PV.Gauss",
+    "Vinogradov.PV.Smooth",
+    "Vinogradov.PV.NonSmooth",
+    "Vinogradov.PV.Twist",
+    "Vinogradov.PV.PrimeSum",
+    "Vinogradov.CharacterSums",
+    "Vinogradov.Final",
+    "OAI.NumberTheory.DirichletL.Nonvanishing"
+  ],
+  "nonstandard_source_modules_in_pv_import_closure": 2973,
+  "modules_in_closure_under_OAI": 2924,
+  "source_files_differing_only_in_CRLF_LF": 2973,
+  "verified_receipt_files": 7,
+  "original_axiom_reports": 19,
+  "endpoint_axiom_reports": 7,
+  "component_axiom_reports": 20,
+  "allowed_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "negative_gate_tests": 6,
+  "credited_zero_free_dependency_removed": false,
+  "independent_zero_free_proof_obtained": false,
+  "new_mobius_bound_is_independent_of_zero_free_input": false
+}

@@ -1,0 +1,7 @@
+'Paper6.EndpointAudit.optimal_loglog_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Paper6.EndpointAudit.eleven_twelfths_nonvanishing' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Paper6.EndpointAudit.riesz_at_review_boundary' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Paper6.EndpointAudit.real_endpoint_loglog_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Vinogradov.Mobius.smoothed_mobius_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Vinogradov.Mobius.smoothed_mobius_cancellation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Vinogradov.Mobius.finite_smoothed_mobius_bound' depends on axioms: [propext, Classical.choice, Quot.sound]

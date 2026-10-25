@@ -1,3 +1,13 @@
+## Research revision v1.5.0 (25 October 2026)
+
+Version: 1.5.0.
+
+The unchanged article derives the optimal-order character-sum bound from the credited zero-free theorem. The research supplement supplies a separate full formal-source ZIP and studies a sufficient mean-square input for a weaker 15/16 boundary. That input is not proved; no independent zero-free replacement is claimed.
+
+See [Paper_6 package](Paper_6%20package/README.md) and its RESEARCH-STATUS.md. The added material awaits author review; no stronger closure or journal acceptance is claimed. The release snapshot preserves its exact proof/source coverage.
+
+---
+
 # The Pólya–Vinogradov inequality with log log q
 
 ## Current upload package

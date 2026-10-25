@@ -1,7 +1,7 @@
 {
-  "title": "The optimal log log q bound in the Pólya-Vinogradov inequality — submission package",
+  "title": "The optimal log log q bound in the Pólya-Vinogradov inequality - research revision",
   "upload_type": "software",
-  "description": "<p>The optimal log log q bound in the Pólya-Vinogradov inequality. Hexagon/Overleaf and Journal of Number Theory submission preparation, version 1.4.0. The reviewed folder Paper_6 package contains the article PDF, a minimal compilable TeX ZIP, AI provenance, Hexagon fields, journal details, an unsent cover letter with editable source, and an author-prepared AI disclosure. All PDFs have no row or margin line numbers. No journal submission or acceptance is claimed.</p><p>The manuscript derives the optimal-order log log q character-sum bound and related logarithmic-derivative results from the credited zero-free theorem, with explicit parameters and a smooth Mobius equivalence. The complete formal source and exact endpoint audit passed. OpenAI's zero-free proof remains credited; no newly independent proof is claimed.</p><p>Verification scope: The complete current source build, all 19 original and seven closed endpoint axiom reports, and all 20 analytic component reports passed. The reports use only propext, Classical.choice and Quot.sound. The separate written cyclotomic identification is not a new Lean statement, and the revised exposition is not a line-by-line formalisation. No independent zero-free proof is claimed.</p><p>Original preprint: https://hexagonmath.org/2610.00256v2. Earlier manuscript/source DOI: 10.5281/zenodo.23629139. Original attribution and component licences are preserved. Human-understanding and mixed-text declarations record the submitting author's explicit statement on 25 October 2026. The standalone AI declaration is author-prepared, not an official signed publisher form.</p>",
+  "description": "<p>The unchanged article derives the optimal-order character-sum bound from the credited zero-free theorem. The research supplement supplies a separate full formal-source ZIP and studies a sufficient mean-square input for a weaker 15/16 boundary. That input is not proved; no independent zero-free replacement is claimed.</p><p>Verification: The unchanged proof tree has the completed 19 original, seven endpoint and 20 component axiom reports, using only propext, Classical.choice and Quot.sound. Source identity and historical receipts were rechecked. No new full Lean build or independent zero-free proof is claimed; the new conditional research note is not formalized.</p><p>Full requested closure: not established. New written research material awaits author review. Existing authorship and source credit are preserved. This is a research archive, not journal acceptance or a new independent zero-free theorem.</p>",
   "creators": [
     {
       "name": "Bhattacharjee, Deep",
@@ -29,7 +29,7 @@
     "11N36",
     "11R42"
   ],
-  "license": "Apache-2.0",
+  "license": "apache2.0",
   "related_identifiers": [
     {
       "identifier": "https://github.com/openai/math",
@@ -48,7 +48,7 @@
       "relation": "isSupplementTo"
     }
   ],
-  "version": "1.4.0",
+  "version": "1.5.0",
   "publication_date": "2026-10-25",
-  "notes": "Component licence notices in the original repository remain authoritative. The article is already available under the existing Hexagon CC BY 4.0 record. New package DOI is assigned by Zenodo after the GitHub release; no earlier DOI is reused as the new release DOI."
+  "notes": "The package includes exact source archives, proof/attempt notes and scoped verification records. Component licences remain authoritative. No new full-conjecture closure is claimed."
 }
