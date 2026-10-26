@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this work, please cite it as below."
-title: "The Pólya–Vinogradov inequality with log log q for all but q^ε characters: paper, Lean 4 library and checking programs"
+title: "The Pólya–Vinogradov inequality with log log q for every character: paper, Lean 4 library and checking programs"
 authors:
   - family-names: Bhattacharjee
     given-names: Deep
@@ -15,9 +15,8 @@ authors:
 type: software
 license: Apache-2.0
 repository-code: "https://github.com/creelie/Breakthrough-problems-3"
-url: "https://github.com/creelie/Breakthrough-problems-3/releases/tag/v2.0.0"
-version: 2.0.0
-doi: 10.5281/zenodo.23671158
+url: "https://github.com/creelie/Breakthrough-problems-3/releases/tag/v3.0.0"
+version: 3.0.0
 date-released: 2026-10-26
 keywords:
   - Pólya–Vinogradov inequality

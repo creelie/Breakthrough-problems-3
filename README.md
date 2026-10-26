@@ -1,4 +1,4 @@
-# The Pólya–Vinogradov inequality with log log q for all but q^ε characters
+# The Pólya–Vinogradov inequality with log log q for every character
 
 Deep Bhattacharjee and Ushashi Bhattacharya. Final revision, 26 October 2026.
 
@@ -8,6 +8,9 @@ a partial sum ∑_{n ≤ x} χ(n). The Pólya–Vinogradov inequality bounds M(�
 Vaughan proved that bound under the generalised Riemann hypothesis. The paper proves, with no
 hypothesis:
 
+- **Theorem 1.5.** M(χ) ≤ C √q log log q for every primitive character χ modulo q ≥ 3, and
+  |L'/L(1, χ)| ≤ C log log q for every nonprincipal character χ modulo q ≥ 3, with an absolute
+  constant C.
 - **Theorem 1.1 (transfer).** If θ < 1 is fixed and the L-functions of the twists χψ of χ by
   the characters ψ of the moduli up to (log q)^16 have no zero in the rectangle Re s > θ,
   |Im s| ≤ 5q², then M(χ) ≤ C_θ √q log log q.
@@ -19,40 +22,48 @@ hypothesis:
   characters modulo k together have at most 10^12 (kT)^{12(1−σ)} (log kT)^9 zeros with
   Re s ≥ σ, |Im s| ≤ T. This is proved in full in Appendix A, with every constant written
   out, so that Theorems 1.1 to 1.4 rest on Chebyshev's bounds alone.
+- **Theorem B.1 (OpenAI).** Every finite-order Hecke L-function over Q(√−3), and so every
+  Dirichlet L-function, has no zero with Re s > 11/12. The theorem and its proof are due to
+  OpenAI (*The quasi-Riemann hypothesis: a cubic theta argument with a fixed ray class
+  character*, 5 October 2026, https://github.com/openai/math); Appendix B reproduces the proof
+  in full, with credit to them, so that the paper is complete in itself. Theorem 1.5 is
+  Theorem B.1 fed into the transfer theorem with θ = 11/12.
 
 The transfer theorem is proved by a contour shift for Riesz means of prime sums, a dissection
 of the circle into major and minor arcs, and a weak form of the Montgomery–Vaughan bound for
 exponential sums with multiplicative coefficients, proved with Selberg's sieve as the only
 arithmetic input. The zero-density theorem is the Ingham–Montgomery argument with a Gaussian
 mollifier kernel, a hybrid mean value over the characters and the height, and Jensen's formula.
+The zero-free half-plane is proved by a mean square of twisted Möbius sums over the Eisenstein
+integers, Poisson summation, the transformation of Kubota's cubic theta function and the
+quadratic large sieve of Goldmakher and Louvel, with a finite iteration at smaller scales.
 
-One further statement rests on an outside result. OpenAI has proved that L(s, ξ) ≠ 0 for
-Re s > 7/8 for every nonprincipal Dirichlet character ξ (*The quasi-Riemann hypothesis: a
-zero-free half-plane Re s > 7/8*, 30 September 2026, https://github.com/openai/math), in a
-preprint that has not been refereed but whose proof is written in Lean 4 and checked by the
-Lean kernel against Mathlib. That proof is compiled here from its source and checked again
-(see *The Lean library* below), and with θ = 7/8 in the transfer theorem it gives
-**Theorem 1.5**: M(χ) ≤ C √q log log q for every primitive χ modulo q ≥ 3, and
-|L'/L(1, χ)| ≤ C log log q for every nonprincipal χ. Theorem 1.5 is the only statement of the
-paper that depends on a result not proved in it.
+OpenAI's earlier preprint (*The quasi-Riemann hypothesis: a zero-free half-plane Re s > 7/8*,
+30 September 2026) proves the wider half-plane Re s > 7/8 in Lean 4, checked by the Lean kernel
+against Mathlib. That proof is compiled here from its source and checked again (see *The Lean
+library* below), together with a Lean proof of the two bounds of Theorem 1.5 from it; it is an
+independent check of Theorem 1.5 with a smaller constant, and no statement of the paper depends
+on it.
 
 The results were first made public on 15 October 2026 as release v1.0.0 of this repository
 (concept DOI [10.5281/zenodo.23383715](https://doi.org/10.5281/zenodo.23383715); later versions
 [10.5281/zenodo.23563651](https://doi.org/10.5281/zenodo.23563651),
 [10.5281/zenodo.23629139](https://doi.org/10.5281/zenodo.23629139),
 [10.5281/zenodo.23629649](https://doi.org/10.5281/zenodo.23629649),
-[10.5281/zenodo.23637263](https://doi.org/10.5281/zenodo.23637263) and
-[10.5281/zenodo.23638793](https://doi.org/10.5281/zenodo.23638793)); an earlier and incomplete
+[10.5281/zenodo.23637263](https://doi.org/10.5281/zenodo.23637263),
+[10.5281/zenodo.23638793](https://doi.org/10.5281/zenodo.23638793) and
+[10.5281/zenodo.23671158](https://doi.org/10.5281/zenodo.23671158)); an earlier and incomplete
 version of the paper appeared on Hexagon as [hexagon:2610.00256](https://hexagonmath.org/2610.00256)
 on 15 October 2026 and was revised there on 21 October 2026. That version claimed the bound
-for every character from the zero-free half-plane as an external input; this version proves
-everything else in full and states the every-character bound separately, with its input
-compiled and checked.
+for every character from the zero-free half-plane as an external input; release v2.0.0 proved
+everything else in full and stated the every-character bound separately on the machine-checked
+input; this version (v3.0.0) reproduces the proof of the half-plane in the paper, so that every
+statement is proved in the text.
 
 ## Layout
 
-- `paper/main.tex`, `paper/app.tex`, `paper/figures/`: the LaTeX source, Appendix A and the three figures; `paper/main.pdf` the compiled paper (26 pages, single column).
-- `figures/make_figures.py`: draws the three figures to `paper/figures/` at 200 dpi (matplotlib).
+- `paper/main.tex`, `paper/app.tex`, `paper/appB.tex`, `paper/figures/`: the LaTeX source (amsart, single column), Appendix A, Appendix B and the four figures; `paper/main.pdf` the compiled paper (51 pages).
+- `figures/make_figures.py`: draws the four figures to `paper/figures/` at 200 dpi (matplotlib).
 - `dist/`: the paper as `PolyaVinogradovLogLog_final2.pdf`, its source zip and the arXiv tarball.
 - `checks/python/check.py`: Chebyshev's bounds to 10^6, the parameters (3.1) and inequalities (3.2) of the transfer theorem in exact rationals, the arithmetic of Proposition 5.5, the count of Section 6 and the constants of Section 7, every numerical inequality of Appendix A, and the sizes M(χ)/(√q log log q) for the primes between 1000 and 4000 and |L'/L(1, χ)|/log log q for the primes up to 300 against reference values of the Euler–Kronecker constants (about twelve minutes).
 - `checks/c/check.c`: Chebyshev's bounds to 10^7 by a sieve, the parameters and the arithmetic of Proposition 5.5 and Section 6 on a finer grid, and M(χ) for the quadratic characters modulo the primes between 10^4 and 10^5 against the Pólya bound.
@@ -78,7 +89,7 @@ compiled and checked.
   ```
 
   where `DirichletCharacter.LFunction` is Mathlib's Dirichlet L-function.
-- `Vinogradov/`: a proof of the two bounds of Theorem 1.5 from that theorem
+- `Vinogradov/`: a proof of the two bounds of Theorem 1.5 from that theorem, with the constant of θ = 7/8
   (`Vinogradov.zeroFree` in `Final.lean` discharges the zero-free hypothesis with it):
 
   ```lean

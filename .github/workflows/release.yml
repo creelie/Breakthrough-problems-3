@@ -12,7 +12,7 @@ on:
       tag:
         description: "Release tag, e.g. v2.0.0"
         required: true
-        default: "v2.0.0"
+        default: "v3.0.0"
       target:
         description: "Branch or commit to tag"
         required: true
@@ -20,7 +20,7 @@ on:
       title:
         description: "Release title"
         required: true
-        default: "The Pólya–Vinogradov inequality with log log q for all but q^ε characters"
+        default: "The Pólya–Vinogradov inequality with log log q for every character"
 
 permissions:
   contents: write
