@@ -1,11 +1,11 @@
 cff-version: 1.2.0
 message: "If you use this work, please cite it as below."
-title: "The Pólya–Vinogradov inequality with log log q: Lean 4 formalization and verification code"
+title: "The Pólya–Vinogradov inequality with log log q for all but q^ε characters: paper, Lean 4 library and checking programs"
 authors:
   - family-names: Bhattacharjee
     given-names: Deep
     affiliation: "Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India; Formerly, University of Calcutta, Senate House, 87/1 College Street, Kolkata 700073, West Bengal, India"
-    email: itsdeep@live.com
+    email: d.bhattacharjee@erl-forschung.de
     orcid: "https://orcid.org/0000-0003-0466-750X"
   - family-names: Bhattacharya
     given-names: Ushashi
@@ -15,15 +15,12 @@ authors:
 type: software
 license: Apache-2.0
 repository-code: "https://github.com/creelie/Breakthrough-problems-3"
-version: 1.6.0
-date-released: 2026-10-25
+url: "https://github.com/creelie/Breakthrough-problems-3/releases/tag/v2.0.0"
+version: 2.0.0
+doi: 10.5281/zenodo.NNNN
+date-released: 2026-10-26
 keywords:
   - Pólya–Vinogradov inequality
   - character sums
-  - Dirichlet L-functions
-  - zero-free region
+  - zero-density theorems
   - Euler–Kronecker constants
-  - Selberg sieve
-  - Lean 4
-
-doi: 10.5281/zenodo.23638793

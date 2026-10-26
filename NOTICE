@@ -1,4 +1,4 @@
-The Pólya–Vinogradov inequality with log log q
+The Pólya–Vinogradov inequality with log log q for all but q^ε characters
 Copyright 2026 Deep Bhattacharjee and Ushashi Bhattacharya
 
 This package is distributed under the Apache License, Version 2.0 (LICENSE).
@@ -14,8 +14,8 @@ lean/OAI/
 lean/PrimeNumberTheoremAnd/
   https://github.com/AlexKontorovich/PrimeNumberTheoremAnd, commit
   c39a751132c88b6e8080b74c74023fd95b3d8be0, the files imported by lean/OAI/,
-  with OpenAI's patch lean/patches/PrimeNumberTheoremAnd-lean4341.patch for
-  Lean v4.34.1 applied. The four files
+  with OpenAI's patch for Lean v4.34.1 applied (the files here are the
+  patched ones). The four files
   lean/PrimeNumberTheoremAnd/Mathlib/NumberTheory/Sieve/{AuxResults,Basic,
   Selberg,SelbergBounds}.lean (the Selberg sieve, by Arend Mellendijk) are
   copied unchanged from the same commit.
@@ -23,11 +23,11 @@ lean/PrimeNumberTheoremAnd/
 lean/RellichKondrachov/
   https://github.com/abenenson/rellich-kondrachov, commit
   70f85d4c1bf99c6e7d61e8be4daa6f3664d08d23, the files imported by lean/OAI/,
-  with OpenAI's patch lean/patches/rellich-kondrachov-lean4341.patch applied.
+  with OpenAI's patch for Lean v4.34.1 applied (the files here are the patched
+  ones).
 
-lean/Vinogradov.lean, lean/Vinogradov/, lean/Axioms.lean, checks/, figures/,
-run_all.sh and make_dist.sh are by Deep Bhattacharjee; paper/ and
-preprintPolyaVinogradovLogLog/ are by Deep Bhattacharjee and Ushashi
-Bhattacharya. The headers of Vinogradov/MRT.lean,
+lean/Vinogradov.lean, lean/Vinogradov/, lean/Axioms.lean, checks/, figures/
+and run_all.sh are by Deep Bhattacharjee; paper/ is by Deep Bhattacharjee and
+Ushashi Bhattacharya. The headers of Vinogradov/MRT.lean,
 Vinogradov/Riesz.lean, Vinogradov/ContourShift.lean and
 Vinogradov/EulerLog.lean name the OpenAI files they adapt.

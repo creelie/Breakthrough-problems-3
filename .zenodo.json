@@ -1,12 +1,12 @@
 {
-  "title": "The optimal log log q bound in the Pólya-Vinogradov inequality - research revision",
+  "title": "The Pólya–Vinogradov inequality with log log q for all but q^ε characters: paper, Lean 4 library and checking programs",
   "upload_type": "software",
-  "description": "<p>This consolidated submission-package release retains the unchanged article and credited zero-free theorem, the matching complete formal-source ZIP, historical axiom-audit receipts and scoped independent-input research notes. No new mathematical theorem or independent zero-free replacement is claimed by this packaging revision.</p><p>Verification: The formal source tree is unchanged from the audited 19 original, seven closed endpoint and 20 analytic component reports. This release verifies that source identity and archive bytes. It does not claim a newly rerun full Lean build or a proof of the proposed independent mean-square input.</p><p>Existing authorship and source credit are preserved. New material awaits author review. This is a research archive, not journal acceptance or a full requested closure.</p>",
+  "description": "<p>Final revision of the paper, single column, 26 pages, with its LaTeX source, programs that check the explicit constants of the proofs and compute the character sums for small moduli, and a Lean 4 library. For every ε &gt; 0 there is C_ε such that, for every modulus q ≥ 3, at most q^ε of the primitive characters χ modulo q have M(χ) &gt; C_ε √q log log q, where M(χ) is the largest modulus of a partial sum of χ, and at most q^ε of the nonprincipal characters have |L'/L(1, χ)| &gt; C_ε log log q. The proof is a transfer theorem for a single character, proved by a contour shift, the circle method and a weak Montgomery–Vaughan bound from Selberg's sieve, and a count of the exceptional characters by a zero-density theorem proved in full in Appendix A with explicit constants. Every statement is proved by hand from Chebyshev's bounds, except the bound for every character (Theorem 1.5), which rests on the zero-free half-plane Re s &gt; 7/8 of OpenAI's preprint The quasi-Riemann hypothesis (30 September 2026); that Lean 4 proof is compiled from source and checked by the Lean kernel in this repository, together with a Lean proof of Theorem 1.5 from it.</p><p>The results were first made public on 15 October 2026 as release v1.0.0 of this repository (concept DOI 10.5281/zenodo.23383715). An earlier and incomplete version of the paper appeared on Hexagon as hexagon:2610.00256.</p>",
   "creators": [
     {
       "name": "Bhattacharjee, Deep",
       "orcid": "0000-0003-0466-750X",
-      "affiliation": "Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India"
+      "affiliation": "Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India; Formerly, University of Calcutta, Senate House, 87/1 College Street, Kolkata 700073, West Bengal, India"
     },
     {
       "name": "Bhattacharya, Ushashi",
@@ -15,21 +15,16 @@
     }
   ],
   "keywords": [
-    "Polya-Vinogradov inequality",
+    "Pólya–Vinogradov inequality",
     "character sums",
-    "zero-free regions",
-    "Mobius cancellation",
-    "Selberg sieve",
-    "Euler-Kronecker constants",
+    "zero-density theorems",
+    "Euler–Kronecker constants",
     "11L40",
     "11M06",
     "11M20",
-    "11L07",
-    "11N13",
-    "11N36",
-    "11R42"
+    "11N36"
   ],
-  "license": "apache2.0",
+  "license": "apache-2.0",
   "related_identifiers": [
     {
       "identifier": "https://github.com/openai/math",
@@ -38,17 +33,15 @@
       "scheme": "url"
     },
     {
-      "identifier": "https://hexagonmath.org/2610.00256v2",
+      "identifier": "https://hexagonmath.org/2610.00256",
       "scheme": "url",
-      "relation": "isSupplementTo"
+      "relation": "isNewVersionOf"
     },
     {
-      "identifier": "10.5281/zenodo.23629139",
+      "identifier": "10.5281/zenodo.23383715",
       "scheme": "doi",
-      "relation": "isSupplementTo"
+      "relation": "isNewVersionOf"
     }
   ],
-  "version": "1.6.0",
-  "publication_date": "2026-10-25",
-  "notes": "The package includes exact source archives, proof/attempt notes and scoped verification records. Component licences remain authoritative. No new full-conjecture closure is claimed."
+  "access_right": "open"
 }

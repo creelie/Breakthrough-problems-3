@@ -1,0 +1,204 @@
+\appendix
+
+\section{Proof of the zero-density theorem}\label{app:zd}
+
+This appendix proves Theorem~\ref{thm:zd}. The argument is the one of Ingham and Montgomery~\cite{Ing40,Mon71}: a zero of $L(s,\chi)$ makes a mollified Dirichlet polynomial, or a mollified integral of $L$, large at that zero, and the mean values of these objects over all characters to the modulus and over the height are small. Every estimate below is proved with an explicit constant. The exponent $12(1-\sigma)$ obtained is far from the best known, which is why the theorem is stated for $11/12\le\sigma\le1$ only; the proofs of Theorems~\ref{thm:main} and~\ref{thm:logderiv} use nothing more.
+
+Throughout, $k\ge3$, $T\ge2$, $\chi$ runs over the nonprincipal characters modulo $k$, and
+\[
+  \LL=\log(kT)\ge\log6,\qquad \sigma_1=\tfrac56,\qquad X=kT,\qquad Y=(kT)^3,
+\]
+and $\sigma$ satisfies $11/12\le\sigma\le1$. Note that $\LL\ge1.79$, $Y\ge216$ and $\sigma-\sigma_1\ge1/12$.
+
+\subsection{Lemmas}
+
+\begin{lemma}\label{lem:truncation}
+Let $\chi$ be nonprincipal modulo $k$, let $N\ge1$ be an integer and $\Re s=\sigma>0$. Then
+\[
+  L(s,\chi)=\sum_{n\le N}\chi(n)n^{-s}+E_N(s,\chi),\qquad |E_N(s,\chi)|\le k\Bigl(1+\frac{|s|}{\sigma}\Bigr)N^{-\sigma}.
+\]
+\end{lemma}
+
+\begin{proof}
+Put $A(t)=\sum_{n\le t}\chi(n)$, so that $|A(t)|\le k$ because the sum of $\chi$ over a period vanishes. For $\Re s>1$ partial summation gives $\sum_{n>N}\chi(n)n^{-s}=-A(N)N^{-s}+s\int_N^\infty A(t)t^{-s-1}\,dt$; the right side is holomorphic for $\sigma>0$ and bounded by $kN^{-\sigma}+|s|kN^{-\sigma}/\sigma$ there, and so is the analytic continuation of the left side, since $L(s,\chi)$ is entire.\footnote{The continuation of $\sum_{n\le N}\chi(n)n^{-s}$ is itself, and that of $L(s,\chi)$ is given by the same partial summation from $n=1$, as in the proof of Lemma~\ref{lem:size}.}
+\end{proof}
+
+\begin{lemma}\label{lem:zerobox}
+Let $\chi$ be nonprincipal modulo $k$ and $t\in\R$. The number of zeros $\rho=\beta+i\gamma$ of $L(s,\chi)$ with $\beta\ge3/4$ and $|\gamma-t|\le1/2$, counted with multiplicity, is at most $7\log\bigl(8k(|t|+4)\bigr)$.
+\end{lemma}
+
+\begin{proof}
+Let $c=2+it$. Jensen's formula~\cite[Theorem~15.18]{Rud87} for $L(s,\chi)$ on the disc $|s-c|\le7/4$ reads
+\[
+  \log|L(c,\chi)|+\sum_{|\rho-c|<7/4}\log\frac{7/4}{|\rho-c|}=\frac1{2\pi}\int_0^{2\pi}\log\Bigl|L\Bigl(c+\frac74e^{i\phi},\chi\Bigr)\Bigr|\,d\phi,
+\]
+the sum running over the zeros in the open disc with multiplicity. A zero with $\beta\ge3/4$ and $|\gamma-t|\le1/2$ has $|\rho-c|^2\le(5/4)^2+(1/2)^2=29/16<9/4$, so it lies in the disc $|\rho-c|\le3/2$ and contributes at least $\log(7/6)$ to the sum. On the circle $|s-c|=7/4$ we have $\Re s\ge1/4$ and $|s|\le|t|+4$, so $|L(s,\chi)|\le4k(|t|+4)$ by Lemma~\ref{lem:size}. At $c$ the Euler product gives $|L(c,\chi)|=\prod_p|1-\chi(p)p^{-c}|^{-1}\ge\prod_p(1+p^{-2})^{-1}=\zeta(4)/\zeta(2)=\pi^2/15>1/2$. Hence the number of zeros in question is at most
+$\bigl(\log(4k(|t|+4))+\log2\bigr)/\log(7/6)\le7\log(8k(|t|+4))$, as $1/\log(7/6)<6.49$.
+\end{proof}
+
+\begin{lemma}\label{lem:hybrid}
+Let $k\ge1$, $T'\ge1$, $N\ge1$ and let $b_1,\dots,b_N$ be complex numbers. Then
+\[
+  \sum_{\chi\bmod k}\int_{-T'}^{T'}\Bigl|\sum_{n\le N}b_n\chi(n)n^{-it}\Bigr|^2dt\le(43N+22kT')\sum_{n\le N}|b_n|^2,
+\]
+the sum on the left running over all characters modulo $k$.
+\end{lemma}
+
+\begin{proof}
+Let $K(t)=\max(0,1-|t|/(2T'))$, so that $K\ge1/2$ on $[-T',T']$ and its Fourier transform is
+\[
+  \hat K(\xi)=\int_{-\infty}^\infty K(t)e^{i\xi t}\,dt=2T'\Bigl(\frac{\sin(T'\xi)}{T'\xi}\Bigr)^2\le2T'\min\bigl(1,(T'\xi)^{-2}\bigr),
+\]
+which is nonnegative.\footnote{For a triangle of half-width $a$ and height $1$ the transform is $a\bigl(\sin(a\xi/2)/(a\xi/2)\bigr)^2$; here $a=2T'$.} Writing $S_\chi(t)$ for the inner sum, the integral on the left is at most $2\int K(t)|S_\chi(t)|^2dt$, and
+\[
+  \int_{-\infty}^\infty K(t)|S_\chi(t)|^2dt=\sum_{m,n\le N}b_m\bar b_n\chi(m)\bar\chi(n)\hat K\bigl(\log(n/m)\bigr).
+\]
+Summing over the characters, $\sum_\chi\chi(m)\bar\chi(n)$ equals $\varphi(k)$ if $m\equiv n\pmod k$ and $(mn,k)=1$, and $0$ otherwise. Since $\hat K\ge0$ and $|b_m\bar b_n|\le(|b_m|^2+|b_n|^2)/2$, the total is at most
+\[
+  \varphi(k)\sum_{m\le N}|b_m|^2\sum_{\substack{n\le N\\ n\equiv m\ (k)}}\hat K\bigl(\log(n/m)\bigr).
+\]
+Fix $m$. The integers $n\equiv m\pmod k$ with $|\log(n/m)|\le1/T'$ lie in an interval of length $m(e^{1/T'}-e^{-1/T'})\le2m(e^{1/T'}-1)\le4N/T'$, since $e^x-1\le(e-1)x\le2x$ for $0\le x\le1$; there are at most $4N/(kT')+1$ of them, and each has $\hat K\le2T'$. For $j\ge1$, the $n\equiv m\pmod k$ with $j/T'<|\log(n/m)|\le(j+1)/T'$ lie in two intervals, $(me^{j/T'},me^{(j+1)/T'}]$ and $[me^{-(j+1)/T'},me^{-j/T'})$; the first is empty unless $me^{j/T'}\le N$, in which case its length is at most $N(e^{1/T'}-1)\le2N/T'$, and the second has length at most $2m/T'\le2N/T'$. So there are at most $4N/(kT')+2$ such $n$, each with $\hat K\le2T'/j^2$. Altogether
+\[
+  \sum_{n\equiv m\ (k)}\hat K\bigl(\log(n/m)\bigr)\le2T'\Bigl(\frac{4N}{kT'}+2\Bigr)\Bigl(1+\sum_{j\ge1}\frac1{j^2}\Bigr)\le2T'\Bigl(\frac{4N}{kT'}+2\Bigr)\cdot2.65\le\frac{21.2N}k+10.6T',
+\]
+and the lemma follows on multiplying by $2\varphi(k)\le2k$.
+\end{proof}
+
+\begin{lemma}\label{lem:divisorbound}
+For $X\ge1$ and $U\ge1$, with $\tau_X(n)=\#\{d\le X:d\mid n\}$,
+\[
+  \sum_{n\le U}\tau_X(n)^2\le U(1+\log X)^3.
+\]
+In particular $\bigl|\sum_{d\mid n,\,d\le X}\mu(d)\bigr|\le\tau_X(n)$, and $\tau_X(n)\le d(n)\le2\sqrt n$.
+\end{lemma}
+
+\begin{proof}
+Expanding the square, the sum is
+\[
+  \sum_{d_1,d_2\le X}\#\{n\le U:[d_1,d_2]\mid n\}\le U\sum_{d_1,d_2\le X}\frac{(d_1,d_2)}{d_1d_2}.
+\]
+Writing $g=(d_1,d_2)$, $d_i=ge_i$, this is at most $U\sum_{g\le X}g^{-1}\bigl(\sum_{e\le X/g}e^{-1}\bigr)^2\le U(1+\log X)^3$. The bound $d(n)\le2\sqrt n$ holds because the divisors pair off as $d\leftrightarrow n/d$ with $\min(d,n/d)\le\sqrt n$.
+\end{proof}
+
+\begin{lemma}\label{lem:areamean}
+Let $f$ be holomorphic on a neighbourhood of the closed disc $|z-z_0|\le r$. Then
+\[
+  |f(z_0)|^2\le\frac1{\pi r^2}\iint_{|z-z_0|\le r}|f(z)|^2\,dA(z).
+\]
+\end{lemma}
+
+\begin{proof}
+For $0<\rho\le r$ the mean of $f$ over the circle $|z-z_0|=\rho$ is $f(z_0)$. Multiplying by $\rho$ and integrating over $0\le\rho\le r$ gives $f(z_0)\,r^2/2=(2\pi)^{-1}\iint f\,dA$, so $f(z_0)$ is the mean of $f$ over the disc, and the claim is the Cauchy--Schwarz inequality.
+\end{proof}
+
+\begin{lemma}\label{lem:kernel}
+For $u>0$ and $c>0$ put
+\[
+  \Phi(u)=\frac1{2\pi i}\int_{c-i\infty}^{c+i\infty}e^{w^2}u^{-w}\,\frac{dw}w .
+\]
+The integral does not depend on $c$, and
+(i) $|\Phi(u)|\le e^{-(\log u)^2/4}/(\sqrt\pi\log u)$ for $u>1$;
+(ii) $|\Phi(u)-1|\le e^{-(\log u)^2/4}/(\sqrt\pi|\log u|)$ for $0<u<1$;
+(iii) $|\Phi(u)|\le2$ for every $u>0$.
+\end{lemma}
+
+\begin{proof}
+On the line $\Re w=c$ we have $|e^{w^2}|=e^{c^2-v^2}$, $w=c+iv$, so the integral converges absolutely, and by Cauchy's theorem it does not change when $c>0$ is moved, the integrand being holomorphic for $\Re w>0$ and tending to zero as $|\Im w|\to\infty$ uniformly in bounded vertical strips. Moving the line to $\Re w=-c<0$ crosses the simple pole at $w=0$, of residue $1$, so
+\begin{equation}\label{eq:phishift}
+  \Phi(u)=1+\frac1{2\pi i}\int_{-c-i\infty}^{-c+i\infty}e^{w^2}u^{-w}\,\frac{dw}w\qquad(c>0).
+\end{equation}
+Now $|u^{-w}|=u^{-\Re w}$ and $|e^{w^2}|=e^{(\Re w)^2-v^2}$, and $\int e^{-v^2}dv=\sqrt\pi$. For $u>1$ take $c=(\log u)/2$ in the definition: then $u^{-c}e^{c^2}=e^{-c^2}=e^{-(\log u)^2/4}$ and $|w|\ge c$, which gives (i). For $u<1$ take $c=|\log u|/2$ in~\eqref{eq:phishift}: then $u^{c}e^{c^2}=e^{-c^2}$ and (ii) follows in the same way. For (iii), if $u\ge1$ take $c=1/2$ in the definition: $u^{-c}\le1$, $e^{c^2}=e^{1/4}$ and $1/|w|\le2$ give $|\Phi(u)|\le e^{1/4}/\sqrt\pi<0.73$; if $u<1$ take $c=1/2$ in~\eqref{eq:phishift} and get $|\Phi(u)-1|<0.73$.
+\end{proof}
+
+For $X\ge1$ and a character $\chi$ modulo $k$ put
+\[
+  M_X(s,\chi)=\sum_{d\le X}\mu(d)\chi(d)d^{-s},\qquad a(n)=\sum_{\substack{d\mid n\\ d\le X}}\mu(d),
+\]
+so that $a(1)=1$, $a(n)=0$ for $1<n\le X$, $|a(n)|\le\tau_X(n)$, and $L(s,\chi)M_X(s,\chi)=\sum_na(n)\chi(n)n^{-s}$ for $\Re s>1$.
+
+\begin{lemma}\label{lem:detector}
+Let $\chi$ be nonprincipal modulo $k$, $X,Y\ge1$, $0<\sigma_1<1$, and let $\rho=\beta+i\gamma$ be a zero of $L(s,\chi)$ with $\sigma_1<\beta\le1$. Then
+\[
+  \sum_{n\ge1}a(n)\chi(n)n^{-\rho}\,\Phi(n/Y)=\frac1{2\pi i}\int_{\sigma_1-\beta-i\infty}^{\sigma_1-\beta+i\infty}L(\rho+w,\chi)M_X(\rho+w,\chi)\,Y^we^{w^2}\,\frac{dw}w ,
+\]
+and the series on the left converges absolutely.
+\end{lemma}
+
+\begin{proof}
+Take $c=2-\beta>0$ in the definition of $\Phi(n/Y)$ and sum over $n$; the double integral converges absolutely because $\Re(\rho+w)=2$ and $|a(n)|\le d(n)\le2\sqrt n$, so the sum and the integral may be exchanged and the left side equals $(2\pi i)^{-1}\int_{\Re w=2-\beta}L(\rho+w,\chi)M_X(\rho+w,\chi)Y^we^{w^2}dw/w$. The integrand is holomorphic in the strip $\sigma_1-\beta\le\Re w\le2-\beta$ except for the simple pole at $w=0$, whose residue $L(\rho,\chi)M_X(\rho,\chi)$ vanishes; on horizontal segments $\Im w=\pm V$ it is bounded by $e^{4-V^2}$ times a polynomial in $V$, by Lemma~\ref{lem:size} and the trivial bound for $M_X$, so the line may be moved to $\Re w=\sigma_1-\beta$.
+\end{proof}
+
+\subsection{The proof}
+
+Let $\chi$ be nonprincipal modulo $k$ and let $\mathcal Z$ be a set of zeros $\rho=\beta+i\gamma$ of $L(s,\chi)$ with $\beta\ge\sigma$ and $|\gamma|\le T$ whose ordinates are pairwise at distance at least $1$; we call such a set \emph{$1$-spaced}.
+
+\emph{Step 1: reduction to $1$-spaced sets.} For $j\in\Z$ let $I_j=(j-1/2,j+1/2]$. If $I_j$ contains an ordinate of a zero counted by $N(\sigma,T,\chi)$, choose one such zero $\rho_j$; the chosen zeros with $j$ even form a $1$-spaced set, and so do those with $j$ odd, since ordinates in $I_j$ and $I_{j+2}$ differ by more than $1$. By Lemma~\ref{lem:zerobox}, applied with $t=j$ and $\beta\ge\sigma\ge3/4$, each $I_j$ with $|j|\le T+1/2$ holds at most $7\log(8k(T+5))$ zeros. Hence
+\begin{equation}\label{eq:spaced}
+  N(\sigma,T,\chi)\le14\log\bigl(8k(T+5)\bigr)\max_{\mathcal Z}|\mathcal Z|\le42\LL\max_{\mathcal Z}|\mathcal Z|,
+\end{equation}
+the maximum over $1$-spaced sets, because $8(T+5)\le28T$ and $\log28<1.87\LL$.
+
+\emph{Step 2: the two classes.} Let $\mathcal Z$ be $1$-spaced and $\rho\in\mathcal Z$. By Lemma~\ref{lem:detector} with $\sigma_1=5/6$ (note $\beta\ge\sigma>\sigma_1$),
+\begin{equation}\label{eq:detect}
+  \Phi(1/Y)+\sum_{X<n\le Y^2}a(n)\chi(n)n^{-\rho}\Phi(n/Y)+\sum_{n>Y^2}a(n)\chi(n)n^{-\rho}\Phi(n/Y)=I(\rho),
+\end{equation}
+where $I(\rho)$ is the integral of that lemma. By Lemma~\ref{lem:kernel}(ii) and $Y\ge216$, $|\Phi(1/Y)|\ge1-e^{-(\log Y)^2/4}/(\sqrt\pi\log Y)\ge1/2$. For $n>Y^2$ we have $\log(n/Y)\ge\log Y$, so Lemma~\ref{lem:kernel}(i) gives $|\Phi(n/Y)|\le(Y/n)^{(\log Y)/4}/(\sqrt\pi\log Y)$, and with $|a(n)|\le2\sqrt n$, $\beta\ge11/12$, the third sum in~\eqref{eq:detect} has modulus at most
+\[
+  \frac2{\sqrt\pi\log Y}\,Y^{(\log Y)/4}\int_{Y^2}^\infty u^{-5/12-(\log Y)/4}\,du
+  =\frac2{\sqrt\pi\log Y}\cdot\frac{Y^{7/6-(\log Y)/4}}{(\log Y)/4-7/12}\le\frac18,
+\]
+the last step because the middle expression decreases in $Y$ and is below $0.11$ at $Y=216$.\footnote{The summand decreases in $n$, so the sum over $n>Y^2$ is at most the integral from $Y^2$.} Consequently every $\rho\in\mathcal Z$ is of \emph{class~I}, $\bigl|\sum_{X<n\le Y^2}a(n)\chi(n)n^{-\rho}\Phi(n/Y)\bigr|\ge1/4$, or of \emph{class~II}, $|I(\rho)|\ge1/8$.
+
+\emph{Step 3: class I.} Split $(X,Y^2]$ into the blocks $(U,2U]$ with $U=2^jX$, $j\ge0$, the last block cut at $Y^2$; there are at most $2\log(Y^2)/\log2+1\le4\log Y$ blocks. For a class~I zero some block has $|D_U(\rho)|\ge1/(16\log Y)$, where
+\[
+  D_U(s)=\sum_{U<n\le\min(2U,Y^2)}a(n)\Phi(n/Y)\chi(n)n^{-s},
+\]
+a Dirichlet polynomial whose coefficients do not depend on $\rho$. Fix $U$ and put $r=1/(2\log(2U))$, so that $r\le1/4$. The discs $|s-\rho|\le r$, $\rho\in\mathcal Z$, are disjoint and lie in the rectangle $\sigma-r\le\Re s\le1+r$, $|\Im s|\le T'$ with $T'=T+1/2$, so Lemma~\ref{lem:areamean} gives
+\[
+  \sum_{\rho\in\mathcal Z}|D_U(\rho)|^2\le\frac{4(\log2U)^2}\pi\int_{\sigma-r}^{1+r}\int_{-T'}^{T'}|D_U(x+it)|^2\,dt\,dx .
+\]
+For fixed $x$ in that range, $n^{-2x}\le n^{-2\sigma}(2U)^{2r}=e\,n^{-2\sigma}\le eU^{-2\sigma}$ for $n\le2U$, so by Lemmas~\ref{lem:hybrid} and~\ref{lem:divisorbound} and $|\Phi|\le2$,
+\[
+  \sum_\chi\int_{-T'}^{T'}|D_U(x+it)|^2dt\le(86U+22kT')\cdot4e\,U^{-2\sigma}\cdot2U(1+\log X)^3 .
+\]
+The $x$-range has length $1-\sigma+2r\le7/12$. With $T'\le5T/4$ and $U\ge X=kT$ we have $(86U+22kT')U^{1-2\sigma}\le114\max(kT\,X^{1-2\sigma},U^{2-2\sigma})\le114(kT)^{12(1-\sigma)}$, because $2-2\sigma\le12(1-\sigma)$ and $U\le Y^2=(kT)^6$. Also $\log(2U)\le\log(2Y^2)\le6.4\LL$ and $1+\log X\le1.56\LL$. Therefore
+\[
+  \sum_\chi\sum_{\rho\in\mathcal Z_\chi}|D_U(\rho)|^2\le\frac{4(6.4\LL)^2}\pi\cdot\frac7{12}\cdot4e\cdot2\cdot114\,(1.56\LL)^3(kT)^{12(1-\sigma)}\le3\cdot10^5\,\LL^5(kT)^{12(1-\sigma)}.
+\]
+The class~I zeros attached to the block $U$ number at most $(16\log Y)^2=(48\LL)^2$ times this, and there are at most $4\log Y=12\LL$ blocks, so
+\begin{equation}\label{eq:classI}
+  \sum_\chi\#\{\rho\in\mathcal Z_\chi\text{ of class I}\}\le10^{10}\,\LL^8\,(kT)^{12(1-\sigma)} .
+\end{equation}
+
+\emph{Step 4: class II.} Write $F(s)=L(s,\chi)M_X(s,\chi)$. For $\rho$ of class~II, with $w=\sigma_1-\beta+iv$, we have $-1/6\le\Re w\le-1/12$, so $|e^{w^2}|\le e^{1/36}e^{-v^2}$, $|w|^{-1}\le12$ and $Y^{\Re w}\le Y^{\sigma_1-\sigma}$; thus
+\begin{multline*}
+  \frac18\le|I(\rho)|\le\frac{12e^{1/36}}{2\pi}Y^{\sigma_1-\sigma}\int_{-\infty}^\infty e^{-v^2}|F(\sigma_1+i\gamma+iv)|\,dv\\
+  \le2\pi^{1/4}Y^{\sigma_1-\sigma}\Bigl(\int_{-\infty}^\infty e^{-v^2}|F(\sigma_1+i\gamma+iv)|^2dv\Bigr)^{1/2}
+\end{multline*}
+by the Cauchy--Schwarz inequality. Squaring and summing over the class~II zeros of $\mathcal Z$,
+\[
+  \#\{\rho\in\mathcal Z\text{ of class II}\}\le454\,Y^{2(\sigma_1-\sigma)}\int_{-\infty}^\infty|F(\sigma_1+it)|^2\,w(t)\,dt,\qquad w(t)=\sum_{\rho\in\mathcal Z}e^{-(t-\gamma)^2}.
+\]
+Since the ordinates are $1$-spaced, at most one of them lies in each interval $[t+j-1/2,t+j+1/2)$, so $w(t)\le1+2\sum_{j\ge1}e^{-(j-1/2)^2}<3$. Let $T_2=T+4\LL$. For $|t|>T_2$ the distances $|t-\gamma|$ exceed $u=|t|-T\ge4\LL$ and at most one lies in each $[u+j,u+j+1)$, so $w(t)\le\sum_{j\ge0}e^{-(u+j)^2}\le1.4e^{-u^2}$; and $|F(\sigma_1+it)|\le\frac65k(|t|+1)\cdot6X^{1/6}$ by Lemma~\ref{lem:size} and $\sum_{d\le X}d^{-5/6}\le6X^{1/6}$. Hence, using $(u+T+1)^2\le2u^2+8e^{2\LL}$, $\int_a^\infty u^2e^{-u^2}du\le ae^{-a^2}$ and $\int_a^\infty e^{-u^2}du\le e^{-a^2}/(2a)$ for $a\ge1$,
+\[
+  \int_{|t|>T_2}|F(\sigma_1+it)|^2w(t)\,dt\le2\cdot52k^2X^{1/3}\cdot1.4\bigl(8\LL+e^{2\LL}\bigr)e^{-16\LL^2}\le292\,e^{13\LL/3-16\LL^2}\le1 .
+\]
+On $|t|\le T_2$ apply Lemma~\ref{lem:truncation} with $N=\lceil(kT_2)^2\rceil$: $|E_N(\sigma_1+it,\chi)|\le k\bigl(1+\tfrac65(T_2+1)\bigr)(kT_2)^{-5/3}\le2.3(kT_2)^{-2/3}\le1$, as $kT_2\ge27$. So $|F|^2\le2|P_NM_X|^2+2|M_X|^2$ with $P_N(s)=\sum_{n\le N}\chi(n)n^{-s}$. By Lemma~\ref{lem:hybrid}, $\sum_\chi\int_{-T_2}^{T_2}|M_X(\sigma_1+it,\chi)|^2dt\le(43X+22kT_2)\sum_{d\le X}d^{-5/3}\le163\,kT_2$. The product $P_NM_X$ is $\sum_{m\le NX}b_m\chi(m)m^{-s}$ with $|b_m|\le\tau_X(m)$; cut it into the blocks $m\in(U,2U]$, $U=2^j$, $0\le j\le J$, $2^J\le NX\le2(kT_2)^3$, so that $J+1\le11\LL$ (we use $\LL_2=\log(kT_2)\le2\LL$, since $T_2\le3\LL T$ and $\log(3\LL)\le\LL$). By the Cauchy--Schwarz inequality $|P_NM_X|^2\le(J+1)\sum_j|B_j|^2$, and for each block, by Lemmas~\ref{lem:hybrid} and~\ref{lem:divisorbound},
+\begin{multline*}
+  \sum_\chi\int_{-T_2}^{T_2}|B_j(\sigma_1+it)|^2dt\le(86U+22kT_2)U^{-5/3}\cdot2U(1+\log X)^3\\
+  \le2(1+\log X)^3\bigl(86\cdot1.26+22\bigr)kT_2\le10^3\LL^3\,kT_2 ,
+\end{multline*}
+using $U^{1/3}\le(2(kT_2)^3)^{1/3}\le1.26\,kT_2$. Collecting,
+\[
+  \sum_\chi\int_{-T_2}^{T_2}|F(\sigma_1+it)|^2dt\le2(11\LL)^2\cdot10^3\LL^3kT_2+2\cdot163\,kT_2\le2.5\cdot10^5\,\LL^5\,kT_2 ,
+\]
+and with $kT_2\le3\LL\,kT$ and $Y^{2(\sigma_1-\sigma)}=(kT)^{5-6\sigma}$,
+\begin{equation}\label{eq:classII}
+  \sum_\chi\#\{\rho\in\mathcal Z_\chi\text{ of class II}\}\le454\bigl(3\cdot2.5\cdot10^5\LL^5\cdot3\LL\,kT+k\bigr)(kT)^{5-6\sigma}\le1.1\cdot10^9\,\LL^6\,(kT)^{6(1-\sigma)} .
+\end{equation}
+
+\emph{Step 5: conclusion.} By~\eqref{eq:spaced}, \eqref{eq:classI} and~\eqref{eq:classII}, choosing for each $\chi$ a $1$-spaced set of largest size,
+\[
+  \sum_{\chi\ne\chi_0}N(\sigma,T,\chi)\le42\LL\bigl(10^{10}\LL^8+1.1\cdot10^9\LL^6\bigr)(kT)^{12(1-\sigma)}\le10^{12}\,(kT)^{12(1-\sigma)}(\log kT)^9,
+\]
+which is Theorem~\ref{thm:zd}.
