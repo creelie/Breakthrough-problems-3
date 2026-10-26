@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""make_figures.py: the three figures of the paper, written as PNG at 200 dpi to figures/.
+"""make_figures.py: the four figures of the paper, written as PNG at 200 dpi to paper/figures/.
 
-fig_flow    the structure of the proofs
-fig_splane  the truncated contour of Proposition 3.7
-fig_arcs    the major and minor arcs of Proposition 5.5, drawn for R = 4
+fig_flow       the structure of the proofs
+fig_splane     the truncated contour of Proposition 3.7
+fig_arcs       the major and minor arcs of Proposition 5.5, drawn for R = 4
+fig_halfplane  the structure of the proof of the zero-free half-plane, Appendix B
 Needs matplotlib and numpy.
 """
 import os
@@ -15,7 +16,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch, Rectangle
 
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "figures")
+OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "paper", "figures")
 os.makedirs(OUT, exist_ok=True)
 plt.rcParams.update({"font.family": "serif", "font.size": 9, "mathtext.fontset": "cm"})
 
@@ -32,32 +33,36 @@ def arrow(ax, p, q, text=None, dx=0.0, dy=0.0):
                 bbox=dict(fc="white", ec="none", pad=1))
 
 # ---------------------------------------------------------------- fig_flow
-fig, ax = plt.subplots(figsize=(8.0, 5.0))
-ax.set_xlim(0, 11); ax.set_ylim(0, 7); ax.axis("off")
-F = 7.4
+fig, ax = plt.subplots(figsize=(8.0, 5.6))
+ax.set_xlim(0, 11); ax.set_ylim(0, 8.3); ax.axis("off")
+F = 7.0
 def tb(x, y, w, h, t, fc="#f2f2f2"):
     ax.add_patch(FancyBboxPatch((x - w / 2, y - h / 2), w, h, boxstyle="round,pad=0.02,rounding_size=0.08",
                                 fc=fc, ec="black", lw=0.8))
     ax.text(x, y, t, ha="center", va="center", fontsize=F)
-tb(5.5, 6.45, 5.0, 0.75, "Theorem 1.2: $M(\\chi)\\leq C_\\varepsilon\\sqrt{q}\\log\\log q$\nfor all but $q^{\\varepsilon}$ of the primitive characters mod $q$", fc="#dde8f5")
-tb(2.75, 5.0, 5.0, 0.95, "Theorem 1.1 (transfer): if no $L(s,\\chi\\psi)$, $\\psi$ mod $r\\leq R$,\nhas a zero in $\\mathrm{Re}\\,s>\\theta$, $|\\mathrm{Im}\\,s|\\leq5q^2$,\nthen $M(\\chi)\\leq C_\\theta\\sqrt{q}\\log\\log q$", fc="#dde8f5")
-tb(8.25, 5.0, 5.0, 0.95, "Section 6: count the characters $\\chi$ for which\nsome twist $\\chi\\psi$ has such a zero,\nby the zero-density theorem", fc="#f5e6dd")
-arrow(ax, (2.75, 5.48), (4.3, 6.07))
-arrow(ax, (8.25, 5.48), (6.7, 6.07))
-tb(2.75, 3.55, 5.0, 0.8, "Lemma 5.1: $M(\\chi)\\leq\\sqrt{q}\\,(B+6)$ if\n$|\\sum_{m\\leq H}\\bar\\chi(m)e(m\\beta)/m|\\leq B$ for $H\\leq q/2$")
-arrow(ax, (2.75, 3.95), (2.75, 4.52))
-tb(2.75, 2.3, 5.0, 0.8, "Proposition 5.5: $B=C_4\\log\\log q$\n(major arcs, minor arcs, smooth $m$: Lemma 5.2)")
-arrow(ax, (2.75, 2.7), (2.75, 3.15))
-tb(1.3, 0.75, 2.2, 1.05, "major arcs:\nLemma 5.4, Cor. 3.8,\nProposition 3.7\n(contour shift)", fc="#e8f0e0")
-tb(4.2, 0.75, 2.2, 1.05, "minor arcs:\nTheorem 4.1\n(bilinear forms,\nsieve, Lemma 2.2)", fc="#e8f0e0")
-arrow(ax, (1.3, 1.28), (2.2, 1.9))
-arrow(ax, (4.2, 1.28), (3.3, 1.9))
-tb(8.25, 3.55, 5.0, 0.8, "Theorem 2.3 (Appendix A): nonprincipal $\\xi$ mod $k$ together,\n$\\sum N(\\sigma,T,\\xi)\\leq 10^{12}(kT)^{12(1-\\sigma)}(\\log kT)^{9}$, $\\sigma\\geq\\frac{11}{12}$", fc="#f5e6dd")
-arrow(ax, (8.25, 3.95), (8.25, 4.52))
-tb(8.25, 2.3, 5.0, 0.8, "Theorem 1.4: $|L'/L(1,\\chi)|\\leq C_\\varepsilon\\log\\log q$\nfor all but $q^{\\varepsilon}$ of the nonprincipal characters", fc="#dde8f5")
+tb(2.8, 7.75, 5.4, 0.85, "Theorem 1.2: $M(\\chi)\\leq C_\\varepsilon\\sqrt{q}\\log\\log q$\nfor all but $q^{\\varepsilon}$ of the primitive characters mod $q$", fc="#dde8f5")
+tb(8.2, 7.75, 5.4, 0.85, "Theorem 1.5: $M(\\chi)\\leq C_{11/12}\\sqrt{q}\\log\\log q$ and\n$|L'/L(1,\\chi)|\\leq C_5\\log\\log q$ for every character", fc="#dde8f5")
+tb(2.8, 6.25, 5.4, 0.95, "Theorem 1.1 (transfer): if no $L(s,\\chi\\psi)$, $\\psi$ mod $r\\leq R$,\nhas a zero in $\\mathrm{Re}\\,s>\\theta$, $|\\mathrm{Im}\\,s|\\leq5q^2$,\nthen $M(\\chi)\\leq C_\\theta\\sqrt{q}\\log\\log q$", fc="#dde8f5")
+tb(8.2, 6.25, 5.4, 0.95, "Theorem B.1 (Appendix B, OpenAI): no Dirichlet\n$L$-function has a zero with $\\mathrm{Re}\\,s>11/12$;\nCorollary 1.3 and Proposition 7.1 with $\\theta=11/12$", fc="#f5e6dd")
+arrow(ax, (2.75, 6.73), (2.75, 7.32))
+arrow(ax, (8.25, 6.73), (8.25, 7.32))
+arrow(ax, (5.25, 6.25), (5.75, 6.25))
+tb(2.8, 4.8, 5.4, 0.8, "Lemma 5.1: $M(\\chi)\\leq\\sqrt{q}\\,(B+6)$ if\n$|\\sum_{m\\leq H}\\bar\\chi(m)e(m\\beta)/m|\\leq B$ for $H\\leq q/2$")
+arrow(ax, (2.75, 5.2), (2.75, 5.77))
+tb(2.8, 3.55, 5.4, 0.8, "Proposition 5.5: $B=C_4\\log\\log q$\n(major arcs, minor arcs, smooth $m$: Lemma 5.2)")
+arrow(ax, (2.75, 3.95), (2.75, 4.4))
+tb(1.3, 2.0, 2.2, 1.05, "major arcs:\nLemma 5.4, Cor. 3.8,\nProposition 3.7\n(contour shift)", fc="#e8f0e0")
+tb(4.2, 2.0, 2.2, 1.05, "minor arcs:\nTheorem 4.1\n(bilinear forms,\nsieve, Lemma 2.2)", fc="#e8f0e0")
+arrow(ax, (1.3, 2.53), (2.2, 3.15))
+arrow(ax, (4.2, 2.53), (3.3, 3.15))
+tb(8.2, 4.8, 5.4, 0.8, "Section 6: count the characters $\\chi$ for which some\ntwist $\\chi\\psi$ has a zero in the rectangle (Theorem 1.2)", fc="#f5e6dd")
+arrow(ax, (6.9, 5.2), (4.3, 6.9))
+tb(8.2, 3.55, 5.4, 0.8, "Theorem 2.3 (Appendix A): nonprincipal $\\xi$ mod $k$ together,\n$\\sum N(\\sigma,T,\\xi)\\leq 10^{12}(kT)^{12(1-\\sigma)}(\\log kT)^{9}$, $\\sigma\\geq\\frac{11}{12}$", fc="#f5e6dd")
+arrow(ax, (8.25, 3.95), (8.25, 4.4))
+tb(8.2, 2.3, 5.4, 0.8, "Theorem 1.4: $|L'/L(1,\\chi)|\\leq C_\\varepsilon\\log\\log q$\nfor all but $q^{\\varepsilon}$ of the nonprincipal characters", fc="#dde8f5")
 arrow(ax, (8.25, 3.15), (8.25, 2.7))
-tb(8.25, 0.75, 5.0, 1.05, "Section 7: residue of $L'/L(s+1,\\chi)\\,x^s/(s(s+1))$ at $s=0$;\nthe zero-free rectangle has height\n$(\\log q)^{4/(1-\\theta)}$ only", fc="#e8f0e0")
-arrow(ax, (8.25, 1.28), (8.25, 1.9))
+tb(8.2, 0.8, 5.4, 1.05, "Section 7, Prop. 7.1: residue of $L'/L(s+1,\\chi)\\,x^s/(s(s+1))$\nat $s=0$; the zero-free rectangle has height\n$(\\log q)^{4/(1-\\theta)}$ only", fc="#e8f0e0")
+arrow(ax, (8.25, 1.33), (8.25, 1.9))
 fig.savefig(os.path.join(OUT, "fig_flow.png"), dpi=200, bbox_inches="tight")
 plt.close(fig)
 
@@ -120,4 +125,34 @@ ax.text(0.5, 1.02, "major arcs: $\\beta$ within $R/t$ of $a/r$, $r\\leq R$ (red)
 ax.text(0.5, -0.4, "$\\beta\\in\\mathbb{R}/\\mathbb{Z}$, drawn for $R=4$", ha="center", fontsize=8)
 fig.savefig(os.path.join(OUT, "fig_arcs.png"), dpi=200, bbox_inches="tight")
 plt.close(fig)
+# ---------------------------------------------------------------- fig_halfplane
+fig, ax = plt.subplots(figsize=(8.0, 6.2))
+ax.set_xlim(0, 11); ax.set_ylim(0, 9.2); ax.axis("off")
+def hb(x, y, w, h, t, fc="#f2f2f2"):
+    ax.add_patch(FancyBboxPatch((x - w / 2, y - h / 2), w, h, boxstyle="round,pad=0.02,rounding_size=0.08",
+                                fc=fc, ec="black", lw=0.8))
+    ax.text(x, y, t, ha="center", va="center", fontsize=7.3)
+hb(5.5, 8.6, 6.2, 0.8, "Theorem B.1: no zero of a finite-order Hecke $L$-function\nover $\\mathbb{Q}(\\sqrt{-3})$ with $\\mathrm{Re}\\,s>11/12$", fc="#f5e6dd")
+hb(5.5, 7.2, 6.2, 0.9, "Proposition B.2 (mean square): $\\sum_{u}|\\sum_{n}\\mu(n)\\nu(n)\\chi_{n}(u)W(\\mathrm{N}n/D)|^2\\ll D^{5/6+\\varepsilon}H$;\nMellin inversion (B.2) turns the saving into the half-plane", fc="#dde8f5")
+arrow(ax, (5.5, 7.65), (5.5, 8.2))
+hb(2.5, 5.6, 4.4, 1.0, "Poisson summation with excluded\nprimes (Lemma B.4) and the Gauss\nsum identities (Lemma B.3): the\nM\u00f6bius sums become cubic Gauss sums", fc="#e8f0e0")
+hb(8.5, 5.6, 4.4, 1.0, "Reduction to the dual mean square\n$\\mathcal{E}_n$ (Proposition B.7) and the\ncanonical induction (Proposition B.8):\na finite iteration at smaller scales", fc="#e8f0e0")
+arrow(ax, (2.5, 6.1), (4.2, 6.75))
+arrow(ax, (8.5, 6.1), (6.8, 6.75))
+arrow(ax, (4.7, 5.6), (6.3, 5.6))
+hb(2.5, 3.8, 4.4, 1.0, "Cube reduction (Lemma B.10) and\nProposition B.9: the completed sums\n$T(X;k,f)$ are bounded on average\nover $k$ by $D^{\\varepsilon}(H+H^2\\mathrm{N}f/X)$", fc="#e8f0e0")
+hb(8.5, 3.8, 4.4, 1.0, "Transfer (Proposition B.11): two more\nPoisson summations (Lemmas B.18 to B.20)\nreturn to sums of the original kind,\nlosing only a divisor function", fc="#e8f0e0")
+arrow(ax, (2.5, 4.3), (2.5, 5.1))
+arrow(ax, (8.5, 4.3), (8.5, 5.1))
+hb(1.6, 1.75, 2.9, 1.55, "Kubota's cubic theta\nfunction: automorphy,\nPatterson coefficients,\nthe fixed ray class\ntransformation\n(B.12 to B.15, \u00a7B.14)", fc="#f2f2f2")
+hb(4.75, 1.75, 2.9, 1.55, "quadratic large sieve\n(Goldmakher and\nLouvel, Lemma B.16)\nand squarefree rows\n(Lemma B.17)", fc="#f2f2f2")
+hb(8.5, 1.75, 3.4, 1.55, "smooth weights: separation\nof variables and the\nrecombination of row\nkernels (Lemmas B.21\nto B.23, \u00a7B.15)", fc="#f2f2f2")
+arrow(ax, (1.6, 2.45), (2.0, 3.3))
+arrow(ax, (4.75, 2.45), (3.4, 3.3))
+arrow(ax, (8.5, 2.45), (8.5, 3.3))
+arrow(ax, (6.2, 2.1), (6.7, 3.3))
+ax.text(5.5, 0.45, "The argument of OpenAI, Appendix B; the arrows point from a result to the result that uses it.", ha="center", fontsize=8)
+fig.savefig(os.path.join(OUT, "fig_halfplane.png"), dpi=200, bbox_inches="tight")
+plt.close(fig)
+
 print("figures written to", OUT)

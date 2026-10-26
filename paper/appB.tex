@@ -1,0 +1,1022 @@
+\section{The zero-free half-plane $\Re s>11/12$}\label{app:halfplane}
+
+\providecommand{\Q}{\mathbb{Q}}
+\newcommand{\NK}{\mathrm{N}}
+\newcommand{\OO}{\mathcal{O}}
+\newcommand{\En}{\mathcal{E}}
+\newcommand{\ind}{\mathbf{1}}
+\newcommand{\rad}{\operatorname{rad}}
+\newcommand{\dd}{\,d}
+\newcommand{\precbd}{\preccurlyeq}
+\newcommand{\sfstar}{\sideset{}{^*}\sum}
+
+This appendix proves the zero-free half-plane that Theorem~\ref{thm:every} uses, so that the paper is complete in itself. The theorem and its proof are due to OpenAI~\cite{OAI26b}: the argument below is their argument, reproduced step by step in our notation, with the published results it rests on cited at the places where they enter and with the computations that the preprint leaves to the reader written out.\footnote{Two preprints of OpenAI prove such a half-plane. The first~\cite{OAI26} proves $\Re s>7/8$ and is written in Lean~4; its kernel check is the one recorded in the data availability section. The second~\cite{OAI26b} isolates the weaker half-plane $\Re s>11/12$, which is an intermediate step of the first, and gives it a proof of ordinary length; it is this second proof that we reproduce. The transfer theorem gives Theorem~\ref{thm:every} from either half-plane, with a different constant, so the choice of the shorter proof costs nothing but the constant.} We claim no originality for anything in this appendix.
+
+\begin{theorem}[OpenAI]\label{thm:b:main}
+Let $K=\Q(\sqrt{-3})$. Every finite-order Hecke $L$-function over $K$ has no zero in the half-plane $\Re s>11/12$. In particular every Dirichlet $L$-function, the Riemann zeta function included, has no zero with $\Re s>11/12$.
+\end{theorem}
+
+The strategy is the following. A zero of $L_K(s,\nu)$ with $\Re s>11/12$ would prevent a power saving $D^{11/12+\varepsilon}$ in the smoothed M\"obius sums $\sum\mu(\mathfrak n)\nu(\mathfrak n)W(\NK\mathfrak n/D)$ of the field, by a Mellin transform argument of Littlewood's kind. That power saving is extracted from a mean square over a family of such sums twisted by sextic residue symbols $\chi_{\mathfrak n}(u)$, $u\in\OO_K$, because the twist by $u=p^6$ differs from the untwisted sum by $O(D/\NK p)$ only. The mean square over $u$ is opened by Poisson summation; the Gauss sums that appear absorb the M\"obius function and become cubic Gauss sums, which are Fourier coefficients of Kubota's cubic theta function. The automorphy of that theta function turns the sextic twists into quadratic ones, to which the quadratic large sieve of Goldmakher and Louvel applies; the cube factors that the theta function carries are removed by M\"obius inversion, and the sums that this leaves are of the original kind at smaller scales, so that a finite iteration closes the argument.\footnote{The sketch is that of~\cite[\S2]{OAI26b}. The role of the cubic theta function goes back to the work of Heath-Brown and Patterson on Kummer sums~\cite{HBP79}, and the completion by cubes and its inversion to Dunn and Radziwi\l\l~\cite{DR}; the iteration is the admissible-exponent method of Heath-Brown's quadratic large sieve~\cite{HB95}.} Figure~\ref{fig:halfplane} shows the parts.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/fig_halfplane.png}
+\caption{The structure of the proof of Theorem~\ref{thm:b:main}. The half-plane follows from the mean-square estimate of Proposition~\ref{prop:b:ms}, which is proved by Poisson summation, the canonical induction of Proposition~\ref{prop:b:canonical} and the transfer of Proposition~\ref{prop:b:transfer}; the cubic theta function and the quadratic large sieve enter through Proposition~\ref{prop:b:R}.}
+\label{fig:halfplane}
+\end{figure}
+
+\subsection{Notation}\label{ssec:b:notation}
+
+Write $\OO=\OO_K=\Z[\omega]$ with $\omega=e^{2\pi i/3}$, and $\NK(a)=a\bar a=|a|^2$ for $a\in K$, $\NK(\mathfrak a)=\#(\OO/\mathfrak a)$ for a nonzero ideal. The ring $\OO$ is Euclidean, so every ideal is principal. An element is \emph{primary} if it is congruent to $1$ modulo $3$; since the six units represent the six invertible classes modulo $3$, an ideal prime to $3$ has a unique primary generator, and we write $\mu(n)$, $\nu(n)$ and so on for the values at the ideal $(n)$. Put $\lambda=1+2\omega$, so that $(\lambda)$ is the prime above $3$ and $\lambda^2$ is a unit times $3$. For a primary prime $p\nmid6$ and $p\nmid u$, $(u/p)_6$ is the sixth root of unity congruent to $u^{(\NK p-1)/6}$ modulo $p$, and $(u/p)_6=0$ for $p\mid u$; this is extended multiplicatively in the denominator to
+\[
+  \chi_n(u)=\Bigl(\frac un\Bigr)_6\qquad(n\text{ primary},\ (n,6)=1),
+\]
+with $\chi_1\equiv1$, including at $u=0$. The quadratic and cubic symbols are $\chi_n^3$ and $\chi_n^2$.\footnote{For $j$ an integer, $\chi_p^j$ means the $j$th power on $(\OO/(p))^\times$ extended by zero on the multiples of $p$; in particular $\chi_p^0(x)=\ind_{p\nmid x}$, which is not the constant $1$. This convention matters in the theta transformation of Section~\ref{ssec:b:fixedray}.} Define the additive character
+\[
+  e(z)=\exp\bigl(4\pi i\operatorname{Im}z/\sqrt3\bigr)\qquad(z\in\C),
+\]
+which is trivial on $\OO$ and, for primary squarefree $n$ prime to $6$ and an integer $j$, the normalised Gauss sums
+\begin{equation}\label{eq:b:gauss}
+  \gamma_j(n)=\frac1{\sqrt{\NK n}}\sum_{x\bmod n}\chi_n(x)^je(x/n),\qquad
+  \alpha(n)=\frac n{|n|}.
+\end{equation}
+For $j=-1$ the character is $\bar\chi_n$. We use $\ind_{\mathcal C}$ for the indicator of a condition, $v_p$ for the exponent of a prime, $\tau_{\rm div}(b)$ for the number of ideal divisors of $(b)$, and $\rad\mathfrak r$ for the product of the distinct prime divisors of $\mathfrak r$.
+
+The notation $f\ll g$ means $|f|\le Cg$ with an absolute constant unless subscripts list the parameters the constant may depend on; $f\asymp g$ means $f\ll g\ll f$. A dyadic range is $R\le\NK a<2R$. Throughout, $D\ge2$ is the norm scale of the original M\"obius sum and all other scales are bounded by fixed powers of $D$; we write
+\[
+  A\precbd B\quad\text{if}\quad A\ll_\varepsilon D^\varepsilon B\ \text{for every }\varepsilon>0,
+\]
+uniformly in the varying parameters, the constant depending also on the fixed data of each statement. For a compact interval $I\subset(0,\infty)$ and a smooth $W$ supported in $I$, $\|W\|_{C^J(I)}=\max_{j\le J}\sup_I|W^{(j)}|$; for functions of several variables all partial derivatives of total order at most $J$ are taken. A star on a sum restricts the index to squarefree primary elements, prime to the finite set $S$ of primes fixed in the next section.
+
+Finally, the \emph{ray class group} modulo an ideal $\mathfrak m$ is the group of fractional ideals prime to $\mathfrak m$ modulo the principal ideals with a generator congruent to $1$ modulo $\mathfrak m$; a ray class character is a character of this finite group, and the ray class of an element prime to $\mathfrak m$ is the class of the ideal it generates.
+
+\subsection{From the mean-square estimate to the zero-free half-plane}\label{ssec:b:reduction}
+
+Fix a finite-order Hecke character $\nu$ of $K$, extended by zero to the ideals not prime to its conductor, and a finite set $S$ of prime ideals containing the primes above $2$ and $3$ and the primes dividing the conductor of $\nu$. Write $(a,S)=1$ if no prime of $S$ divides $a$. For $W\in C_c^\infty((0,\infty);\C)$ and $u\in\OO$ define the family
+\begin{equation}\label{eq:b:family}
+  A_u(D)=\sum_{(n,S)=1}\mu(n)\nu(n)\chi_n(u)W(\NK n/D),
+\end{equation}
+where $n$ runs over the ideals prime to $S$, represented by their primary generators. The untwisted sum is $A_1(D)$. The whole appendix is devoted to the following estimate.
+
+\begin{proposition}\label{prop:b:ms}
+For every fixed $0<\vartheta\le1/10$ and $\varepsilon>0$ there is an integer $k=k(\vartheta,\varepsilon)\ge1$ such that for every compact interval $I\subset(0,\infty)$, every smooth $W$ supported in $I$ and every $D\ge2$,
+\begin{equation}\label{eq:b:ms}
+  \sum_{0<\NK u\le D^{1+\vartheta}}|A_u(D)|^2\ll_{\nu,S,I,\vartheta,\varepsilon}\Bigl(\max_{0\le j\le k}\|W^{(j)}\|_\infty\Bigr)^2D^{2+\vartheta+\varepsilon}.
+\end{equation}
+\end{proposition}
+
+The proposition is proved in Section~\ref{ssec:b:completion}. We first deduce the theorem from it.
+
+\begin{proof}[Proof of Theorem~\ref{thm:b:main} from Proposition~\ref{prop:b:ms}]
+Fix $0<\vartheta\le1/10$ and put $H=D^{1+\vartheta}$, $Y=H^{1/6}$. For a prime ideal $\mathfrak p\notin S$ with $Y/2<\NK\mathfrak p\le Y$ let $p$ be its primary generator. Then $\chi_n(p^6)=\ind_{\mathfrak p\nmid n}$, so $A_1(D)$ and $A_{p^6}(D)$ differ only in the terms with $\mathfrak p\mid n$:
+\[
+  |A_1(D)-A_{p^6}(D)|\le\|W\|_\infty\,\#\{n:(n,S)=1,\ \mathfrak p\mid n,\ \NK n\asymp D\}\ll_WD/Y.
+\]
+By Landau's prime ideal theorem~\cite{Lan03} there are $J\asymp Y/\log Y$ such primes, and their sixth powers are distinct rows $u$ of norm at most $H$.\footnote{In a mean square we call the variable of the outer sum the \emph{row} and the variable of the inner sum the \emph{column}; in~\eqref{eq:b:ms} these are $u$ and $n$.} Apply~\eqref{eq:b:ms} with the loss $\varepsilon/2$ and use $\log Y\ll_\varepsilon D^{\varepsilon/2}$:
+\begin{equation}\label{eq:b:primeextract}
+\begin{aligned}
+  |A_1(D)|^2&\le\frac2J\sum_{\substack{Y/2<\NK p\le Y\\(p,S)=1}}|A_{p^6}(D)|^2+O_W\Bigl(\frac{D^2}{Y^2}\Bigr)\\
+  &\ll_{\nu,S,W,\vartheta,\varepsilon}\frac{D^{2+\vartheta+\varepsilon}}Y+\frac{D^2}{Y^2}
+  =D^{11/6+5\vartheta/6+\varepsilon}+D^{5/3-\vartheta/3}.
+\end{aligned}
+\end{equation}
+Hence $A_1(D)\ll D^{11/12+5\vartheta/12+\varepsilon}$. For a requested exponent loss choose $\vartheta$ and then $\varepsilon$ small, and rename the total loss $\varepsilon$:
+\begin{equation}\label{eq:b:mobiussaving}
+  A_1(D)\ll_{\nu,S,W,\varepsilon}D^{11/12+\varepsilon}.
+\end{equation}
+
+Suppose now that $L_K(s,\nu)$ has a zero $\varrho$ with $\Re\varrho>11/12$. Take $0\ne\phi\in C_c^\infty((1,2))$, $\phi\ge0$, and $W(y)=y^{-\varrho}\phi(y)$. With $\widehat W(s)=\int_0^\infty W(y)y^s\dd y/y$ we have $\widehat W(\varrho)=\int\phi(y)\dd y/y>0$. The function
+\[
+  \mathcal M_W(s)=\int_0^\infty A_1(D)D^{-s}\frac{\dd D}D
+\]
+is holomorphic for $\Re s>11/12$, because~\eqref{eq:b:mobiussaving} controls the integral at infinity and $A_1(D)$ vanishes for small $D$ by the compact support of $W$. For $\Re s>1$ termwise integration gives
+\[
+  \mathcal M_W(s)=\widehat W(s)\sum_{(n,S)=1}\frac{\mu(n)\nu(n)}{\NK n^s}=\frac{\widehat W(s)}{L_K^S(s,\nu)},\qquad
+  L_K^S(s,\nu)=L_K(s,\nu)\prod_{\mathfrak p\in S}\bigl(1-\nu(\mathfrak p)\NK\mathfrak p^{-s}\bigr).
+\]
+By Hecke's continuation theorem~\cite{Hec20} and the identity theorem, $L_K^S(s,\nu)\mathcal M_W(s)=\widehat W(s)$ on $\Re s>11/12$. The omitted Euler factors do not vanish there, so at $s=\varrho$ the left side is $0$ and the right side is $\widehat W(\varrho)>0$, a contradiction.
+
+For a Dirichlet character $\chi$, let $\chi_{-3}$ be the nontrivial character modulo $3$. Quadratic base change gives, up to Euler factors without zeros in $\Re s>0$,
+\[
+  L_K(s,\chi\circ\NK)=L(s,\chi)L(s,\chi\chi_{-3}),
+\]
+so the Hecke statement excludes zeros of either factor off $s=1$; at $s=1$ a zero of one factor could only cancel a pole of the other when $\chi$ is principal, and then it would be a zero of $L(1,\chi_{-3})$, which is positive by Dirichlet's theorem~\cite[Chapters~4 and~6]{Dav80}.
+\end{proof}
+
+\subsection{The arithmetic identities}\label{ssec:b:arithmetic}
+
+Poisson summation in the row variable will produce the Gauss sums~\eqref{eq:b:gauss}, and the identities of this section convert the M\"obius coefficients into the cubic coefficients
+\begin{equation}\label{eq:b:axi}
+  a_\xi(n)=\overline{\alpha(n)}\gamma_2(n)\xi(n)\qquad(n\ \text{squarefree primary},\ (n,S)=1),
+\end{equation}
+where $\xi$ is a ray class character of a fixed modulus. That modulus is chosen once and for all: supported on $S$, divisible by the conductor of $\nu$, and large enough that every reciprocity factor below depends only on the ray class; a function on the ray class group is then a finite linear combination of characters $\xi$ by orthogonality, which is how $\nu$ and the factors $G$, $\mathcal R$ below are absorbed into the twist $\xi$.
+
+\begin{lemma}\label{lem:b:arithmetic}
+On the fixed ray class group there are a function $G$ with values in the unit circle and a symmetric $\{\pm1\}$-valued bicharacter $\mathcal R$, that is, $\mathcal R(a,b)=\mathcal R(b,a)$ and $\mathcal R$ is multiplicative in each argument, with the following properties. For primary $a,b,n$ prime to $S$ with $(a,b)=1$ and $n$ squarefree,
+\begin{align}
+  \chi_b(a)&=\mathcal R(a,b)\chi_a(b),& G(ab)&=G(a)G(b)\mathcal R(a,b),\label{eq:b:recip}\\
+  \gamma_2(n)^3&=\mu(n)\alpha(n),& \gamma_1(n)\gamma_2(n)&=\mu(n)\alpha(n)G(n),\label{eq:b:gj}\\
+  G(n)&=\overline{\chi_n(4)}\gamma_3(n),& \gamma_1(n)\gamma_{-1}(n)&=\chi_n(-1).\label{eq:b:g}
+\end{align}
+Consequently, for such $n$ and for coprime squarefree $a,b$,
+\begin{align}
+  \overline{\alpha(n)}\gamma_2(n)\gamma_1(n)&=\mu(n)G(n),\label{eq:b:convert1}\\
+  \mu(n)\gamma_{-1}(n)&=\chi_n(-1)G(n)^{-1}\overline{\alpha(n)}\gamma_2(n),\label{eq:b:convert2}\\
+  a_\xi(ab)&=a_\xi(a)a_\xi(b)\chi_b(a)^4,\label{eq:b:crta}\\
+  \chi_a(-1)\overline{G(a)}G(b)\mathcal R(a,b)&=G(ba^{-1}),\label{eq:b:quotient}
+\end{align}
+where the identity for $G(ab)$ extends to all classes of the ray class group and the quotient in~\eqref{eq:b:quotient} is taken there.
+\end{lemma}
+
+\begin{proof}
+\emph{The Gauss--Jacobi relations~\eqref{eq:b:gj}.} Set $G(n)=\overline{\chi_n(4)}\gamma_3(n)$ for squarefree $n$; that it factors through the ray class group is shown below. Fix a primary prime $p\notin S$ and, for characters $A,B$ of $(\OO/(p))^\times$ extended by zero, the Jacobi sum $J(A,B)=\sum_{x\bmod p}A(x)B(1-x)$. The substitution $u=2x-1$ shows that $4x(1-x)=y$ has $1+\chi_p^3(1-y)$ solutions $x$ modulo $p$, so
+\[
+  \chi_p(4)J(\chi_p,\chi_p)=\sum_x\chi_p\bigl(4x(1-x)\bigr)=\sum_y\chi_p(y)\bigl(1+\chi_p^3(1-y)\bigr)=J(\chi_p,\chi_p^3).
+\]
+The Gauss--Jacobi identity $\gamma_1\gamma_3/\gamma_4=J(\chi_p,\chi_p^3)/\sqrt{\NK p}$ (see~\cite[(3.18)]{IK04}) and the same identity for $J(\chi_p,\chi_p)$ give
+\[
+  \frac{\gamma_1(p)\gamma_3(p)}{\gamma_4(p)}=\chi_p(4)\frac{\gamma_1(p)^2}{\gamma_2(p)}.
+\]
+For $j\not\equiv0\pmod6$ one has $\gamma_j(p)\gamma_{-j}(p)=\chi_p(-1)^j$; with $j=2$ this is $\gamma_2(p)\gamma_4(p)=1$, as $\chi_p^2$ is cubic. Cancelling $\gamma_1(p)$ and rearranging,
+\[
+  \gamma_1(p)\gamma_2(p)=\overline{\chi_p(4)}\gamma_3(p)\gamma_2(p)^3.
+\]
+It remains to evaluate $\gamma_2(p)^3=\gamma_2(p)^2/\gamma_4(p)=J(\chi_p^2,\chi_p^2)/\sqrt{\NK p}$. Put $q=\NK p$. The Jacobi sum lies in $\OO$ and has norm $q$. Reducing modulo $p$ and expanding the binomial,
+\[
+  J(\chi_p^2,\chi_p^2)\equiv\sum_x x^{\frac{q-1}3}(1-x)^{\frac{q-1}3}=\sum_{\ell=0}^{(q-1)/3}(-1)^\ell\binom{(q-1)/3}\ell\sum_xx^{\frac{q-1}3+\ell}\equiv0\pmod p,
+\]
+since each exponent $(q-1)/3+\ell$ lies strictly between $0$ and $q-1$. So $J(\chi_p^2,\chi_p^2)$ is a unit times $p$. Write $\chi_p^2(x(1-x))=\omega^{j_x}$ for $x\ne0,1$; the product of all $x(1-x)$ is $1$, so $\sum j_x\equiv0\pmod3$, and since $(\omega-1)^2$ generates $(3)$,
+\[
+  J(\chi_p^2,\chi_p^2)=\sum_{x\ne0,1}\omega^{j_x}\equiv(q-2)+(\omega-1)\sum_{x\ne0,1}j_x\equiv-1\pmod3.
+\]
+With $p\equiv1\pmod3$ this fixes the unit: $J(\chi_p^2,\chi_p^2)=-p$, so $\gamma_2(p)^3=-\alpha(p)$. The Chinese remainder theorem extends both prime identities to squarefree $n$, one sign $-1$ for each prime factor giving $\mu(n)$.\footnote{The Chinese remainder theorem gives $\gamma_j(ab)=\gamma_j(a)\gamma_j(b)\chi_a(b)^j\chi_b(a)^j$ for coprime $a,b$; for $j=2$ cubic reciprocity makes the two symbols equal, and for the products of two sums with $j+j'\equiv0$ the symbols cancel.}
+
+\emph{The identity~\eqref{eq:b:crta}.} For coprime squarefree primary $a,b$ prime to $S$, $\gamma_2(ab)=\gamma_2(a)\gamma_2(b)\chi_a(b)^2\chi_b(a)^2$, and cubic reciprocity gives $\chi_a(b)^2=\chi_b(a)^2$; multiplying by $\overline{\alpha(ab)}\xi(ab)$ gives~\eqref{eq:b:crta}.
+
+\emph{Reciprocity~\eqref{eq:b:recip} and the first identity of~\eqref{eq:b:g}.} For $c\in\OO$ prime to $2$ we show
+\begin{equation}\label{eq:b:quadgauss}
+  \Gamma_{\rm quad}(c):=|c|^{-1}\sum_{x\bmod c}e(x^2/c)=\frac12\sum_{y\bmod2\OO}e(-cy^2/4).
+\end{equation}
+Apply Poisson summation over $z\in\OO$ to $e(z^2/c)e^{-\pi\eta|z|^2}$, $\eta>0$. The Fourier transform of this product is
+\[
+  \frac{|c|}{2\sqrt{r_\eta}}e^{-\pi\eta\NK(c)|y|^2/(4r_\eta)}e\bigl(-cy^2/(4r_\eta)\bigr),\qquad r_\eta=1+3\NK(c)\eta^2/16.
+\]
+Divide both sides by the Gaussian mass $\sum_ze^{-\pi\eta|z|^2}\asymp\eta^{-1}$. Replacing $r_\eta$ by $1$ on the Fourier side changes it by $O_c(\eta^2\sum_y|y|^2e^{-C_c\eta|y|^2})=O_c(1)$, which is $O_c(\eta)$ after the division. Group the original sum modulo $c$ and the Fourier sum modulo $2\OO$ and let $\eta\downarrow0$ to get~\eqref{eq:b:quadgauss}. For $c=a+b\omega$ it reads
+\[
+  \Gamma_{\rm quad}(a+b\omega)=\tfrac12\bigl(1+i^{-b}+i^a+i^{b-a}\bigr),
+\]
+so $\Gamma_{\rm quad}(c)$ depends only on $c$ modulo $4\OO$ and is invariant under multiplication by squares of $(\OO/4\OO)^\times$; on the four square classes $1,-1,\lambda,-\lambda$ it takes the values $1,1,i,-i$. Hence
+\[
+  \begin{gathered}
+  \mathcal R(c_1,c_2):=\frac{\Gamma_{\rm quad}(c_1c_2)}{\Gamma_{\rm quad}(c_1)\Gamma_{\rm quad}(c_2)},\\
+  \mathcal R\bigl((-1)^e\lambda^f,(-1)^g\lambda^h\bigr)=(-1)^{eh+fg+fh}\quad(e,f,g,h\in\{0,1\}),
+  \end{gathered}
+\]
+is a symmetric bicharacter on these classes. For a prime $p$ every $y$ has $1+\chi_p^3(y)$ square roots, so grouping by $y=x^2$ and using $\sum_ye(y/p)=0$ gives $\Gamma_{\rm quad}(p)=\gamma_3(p)$, and the Chinese remainder theorem extends this to squarefree $n$. With cubic reciprocity this identifies $\mathcal R$ with the quotient $\chi_b(a)/\chi_a(b)$ for coprime primary $a,b$. Since $\chi_c(4)=(-2/c)_3=(c/(-2))_3$ is a character modulo $2$, the function $G(c)=\overline{\chi_c(4)}\Gamma_{\rm quad}(c)$ factors through the fixed ray class group and satisfies~\eqref{eq:b:recip}, with $\mathcal R(c,c)=\chi_c(-1)$.
+
+\emph{The quotient~\eqref{eq:b:quotient}.} In the ray class group the multiplicativity of $G$ gives $G(a^{-1})=\chi_a(-1)\overline{G(a)}$, and then $G(ba^{-1})=G(b)G(a^{-1})\mathcal R(b,a^{-1})=\chi_a(-1)\overline{G(a)}G(b)\mathcal R(a,b)$ by the symmetry and multiplicativity of $\mathcal R$.
+
+\emph{The conversions.} The second identity of~\eqref{eq:b:g} is the inverse-character Gauss identity. Multiplying the second identity of~\eqref{eq:b:gj} by $\overline{\alpha(n)}$ gives~\eqref{eq:b:convert1}, and combining it with $\gamma_1\gamma_{-1}=\chi_n(-1)$ gives~\eqref{eq:b:convert2}.
+\end{proof}
+
+Under Poisson summation, \eqref{eq:b:convert2} converts the M\"obius coefficients into $a_\xi(n)$, up to fixed ray class factors, and \eqref{eq:b:convert1} converts them back.
+
+\subsection{Poisson summation with excluded primes}\label{ssec:b:poisson}
+
+The row sums to which Poisson summation is applied carry a coprimality condition, and we record the formula with that condition included, so that its effect on the frequencies and on the normalisation is visible. In quotients and Gauss sums every ideal is represented by a fixed generator, primary when the ideal is prime to $3$.
+
+\begin{lemma}\label{lem:b:poisson}
+Let $\mathcal H>0$, let $\mathfrak r$ be a nonzero ideal, let $\Phi(\NK k/\mathcal H)$ be a smooth radial Schwartz weight on $\OO$, and let $\chi$ be a primitive character of $(\OO/\mathfrak m)^\times$, viewed as a function on $\OO$ by reduction modulo $\mathfrak m$ and extension by zero. Write $\gamma(\chi)=\NK\mathfrak m^{-1/2}\sum_{x\bmod\mathfrak m}\chi(x)e(x/\mathfrak m)$ for its normalised Gauss sum. Then
+\begin{equation}\label{eq:b:poisson}
+  \sum_{k\in\OO}\chi(k)\ind_{(k,\mathfrak r)=1}\Phi(\NK k/\mathcal H)
+  =\frac{\mathcal H\gamma(\chi)}{\sqrt{\NK\mathfrak m}}\sum_{d\mid\rad\mathfrak r}\frac{\mu(d)\chi(d)}{\NK d}\sum_{h\in\OO}\overline{\chi(h)}\,\widehat\Phi\Bigl(\frac{\mathcal H\NK h}{\NK d\,\NK\mathfrak m}\Bigr),
+\end{equation}
+where $\widehat\Phi(|w|^2)=\frac2{\sqrt3}\int_\C\Phi(|z|^2)e(-zw)\dd x\dd y$, the measure giving $\OO$ covolume one. If $\chi$ is nonprincipal then $\overline{\chi(0)}=0$ and the zero frequency contributes nothing; for the principal primitive character ($\mathfrak m=1$) the zero frequency contributes $\mathcal H\widehat\Phi(0)\prod_{\mathfrak p\mid\mathfrak r}(1-\NK\mathfrak p^{-1})$.
+\end{lemma}
+
+\begin{proof}
+Inclusion--exclusion and $k=d\ell$ give
+\[
+  \sum_k\chi(k)\ind_{(k,\mathfrak r)=1}\Phi(\NK k/\mathcal H)=\sum_{d\mid\rad\mathfrak r}\mu(d)\chi(d)\sum_\ell\chi(\ell)\Phi\Bigl(\frac{\NK\ell}{\mathcal H/\NK d}\Bigr).
+\]
+Apply Poisson summation on the lattice $\OO$ in $\ell$, on the residue classes modulo $\mathfrak m$, at the scale $\mathcal H/\NK d$~\cite[Theorem~4.5]{IK04}; the finite Fourier transform of a primitive character is $\sqrt{\NK\mathfrak m}\,\gamma(\chi)\overline{\chi(h)}$ for every $h$~\cite[(3.12)]{IK04}, which gives~\eqref{eq:b:poisson}. The statements about the zero frequency follow by summing $\mu(d)/\NK d$ over $d\mid\rad\mathfrak r$.
+\end{proof}
+
+\subsection{The dual mean square}\label{ssec:b:dual}
+
+\begin{definition}\label{def:b:energy}
+Let $\mathcal H,X,F>0$ be the norm scales of the row $k\in\OO$, the column $n$ and an auxiliary index $f$. For a ray class character $\xi$ and a smooth compactly supported $W$ on $(0,\infty)$ the \emph{dual mean square} is
+\begin{equation}\label{eq:b:energy}
+  \En(\mathcal H,X,F;\xi,W)=\frac1{XF}\sfstar_{\substack{F\le\NK f<2F\\(f,S)=1}}\ \sum_{0<\NK k\le\mathcal H}\Bigl|\sfstar_{(n,S)=1}a_\xi(n)\chi_n(k)\chi_n(f)^4W(\NK n/X)\Bigr|^2.
+\end{equation}
+\end{definition}
+
+The twist $\chi_n(f)^4$ will arise from the common factors of two columns; note that $\chi_n(f)^4$ enforces $(n,f)=1$ since $\chi_n(f)=0$ otherwise. Write $\En_{\mathfrak r}$ for the same expression with the further restriction $(n,\mathfrak r)=1$ on the column. The restriction is removed at the cost of a divisor factor, without changing the row range or the product $XF$.
+
+\begin{lemma}\label{lem:b:remove}
+Let $r_0$ be the product of the primes dividing $\mathfrak r$ outside $S$. For $\mathcal H,X>0$, $F\ge1$ and smooth compactly supported $W$,
+\begin{equation}\label{eq:b:remove}
+  \En_{\mathfrak r}(\mathcal H,X,F;\xi,W)\le\tau_{\rm div}(r_0)\sum_{d\mid r_0}\En\Bigl(\mathcal H,\frac X{\NK d},F\NK d;\xi,W\Bigr).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Let $C_{\mathfrak r}(X;k,f)$ be the inner column sum of $\En_{\mathfrak r}$. Inclusion--exclusion over $d\mid r_0$, the substitution $n=dm$ and~\eqref{eq:b:crta} give
+\[
+\begin{aligned}
+  C_{\mathfrak r}(X;k,f)&=\sum_{d\mid r_0}\mu(d)\sfstar_{\substack{(n,S)=1\\d\mid n}}a_\xi(n)\chi_n(k)\chi_n(f)^4W(\NK n/X)\\
+  &=\sum_{\substack{d\mid r_0\\(d,f)=1}}\mu(d)a_\xi(d)\chi_d(k)\chi_d(f)^4\,C_1(X/\NK d;k,df),
+\end{aligned}
+\]
+because $\chi_m(d)^4$ enforces $(m,d)=1$ and combines with $\chi_m(f)^4$ into $\chi_m(df)^4$, while the terms with $(d,f)\ne1$ vanish. Each coefficient in front of $C_1$ has modulus at most one. Cauchy--Schwarz in $d$ gives the factor $\tau_{\rm div}(r_0)$, and enlarging the injective image $f\mapsto df$ to the whole squarefree range $F\NK d\le\NK(df)<2F\NK d$ gives the terms on the right of~\eqref{eq:b:remove}; the normalisation is unchanged since $(X/\NK d)(F\NK d)=XF$.
+\end{proof}
+
+\subsection{Reduction to the dual mean square}\label{ssec:b:poissonreduction}
+
+\begin{proposition}\label{prop:b:poissonreduction}
+Fix $0<\vartheta\le1/10$ and put $H=D^{1+\vartheta}$. For each fixed $C\ge1$ and all real $B,F\ge1$ consider the ranges
+\begin{equation}\label{eq:b:initialscales}
+  X=\frac D{BF},\qquad0<\mathcal H\le\frac{CD^2}{HB^2},\qquad XF=\frac DB.
+\end{equation}
+Suppose that for every $\varepsilon>0$ there is an integer $J=J(\vartheta,\varepsilon)\ge1$ such that, for every compact interval $I\subset(0,\infty)$ and every smooth $W$ supported in $I$,
+\begin{equation}\label{eq:b:auxtarget}
+  \En(\mathcal H,X,F;\xi,W)\ll_{\nu,S,I,C,\vartheta,\varepsilon}\|W\|_{C^J(I)}^2D^\varepsilon XF.
+\end{equation}
+Then Proposition~\ref{prop:b:ms} holds.
+\end{proposition}
+
+\begin{proof}
+Write $I=[a_0,b_0]$ and $N=\NK$. Choose a nonnegative radial Schwartz weight $\Phi$ with $\Phi\ge1$ on $[0,1]$ and $\operatorname{supp}\widehat\Phi\subset[0,C_\Phi]$ for a fixed $C_\Phi>0$.\footnote{Such a weight is the square of a real radial Schwartz function with compactly supported Fourier transform, rescaled; its Fourier transform is then a convolution of compactly supported functions and is itself compactly supported.} It suffices to prove $\mathcal M_D\ll\|W\|^2_{C^{J'}(I)}HD^\varepsilon$ for some $J'=J'(\vartheta,\varepsilon)$, where
+\begin{equation}\label{eq:b:expandedms}
+  \mathcal M_D=\frac1D\sum_{u\in\OO}\Phi(N(u)/H)\Bigl|\sum_{(n,S)=1}\mu(n)\nu(n)\chi_n(u)W(N(n)/D)\Bigr|^2,
+\end{equation}
+since the left side of~\eqref{eq:b:ms} is at most $D\mathcal M_D$.
+
+\emph{Expanding the square.} Conjugate the inner sum, expand, and put $g=(n_1,n_2)$, $n_j=gz_j$; the squarefree indices satisfy $(z_1,z_2)=(z_1z_2,g)=1$ and $\overline{\chi_{n_1}(u)}\chi_{n_2}(u)=\ind_{(u,g)=1}\overline{\chi_{z_1}(u)}\chi_{z_2}(u)$. The character $\chi=\overline{\chi_{z_1}}\chi_{z_2}$ is primitive modulo $z_1z_2$, so Lemma~\ref{lem:b:poisson} with the exclusion $g$ gives
+\begin{equation}\label{eq:b:initialrows}
+  \sum_u\Phi(N(u)/H)\ind_{(u,g)=1}\chi(u)=\sum_{e\mid g}\frac{H\mu(e)\chi(e)\gamma(\chi)}{N(e)\sqrt{N(z_1)N(z_2)}}\sum_h\overline{\chi(h)}\,\widehat\Phi\Bigl(\frac{HN(h)}{N(e)N(z_1)N(z_2)}\Bigr).
+\end{equation}
+The zero frequency occurs only for $z_1=z_2=1$ and contributes
+\[
+  Z=\frac HD\widehat\Phi(0)\sfstar_{(g,S)=1}|W(N(g)/D)|^2\prod_{p\mid g}\Bigl(1-\frac1{N(p)}\Bigr)\ll_{\Phi,I}H\|W\|_\infty^2.
+\]
+All $h\ne0$ are retained, including those with $z_1=z_2=1$.
+
+\emph{Converting the coefficients.} Expand the fixed ray class function $\overline{\nu(t)}G(t^{-1})=\sum_\xi c_\xi\xi(t)$. The Chinese remainder theorem and~\eqref{eq:b:convert2}, \eqref{eq:b:quotient} give\footnote{By the Chinese remainder theorem the Gauss sum factors as $\gamma(\overline{\chi_{z_1}}\chi_{z_2})=\gamma_{-1}(z_1)\gamma_1(z_2)\overline{\chi_{z_1}(z_2)}\chi_{z_2}(z_1)$. Convert $\mu(z_1)\gamma_{-1}(z_1)$ by~\eqref{eq:b:convert2} and $\mu(z_2)\gamma_1(z_2)$ by~\eqref{eq:b:convert1}. The ray class factors then collect, by~\eqref{eq:b:quotient} with $t=z_1z_2^{-1}$, into $\chi_{z_1}(-1)G(z_1)^{-1}G(z_2)\mathcal R(z_1,z_2)\overline{\nu(z_1)}\nu(z_2)$, which equals $\overline{\nu(t)}G(t^{-1})$.}
+\begin{equation}\label{eq:b:pairedgauss}
+  \mu(z_1)\mu(z_2)\overline{\nu(z_1)}\nu(z_2)\gamma(\overline{\chi_{z_1}}\chi_{z_2})=\sum_\xi c_\xi a_\xi(z_1)\overline{a_\xi(z_2)}.
+\end{equation}
+Put $W_0(x)=x^{-1/2}\overline{W(x)}$. Substituting~\eqref{eq:b:pairedgauss} into~\eqref{eq:b:initialrows}, with the factor $1/D$ of~\eqref{eq:b:expandedms},
+\[
+  \mathcal M_D-Z=\sum_\xi c_\xi\mathcal S_\xi,\qquad|\mathcal M_D-Z|\ll\max_\xi|\mathcal S_\xi|,
+\]
+the sum over $\xi$ being finite and fixed. Fix $\xi$. Using $\overline{\chi_z(e)}=\chi_z(e^5)$,
+\[
+\begin{aligned}
+  \mathcal S_\xi=\frac H{D^2}\sfstar_g\sum_{e\mid g}\frac{\mu(e)N(g)}{N(e)}\sum_{h\ne0}\sfstar_{\substack{z_1,z_2\\(z_1,z_2)=1\\(z_1z_2,g)=1}}&a_\xi(z_1)\overline{a_\xi(z_2)}\chi_{z_1}(he^5)\overline{\chi_{z_2}(he^5)}\\
+  &\times W_0\Bigl(\frac{N(gz_1)}D\Bigr)\overline{W_0\Bigl(\frac{N(gz_2)}D\Bigr)}\widehat\Phi\Bigl(\frac{HN(h)}{N(e)N(z_1)N(z_2)}\Bigr),
+\end{aligned}
+\]
+where starred variables are squarefree, primary and prime to $S$, and $h,k$ range over nonzero elements of $\OO$. We must show $|\mathcal S_\xi|\ll\|W\|^2_{C^{J'}(I)}HD^\varepsilon$.
+
+\emph{Removing the coprimality of the columns.} Insert $\ind_{(z_1,z_2)=1}=\sum_{v\mid z_1,v\mid z_2}\mu(v)$ and put $z_j=vm_j$. By~\eqref{eq:b:crta} the common factor satisfies $a_\xi(vm)=a_\xi(v)a_\xi(m)\chi_m(v)^4$ and $|a_\xi(v)\chi_v(he^5)|^2=\ind_{(v,h)=1}$, with $(v,e)=1$. Thus
+\begin{multline*}
+  \mathcal S_\xi=\frac H{D^2}\sfstar_{\substack{g,v\\(g,v)=1}}\sum_{e\mid g}\frac{\mu(e)\mu(v)N(g)}{N(e)}\sum_{\substack{h\ne0\\(h,v)=1}}\sfstar_{\substack{m_1,m_2\\(m_1m_2,gv)=1}}a_\xi(m_1)\overline{a_\xi(m_2)}\\
+  \times\chi_{m_1}(he^5v^4)\overline{\chi_{m_2}(he^5v^4)}\,W_0\Bigl(\frac{N(gvm_1)}D\Bigr)\overline{W_0\Bigl(\frac{N(gvm_2)}D\Bigr)}\widehat\Phi\Bigl(\frac{HN(h)}{N(e)N(v)^2N(m_1)N(m_2)}\Bigr),
+\end{multline*}
+with no restriction $(m_1,m_2)=1$ left. Make the bijective change of variables
+\[
+  b=g/e,\quad f=ev,\quad k=eh;\qquad e=(f,k),\quad v=f/e,\quad g=be,\quad h=k/e.
+\]
+Then $b,f$ are coprime and squarefree, $k\ne0$ is arbitrary, $gv=bf$, $he^5v^4=kf^4$, $\mu(e)\mu(v)=\mu(f)$ and $N(g)/N(e)=N(b)$, so
+\begin{multline}\label{eq:b:columnoutput}
+  \mathcal S_\xi=\frac H{D^2}\sfstar_{\substack{b,f\\(b,f)=1}}\mu(f)N(b)\sum_{k\ne0}\sfstar_{\substack{m_1,m_2\\(m_1m_2,b)=1}}a_\xi(m_1)\overline{a_\xi(m_2)}\chi_{m_1}(kf^4)\overline{\chi_{m_2}(kf^4)}\\
+  \times W_0\Bigl(\frac{N(bfm_1)}D\Bigr)\overline{W_0\Bigl(\frac{N(bfm_2)}D\Bigr)}\widehat\Phi\Bigl(\frac{HN(k)}{N(f)^2N(m_1)N(m_2)}\Bigr).
+\end{multline}
+The characters enforce $(m_j,f)=1$, so only the exclusion $(m_j,b)=1$ is displayed. The supports give $N(b)N(f)\le b_0D$ and $0<N(k)\le C_\Phi b_0^2D^2/(HN(b)^2)$.
+
+\emph{Dyadic ranges and the smooth weights.} Partition $B\le N(b)<2B$ and $F\le N(f)<2F$ dyadically, write $\mathcal S_{\xi;B,F}$ for the corresponding part of~\eqref{eq:b:columnoutput}, and put
+\[
+  X=\frac D{BF},\qquad\mathcal H=\frac{C_{I,\Phi}D^2}{HB^2},\qquad C_{I,\Phi}=\max(2,C_\Phi b_0^2),
+\]
+which satisfy~\eqref{eq:b:initialscales}. In the variables $x_j=N(m_j)/X$ the coupled weight is
+\[
+  \begin{gathered}
+  \mathcal K_{b,f,k}(x_1,x_2)=W_0(rx_1)\overline{W_0(rx_2)}\,\widehat\Phi\Bigl(\frac a{x_1x_2}\Bigr),\\
+  r=\frac{N(b)N(f)}{BF}\in[1,4),\qquad a=\frac{HN(k)}{N(f)^2X^2}\le C_{I,\Phi},
+  \end{gathered}
+\]
+and for every integer $q\ge0$ these kernels satisfy $\sup_{b,f,k}\|\mathcal K_{b,f,k}\|_{C^q([a_0/4,b_0]^2)}\ll_{I,\Phi,q}\|W\|^2_{C^q(I)}$. For $U\in C_c^\infty(I_*)$, $I_*=[a_0/8,2b_0]$, put
+\[
+  S_U(b,f,k)=\sfstar_{\substack{(n,S)=1\\(n,b)=1}}a_\xi(n)\chi_n(k)\chi_n(f)^4U(N(n)/X).
+\]
+The shifts $(X,F)\mapsto(X/N(d),FN(d))$ preserve~\eqref{eq:b:initialscales}, so Lemma~\ref{lem:b:remove} and the hypothesis~\eqref{eq:b:auxtarget} with $J=J(\vartheta,\varepsilon/4)$ give
+\[
+\begin{aligned}
+  \sum_{f,k}|S_U(b,f,k)|^2&=XF\,\En_{(b)}(\mathcal H,X,F;\xi,U)\\
+  &\le XF\tau_{\rm div}(b)\sum_{d\mid b}\En(\mathcal H,X/N(d),FN(d);\xi,U)\ll D^{\varepsilon/2}(XF)^2\|U\|^2_{C^J(I_*)},
+\end{aligned}
+\]
+the divisor factor being absorbed in $D^{\varepsilon/4}$ since $N(b)\ll_ID$. Now Lemma~\ref{lem:b:smoothms} below turns a mean-square bound for every common test function $U$ into a bound for the quadratic form with the row-dependent kernel $\mathcal K_{b,f,k}$, at the cost of the $C^{2J+4}$ norm of the kernel. Apply it for each fixed $b$ with row index $(f,k)$, coefficient $\mu(f)\ind_{(f,b)=1}$ and kernel $\mathcal K_{b,f,k}$; the larger row range $0<N(k)\le\mathcal H$ only adds rows whose kernel vanishes. With $q=2J+4$,
+\begin{multline}\label{eq:b:weighted}
+  |\mathcal S_{\xi;B,F}|\ll D^{\varepsilon/2}\|W\|^2_{C^q(I)}\sfstar_{B\le N(b)<2B}\frac{HN(b)}{D^2}(XF)^2\\
+  \ll D^{\varepsilon/2}\|W\|^2_{C^q(I)}\frac{HB^2(XF)^2}{D^2}=D^{\varepsilon/2}\|W\|^2_{C^q(I)}H,
+\end{multline}
+since $XF=D/B$ and there are $O(B)$ ideals $b$ in the range. Summing the $O((\log D)^2)$ nonempty dyadic ranges bounds $\mathcal S_\xi$, summing over the finite set of $\xi$ and adding $Z$ bounds $\mathcal M_D$, and multiplying by $D$ gives~\eqref{eq:b:ms}; the derivative order depends only on $\vartheta$ and $\varepsilon$.
+\end{proof}
+
+\subsection{The completed sums and the two inputs}\label{ssec:b:inputs}
+
+Put $\Sigma=XF$. The dual mean square is bounded by the following proposition, whose proof occupies Sections~\ref{ssec:b:inputs} to~\ref{ssec:b:transferproof}.
+
+\begin{proposition}\label{prop:b:canonical}
+Fix $\kappa>0$ and $C_0\ge1$, and suppose that
+\begin{equation}\label{eq:b:positivegap}
+  \mathcal H,X,F\ge1,\qquad\Sigma=XF\le D^{C_0},\qquad\mathcal H\le\Sigma D^{-\kappa}.
+\end{equation}
+For every $\varepsilon>0$ there is an integer $J=J(\kappa,C_0,\varepsilon)\ge1$ such that
+\begin{equation}\label{eq:b:canonical}
+  \En(\mathcal H,X,F;\xi,W)\ll_{I,\nu,S,\kappa,C_0,\varepsilon}\|W\|^2_{C^J(I)}D^\varepsilon\Sigma
+\end{equation}
+for every compact interval $I\subset(0,\infty)$ and every smooth $W$ supported in $I$.
+\end{proposition}
+
+\emph{The completed sums.} Let $\Psi$ be a completely multiplicative function on the ideals prime to $3$, vanishing on the ideals divisible by a prime of $S$, and write $\Psi(n)=\Psi((n))$ for primary $n$. Define
+\begin{equation}\label{eq:b:T}
+  T(X;\Psi)=\sfstar_{(n,S)=1}\ \sum_{\substack{b\equiv1\ (3)\\(b,S)=1}}\frac{\overline{\alpha(n)}\gamma_2(n)\Psi(n)\,\overline{\alpha(b)}^{\,3}\Psi(b)^3}{\sqrt{\NK n}\,\NK b}\,V_*\bigl(\NK n\,\NK b^3/X\bigr),\qquad V_*(y)=\sqrt y\,W(y),
+\end{equation}
+where $n$ is squarefree and $b$ is any primary element prime to $S$. The index $b$ supplies the cubes that occur in the Fourier expansion of the cubic theta function, and the $b=1$ part is $X^{-1/2}\sfstar_n\overline{\alpha(n)}\gamma_2(n)\Psi(n)W(\NK n/X)$. For a ray class character $\xi$, a nonzero row $k\in\OO$ and a squarefree primary $f$ prime to $S$ put
+\begin{equation}\label{eq:b:completedtwist}
+  \Psi_k(n)=\xi(n)\chi_n(k)\chi_n(f)^4\ \text{ for }(n,S)=1,\quad\Psi_k(n)=0\ \text{ otherwise},\quad T(X;k,f)=T(X;\Psi_k),
+\end{equation}
+so that the $b=1$ part of $T(X;k,f)$ is $X^{-1/2}$ times the column sum of~\eqref{eq:b:energy}.
+
+\emph{The completed mean-square estimate.} The theta transformation turns the sextic twists of $\Psi_k$ into quadratic characters, and the quadratic large sieve then gives the following estimate, proved in Section~\ref{ssec:b:squarefreerows}.
+
+\begin{proposition}\label{prop:b:R}
+Fix $\varepsilon>0$, $C_0\ge1$ and a character $\xi$ of the fixed ray class group. There is $J=J(\varepsilon,C_0)\ge1$ such that
+\begin{equation}\label{eq:b:R}
+  \sum_{0<\NK k\ll\mathcal H}|T(X;k,f)|^2\ll_{I,\xi,S,\varepsilon,C_0}D^\varepsilon\|W\|^2_{C^J(I)}\Bigl(\mathcal H+\frac{\mathcal H^2\NK f}X\Bigr)
+\end{equation}
+whenever $1\le\mathcal H,X,\NK f\le D^{C_0}$, for $f$ squarefree primary with $(f,S)=1$, $W$ smooth and supported in a compact $I\subset(0,\infty)$, and $T$ as in~\eqref{eq:b:completedtwist}.
+\end{proposition}
+
+\emph{Cube inversion.} Set
+\begin{equation}\label{eq:b:cubecutoff}
+  H_c^3=\min\Bigl(X,\frac{X^2}{\mathcal H^2}\Bigr),\qquad L_b=\frac X{\NK b^3}.
+\end{equation}
+
+\begin{lemma}\label{lem:b:cubereduction}
+Fix $C_0\ge1$ and $\varepsilon>0$, and suppose $1\le\mathcal H,X,F\le D^{C_0}$ and $\mathcal H\le\Sigma=XF$. There is an integer $J=J(\varepsilon,C_0)\ge1$ such that
+\begin{equation}\label{eq:b:cubereduction}
+  \En(\mathcal H,X,F;\xi,W)\ll_{I,\nu,S,C_0,\varepsilon}D^\varepsilon\Bigl(\Sigma\|W\|^2_{C^J(I)}+\sup_{\substack{b\equiv1\ (3),\ (b,S)=1\\\NK b>H_c,\ L_b>1}}\En(\mathcal H,L_b,F;\xi,W)\Bigr)
+\end{equation}
+for every compact $I\subset(0,\infty)$ and $W\in C_c^\infty(I)$. An empty supremum is zero, and it is empty when $\mathcal H^2\le X$.
+\end{lemma}
+
+\begin{proof}
+Write $N=\NK$ and $I=[u,v]$. Complete multiplicativity, including at the zeros of $\Psi_k$, gives the M\"obius inversion
+\begin{equation}\label{eq:b:cubeinverse}
+  X^{-1/2}\sfstar_{(n,S)=1}a_\xi(n)\chi_n(k)\chi_n(f)^4W(N(n)/X)=\sum_{(h,S)=1}\frac{\mu(h)\overline{\alpha(h)}^{\,3}\Psi_k(h)^3}{N(h)}\,T\bigl(X/N(h)^3;k,f\bigr):
+\end{equation}
+after substituting~\eqref{eq:b:T} the coefficient of the total cube index $b$ contains $\sum_{h\mid b}\mu(h)=\ind_{b=1}$.\footnote{The weight $w_k(b)=\overline{\alpha(b)}^3\Psi_k(b)^3$ is completely multiplicative, so $w_k(h)w_k(b/h)=w_k(b)$ even when $h$ and $b/h$ share prime factors, which is what makes the inversion exact; compare~\cite[(1.18)]{IK04} and~\cite[(8.2)]{DR}. One cannot simply discard the terms $b\ne1$ of $T$, because the contributions of different $b$ can cancel.}
+
+Split the right side into $P_{\rm short}(k,f)$, the terms with $N(h)\le H_c$, and $P_{\rm long}(k,f)$, the rest, and let $\En_{\rm short}$, $\En_{\rm long}$ be the corresponding mean squares $F^{-1}\sfstar_f\sum_k|P|^2$. Weighted Cauchy--Schwarz for each $k,f$ and Proposition~\ref{prop:b:R}, with the exponent $\varepsilon/4$ and the range $C_0+1$ (since $N(f)<2D^{C_0}$), give
+\begin{equation}\label{eq:b:shortcube}
+\begin{aligned}
+  \En_{\rm short}&\le\Bigl(\sum_{N(h)\le H_c}\frac1{N(h)}\Bigr)\sum_{N(h)\le H_c}\frac1{N(h)}\,\frac1F\sfstar_{\substack{F\le N(f)<2F\\(f,S)=1}}\sum_{0<N(k)\le\mathcal H}|T(X/N(h)^3;k,f)|^2\\
+  &\ll D^{\varepsilon/2}\|W\|^2_{C^J(I)}\Bigl(\mathcal H+\frac{\mathcal H^2FH_c^3}X\Bigr)\ll D^{\varepsilon/2}\Sigma\|W\|^2_{C^J(I)},
+\end{aligned}
+\end{equation}
+where $X/N(h)^3\ge1$, the reciprocal norm sum is a logarithm, and the last step uses $\mathcal H\le\Sigma$ and $H_c^3\le X^2/\mathcal H^2$. If $H_c<1$ the short sum is empty.
+
+In the long part expand $T$ by~\eqref{eq:b:T} with the cube index $c$, put $b=hc$, and note that the pairs giving $b$ are the $(h,b/h)$ with $h\mid b$, $N(h)>H_c$, and that $\Psi_k(b)^3=\xi(b)^3\chi_b(k)^3\ind_{(b,f)=1}$. This gives
+\[
+  \begin{gathered}
+  P_{\rm long}(k,f)=\sum_{\substack{(b,S)=1\\N(b)>H_c}}\frac{\beta_0(b,f)\chi_b(k)^3}{N(b)}\,\frac1{\sqrt{L_b}}\sfstar_{(n,S)=1}a_\xi(n)\chi_n(k)\chi_n(f)^4W(N(n)/L_b),\\
+  \beta_0(b,f)=\overline{\alpha(b)}^{\,3}\xi(b)^3\ind_{(b,f)=1}\sum_{\substack{h\mid b\\N(h)>H_c}}\mu(h),
+  \end{gathered}
+\]
+with $|\beta_0(b,f)|\le\tau_{\rm div}(b)$; the indices are primary and prime to $S$, $b$ need not be squarefree, and the support of $W$ restricts to $N(b)^3\le vX$. Weighted Cauchy--Schwarz gives
+\[
+  \En_{\rm long}\le\Bigl(\sum_{\substack{H_c<N(b)\le(vX)^{1/3}\\(b,S)=1}}\frac{\tau_{\rm div}(b)}{N(b)}\Bigr)\sum_{\substack{H_c<N(b)\le(vX)^{1/3}\\(b,S)=1}}\frac{\tau_{\rm div}(b)}{N(b)}\,\En(\mathcal H,L_b,F;\xi,W),
+\]
+and the reciprocal divisor sum is $\ll_I\log^2(2+X)$, because $\sum_{N(b)\le R}\tau_{\rm div}(b)/N(b)$ is at most $(\sum_{N(c)\le R}1/N(c))^2\ll\log^2(2R)$. If $L_b\le1$ the column sum is empty unless $L_b\ge1/v$, and then it has $O_I(1)$ terms, so $\En(\mathcal H,L_b,F;\xi,W)\ll_I(\mathcal H/L_b)\|W\|_\infty^2\ll_I\Sigma\|W\|_\infty^2$. Absorb the logarithms in $D^\varepsilon$ and use $\En\le2\En_{\rm short}+2\En_{\rm long}$. If $\mathcal H^2\le X$ then $H_c=X^{1/3}$ and $N(b)>H_c$ forces $L_b<1$, so the supremum is empty.
+\end{proof}
+
+\emph{The transfer estimate.} Fix a nonnegative radial Schwartz weight $\Phi$ with $\Phi\ge1$ on $[0,1]$ and $\operatorname{supp}\widehat\Phi\subset[0,C_\Phi]$, as in the proof of Proposition~\ref{prop:b:poissonreduction}. For fixed $\mathcal H,L,F,\xi$ put
+\begin{equation}\label{eq:b:smoothedenergy}
+  \mathcal A(W)=\frac1{LF}\sfstar_{\substack{F\le\NK f<2F\\(f,S)=1}}\ \sum_{k\in\OO}\Phi(\NK k/\mathcal H)\Bigl|\sfstar_{(n,S)=1}a_\xi(n)\chi_n(k)\chi_n(f)^4W(\NK n/L)\Bigr|^2,
+\end{equation}
+so that $\En(\mathcal H,L,F;\xi,W)\le\mathcal A(W)$. In the next proposition $\Sigma$ is an independent target scale; it will be applied at the column scale $L_b$ with $\Sigma=XF$.
+
+\begin{proposition}\label{prop:b:transfer}
+Assume $1\le\mathcal H,L,F,\Sigma\le D^{C_0}$ and $\max\{\mathcal H,LF\}\le\Sigma$, for a fixed $C_0\ge1$. For every integer $m\ge0$ and every $\varepsilon>0$,
+\begin{equation}\label{eq:b:transfersummary}
+  \mathcal A(W)\ll D^\varepsilon\Sigma\|W\|^2_{C^{4m+12}(I)}\Bigl(1+\sup\frac{\En(\mathcal H',X',F';\xi',U)}{\Sigma'}\Bigr),
+\end{equation}
+where the supremum is over the family~\eqref{eq:b:energy} with $\Sigma'=X'F'$, $\mathcal H',X',F'\ge1$,
+\begin{equation}\label{eq:b:transferscales}
+  \mathcal H'\le\frac{\mathcal HL}{\Sigma F},\qquad\frac{\mathcal H'}{\Sigma'}\le\frac{\mathcal H}\Sigma,\qquad\Sigma'\le L,
+\end{equation}
+and, for $I=[u,v]$, test functions $U\in C_c^\infty(I')$, $I'=[u/16,4v]$, with $\|U\|_{C^m(I')}\le1$; an empty supremum is zero. The implied constant depends on $m,C_0,\varepsilon,I,\nu,S$ and the fixed ray class group.
+\end{proposition}
+
+The proposition is proved in Section~\ref{ssec:b:transferproof}.
+
+\subsection{Proof of Proposition~\ref{prop:b:canonical}}\label{ssec:b:canonicalproof}
+
+\begin{proof}
+Fix $\kappa>0$ and $C_0\ge1$. We prove by induction on $j\ge0$ that the proposition holds under the further restriction $\mathcal H\le D^{j\kappa}$, with a derivative order $J=J(j,\kappa,C_0,\varepsilon)$ and an implied constant depending also on $j$; the derivative order is independent of $I$, which is what allows the induction hypothesis to be applied on the enlarged interval of the transfer estimate.
+
+For $j=0$ we have $\mathcal H\le1$. The support of $W$ restricts $n$ to the $O_I(X)$ ideals with $\NK n\in[uX,vX]$, the factors $a_\xi(n)$, $\chi_n(k)$, $\chi_n(f)^4$ have modulus at most one, so each inner sum is $O_I(X\|W\|_\infty)$; there are $O(F)$ choices of $f$ and $O(\mathcal H)$ of $k$, whence $\En\ll_I(F\mathcal H/XF)(X\|W\|_\infty)^2=\mathcal HX\|W\|_\infty^2\le\Sigma\|W\|_\infty^2$, as $\mathcal H\le1\le F$. This is the case $j=0$ with $J=1$.
+
+Suppose the assertion holds for $j$, fix $\varepsilon>0$, and let $m$ be the derivative order supplied by the induction hypothesis with the exponent $\varepsilon/3$. For $\mathcal H\le D^{(j+1)\kappa}$ apply Lemma~\ref{lem:b:cubereduction} with the exponent $\varepsilon/3$. If its supremum is nonempty then $\mathcal H^2>X$ and $H_c^3=X^2/\mathcal H^2$. For each $b$ in it, $1<L_b\le X$ and $\Sigma\ge\max\{\mathcal H,L_bF\}$, so Proposition~\ref{prop:b:transfer} applies at the column scale $L_b$ with the derivative order $m$ and the exponent $\varepsilon/3$, and it bounds $\En(\mathcal H,L_b,F;\xi,W)\le\mathcal A(W)$. For any parameters $\mathcal H',X',F'$ in its supremum, \eqref{eq:b:transferscales} and $\NK b>H_c$ give
+\[
+  \begin{gathered}
+  \mathcal H'\le\frac{\mathcal HL_b}{\Sigma F}=\frac{\mathcal H}{\NK b^3F^2}<\mathcal H\Bigl(\frac{\mathcal H}\Sigma\Bigr)^2\le D^{-2\kappa}\mathcal H\le D^{j\kappa},\\
+  \frac{\mathcal H'}{\Sigma'}\le\frac{\mathcal H}\Sigma\le D^{-\kappa},\qquad\Sigma'\le L_b\le\Sigma\le D^{C_0}.
+  \end{gathered}
+\]
+Each of these mean squares is therefore covered by the induction hypothesis, on the interval $[u/16,4v]$ with a weight of $C^m$ norm at most one, which gives $\En(\mathcal H',X',F';\xi',U)/\Sigma'\ll D^{\varepsilon/3}$ with the permitted dependence on $I$. Substituting into~\eqref{eq:b:transfersummary} gives, uniformly in $b$, $\En(\mathcal H,L_b,F;\xi,W)\ll D^{2\varepsilon/3}\Sigma\|W\|^2_{C^{4m+12}(I)}$, and substituting this into~\eqref{eq:b:cubereduction} gives the remaining factor $D^{\varepsilon/3}$. Take $J$ at least $4m+12$ and at least the order required by Lemma~\ref{lem:b:cubereduction}; then $\En(\mathcal H,X,F;\xi,W)\ll D^\varepsilon\Sigma\|W\|^2_{C^J(I)}$, with $J$ depending only on $j,\kappa,C_0,\varepsilon$. If the supremum is empty the bound follows from the lemma alone. This completes the induction, and $j=\lceil C_0/\kappa\rceil$ covers every $\mathcal H\le\Sigma\le D^{C_0}$.\footnote{The contraction is the point of the whole construction: each passage through the cube inversion and the transfer estimate divides the row range by at least $D^{2\kappa}$ while keeping the ratio $\mathcal H/\Sigma$, so that after $O(C_0/\kappa)$ steps the row range is at most $1$ and trivial counting finishes. This is the admissible-exponent induction of~\cite[Lemma~8 and \S8]{HB95}, \cite[Lemma~9]{HB00}; see also~\cite[Theorem~4.1]{GL}.}
+\end{proof}
+
+\subsection{Proof of Proposition~\ref{prop:b:ms}}\label{ssec:b:completion}
+
+\begin{proof}
+Fix $0<\vartheta\le1/10$ and $H=D^{1+\vartheta}$. The ranges~\eqref{eq:b:initialscales} give
+\[
+  \mathcal H\le\frac{CD^{1-\vartheta}}{B^2},\qquad\Sigma=XF=\frac DB,\qquad\frac{\mathcal H}\Sigma\ll D^{-\vartheta}.
+\]
+For large $D$, Proposition~\ref{prop:b:canonical} applies with $\kappa=\vartheta/2$ and $C_0=2$. If $X<1$ a nonempty support forces $X\gg_I1$ and counting gives $\En\ll_I\mathcal H\|W\|_\infty^2\ll\Sigma\|W\|_\infty^2$; if $\mathcal H<1$ the sum is empty. So~\eqref{eq:b:auxtarget} holds with a derivative order depending only on $\vartheta,\varepsilon$, and Proposition~\ref{prop:b:poissonreduction} gives~\eqref{eq:b:ms}; bounded $D$ is covered by counting.
+\end{proof}
+
+\subsection{The cubic theta function and its transformation}\label{ssec:b:theta}
+
+We now express the completed sum $T(X;k,f)$ through the Fourier coefficients of Kubota's cubic theta function, whose automorphy will give a transformation formula for it. Write $(z,v)\in\C\times\R_{>0}$ for the coordinates of upper half-space, and use the theta function in the normalisation of Dunn and Radziwi\l\l~\cite[\S5.1, (5.6)]{DR}:
+\begin{equation}\label{eq:b:thetadef}
+  \theta(z,v)=\frac{3^{5/2}}2v^{2/3}+\sum_{\substack{\ell\in\lambda^{-3}\OO\\\ell\ne0}}\tau(\ell)\,vK_{1/3}(4\pi|\ell|v)\exp\bigl(2\pi i(\ell z+\overline{\ell z})\bigr),
+\end{equation}
+where $K_{1/3}$ is the modified Bessel function of the second kind and $\tau(\ell)$ is the coefficient sequence given explicitly in~\cite[(5.7)--(5.8)]{DR} from Patterson's calculation~\cite[Theorem~8.1]{Pat77}.\footnote{The theta function is the residue at its first pole of Kubota's cubic metaplectic Eisenstein series on $\mathrm{SL}_2(\C)$~\cite{Kub69}; Patterson computed its Fourier coefficients and found cubic Gauss sums at the squarefree indices. Everything we use about it is the coefficient formula~\eqref{eq:b:thetacoeff}, the automorphy under the congruence subgroup $\Gamma(3)$ with Kubota's character $\kappa$, the invariance under $\mathrm{SL}_2(\Z)$ and under the translations by $\Z+3\OO$, and the cusp expansions~\eqref{eq:b:cuspcoeff}, all taken from~\cite{DR} and~\cite{Pat77}.} For primary $n,b$ with $n$ squarefree and $(nb,6)=1$ write $c_\theta(nb^3)$ for the coefficient of $\bar\theta$ at the index $\lambda^{-3}nb^3$; Patterson's formula, as recorded in~\cite[(5.7)]{DR}, is
+\begin{equation}\label{eq:b:thetacoeff}
+  c_\theta(nb^3)=3^{5/2}|b|\,\overline{\chi_n(\lambda)^2}\,\gamma_2(n).
+\end{equation}
+Define $\phi_k(n)=\chi_n(\lambda)^2\Psi_k(n)$ for primary $n$ prime to $S$ and $\phi_k(n)=0$ otherwise, and the twisted series
+\begin{equation}\label{eq:b:twistedtheta}
+  \Theta_k(z,v)=\sum_{\substack{\ell\in\lambda^{-3}\OO\\\ell\ne0}}\overline{\tau(-\ell)}\,\phi_k(\lambda^3\ell)\,vK_{1/3}(4\pi|\ell|v)\exp\bigl(2\pi i(\ell z+\overline{\ell z})\bigr),
+\end{equation}
+whose coefficients are those of $\bar\theta$, namely $\overline{\tau(-\ell)}$ at $\ell$, multiplied by $\phi_k(\lambda^3\ell)$. Choose $q\in\OO\setminus\{0\}$ such that $\phi_k$ is periodic modulo $(q)$ and put $\widehat\phi_k(h)=\NK q^{-1}\sum_{n\bmod q}\phi_k(n)e(-hn/q)$.
+
+\begin{lemma}\label{lem:b:realization}
+With these definitions,
+\begin{equation}\label{eq:b:Ttheta}
+  \begin{gathered}
+  T(X;k,f)=\frac1{3^{5/2}\sqrt X}\sum_{\substack{n,b\equiv1\ (3)\\n\ {\rm squarefree}\\(nb,S)=1}}c_\theta(nb^3)\phi_k(nb^3)\overline{\alpha(nb^3)}\,W\Bigl(\frac{\NK(nb^3)}X\Bigr),\\
+  \Theta_k(z,v)=\sum_{h\in\OO/(q)}\widehat\phi_k(h)\,\overline{\theta(z+\lambda^2h/q,v)}.
+  \end{gathered}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+By~\eqref{eq:b:thetacoeff} and complete multiplicativity, $c_\theta(nb^3)\phi_k(nb^3)=3^{5/2}|b|\gamma_2(n)\Psi_k(n)\Psi_k(b)^3$, and $\overline{\alpha(nb^3)}=\overline{\alpha(n)}\,\overline{\alpha(b)}^3$; substitution into~\eqref{eq:b:T} with $V_*(y)=\sqrt yW(y)$ gives the first identity. For the second, finite Fourier inversion gives $\phi_k(n)=\sum_h\widehat\phi_k(h)e(nh/q)$ and $\sum_h\widehat\phi_k(h)=\phi_k(0)=0$; multiplying the $\ell$th Fourier mode by $e(\lambda^3\ell h/q)$ translates $z$ by $\lambda^2h/q$, and the second identity cancels the constant terms of the translates.
+\end{proof}
+
+\emph{The local factors.} For a primary prime $p\notin S$, $j\in\{0,\dots,5\}$ and $x\in\OO$ define
+\begin{equation}\label{eq:b:localfactors}
+  B_{p,j}(x)=\begin{cases}\chi_p(x)^{-j-2},&j\ne0,4,\\ \NK p^{-1/2}\bigl(-1+\NK p\,\ind_{p\mid x}\bigr),&j=4,\\ \NK p^{-1/2}\chi_p(x)^{-2},&j=0.\end{cases}
+\end{equation}
+The case that matters most is $B_{p,1}(x)=\chi_p(x)^3$, a quadratic character. For the weight $V_*$ of~\eqref{eq:b:T} put $\widehat V_*(s)=\int_0^\infty V_*(x)x^s\dd x/x$, write $\int_{(\sigma)}$ for the integral up the line $\Re t=\sigma$, and define the transformed weight
+\begin{equation}\label{eq:b:thetaweight}
+  V_*^\sharp(x)=\frac1{2\pi i}\int_{(0)}\widehat V_*(-t)\,\frac{\Gamma(7/6+t)\Gamma(5/6+t)}{\Gamma(7/6-t)\Gamma(5/6-t)}\Bigl(\frac{(2\pi)^4x}{27}\Bigr)^{-t}\dd t\qquad(x>0).
+\end{equation}
+The dual sums use the Fourier coefficients of $\bar\theta$ at three cusps. With the representatives
+\begin{equation}\label{eq:b:cusps}
+  \gamma_0=I,\qquad\gamma_+=\begin{pmatrix}1&0\\\omega&1\end{pmatrix},\qquad\gamma_-=\begin{pmatrix}1&0\\\omega^2&1\end{pmatrix}
+\end{equation}
+acting on upper half-space, define $d_\sigma(\ell)$, $\sigma\in\{0,+,-\}$, by the expansions~\cite[(5.9), (5.15)]{DR}
+\begin{equation}\label{eq:b:cuspcoeff}
+  \overline{\theta(\gamma_\sigma(z,v))}=\frac{3^{5/2}}2\ind_{\sigma=0}v^{2/3}+\sum_{0\ne\ell\in\lambda^{-4}\OO}d_\sigma(\ell)\,vK_{1/3}(4\pi|\ell|v)\exp\bigl(2\pi i(\ell z+\overline{\ell z})\bigr),
+\end{equation}
+so that $d_0(\ell)=\overline{\tau(-\ell)}$ with $\tau$ extended by zero outside $\lambda^{-3}\OO$, and $c_\theta(nb^3)=d_0(\lambda^{-3}nb^3)$. The formulas for the three sequences are~\eqref{eq:b:cuspfourier} and~\eqref{eq:b:conjcusp} below.
+
+We state the transformation for a general product of local twists. Fix a ray class character with conductor supported on $S$ and let $\Psi_0$ be its extension by zero at the primes of $S$; let $\mathcal P$ be a finite set of primes outside $S$, represented by primary generators, with exponents $0\le j_p\le5$, and put $\Psi(n)=\Psi_0(n)\prod_{p\in\mathcal P}\chi_p^{j_p}(n)$ for primary $n$. In the transformed sums, $\mathcal A$ ranges over the subsets with $\{p:j_p\ne0\}\subseteq\mathcal A\subseteq\mathcal P$; the primes of $\mathcal A$ are called \emph{active}, the others \emph{inactive}, so only primes with $j_p=0$ can be inactive. For such $\mathcal A$ and $c_0\in\OO\setminus\{0\}$ write $c=c_0\prod_{p\in\mathcal A}p$.
+
+\begin{proposition}\label{prop:b:reflection}
+The sum $T(X;\Psi)$ of~\eqref{eq:b:T} is a sum of $O_{\Psi_0,S}(2^{|\mathcal P|})$ terms of the form
+\begin{equation}\label{eq:b:reflection}
+  C\sum_{0\ne\ell\in\lambda^{-4}\OO}\frac{d(\ell)\alpha(\ell)}{\sqrt{\NK\ell}}\,\psi(\lambda^4\ell)\prod_{p\in\mathcal A}B_{p,j_p}(\lambda^4\ell)\,V_*^\sharp\Bigl(\frac{\NK\ell\,X}{\NK c^2}\Bigr),
+\end{equation}
+with $|C|\ll_{\Psi_0,S}1$, where the triples $(d,\psi,c_0)$ belong to a fixed finite family depending only on $\Psi_0,S$: $d\in\{d_0,d_+,d_-\}$, $c_0\in\OO\setminus\{0\}$, and $\psi$ is a unit-modulus additive character of $\OO$.
+\end{proposition}
+
+To average over the row we need the data to be chosen consistently as the row varies. Fix a finite set $\mathcal P_{\rm fix}$ of primary primes outside $S$ with exponents $j_p$, and for $k_0$ primary, squarefree and prime to $S\prod_{p\in\mathcal P_{\rm fix}}p$ put
+\[
+  \Psi_{k_0}(n)=\Psi_0(n)\prod_{p\in\mathcal P_{\rm fix}}\chi_p^{j_p}(n)\prod_{p\mid k_0}\chi_p(n),\qquad\mathcal A=\mathcal A_{\rm fix}\cup\{p:p\mid k_0\},
+\]
+where $\mathcal A_{\rm fix}$ ranges over the subsets with $\{p\in\mathcal P_{\rm fix}:j_p\ne0\}\subseteq\mathcal A_{\rm fix}\subseteq\mathcal P_{\rm fix}$; every prime dividing $k_0$ is active since its exponent is $1$.
+
+\begin{lemma}[uniformity in the twist]\label{lem:b:uniformity}
+For the family $\Psi_{k_0}$ the summands of Proposition~\ref{prop:b:reflection} may be indexed by $(h,\mathcal A_{\rm fix})$ with $h$ in a fixed finite set depending only on $\Psi_0,S$, zero coefficients allowed, and for each index the triple $(d,\psi,c_0)$ depends on $k_0$ only through its ray class modulo a fixed ideal supported on $S$.
+\end{lemma}
+
+\begin{lemma}\label{lem:b:thetabounds}
+For each $d\in\{d_0,d_+,d_-\}$ the coefficient $d(\ell)$ vanishes unless
+\begin{equation}\label{eq:b:thetasupport}
+  \ell=u\lambda^mnb^3,\qquad u\in\OO^\times,\ m\in\Z,\ m\ge-4,\ n,b\ \text{primary},\ n\ \text{squarefree},
+\end{equation}
+and then $|d(\ell)|\le27\cdot3^{m/6}|b|$. For $A>0$, integers $j\ge0$ and $V_*$ supported in a fixed compact $I\subset(0,\infty)$ there is $J=J(A,j)$ with
+\begin{equation}\label{eq:b:weightdecay}
+  |(x\partial_x)^jV_*^\sharp(x)|\ll_{A,j,I}\|V_*\|_{C^J(I)}\min(x^{1/4},x^{-A})\qquad(x>0).
+\end{equation}
+\end{lemma}
+
+Proposition~\ref{prop:b:reflection} and the two lemmas are proved in Section~\ref{ssec:b:fixedray}.
+
+\subsection{The quadratic large sieve}\label{ssec:b:sieve}
+
+\begin{lemma}\label{lem:b:quadratic}
+Let $\mathcal H,U\ge1$ and let $\beta(n)$ be complex coefficients on squarefree primary $n$ with $\NK n\asymp U$. For every $\varepsilon>0$,
+\begin{equation}\label{eq:b:Q}
+  \sfstar_{\substack{k\equiv1\ (3),\ (k,S)=1\\\NK k\le\mathcal H}}\Bigl|\sum_{\substack{n\equiv1\ (3),\ n\ {\rm squarefree}\\\NK n\asymp U}}\beta(n)\chi_k(n)^3\Bigr|^2\ll_{S,\varepsilon}(\mathcal HU)^\varepsilon(\mathcal H+U)\sum_n|\beta(n)|^2,
+\end{equation}
+the star restricting $k$ to squarefree primary elements.
+\end{lemma}
+
+\begin{proof}
+This is the quadratic large sieve of Goldmakher and Louvel over number fields~\cite[Theorem~1.1]{GL}, a generalisation of Heath-Brown's~\cite{HB95}, after fixing the product of the prime factors of $n$ in $S$ and finitely many ray classes. To match their hypotheses, let $e_k\in\{0,1\}$ according as $\NK k\equiv1,3\pmod4$ and let $\kappa_\lambda$ be the nontrivial character modulo $\lambda$; the character $x\mapsto(x/k)_2\kappa_\lambda(x)^{e_k}$ is trivial on the units and has primitive conductor $k\lambda^{e_k}$. Classes modulo $24\OO$ fix the supplementary characters and the reciprocity factors, and for coprime $k_1,k_2$ in the same class the product character has conductor $k_1k_2$; these are the hypotheses of~\cite[Definition~1 and \S2]{GL}.\footnote{It is here that the passage from sextic to quadratic twists pays: the large sieve for quadratic characters has the factor $\mathcal H+U$, while the general higher-order large sieve of Blomer, Goldmakher and Louvel~\cite[Theorem~1.3]{BGL} carries the additional term $(\mathcal HU)^{2/3}$, which would not give the mean-square estimate needed.}
+\end{proof}
+
+\subsection{Squarefree rows and the proof of Proposition~\ref{prop:b:R}}\label{ssec:b:squarefreerows}
+
+Write $N=\NK$. In~\eqref{eq:b:completedtwist} allow any $g\in\OO\setminus\{0\}$ in place of $f$, so $\Psi_k(n)=\xi(n)\chi_n(k)\chi_n(g)^4$ with the zero extension at $S$ retained. Choose generators of the prime ideals, primary away from $3$, and extend multiplicatively to all ideals. We first bound the squarefree rows.
+
+\begin{lemma}\label{lem:b:squarefreecompleted}
+For every $\varepsilon>0$ and $C_0\ge1$ there is $J=J(\varepsilon,C_0)\ge1$ such that
+\begin{equation}\label{eq:b:squarefreecompleted}
+  \sum_{\substack{0<N(s)\le\mathcal H\\s\ {\rm squarefree}}}|T(X;u_0s,g)|^2\ll_{I,\xi,S,\varepsilon,C_0}D^\varepsilon\|W\|^2_{C^J(I)}\Bigl(\mathcal H+\frac{\mathcal H^2N(g)}X\Bigr)
+\end{equation}
+for $1\le\mathcal H,X,N(g)\le D^{C_0}$, $u_0\in\OO^\times$, every compact $I\subset(0,\infty)$ and $W\in C_c^\infty(I)$, the sum running over the chosen generators of the squarefree ideals, including those meeting $S$.
+\end{lemma}
+
+\begin{proof}
+By homogeneity assume $\|W\|_{C^J(I)}\le1$ with $J$ chosen below. Write $s=tk_0$ with $t$ the product of the primes $p\mid s$ that divide $g$ or lie in $S$; then $k_0$ is squarefree, primary, prime to $g$ and to $S$, and $N(k_0)\le\mathcal H_0:=\mathcal H/N(t)$. Fix $t$ and discard empty ranges, so $\mathcal H_0\ge1$. For a coefficient function $A(n,b)$, a scale $Y>0$ and an integer $m\ge-4$ put
+\begin{equation}\label{eq:b:preparedsum}
+  \mathscr S_m[A,Y](k_0)=\sum_{\substack{n,b\equiv1\ (3)\\n\ {\rm squarefree}}}\frac{A(n,b)\chi_{k_0}(nb)^3}{3^{m/3}\sqrt{N(n)}\,N(b)}\,V_*^\sharp\Bigl(\frac{3^mN(n)N(b)^3\mathcal H_0^2}{YN(k_0)^2}\Bigr).
+\end{equation}
+We shall show, after partitioning $k_0$ into fixed ray classes, that
+\[
+  T(X;u_0tk_0,g)=\sum_{\iota\in\mathcal I}\sum_{m\ge-4}c_{\iota,m}(k_0)\,\mathscr S_m[A_{\iota,m},Y_\iota](k_0),
+\]
+where $\mathcal I$ is independent of $k_0$, $|\mathcal I|\precbd1$, $|c_{\iota,m}(k_0)|\ll1$, $A_{\iota,m}$ is independent of $k_0$, and for some $a_\iota,Y_\iota>0$
+\begin{equation}\label{eq:b:conductorbound}
+  |A_{\iota,m}(n,b)|\ll a_\iota,\qquad a_\iota^2\le1,\qquad a_\iota^2Y_\iota\ll\frac{\mathcal H_0^2}XN(t)^2N(g);
+\end{equation}
+all column restrictions are included by extending $A_{\iota,m}$ by zero.
+
+\emph{The transformed terms.} Put $k=u_0tk_0$ and $\mathcal P=\{p\notin S:p\mid kg\}$. Sextic reciprocity~\eqref{eq:b:recip} gives
+\begin{equation}\label{eq:b:rowtwist}
+  \Psi_k(n)=\Psi_0(n)\prod_{p\in\mathcal P}\chi_p^{j_p}(n),\qquad j_p\equiv v_p(k)+4v_p(g)\pmod6,\quad0\le j_p\le5,
+\end{equation}
+where even for $j_p=0$ the factor $\chi_p^0(n)=\ind_{p\nmid n}$ keeps the zero extension at $p\mid kg$, and $\Psi_0$ contains $\xi$, the factors at $S$, the unit factors and $n\mapsto\mathcal R(n,\prod_{p\notin S}p^{v_p(k)})$. The fourth power at $g$ contributes no reciprocity sign and the factors at $S$ depend only on exponents modulo six, so $\Psi_0$ ranges over a fixed finite family. In the notation of Lemma~\ref{lem:b:uniformity} take $\mathcal P_{\rm fix}=\{p\notin S:p\mid tg\}$, so $\mathcal P=\mathcal P_{\rm fix}\sqcup\{p:p\mid k_0\}$ with the exponents on $\mathcal P_{\rm fix}$ fixed by $t,g$. Partitioning $k_0$ into fixed ray classes fixes $\Psi_0$ and, by the lemma, the data $d,\psi,c_0$ of each transformed term.
+
+Fix one transformed term, with active primes $\mathcal A_{\rm fix}$ away from $k_0$, and put $c_*=c_0\prod_{p\in\mathcal A_{\rm fix}}p$, so $c=c_*k_0$ in~\eqref{eq:b:reflection}. Write $\ell=u\lambda^mnb^3$ as in~\eqref{eq:b:thetasupport}. Every prime $p\mid k_0$ has $j_p=1$, so
+\begin{equation}\label{eq:b:residualquadratic}
+  B_{p,1}(u\lambda^{m+4}nb^3)=\chi_p(u\lambda^{m+4})^3\chi_p(nb)^3,
+\end{equation}
+because the exponent $-1-2\equiv3\pmod6$ and $\chi_p(b)^9=\chi_p(b)^3$, also for $p\mid b$ by the zero extension. The coefficient bound and the decay of Lemma~\ref{lem:b:thetabounds} make the transformed series absolutely convergent, so its terms may be regrouped. Set
+\[
+  A_{u,m}(n,b)=\frac{d(u\lambda^mnb^3)\alpha(u\lambda^mnb^3)\psi(u\lambda^{m+4}nb^3)}{3^{m/6}\sqrt{N(b)}},\qquad|A_{u,m}(n,b)|\le27.
+\]
+The transformed term is then
+\begin{multline*}
+  C(k_0)\sum_{u\in\OO^\times}\sum_{m\ge-4}\chi_{k_0}(u\lambda^{m+4})^3\sum_{\substack{n,b\equiv1\ (3)\\n\ {\rm squarefree}}}\frac{A_{u,m}(n,b)\chi_{k_0}(nb)^3}{3^{m/3}\sqrt{N(n)}\,N(b)}\\
+  \times\prod_{p\in\mathcal A_{\rm fix}}B_{p,j_p}(u\lambda^{m+4}nb^3)\,V_*^\sharp\Bigl(\frac{3^mN(n)N(b)^3X}{N(c_*)^2N(k_0)^2}\Bigr),\qquad|C(k_0)|\ll1.
+\end{multline*}
+The representation of $\ell$ is unique, since away from $\lambda$ the prime exponents of $\ell$ are $3v_p(b)$ or $1+3v_p(b)$. Apart from the quadratic character and the weight, the dependence on $k_0$ is a bounded scalar.
+
+\emph{The active primes away from $k_0$.} Fix $u,m$ and let $p\in\mathcal A_{\rm fix}$, $q=N(p)$. For $j_p=4$ the local factor is $B_{p,4}(u\lambda^{m+4}nb^3)=-q^{-1/2}+q^{1/2}\ind_{p\mid n}+q^{1/2}\ind_{p\nmid n,\,p\mid b}$. Let $A^{(p)}(n,b)$ contain all the other local factors and set $A^{(p,n)}(n,b)=\ind_{p\nmid n}A^{(p)}(pn,b)$, $A^{(p,b)}(n,b)=\ind_{p\nmid n}A^{(p)}(n,pb)$. The substitutions $n=pn'$ and $b=pb'$ give the exact identity
+\begin{multline*}
+  \mathscr S_m\bigl[A^{(p)}B_{p,4}(u\lambda^{m+4}\,\cdot\,),q^2Y\bigr](k_0)=-q^{-1/2}\mathscr S_m[A^{(p)},q^2Y](k_0)\\
+  +\chi_{k_0}(p)^3\mathscr S_m[A^{(p,n)},qY](k_0)+q^{-1/2}\chi_{k_0}(p)^3\mathscr S_m[A^{(p,b)},Y/q](k_0),
+\end{multline*}
+where in the second term $p\nmid n'$ preserves squarefreeness, in the third $p\nmid n$ is kept and $b'$ is unrestricted at $p$, both extracted phases have modulus one, and the factors $q^{1/2}$ cancel against $\sqrt{N(pn')}$ or leave $q^{-1/2}$ after the division by $N(pb')$. Let $a$ track a bound $|A(n,b)|\le27a$ and $Y$ the scale in~\eqref{eq:b:preparedsum}; before inserting the active primes, $a=1$ and $Y=N(c_0)^2\mathcal H_0^2/X$. Each active prime contributes $q^2$ to the squared conductor norm, and with this factor the updates are
+\[
+  (a^2,Y)\longmapsto\begin{cases}(a^2,q^2Y),&j_p\notin\{0,4\},\\(a^2/q,q^2Y),&j_p=0,\\(a^2/q,q^2Y),\ (a^2,qY),\ (a^2/q,Y/q),&j_p=4.\end{cases}
+\]
+So $a^2$ never increases. If $p\mid t$ and $p\notin S$ then $j_p$ is odd and $a^2Y$ costs at most $N(p)^2$; if $p\mid g$ and $p\nmid t$ the cost is $N(p)$ for $j_p=0,4$ and $N(p)^2$ for $j_p=2$, which needs $v_p(g)\ge2$. Hence
+\[
+  a^2Y\ll\frac{\mathcal H_0^2}X\prod_{\substack{p\mid t\\p\notin S}}N(p)^2\prod_{\substack{p\mid g\\p\nmid t,\ p\notin S}}N(p)^{v_p(g)}\le\frac{\mathcal H_0^2N(t)^2N(g)}X.
+\]
+Reindexing at distinct primes preserves the form and the zero extensions. By Lemma~\ref{lem:b:uniformity}, the transformed terms, the units and the at most three choices at each $p\in\mathcal A_{\rm fix}$ with $j_p=4$ form an index set whose size is divisor-bounded in $tg$, meaning bounded by $C\tau_{\rm div}(tg)^A$ for fixed $C,A$, hence $\ll_\varepsilon N(tg)^\varepsilon$. This is the representation announced, with~\eqref{eq:b:conductorbound}.
+
+\emph{The mean square of one prepared sum.} Fix $\iota$ and abbreviate $a=a_\iota$, $Y=Y_\iota$, $A_m=A_{\iota,m}$; the local updates give $Y\ll D^{C_1}$ with $C_1=C_1(C_0)$. Split $b$ into $B\le N(b)<2B$ and $n$ by a smooth dyadic partition $V(N(n)/U)$, $U,B\ge1$, with uniformly bounded cutoffs, and write for this part
+\[
+  \begin{gathered}
+  \mathscr S_{m;U,B}(k_0)=3^{-m/3}\sum_{B\le N(b)<2B}\frac{\chi_{k_0}(b)^3}{N(b)}F_b(k_0),\\
+  F_b(k_0)=\sum_{n\ {\rm squarefree}}\frac{A_m(n,b)\chi_{k_0}(n)^3}{\sqrt{N(n)}}V(N(n)/U)\,V_*^\sharp\Bigl(\frac{3^mN(n)N(b)^3\mathcal H_0^2}{YN(k_0)^2}\Bigr).
+  \end{gathered}
+\]
+Put $z_*=3^mUB^3/Y$ and fix a decay exponent $A>0$. With $m,U,B,Y$ fixed, Lemma~\ref{lem:b:smooth}, applied in the single variable $N(n)/U$, separates the weight from the column:
+\begin{equation}\label{eq:b:separatedcolumns}
+  \begin{gathered}
+  F_b(k_0)=\int_\R c_{b,k_0}(s)G_{b,s}(k_0)\dd s,\qquad G_{b,s}(k_0)=\sum_{\substack{n\ {\rm squarefree}\\N(n)\asymp U}}\frac{A_m(n,b)\chi_{k_0}(n)^3}{\sqrt{N(n)}}(N(n)/U)^{is},\\
+  |c_{b,k_0}(s)|\ll_{I,A}(1+z_*)^{-A}(1+|s|)^{-2},
+  \end{gathered}
+\end{equation}
+since the scale $R$ of~\eqref{eq:b:smoothpointwise} is $3^mUN(b)^3\mathcal H_0^2/(YN(k_0)^2)\ge z_*$ and Lemma~\ref{lem:b:thetabounds} supplies the derivative bounds, independently of $b,k_0,U,B,m$. Since $\sum_{N(n)\asymp U}N(n)^{-1}\ll1$, Lemma~\ref{lem:b:quadratic} gives, for any $\sigma>0$, $\sfstar_{N(k_0)\le\mathcal H_0}|G_{b,s}(k_0)|^2\ll_{S,\sigma}a^2(\mathcal H_0U)^\sigma(\mathcal H_0+U)$. Weighted Cauchy--Schwarz in the Mellin integral (Lemma~\ref{lem:b:recombine}) with the common majorant of~\eqref{eq:b:separatedcolumns}, and then in $b$ with $\sum_{B\le N(b)<2B}N(b)^{-1}\ll1$, give
+\begin{equation}\label{eq:b:preparedms}
+  \sfstar_{N(k_0)\le\mathcal H_0}|\mathscr S_{m;U,B}(k_0)|^2\ll_{I,S,A,\sigma}a^23^{-2m/3}(\mathcal H_0U)^\sigma(\mathcal H_0+U)(1+z_*)^{-2A}.
+\end{equation}
+Since $m\ge-4$ we have $U\le81Yz_*$, so $\mathcal H_0U\ll D^{C_0+C_1}(1+z_*)$. Choose $0<\sigma\le1$ small in terms of $\varepsilon_1>0$ and $C_0$, take $A=3$, and take square roots:
+\[
+  \Bigl(\sfstar_{N(k_0)\le\mathcal H_0}|\mathscr S_{m;U,B}(k_0)|^2\Bigr)^{1/2}\ll aD^{\varepsilon_1}3^{-m/3}\bigl(\sqrt{\mathcal H_0}+\sqrt U\bigr)\bigl(1+3^mUB^3/Y\bigr)^{-2}.
+\]
+The dyadic sums converge: for dyadic $U,B\ge1$ and $Z>0$, $\sum_{U,B}(1+UB^3/Z)^{-2}\ll\log^2(2+Z)$ and $\sum_{U,B}\sqrt U(1+UB^3/Z)^{-2}\ll\sqrt Z$. The triangle inequality in $\ell^2(k_0)$ and the geometric sum over $m\ge-4$ give
+\[
+  \Bigl(\sfstar_{N(k_0)\le\mathcal H_0}\Bigl|\sum_{m\ge-4}c_{\iota,m}(k_0)\mathscr S_m[A_m,Y](k_0)\Bigr|^2\Bigr)^{1/2}\ll aD^{\varepsilon_1}\bigl(\sqrt{\mathcal H_0}\log^2(2+Y)+\sqrt Y\bigr).
+\]
+Combining the divisor-bounded choices of $\iota$ with~\eqref{eq:b:conductorbound},
+\[
+  \sfstar_{N(k_0)\le\mathcal H_0}|T(X;u_0tk_0,g)|^2\precbd\max_\iota a_\iota^2(\mathcal H_0+Y_\iota)\ll\mathcal H_0+\frac{\mathcal H_0^2N(t)^2N(g)}X\le\mathcal H+\frac{\mathcal H^2N(g)}X.
+\]
+Sum over the fixed ray classes and over the divisor-bounded choices $t\mid\rad(g\prod_{\mathfrak p\in S}\mathfrak p)$, choosing $\varepsilon_1$ and the other small losses in terms of $\varepsilon$. The weight estimates use a fixed number $J=J(\varepsilon,C_0)$ of derivatives, and homogeneity restores $\|W\|^2_{C^J(I)}$.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:b:R}]
+Write $k=u_0sv^2$ uniquely with $s$ squarefree and $s,v$ among the chosen generators, no condition $(s,v)=1$ imposed. Since $8\equiv2\pmod6$, with the zero extensions, $\chi_n(u_0sv^2)\chi_n(f)^4=\chi_n(u_0s)\chi_n(fv^2)^4$, so $T(X;u_0sv^2,f)=T(X;u_0s,fv^2)$. Apply Lemma~\ref{lem:b:squarefreecompleted} with the row bound $\mathcal H/N(v)^2$ and $g=fv^2$, where $N(g)\le\mathcal HN(f)\le D^{2C_0}$, so with $2C_0$ in place of $C_0$:
+\begin{multline*}
+  \sum_{0<N(k)\le\mathcal H}|T(X;k,f)|^2=\sum_{u_0\in\OO^\times}\sum_{N(v)^2\le\mathcal H}\sum_{\substack{N(s)\le\mathcal H/N(v)^2\\s\ {\rm squarefree}}}|T(X;u_0s,fv^2)|^2\\
+  \ll D^\varepsilon\|W\|^2_{C^J(I)}\Bigl(\mathcal H+\frac{\mathcal H^2N(f)}X\Bigr)\sum_v\frac1{N(v)^2},
+\end{multline*}
+and the last sum is $\zeta_K(2)<\infty$.
+\end{proof}
+
+\subsection{Proof of the transfer proposition}\label{ssec:b:transferproof}
+
+Throughout this section $\mathcal H,L,F,\Sigma,\xi$ satisfy the hypotheses of Proposition~\ref{prop:b:transfer}, $\Phi$ and $C_\Phi$ are the weight and support bound fixed before~\eqref{eq:b:smoothedenergy}, $N=\NK$, $I=[u,v]$ and $I_*=[u/2,2v]$. The proof applies Poisson summation twice. The first application turns the Gauss-sum coefficients $a_\xi$ into M\"obius coefficients and produces a mean square of the shape~\eqref{eq:b:smoothedenergy} with the roles of rows and columns exchanged; the second turns the M\"obius coefficients back into Gauss-sum coefficients and returns to the family~\eqref{eq:b:energy}, with a row range at most $\mathcal HL/(\Sigma F)$. The enlargement by the factor $\Sigma/(LF)\ge1$ in the intermediate mean square is what makes the second step land in the required ranges.\footnote{This is the mechanism behind the second inequality of~\eqref{eq:b:transferscales}: the new ratio $\mathcal H'/\Sigma'$ equals $\mathcal H/(\Sigma FR)$ for a dyadic $R\ge1$, so it never exceeds the old ratio $\mathcal H/\Sigma$. The induction of Section~\ref{ssec:b:canonicalproof} needs exactly this monotonicity.} All ideal indices are prime to $S$ and are represented by their primary generators; a star on a sum additionally requires squarefreeness; the variables $k,h,y$ range over $\OO$.
+
+\emph{First application of Poisson summation.} For squarefree coprime $C,t$ and $d\mid C$ put
+\[
+  \ell=\frac L{N(C)N(t)},\qquad w_{C,d}=\frac{\mathcal HN(C)}{N(d)L^2F},\qquad Y_{C,d}=c_I\frac{\Sigma LFN(d)}{\mathcal HN(C)^2},
+\]
+where $c_I\ge\max(1,4C_\Phi v^2)$ is fixed, and retain only $\ell\ge1/(2v)$. For $U\in C_c^\infty(I_*)$ and a character $\xi_1$ of the fixed ray class group define
+\begin{equation}\label{eq:b:P}
+  p_y(n)=\mu(n)\xi_1(n)\ind_{(n,t)=1}\overline{\chi_n(y)}\chi_n(C)^4\chi_n(d),\qquad P_{C,d,t}(y;U)=\sfstar_np_y(n)U(N(n)/\ell),
+\end{equation}
+the notation $p_y$ suppressing the dependence on $C,d,t,\xi_1$, and the nonnegative form
+\begin{equation}\label{eq:b:firsttransferform}
+  \mathcal Q_{\xi_1}(U)=\sum_{\substack{C,t\ {\rm squarefree}\\(Ct,S)=1,\ (C,t)=1\\N(C)N(t)\le2vL}}\ \sum_{d\mid C}w_{C,d}\sum_y\Phi(N(y)/Y_{C,d})|P_{C,d,t}(y;U)|^2.
+\end{equation}
+The outer sums are finite and the sum over $y$ converges absolutely; $Y_{C,d}$ may be smaller than $1$.
+
+\begin{lemma}\label{lem:b:firsttransfer}
+Fix an integer $j\ge0$ and $\varepsilon_0>0$. If $M\ge0$ satisfies $\mathcal Q_{\xi_1}(U)\le M\|U\|^2_{C^j(I_*)}$ for every $U\in C_c^\infty(I_*)$ and every $\xi_1$, then $\mathcal A(W)\ll D^{\varepsilon_0}(\Sigma+M)\|W\|^2_{C^{2j+4}(I)}$.
+\end{lemma}
+
+\begin{proof}
+Expand the square in~\eqref{eq:b:smoothedenergy} and write $n_i=Cu_i$ with $C=(n_1,n_2)$, so that $(u_1,u_2)=(u_1u_2,C)=1$. The row character is $\chi_{u_1}\overline{\chi_{u_2}}$, primitive modulo $u_1u_2$, with the extra restriction $(k,C)=1$. Lemma~\ref{lem:b:poisson} introduces $d\mid C$ and a frequency $h$. The zero frequency requires $u_1=u_2=1$, so its contribution $Z$ satisfies
+\[
+  |Z|\ll\frac{\mathcal H}{LF}\sfstar_{F\le N(f)<2F}\sfstar_C|W(N(C)/L)|^2\ll_I\mathcal H\|W\|_\infty^2.
+\]
+For the other frequencies, the Chinese remainder theorem, \eqref{eq:b:convert1} and~\eqref{eq:b:quotient} give the paired identity
+\begin{equation}\label{eq:b:pairedfirstgauss}
+  a_\xi(u_1)\overline{a_\xi(u_2)}\gamma(\chi_{u_1}\overline{\chi_{u_2}})=\mu(u_1)\mu(u_2)(\xi G)(u_1u_2^{-1}).
+\end{equation}
+Expand $(\xi G)(z)=\sum_{\xi_1}\ell_{\xi_1}\xi_1(z)$ on the fixed ray class group, insert $\ind_{(u_1,u_2)=1}=\sum_{t\mid u_1,\,t\mid u_2}\mu(t)$ and put $u_i=tx_i$; squarefreeness imposes $(x_i,t)=1$ but no condition $(x_1,x_2)=1$ remains. The factors at $C,t$ cancel against their conjugates, leaving $\mu(d)\mu(t)$ and the restrictions $(f,Ct)=(h,t)=1$. Thus
+\begin{multline*}
+  \mathcal A(W)-Z=\sum_{\xi_1}\ell_{\xi_1}\sum_{\substack{C,t\ {\rm squarefree}\\(Ct,S)=1,\ (C,t)=1\\N(C)N(t)\le2vL}}\sum_{d\mid C}\mu(d)\mu(t)w_{C,d}\sfstar_{\substack{F\le N(f)<2F\\(f,Ct)=1}}\ \sum_{\substack{h\ne0,\ (h,t)=1\\N(h)\le C_\Phi v^2L^2N(d)/(\mathcal HN(C)^2)}}\\
+  \times\sfstar_{x_1,x_2}p_{hf^2}(x_1)\overline{p_{hf^2}(x_2)}\mathscr K_h\Bigl(\frac{N(x_1)}\ell,\frac{N(x_2)}\ell\Bigr),
+\end{multline*}
+where, for every $j_0\ge0$,
+\[
+  \begin{gathered}
+  \mathscr K_h(z_1,z_2)=(z_1z_2)^{-1/2}W(z_1)\overline{W(z_2)}\widehat\Phi\Bigl(\frac{\mathcal HN(h)N(C)^2}{L^2N(d)z_1z_2}\Bigr),\\
+  \sup_{C,d,h}\|\mathscr K_h\|_{C^{j_0}(I^2)}\ll_{I,\Phi,j_0}\|W\|^2_{C^{j_0}(I)}.
+  \end{gathered}
+\]
+Here $\chi_{x_i}(C)^4$ supplies $(x_i,C)=1$, the other zeros are supplied by $p_{hf^2}(x_i)$, and the range of $h$ comes from the support of $\widehat\Phi$. For fixed $C,d,t$ the map $(f,h)\mapsto y=hf^2$ has divisor-bounded multiplicity, and since $\Sigma/(LF)\ge1$ its nonzero image satisfies $N(y)\le4C_\Phi v^2L^2F^2N(d)/(\mathcal HN(C)^2)\le Y_{C,d}$. As $\Phi\ge1$ on $[0,1]$ and $\Phi\ge0$,
+\[
+  \sum_{C,t}\sum_{d\mid C}w_{C,d}\sum_{f,h}|P_{C,d,t}(hf^2;U)|^2\precbd\mathcal Q_{\xi_1}(U)\le M\|U\|^2_{C^j(I_*)}
+\]
+with the ranges above on the left. Lemma~\ref{lem:b:smoothms}, applied to the displayed expression for $\mathcal A(W)-Z$ with the kernel bound, gives $|\mathcal A(W)-Z|\ll D^{\varepsilon_0/2}M\|W\|^2_{C^{2j+4}(I)}$; together with $\mathcal H\le\Sigma$ this proves the lemma, the divisor losses being allocated within $\varepsilon_0$.
+\end{proof}
+
+\emph{Second application of Poisson summation.} Let $C,t$ be coprime squarefree primary elements prime to $S$, $d\mid C$, $\xi_1$ a character of the ray class group, $\ell,Y>0$ arbitrary scales and $U\in C_c^\infty(I_*)$ with $I_*=[a,b]\subset(0,\infty)$. Put
+\begin{equation}\label{eq:b:commonmobius}
+  \begin{gathered}
+  P(y)=\sfstar_{(n,S)=1}\mu(n)\xi_1(n)\ind_{(n,t)=1}\overline{\chi_n(y)}\chi_n(C)^4\chi_n(d)U(N(n)/\ell),\\
+  \mathcal M=\sum_{y\in\OO}\Phi(N(y)/Y)|P(y)|^2,
+  \end{gathered}
+\end{equation}
+so that $P(y)=P_{C,d,t}(y;U)$ with the scale $\ell$ now arbitrary. Put $U_0(x)=x^{-1/2}U(x)$ and expand $\xi_1(z)G(z^{-1})=\sum_{\xi'}c_{\xi'}\xi'(z)$ on the fixed ray class group. On the transformed side $g$ is the common divisor of the original columns, $e\mid g$ comes from the row exclusion, $w$ removes the remaining coprimality condition and $h$ is the nonzero Fourier frequency: $g,w$ range over squarefree primary elements prime to $S$, $e$ over the divisors of $g$ and $h$ over $\OO\setminus\{0\}$, subject to
+\[
+  (g,Ct)=(w,gCth)=1,\qquad N(gw)\le b\ell,\qquad N(h)\le\frac{C_\Phi b^2\ell^2N(e)}{YN(g)^2},
+\]
+conditions which make $tg/e$ and $Cew$ coprime and squarefree. For each such choice and each $\xi'$ the new column scale, coefficient and coupled weight are
+\begin{equation}\label{eq:b:commonpoissonoutput}
+  \begin{gathered}
+  X'=\frac\ell{N(gw)},\qquad a^\sharp(n)=a_{\xi'}(n)\ind_{(n,tg/e)=1}\chi_n(deh)\chi_n(Cew)^4,\\
+  \mathscr K(x_1,x_2)=U_0(x_1)\overline{U_0(x_2)}\widehat\Phi\Bigl(\frac{YN(h)N(g)^2}{N(e)\ell^2x_1x_2}\Bigr).
+  \end{gathered}
+\end{equation}
+Define also $Z=Y\widehat\Phi(0)\sfstar_{(g,CtS)=1}|U(N(g)/\ell)|^2\prod_{p\mid g}(1-N(p)^{-1})$.
+
+\begin{lemma}[second Poisson identity]\label{lem:b:secondpoisson}
+With these index ranges, and a star on $n_1,n_2$ restricting each index separately to squarefree primary elements,
+\begin{equation}\label{eq:b:secondpoisson}
+  \begin{gathered}
+  \mathcal M=Z+\sum_{g,e,w,h,\xi'}\frac{Y\mu(e)\mu(w)c_{\xi'}N(g)}{N(e)\ell}\sfstar_{(n_1n_2,S)=1}a^\sharp(n_1)\overline{a^\sharp(n_2)}\mathscr K\Bigl(\frac{N(n_1)}{X'},\frac{N(n_2)}{X'}\Bigr),\\
+  |Z|\ll_{I_*,\Phi}Y\ell\|U\|_\infty^2.
+  \end{gathered}
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Expand the square, put $g=(n_1,n_2)$ and $n_i=gz_i$. The nonzero terms satisfy $(z_1,z_2)=(z_1z_2,gCt)=(g,Ct)=1$ and $\overline{\chi_{n_1}(y)}\chi_{n_2}(y)=\ind_{(y,g)=1}\overline{\chi_{z_1}(y)}\chi_{z_2}(y)$. Apply Lemma~\ref{lem:b:poisson} to this character with exclusion $g$ and divisor $e\mid g$. Its zero frequency occurs exactly when $z_1=z_2=1$ and gives $Z$, whose bound follows by counting $g$. For the nonzero frequencies, \eqref{eq:b:convert2}, \eqref{eq:b:quotient} and the Chinese remainder theorem give
+\[
+  \mu(z_1)\mu(z_2)\xi_1(z_1)\overline{\xi_1(z_2)}\gamma(\overline{\chi_{z_1}}\chi_{z_2})=\sum_{\xi'}c_{\xi'}a_{\xi'}(z_1)\overline{a_{\xi'}(z_2)},
+\]
+and moreover $\chi_z(dh)\overline{\chi_z(e)}\chi_z(C)^4=\chi_z(deh)\chi_z(Ce)^4$ and
+\[
+  \frac{U(N(gz_1)/\ell)\overline{U(N(gz_2)/\ell)}}{\sqrt{N(z_1)N(z_2)}}=\frac{N(g)}\ell U_0\Bigl(\frac{N(gz_1)}\ell\Bigr)\overline{U_0\Bigl(\frac{N(gz_2)}\ell\Bigr)}.
+\]
+Hence
+\begin{multline*}
+  \mathcal M-Z=\sum_{\xi'}c_{\xi'}\sfstar_{(g,Ct)=1}\sum_{e\mid g}\frac{Y\mu(e)N(g)}{N(e)\ell}\sum_{h\ne0}\sfstar_{\substack{z_1,z_2,\ (z_1,z_2)=1\\(z_1z_2,gCt)=1}}a_{\xi'}(z_1)\overline{a_{\xi'}(z_2)}\\
+  \times\chi_{z_1}(deh)\overline{\chi_{z_2}(deh)}\chi_{z_1}(Ce)^4\overline{\chi_{z_2}(Ce)^4}\\
+  \times U_0\Bigl(\frac{N(gz_1)}\ell\Bigr)\overline{U_0\Bigl(\frac{N(gz_2)}\ell\Bigr)}\widehat\Phi\Bigl(\frac{YN(h)}{N(e)N(z_1)N(z_2)}\Bigr).
+\end{multline*}
+Insert $\ind_{(z_1,z_2)=1}=\sum_{w\mid z_1,\,w\mid z_2}\mu(w)$ and put $z_i=wn_i$, with $(w,gCt)=1$. By~\eqref{eq:b:crta} and the zero-extended characters,
+\[
+  \begin{gathered}
+  a_{\xi'}(wn)=a_{\xi'}(w)a_{\xi'}(n)\chi_n(w)^4\quad((w,n)=1),\qquad|a_{\xi'}(w)\chi_w(deh)\chi_w(Ce)^4|^2=\ind_{(w,h)=1},\\
+  \ind_{(n,gCtw)=1}\chi_n(deh)\chi_n(Cew)^4=\ind_{(n,tg/e)=1}\chi_n(deh)\chi_n(Cew)^4,
+  \end{gathered}
+\]
+so that
+\begin{multline*}
+  \mathcal M-Z=\sum_{\xi'}c_{\xi'}\sfstar_{\substack{g,w\\(g,Ct)=(w,gCt)=1}}\sum_{e\mid g}\frac{Y\mu(e)\mu(w)N(g)}{N(e)\ell}\sum_{\substack{h\ne0\\(h,w)=1}}\sfstar_{(n_1n_2,S)=1}a^\sharp(n_1)\overline{a^\sharp(n_2)}\\
+  \times U_0\Bigl(\frac{N(gwn_1)}\ell\Bigr)\overline{U_0\Bigl(\frac{N(gwn_2)}\ell\Bigr)}\widehat\Phi\Bigl(\frac{YN(h)}{N(e)N(w)^2N(n_1)N(n_2)}\Bigr),
+\end{multline*}
+with no remaining condition $(n_1,n_2)=1$. The column support gives $N(gw)\le b\ell$ and $N(z_1z_2)\le b^2\ell^2/N(g)^2$, so the support of $\widehat\Phi$ imposes the stated bound on $N(h)$; substituting~\eqref{eq:b:commonpoissonoutput} gives~\eqref{eq:b:secondpoisson}, with finitely many terms.
+\end{proof}
+
+\begin{lemma}\label{lem:b:secondtransfer}
+Let $I=[u,v]$, $I_*=[u/2,2v]$, $m\ge0$ an integer and $S_m$ the supremum in~\eqref{eq:b:transfersummary}, over test functions supported in $I'=[u/16,4v]$ with $C^m(I')$ norm at most one, an empty supremum being zero. Then for every $\varepsilon_0>0$ and $U\in C_c^\infty(I_*)$,
+\[
+  \mathcal Q_{\xi_1}(U)\ll D^{\varepsilon_0}\Sigma(1+S_m)\|U\|^2_{C^{2m+4}(I_*)}.
+\]
+\end{lemma}
+
+\begin{proof}
+Apply Lemma~\ref{lem:b:secondpoisson} with input length $\ell$, row scale $Y_{C,d}$, the same $C,d,t$ and the character $\xi_1$; $h$ is now the Fourier variable of the sum over $y$. The nonzero output has squarefree $g,w$, $e\mid g$, $(g,Ct)=(w,gCth)=1$, and with
+\[
+  r=tg/e,\qquad f'=Cew,\qquad k'=deh
+\]
+the pair $r,f'$ is coprime and squarefree and $a^\sharp(n)=a_{\xi'}(n)\ind_{(n,r)=1}\chi_n(k')\chi_n(f')^4$. Writing $X_0'$ for the individual column scale $X'$ of~\eqref{eq:b:commonpoissonoutput}, the length, the coefficient and the Fourier parameter simplify to
+\[
+  \begin{gathered}
+  X_0'=\frac\ell{N(g)N(w)}=\frac L{N(r)N(f')},\qquad w_{C,d}\frac{Y_{C,d}N(g)}{N(e)\ell}=\frac{c_I\Sigma N(r)}{L^2},\\
+  \frac{Y_{C,d}N(h)N(g)^2}{N(e)\ell^2}=\frac{c_I\Sigma FN(k')N(r)^2}{\mathcal HL}.
+  \end{gathered}
+\]
+The coupled kernel is therefore
+\[
+  \mathscr K_{r,f',k'}(x_1,x_2)=U_0(x_1)\overline{U_0(x_2)}\widehat\Phi\Bigl(\frac{c_I\Sigma FN(k')N(r)^2}{\mathcal HLx_1x_2}\Bigr),\qquad x_j=N(n_j)/X_0',
+\]
+and its nonzero support requires $N(r)N(f')\le2vL$ and
+\[
+  0<N(k')\le\frac{4C_\Phi v^2}{c_I}\,\frac{\mathcal HL}{\Sigma FN(r)^2}\le\frac{\mathcal HL}{\Sigma FN(r)^2},
+\]
+since $C_\Phi(2v)^2/c_I\le1$.
+
+For fixed $r,f',k'$ all preimages are obtained by choosing $t\mid r$, $f'=Cew$ with $e\mid k'$, $(w,k')=1$ and $d\mid(C,k')$, and setting $g=e(r/t)$, $h=k'/(de)$; the factorisation $f'=Cew$ is disjoint and squarefree. All preimages have the same kernel, since $Ctgw=rf'$ and the Fourier parameter depends only on $r,k'$, so the support restrictions discard only zero kernels. The choices $t\mid r$ contribute $\tau_{\rm div}(r)$. At a prime $p\mid f'$ the choices $p\mid C$, $p\mid e$, $p\mid w$ contribute $(1+\ind_{p\mid k'})-\ind_{p\mid k'}-\ind_{p\nmid k'}=\ind_{p\mid k'}$ to the sum of $\mu(e)\mu(w)$ over the preimages, the two choices inside the first term being $p\nmid d$ and $p\mid d$.\footnote{So the sum over preimages vanishes unless $f'\mid k'$, and then it equals $\tau_{\rm div}(r)$: the signs of the two Poisson summations cancel the M\"obius factors introduced by the coprimality conditions. This is why the transfer loses only a divisor function.} Let $\mathcal Z$ be the total zero-frequency contribution, the sum of the terms $Z$ of Lemma~\ref{lem:b:secondpoisson} with the weights $w_{C,d}$ and the ranges of~\eqref{eq:b:firsttransferform}. Regrouping before taking absolute values,
+\begin{multline*}
+  \mathcal Q_{\xi_1}(U)-\mathcal Z=\frac{c_I\Sigma}{L^2}\sum_{\xi'}c_{\xi'}\sum_{\substack{r,f'\ {\rm squarefree}\\(r,f')=1}}N(r)\tau_{\rm div}(r)\sum_{\substack{k'\ne0\\f'\mid k'}}\\
+  \times\sfstar_{n_1,n_2}a^\sharp(n_1)\overline{a^\sharp(n_2)}\mathscr K_{r,f',k'}\Bigl(\frac{N(n_1)}{X_0'},\frac{N(n_2)}{X_0'}\Bigr).
+\end{multline*}
+
+Fix dyadic ranges $R\le N(r)<2R$ and $F'\le N(f')<2F'$ and put
+\[
+  X'=\frac L{RF'},\qquad\Sigma'=X'F'=\frac LR,\qquad\mathcal H'=\frac{\mathcal HL}{\Sigma FR^2}.
+\]
+Retain only the $r$ for which a nonzero term occurs in these ranges. Since $f'\mid k'$, each such $r$ satisfies $F'\le N(f')\le N(k')\le\mathcal HL/(\Sigma FN(r)^2)$; in particular $\mathcal H'\ge1$, and for every $j\mid r$, using $\mathcal H\le\Sigma$,
+\begin{equation}\label{eq:b:childcolumn}
+  \frac{X'}{N(j)}\ge\frac{\Sigma FN(r)^2}{\mathcal HRN(j)}\ge\frac{F\Sigma}{\mathcal H}\ge1.
+\end{equation}
+Moreover $1\le X'/X_0'<4$. The rescaled kernels $\mathcal K_{r,f',k'}(x_1,x_2)=\mathscr K_{r,f',k'}(\rho x_1,\rho x_2)$, $\rho=X'/X_0'$, have support in $[u/8,2v]^2\subset\operatorname{int}(I'^2)$ and satisfy, over the retained indices of the block,
+\[
+  \sup\|\mathcal K_{r,f',k'}\|_{C^{2m+4}(I'^2)}\ll_{I_*,m,\Phi}\|U\|^2_{C^{2m+4}(I_*)},
+\]
+by the Schwartz bounds for $\widehat\Phi$. The common parameters satisfy exactly
+\[
+  \frac{\mathcal H'}{\Sigma'}=\frac{\mathcal H}{\Sigma FR}\le\frac{\mathcal H}\Sigma,\qquad\Sigma'\le L,\qquad\mathcal H'\le\frac{\mathcal HL}{\Sigma F}.
+\]
+Fix $\delta>0$. For each retained $r$ enlarge the $f',k'$ ranges by positivity, keeping the set of $r$ fixed. Lemma~\ref{lem:b:remove} then gives, for $V\in C_c^\infty(I')$,
+\begin{multline*}
+  \sfstar_{F'\le N(f')<2F'}\ \sum_{0<N(k')\le\mathcal H'}\Bigl|\sfstar_na^\sharp(n)V(N(n)/X')\Bigr|^2=\Sigma'\En_{(r)}(\mathcal H',X',F';\xi',V)\\
+  \ll_\delta D^\delta(\Sigma')^2S_m\|V\|^2_{C^m(I')}:
+\end{multline*}
+the removal of the exclusion replaces $(X',F')$ by $(X'/N(j),F'N(j))$, $j\mid r$, preserving $\mathcal H'$ and $\Sigma'$, and~\eqref{eq:b:childcolumn} gives $X'/N(j)\ge1$ and $F'N(j)\ge1$, so every resulting mean square lies in the defining supremum. There are $O(R)$ ideals $r$ in the dyadic range. Lemma~\ref{lem:b:smoothms} with row index $(r,f',k')$, the preceding mean-square bound and the uniform kernel bound show that the block contributes at most
+\[
+  D^{2\delta}\frac{\Sigma R}{L^2}R(\Sigma')^2S_m\|U\|^2_{C^{2m+4}(I_*)}=D^{2\delta}\Sigma S_m\|U\|^2_{C^{2m+4}(I_*)},
+\]
+because $(\Sigma R/L^2)R(L/R)^2=\Sigma$. Finally, the zero-frequency bound of Lemma~\ref{lem:b:secondpoisson} gives
+\begin{multline*}
+  |\mathcal Z|\ll_{I_*,\Phi}\|U\|_\infty^2\sum_{N(Ct)\le2vL}\sum_{d\mid C}w_{C,d}Y_{C,d}\ell\\
+  \ll_{I_*}\Sigma\|U\|_\infty^2\sum_C\frac{\tau_{\rm div}(C)}{N(C)^2}\sum_{N(t)\le2vL}\frac1{N(t)}\ll_{I_*,\delta}D^\delta\Sigma\|U\|_\infty^2,
+\end{multline*}
+which uses only $Y_{C,d}>0$. Sum the $O_{I_*,C_0}(\log^2(2D))$ dyadic blocks and the finite set of characters, and take $\delta=\varepsilon_0/4$.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:b:transfer}]
+Lemma~\ref{lem:b:secondtransfer}, with the loss $D^{\varepsilon/4}$, supplies the hypothesis of Lemma~\ref{lem:b:firsttransfer} with $j=2m+4$ and with $M\ll D^{\varepsilon/4}\Sigma(1+S_m)$; that lemma with the same loss gives $\mathcal A(W)\ll D^{\varepsilon/2}\Sigma(1+S_m)\|W\|^2_{C^{4m+12}(I)}$, which is~\eqref{eq:b:transfersummary}.
+\end{proof}
+
+\subsection{The theta transformation with fixed ray class twists}\label{ssec:b:fixedray}
+
+We prove Proposition~\ref{prop:b:reflection}, Lemma~\ref{lem:b:uniformity} and Lemma~\ref{lem:b:thetabounds}. The argument is the theta-transformation method of Dunn and Radziwi\l\l~\cite[\S5 and Appendix~A]{DR}, which extends Patterson~\cite{Pat77} and Yoshimoto~\cite{Yos87}; what is added is the treatment of the fixed ray class twists, in which the residue $h_0$ below need not be prime to the modulus, and the uniformity statements. We use the setting preceding the proposition: $\Psi_0$ and $S$ are fixed, $\mathcal P$ is the varying finite set of primes outside $S$ and $j_p$ are the exponents of their character factors in $\Psi$. Character powers follow the zero-extension convention of the footnote in Section~\ref{ssec:b:notation}, so that $\chi_p^0(x)=\ind_{p\nmid x}$, also when we write $\chi_p(x)^j$. Write $w=(z,v)$ for a point of upper half-space, $\theta$ for the function~\eqref{eq:b:thetadef}, and $\breve e(z)=\exp(2\pi i(z+\bar z))$ for the additive character of the Fourier expansions, so that $e(z)=\breve e(z/\lambda)$.
+
+\begin{proof}[Proof of Proposition~\ref{prop:b:reflection} and Lemmas~\ref{lem:b:uniformity} and~\ref{lem:b:thetabounds}]
+\emph{Finite Fourier expansion.} Define $\phi(n)=\chi_n(\lambda)^2\Psi_0(n)$ for $n\equiv1\pmod3$ prime to $S$ and $\phi(n)=0$ otherwise, and for $\Psi(n)=\Psi_0(n)\prod_{p\in\mathcal P}\chi_p^{j_p}(n)$ put
+\begin{equation}\label{eq:b:generaltheta}
+  \Theta_\Psi(z,v)=\sum_{\substack{\ell\in\lambda^{-3}\OO\\\ell\ne0}}\overline{\tau(-\ell)}\phi(\lambda^3\ell)\Bigl(\prod_{p\in\mathcal P}\chi_p^{j_p}(\lambda^3\ell)\Bigr)vK_{1/3}(4\pi|\ell|v)\breve e(\ell z),
+\end{equation}
+which recovers $\Theta_k$ of~\eqref{eq:b:twistedtheta} when $\Psi=\Psi_k$. Choose once and for all a nonzero $L\in\OO$ with prime divisors in $S$, divisible by the conductor of $\Psi_0$, by every prime of $S$ and by sufficiently high powers of the primes above $2$ and $3$. The supplementary law of cubic reciprocity for $\lambda$~\cite[(1.5)]{DR}, which evaluates $\chi_n(\lambda)^2=(\lambda/n)_3$, makes $\phi$ periodic modulo $L$. Put $\widehat\phi(h_0)=\NK(L)^{-1}\sum_{x\bmod L}\phi(x)e(-h_0x/L)$ for $h_0\in\OO/(L)$, so $|\widehat\phi(h_0)|\le1$. For $p\in\mathcal P$ and $0\le j\le5$ expand $\chi_p^j$ on $\OO/(p)$ in additive characters,
+\begin{equation}\label{eq:b:localfourier}
+  C_{p,j}(h_p)=\frac1{\NK(p)}\sum_{y\bmod p}\chi_p^j(y)e(-h_py/p),\qquad\chi_p^j(x)=\sum_{h_p\in\OO/(p)}C_{p,j}(h_p)e(h_px/p).
+\end{equation}
+Multiplying over $p\in\mathcal P$ and evaluating at $x=\lambda^3\ell$ turns each additive character into a shift of $\bar\theta$: writing $\boldsymbol h=(h_0,(h_p)_{p\in\mathcal P})$,
+\begin{equation}\label{eq:b:factorizedshifts}
+  \Theta_\Psi(z,v)=\sum_{\boldsymbol h}c_{\rm F}(\boldsymbol h)\overline{\theta(z+z_{\boldsymbol h},v)},\quad z_{\boldsymbol h}=\lambda^2\Bigl(\frac{h_0}L+\sum_{p\in\mathcal P}\frac{h_p}p\Bigr),\quad c_{\rm F}(\boldsymbol h)=\widehat\phi(h_0)\prod_{p\in\mathcal P}C_{p,j_p}(h_p).
+\end{equation}
+Indeed, expanding the fixed factor $\phi$ as well, the finite Fourier expansions identify all nonzero Fourier coefficients, and the constant terms of the translates cancel because $\sum_{\boldsymbol h}c_{\rm F}(\boldsymbol h)=\phi(0)\prod_p\chi_p^{j_p}(0)=0$. For $j\not\equiv0\pmod6$ the change $y\mapsto-y$ gives $\NK(p)^{-1/2}\sum_{y\bmod p}\chi_p(y)^je(-y/p)=\chi_p(-1)^j\gamma_j(p)$ with $|\gamma_j(p)|=1$; substituting $y=h_p^{-1}u$ for $h_p\ne0$, using orthogonality for $h_p=0$, $j\ne0$, and summing the additive character over the nonzero residues for $j=0$,
+\begin{equation}\label{eq:b:rayfourier}
+  C_{p,j}(h_p)=\begin{cases}\NK(p)^{-1/2}\chi_p(-1)^j\gamma_j(p)\chi_p(h_p)^{-j},&j\ne0,\ h_p\ne0,\\0,&j\ne0,\ h_p=0,\\-\NK(p)^{-1},&j=0,\ h_p\ne0,\\1-\NK(p)^{-1},&j=0,\ h_p=0.\end{cases}
+\end{equation}
+Call $\mathcal A(\boldsymbol h)=\{p\in\mathcal P:h_p\ne0\}$ the set of active primes of $\boldsymbol h$. By~\eqref{eq:b:rayfourier}, $c_{\rm F}(\boldsymbol h)\ne0$ forces $\{p:j_p\ne0\}\subseteq\mathcal A(\boldsymbol h)$, so only primes with $j_p=0$ can be inactive, as the proposition asserts. Put $r=\prod_{p\in\mathcal A(\boldsymbol h)}p$ and let $c_0$ be the reduced denominator of $\lambda^2h_0/L$. At each active prime $v_p(\lambda^2h_p/p)=-1$ while $v_p(z_{\boldsymbol h}-\lambda^2h_p/p)\ge0$, so $p$ cannot cancel from the denominator, and at the primes dividing $L$ all the terms $\lambda^2h_p/p$ are integral. Hence the reduced denominator of $z_{\boldsymbol h}$ is $c=c_0r$ up to a unit, also when $(h_0,L)\ne1$. The expansion~\eqref{eq:b:factorizedshifts} thus writes $\Theta_\Psi$ as $O_L(2^{|\mathcal P|})$ groups of translates, indexed by $h_0\in\OO/(L)$ and the active set $\mathcal A$, each group with a common reduced denominator $c=c_0\prod_{p\in\mathcal A}p$ up to a unit.
+
+\emph{Reduced denominators and cusp coefficients.} Each translate $\overline{\theta(z+z_{\boldsymbol h},v)}$ is now expressed through one of the three cusp expansions~\eqref{eq:b:cuspcoeff}. The representatives $\gamma_0,\gamma_+,\gamma_-$ of~\eqref{eq:b:cusps} are $\gamma_1,\gamma_{10},\gamma_{19}$ in the numbering of~\cite[\S5.1]{DR}, which follows~\cite[Table~II]{Pat77}. Set $M=\lambda^{12}L^4$. Since $(p,M)=1$ for active $p$, the Chinese remainder theorem lets us choose representatives $h_p\in\OO$ with $h_p\equiv0\pmod{M^2}$; changing a representative modulo $p$ changes $z_{\boldsymbol h}$ by an element of $\lambda^2\OO=3\OO$, under which $\theta$ is periodic. To track the dependence on the primes of $r$, restrict $r$ to a residue class modulo $M^2$. For fixed $h_0$, active set and residue class write $z_{\boldsymbol h}=a/c$ in lowest terms, with $a\equiv1\pmod3$ if $\lambda\mid c$ and $c\equiv1\pmod3$ otherwise. Since $a=\lambda^2c(h_0/L+\sum_{p\mid r}h_p/p)$, these choices fix the residue of $a$ modulo $Mc_0$. As $(a,c)=1$ and $(r,M)=1$, choose $\delta'\in\OO$ with $a\delta'\equiv1\pmod{q^{v_q(Mc_0)}}$ for $q\mid c_0$, $\delta'\equiv0\pmod{q^{v_q(M)}}$ for $q\mid M$, $q\nmid c_0$, and $a\delta'\equiv1\pmod r$, and put
+\[
+  b_g=\frac{a\delta'-1}c,\qquad g=\begin{pmatrix}a&b_g\\c&\delta'\end{pmatrix}\in\mathrm{SL}_2(\OO),
+\]
+so that $b_g\equiv0\pmod{q^{v_q(M)}}$ for $q\mid c_0$ and $b_g\equiv-c^{-1}\pmod{q^{v_q(M)}}$ for $q\mid M$, $q\nmid c_0$. To choose the cusp expansion at $a/c$ put
+\[
+  H=\begin{cases}I,&3\mid c,\\\bigl(\begin{smallmatrix}1&0\\u_0&1\end{smallmatrix}\bigr),&v_\lambda(c)=1,\ u_0\in\{\lambda,-\lambda\},\ u_0\equiv c\pmod3,\\\bigl(\begin{smallmatrix}u_0&-1\\1&0\end{smallmatrix}\bigr),&(c,\lambda)=1,\ u_0\equiv a\pmod3,\end{cases}
+\]
+with $u_0$ in the last case taken from a fixed set of representatives modulo $3$, and put $g_1=gH^{-1}$, so $g=g_1H$ and $g_1\equiv I\pmod3$, as in~\cite[\S5.1]{DR}. The invariances $\theta(\gamma w)=\theta(w)$ for $\gamma\in\mathrm{SL}_2(\Z)$ and $\theta(z+t,v)=\theta(z,v)$ for $t\in\Z+3\OO$ reduce $\bar\theta(Hw)$ to one of the three functions $\overline{\theta(\gamma_\sigma w)}$, $\sigma\in\{0,-,+\}$: translating by $\omega$ or $-\omega$ and then inverting gives the representatives labelled $-$ and $+$~\cite[(5.9)--(5.15), Appendix~A]{DR}. Write $t_\sigma(\ell)$ for the coefficient of $vK_{1/3}(4\pi|\ell|v)\breve e(\ell z)$ in $\theta(\gamma_\sigma w)$ and let $\tau_1,\tau_2:\lambda^{-4}\OO\setminus\{0\}\to\C$ be the sequences of~\cite[(5.13), (5.14)]{DR}. Patterson's cusp calculation~\cite[Theorem~8.1 and Table~III]{Pat77} gives
+\begin{equation}\label{eq:b:cuspfourier}
+  t_0(\ell)=\tau(\ell),\qquad t_-(\ell)=\omega^2\tau_1(\omega^2\ell)\breve e(\ell),\qquad t_+(\ell)=\omega\tau_2(\omega\ell)\breve e(\ell),
+\end{equation}
+and complex conjugation changes the frequency $\ell$ to $-\ell$, so in the normalisation~\eqref{eq:b:cuspcoeff}
+\begin{equation}\label{eq:b:conjcusp}
+  d_\sigma(\ell)=\overline{t_\sigma(-\ell)},\qquad\sigma\in\{0,+,-\}.
+\end{equation}
+For indices $\ell=u\lambda^mnb^3$ as in~\eqref{eq:b:thetasupport} the explicit formulas give $|t_0(\ell)|\le3^{k/2+2}|b|$ for $m=3k-4$, $k\ge1$, and $|t_0(\ell)|\le3^{k/2+5/2}|b|$ for $m=3k-3$, $k\ge0$, while the $m=-4$ coefficients of $t_\pm$ have magnitude at most $9|b|$; in each case the bound is at most $27\cdot3^{m/6}|b|$, and the coefficients vanish outside the indices~\eqref{eq:b:thetasupport}.\footnote{At the index $\lambda^{-3}nb^3$ with $n$ squarefree the coefficient is $3^{5/2}|b|$ times a Gauss sum of modulus one, by~\eqref{eq:b:thetacoeff}, so the bound $27\cdot3^{m/6}|b|$ is attained up to the constant at $m=-3$. The growth $|b|$ in the cube part is the reason for the factor $N(b)^{-1}$ in the completed sums~\eqref{eq:b:completedtwist}, which makes the cube variable harmless.} This proves the coefficient assertions of Lemma~\ref{lem:b:thetabounds}. For the chosen $H$, with $\sigma$ the corresponding index,
+\[
+  \overline{\theta(H(z,v))}=\frac{3^{5/2}}2\ind_{\sigma=0}v^{2/3}+\sum_{0\ne\ell\in\lambda^{-4}\OO}d_\sigma(\ell)vK_{1/3}(4\pi|\ell|v)\breve e(\ell z).
+\]
+
+\emph{The local character transformation.} The factorisation $g=g_1H$ lets us apply the automorphy law $\theta(g_1w)=\kappa(g_1)\theta(w)$, $\kappa(g_1)=(c_1/a_1)_3$ for $g_1=\bigl(\begin{smallmatrix}a_1&b_1\\c_1&d_1\end{smallmatrix}\bigr)\equiv I\pmod3$, where $\kappa$ is Kubota's cubic character~\cite[(5.4), (5.6)]{DR}. For the translated theta function,
+\begin{equation}\label{eq:b:cuspautomorphy}
+  \begin{gathered}
+  \overline{\theta(z+a/c,v)}=\overline{\kappa(g_1)}\,\overline{\theta\bigl(Hg^{-1}(z+a/c,v)\bigr)},\\
+  g^{-1}(z+a/c,v)=\Bigl(-\frac{\delta'}c-\frac{\bar z}{c^2(v^2+|z|^2)},\frac v{\NK(c)(v^2+|z|^2)}\Bigr),
+  \end{gathered}
+\end{equation}
+so at $z=0$ the term of index $\ell$ in the expansion of $\bar\theta(Hw)$ acquires the phase $\breve e(-\delta'\ell/c)$. We claim
+\begin{equation}\label{eq:b:raymultiplier}
+  \kappa(g_1)=\begin{cases}(c_0/a)_3(a/r)_3,&3\mid c,\\(-u_0/(a-u_0b_g))_3\,((c_0/u_0)/a)_3\,(a/r)_3,&v_\lambda(c)=1,\\(a/c_0)_3(a/r)_3,&(c,\lambda)=1.\end{cases}
+\end{equation}
+This follows from the determinant equation and cubic reciprocity: for $v_\lambda(c)=1$ the needed congruences are $a(c-u_0\delta')\equiv-u_0\pmod{a-u_0b_g}$ and $b_gc\equiv-1\pmod a$; for $(c,\lambda)=1$ the congruence $-b_gc=1-a\delta'\equiv1\pmod9$ removes the supplementary factors and reciprocity at the remaining primes gives $(\delta'/(-b_gc))_3=1$. The factors other than $(a/r)_3$ depend only on the fixed residues at the primes of $S$, so $\kappa(g_1)=\kappa_0(a/r)_3=\kappa_0\prod_{p\mid r}\chi_p(a)^2$ with $|\kappa_0|=1$ fixed once $h_0$, the active set and $r\bmod M^2$ are fixed.
+
+Fix $h_0$ and the active set, so that $c=c_0r$ is fixed while the nonzero residues $h_p$ vary, and put $D_0=\lambda^3c_0$. For each active $p$ define in $\OO/(p)$
+\[
+  \sigma_p=\lambda^2c/p,\qquad\epsilon_p=-\bigl((\lambda^3c/p)\sigma_p\bigr)^{-1},
+\]
+the inverse existing because $r$ is squarefree and $p\nmid\lambda c_0$; the expression for $a$ gives $a\equiv\sigma_ph_p\pmod p$. For a dual index $\ell\in\lambda^{-4}\OO$ the additive form of the Chinese remainder theorem yields
+\begin{equation}\label{eq:b:rayadditivecrt}
+  \breve e(-\delta'\ell/c)=\psi(\lambda^4\ell)\prod_{p\mid r}e(\epsilon_ph_p^{-1}\lambda^4\ell/p),\qquad\psi(\lambda^4\ell)=e(-\delta_0'r^{-1}\lambda^4\ell/D_0),\ \ \delta_0'=\delta'\bmod D_0,
+\end{equation}
+where $\delta_0'$ and $r^{-1}\bmod D_0$ are fixed by the choices above, so $\psi$ ranges over a fixed finite family of additive characters of $\OO$. We claim the local transformation identity
+\begin{equation}\label{eq:b:raylocaltransform}
+  \begin{gathered}
+  \sum_{h_p\ne0}C_{p,j}(h_p)\chi_p(a)^{-2}e(\epsilon_ph_p^{-1}\lambda^4\ell/p)=\chi_p(\sigma_p)^{-2}\omega_{p,j}B_{p,j}(\lambda^4\ell),\\
+  \omega_{p,j}=\begin{cases}\chi_p(-1)^j\gamma_j(p)\gamma_{j+2}(p)\chi_p(\epsilon_p)^{-j-2},&j\ne0,4,\\\gamma_4(p),&j=4,\\-\gamma_2(p)\chi_p(\epsilon_p)^{-2},&j=0\ \text{active},\end{cases}
+  \end{gathered}
+\end{equation}
+with $B_{p,j}$ as in~\eqref{eq:b:localfactors}, the indices of $\gamma_j(p)$ read modulo six, and $|\omega_{p,j}|=1$ in each case. To prove it combine~\eqref{eq:b:rayfourier}, the conjugate of~\eqref{eq:b:raymultiplier} and~\eqref{eq:b:rayadditivecrt}; the substitution $y=h_p^{-1}$ changes the character exponent by $\chi_p(h_p)^{-j}\chi_p(a)^{-2}=\chi_p(\sigma_p)^{-2}\chi_p(y)^{j+2}$. For $j\ne0,4$ the character $\chi_p^{j+2}$ is nontrivial and its Gauss sum gives the first case of $B_{p,j}$. For $j=4$ it is trivial on the nonzero residues and, after rescaling by $\epsilon_p\ne0$, $\sum_{y\ne0}e(\lambda^4\ell y/p)=-1+\NK(p)\ind_{p\mid\lambda^4\ell}$. For active $j=0$ the coefficient $-\NK(p)^{-1}$ combines with a cubic Gauss sum to give $B_{p,0}(\lambda^4\ell)=\NK(p)^{-1/2}\chi_p(\lambda^4\ell)^{-2}$, the unit factors going into $\omega_{p,0}$. An inactive prime has $j=0$ and contributes only the scalar $1-\NK(p)^{-1}$. Consequently, for fixed $h_0$ and $\mathcal A$, combining the coefficients $d_\sigma(\ell)$ of $\overline{\theta(H(z,v))}$ with the sums over $h_p\ne0$ gives $d_\sigma(\ell)\psi(\lambda^4\ell)\prod_{p\in\mathcal A}B_{p,j_p}(\lambda^4\ell)$ up to a scalar independent of $\ell$: these are the arithmetic factors of~\eqref{eq:b:reflection}, and $B_{p,1}(\lambda^4\ell)=\chi_p(\lambda^4\ell)^3$ is the quadratic factor of~\eqref{eq:b:residualquadratic}.\footnote{This is the arithmetic heart of the method: a row twist $\chi_p$ of order six at an active prime is turned by the Fourier expansion and the Kubota multiplier into the twist $\chi_p^{-3}=\chi_p^3$ of order two on the dual side, to which the quadratic large sieve applies. The cubic part of the symbol is absorbed by the automorphy of $\theta$.}
+
+\emph{The archimedean transform.} For $\Re s>1$ introduce the Dirichlet series attached to~\eqref{eq:b:T},
+\[
+  \mathcal T(s,\Psi)=\Bigl(\sfstar_{\substack{n\equiv1\ (3)\\(n,S)=1}}\overline{\alpha(n)}\gamma_2(n)\Psi(n)\NK(n)^{-s}\Bigr)\Bigl(\sum_{\substack{b\equiv1\ (3)\\(b,S)=1}}\overline{\alpha(b)}^{\,3}\Psi(b)^3\NK(b)^{-3s+1/2}\Bigr),
+\]
+so that Mellin inversion gives
+\begin{equation}\label{eq:b:thetamellininversion}
+  T(X;\Psi)=\frac1{2\pi i}\int_{(\sigma)}\widehat V_*(s-\tfrac12)\mathcal T(s,\Psi)X^{s-1/2}\dd s\qquad(\sigma>1),
+\end{equation}
+and~\eqref{eq:b:Ttheta}, with $\Psi$ in place of $\Psi_k$, identifies these coefficients with those of $\Theta_\Psi$ after insertion of $\overline{\alpha(nb^3)}$. For $z=x+iy$ use $\partial_{\bar z}=(\partial_x+i\partial_y)/2$. Differentiation in $\bar z$ supplies a factor $\bar\ell$ in each Fourier mode, which with the factor $|\ell|^{-1}$ from the Bessel integral produces the angular factor $\overline{\alpha(\ell)}$. Define, for $\Re s>1$,
+\[
+  \mathcal J(s)=\int_0^\infty\partial_{\bar z}\Theta_\Psi(z,v)\Big|_{z=0}v^{2s-1}\dd v.
+\]
+For each nonzero mode, $\partial_{\bar z}\breve e(\ell z)=2\pi i\bar\ell\,\breve e(\ell z)$ and, by the Mellin integral of $K_{1/3}$~\cite[(10.43.19)]{DLMF},
+\begin{equation}\label{eq:b:besselmellin}
+  \int_0^\infty v^{2s}K_{1/3}(4\pi|\ell|v)\dd v=\frac{2^{2s-1}\Gamma(s+1/3)\Gamma(s+2/3)}{(4\pi|\ell|)^{2s+1}}\qquad(\Re s>0).
+\end{equation}
+For $\Re s>1$ the coefficient bounds and~\eqref{eq:b:besselmellin} show that the sum of the integrals of the absolute values is finite, so the differentiated series may be integrated term by term. For $\ell=\lambda^{-3}nb^3$ the phase and scale simplify to $i\overline{\alpha(\ell)}|\ell|^{-2s}=27^s\overline{\alpha(n)}\,\overline{\alpha(b)}^{\,3}\NK(n)^{-s}\NK(b)^{-3s}$, and with~\eqref{eq:b:thetacoeff}
+\begin{equation}\label{eq:b:raymellin}
+  \mathcal J(s)=\frac{3^{5/2}}4\Bigl(\frac{27}{(2\pi)^2}\Bigr)^s\Gamma(s+1/3)\Gamma(s+2/3)\mathcal T(s,\Psi).
+\end{equation}
+We show that $\mathcal J$ is entire and use~\eqref{eq:b:raymellin} to continue $\mathcal T(s,\Psi)$. Write $(z',v')=g^{-1}(z+a/c,v)$; differentiating~\eqref{eq:b:cuspautomorphy} at $z=0$ gives $\partial z'/\partial\bar z=-(cv)^{-2}$ and $\partial\overline{z'}/\partial\bar z=\partial v'/\partial\bar z=0$, so the derivative in cusp coordinates is $-(cv)^{-2}\partial_{z'}$, with no height derivative. The defining series~\eqref{eq:b:generaltheta} controls $v\to\infty$; for $v\to0$ use~\eqref{eq:b:cuspautomorphy} and the cusp expansions~\eqref{eq:b:cuspcoeff}, in which the horizontal derivative removes the constant mode, the remaining modes decaying exponentially in the transformed height $1/(\NK(c)v)\to\infty$. Thus $\mathcal J$ is entire, and so is $\mathcal T(s,\Psi)$ after division by the gamma factors.
+
+For the term indexed by $\boldsymbol h$ write $c_{\boldsymbol h},\delta'_{\boldsymbol h},g_{1,\boldsymbol h},H_{\boldsymbol h}$ for the choices above, $\sigma_{\boldsymbol h}$ for the cusp index of $H_{\boldsymbol h}$, and define the cusp Mellin transform
+\[
+  \mathcal J^\vee_{\boldsymbol h}(s)=\int_0^\infty\partial_z\bigl\{\overline{\theta(H_{\boldsymbol h}(z,v))}\bigr\}\Big|_{z=-\delta'_{\boldsymbol h}/c_{\boldsymbol h}}v^{2s-1}\dd v.
+\]
+Substituting $v\mapsto(\NK(c_{\boldsymbol h})v)^{-1}$ in each translated term of $\mathcal J(s)$ and using~\eqref{eq:b:cuspautomorphy} gives the functional equation
+\begin{equation}\label{eq:b:thetafunctional}
+  \mathcal J(s)=-\sum_{\boldsymbol h}c_{\rm F}(\boldsymbol h)\overline{\kappa(g_{1,\boldsymbol h})}\,\overline{\alpha(c_{\boldsymbol h})}^{\,2}\NK(c_{\boldsymbol h})^{1-2s}\mathcal J^\vee_{\boldsymbol h}(1-s),
+\end{equation}
+and the cusp coefficients with~\eqref{eq:b:besselmellin} give, for $\Re s>1$,
+\begin{equation}\label{eq:b:dualcuspseries}
+  \mathcal J^\vee_{\boldsymbol h}(s)=\frac{i\,\Gamma(s+1/3)\Gamma(s+2/3)}{4(2\pi)^{2s}}\sum_{0\ne\ell\in\lambda^{-4}\OO}\frac{d_{\sigma_{\boldsymbol h}}(\ell)\alpha(\ell)}{\NK(\ell)^s}\breve e(-\delta'_{\boldsymbol h}\ell/c_{\boldsymbol h}).
+\end{equation}
+The series $\mathcal T(s,\Psi)$ converges absolutely for $\Re s>1$, and the series of~\eqref{eq:b:dualcuspseries} at $1-s$ converges absolutely for $\Re s<0$; the functional equation and Stirling's formula~\cite[\S5.A.4]{IK04} give polynomial bounds in $|\operatorname{Im}s|$ for $\mathcal T(s,\Psi)$ on both sides of the strip $0\le\Re s\le1$, splitting the integral of $\mathcal J$ at $v=1$ gives finite order, and Phragm\'en--Lindel\"of~\cite[Theorem~5.53]{IK04} gives the same bound inside the strip (compare~\cite[Propositions~5.1--5.2]{DR}). With the rapid decay of $\widehat V_*$ on vertical lines this justifies moving the contour of~\eqref{eq:b:thetamellininversion} to $\Re s<0$, no pole being crossed; setting $t=\frac12-s$ gives a line $\Re t>1/2$ on which the dual series converges absolutely. For fixed $h_0$ and active set, insert~\eqref{eq:b:dualcuspseries} into~\eqref{eq:b:thetafunctional} and use~\eqref{eq:b:raylocaltransform} to sum over the nonzero $h_p$. After the normalisation~\eqref{eq:b:raymellin}, the scalar of~\eqref{eq:b:reflection} for this group is
+\[
+  C=-\frac i{81}\overline{\alpha(c)}^{\,2}\widehat\phi(h_0)\overline{\kappa_0}\prod_{p\ {\rm inactive}}(1-\NK(p)^{-1})\prod_{p\ {\rm active}}\chi_p(\sigma_p)^{-2}\omega_{p,j_p},\qquad|C|\le\frac1{81}.
+\]
+Dividing~\eqref{eq:b:raymellin} by its gamma factors and setting $t=\frac12-s$ produces the gamma quotient of~\eqref{eq:b:thetaweight}; its numerator has its first pole at $t=-5/6$ and its reciprocal denominator is entire, so no pole lies between $\Re t>1/2$ and $\Re t=0$, and the decay of $\widehat V_*$ with Stirling's formula allows the kernel contour to be shifted to $\Re t=0$. This gives $V_*^\sharp$ evaluated at $\NK(\ell)X/\NK(c)^2$ and, with~\eqref{eq:b:raylocaltransform}, the dual sum~\eqref{eq:b:reflection}.
+
+\emph{Uniformity.} For the family $\Psi_{k_0}$ of Lemma~\ref{lem:b:uniformity}, fix $h_0$, the factors of $\Psi$ other than $\chi_{k_0}$ and the active or inactive choices at their primes. Every prime dividing $k_0$ has exponent $1$ and is active, so $r=k_0\prod_{p\in\mathcal A_{\rm fix}}p$: $r/k_0$ is fixed, and fixing $k_0\bmod M^2$ fixes $r\bmod M^2$. The choices of $H$, $c_0$ and the residues in~\eqref{eq:b:rayadditivecrt} are then fixed in each such class, so $d=d_\sigma$, $\psi$ and $c_0$ depend on $k_0$ exactly as asserted.
+
+\emph{The weight.} The first numerator pole of the gamma quotient in~\eqref{eq:b:thetaweight} is at $t=-5/6$. Shift the kernel contour to $\Re t=-1/4$ for $0<x\le1$, which gives the factor $x^{1/4}$, and to $\Re t=A$ for $x\ge1$, which gives $x^{-A}$; each application of $x\partial_x$ introduces a factor $-t$, and Stirling's formula on $-1/4\le\Re t\le A$ gives, for $A>0$, $j\ge0$,
+\[
+  |(x\partial_x)^jV_*^\sharp(x)|\ll_{A,j}\min\{x^{1/4},(1+x)^{-A}\}\sup_{-A\le\eta\le1/4}\int_\R(1+|u|)^{\lceil4A\rceil+j+2}|\widehat V_*(\eta+iu)|\dd u.
+\]
+When $V_*$ is supported in a fixed compact $I\subset(0,\infty)$, repeated integration by parts in the Mellin transform gives rapid decay in $|u|$ uniformly in $-A\le\eta\le1/4$, so for $J=J(A,j)$ large enough the supremum is $\ll_{A,j,I}\|V_*\|_{C^J(I)}$. This is~\eqref{eq:b:weightdecay}, and it completes the proof of the three statements: $T(X;\Psi)$ is a sum of $O_{\Psi_0,S}(2^{|\mathcal P|})$ dual sums with $|C|\le1/81$, the asserted dependence of $(d,\psi,c_0)$, and the support, coefficient and weight bounds just established.
+\end{proof}
+
+\subsection{Separating variables in smooth weights}\label{ssec:b:weights}
+
+The last ingredients are three lemmas on smooth weights: the separation of variables by Mellin inversion, the passage from mean squares with a common test function to kernels depending on the row, and the recombination of separated sums.
+
+\begin{lemma}\label{lem:b:smooth}
+Fix a box $\mathcal I=I_1\times\dots\times I_d$ of compact intervals in $(0,\infty)$. Every $\mathcal K\in C_c^\infty((0,\infty)^d)$ supported in $\mathcal I$ has a representation
+\begin{equation}\label{eq:b:smoothseparation}
+  \mathcal K(\mathbf x)=\int_{\R^d}b(\mathbf t)\prod_{j=1}^dx_j^{it_j}\dd\mathbf t\qquad(x_j>0),
+\end{equation}
+and for $J\ge0$ and every even integer $q>J+d$, $\int_{\R^d}|b(\mathbf t)|(1+|\mathbf t|)^J\dd\mathbf t\ll_{\mathcal I,J,q,d}\|\mathcal K\|_{C^q(\mathcal I)}$.
+\end{lemma}
+
+\begin{proof}
+Take the Fourier transform in logarithmic coordinates,
+\[
+  b(\mathbf t)=(2\pi)^{-d}\int_{\R^d}\mathcal K(e^{y_1},\dots,e^{y_d})e^{-i\mathbf t\cdot\mathbf y}\dd\mathbf y;
+\]
+Fourier inversion gives~\eqref{eq:b:smoothseparation}. Since the intervals are fixed and bounded away from zero, the $C^q$ norm in logarithmic coordinates is bounded by a constant times $\|\mathcal K\|_{C^q(\mathcal I)}$, and applying $(1-\Delta_{\mathbf y})^{q/2}$ under the integral gives $|b(\mathbf t)|\ll_{\mathcal I,q,d}(1+|\mathbf t|)^{-q}\|\mathcal K\|_{C^q(\mathcal I)}$ for even $q\ge0$. Multiply by $(1+|\mathbf t|)^J$ and integrate.
+\end{proof}
+
+In the applications the weight has the form $\mathcal K_R(\mathbf x)=\prod_{j=1}^dW_j(x_j)F(R\prod_jx_j^{a_j})$ with $R>0$, fixed real exponents $a_j$, $W_j\in C_c^\infty((0,\infty))$ supported in $I_j$, and $F\in C^\infty((0,\infty))$ with
+\[
+  \|F\|_{A,q}=\max_{0\le m\le q}\sup_{u>0}(1+u)^A|(u\partial_u)^mF(u)|<\infty\qquad(A\ge0,\ q\in\Z_{\ge0}).
+\]
+On the fixed box the argument of $F$ is comparable to $R$, so the chain rule and the pointwise bound of the proof give coefficients $b_R$ with, for $A\ge0$ and even $q\ge0$,
+\begin{equation}\label{eq:b:smoothpointwise}
+  |b_R(\mathbf t)|\ll(1+R)^{-A}(1+|\mathbf t|)^{-q}\|F\|_{A,q}\prod_{j=1}^d\|W_j\|_{C^q(I_j)},
+\end{equation}
+and hence, for $J\ge0$ and even $q>J+d$,
+\begin{equation}\label{eq:b:smoothweightbound}
+  \int_{\R^d}|b_R(\mathbf t)|(1+|\mathbf t|)^J\dd\mathbf t\ll(1+R)^{-A}\|F\|_{A,q}\prod_{j=1}^d\|W_j\|_{C^q(I_j)},
+\end{equation}
+the constants depending only on $A,J,q,d$, the intervals and the exponents: separation preserves the decay in $R$ at the cost of finitely many derivatives.
+
+\begin{lemma}\label{lem:b:smoothms}
+Fix compact intervals $I\subset\operatorname{int}I_*$ in $(0,\infty)$ and an integer $m\ge0$. Let $S_{j,r}(U)=\sum_na_{j,r}(n)U(x_{j,r,n})$, $j=1,2$, $x_{j,r,n}>0$, be two families of finite sums over a finite set of rows $r$ with nonnegative weights $w_r$, and suppose $\sum_rw_r|S_{j,r}(U)|^2\le M_j\|U\|^2_{C^m(I_*)}$ for every $U\in C_c^\infty(I_*)$. Then for $|c_r|\le w_r$ and smooth kernels $\mathcal K_r$ supported in $I^2$,
+\begin{equation}\label{eq:b:coupledms}
+  \Bigl|\sum_rc_r\sum_{n_1,n_2}a_{1,r}(n_1)\overline{a_{2,r}(n_2)}\mathcal K_r(x_{1,r,n_1},x_{2,r,n_2})\Bigr|\ll_{I,I_*,m}\sqrt{M_1M_2}\sup_r\|\mathcal K_r\|_{C^{2m+4}(I^2)}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Choose a real $V\in C_c^\infty(I_*)$ equal to one on $I$ and put $U_t(x)=V(x)x^{it}$. Apply~\eqref{eq:b:smoothseparation} to each $\mathcal K_r$ with $d=2$, replace the second Mellin variable by its negative and multiply by $V(x)V(y)$, which is one on the support: $\mathcal K_r(x,y)=\int_{\R^2}b_r(s,t)U_s(x)\overline{U_t(y)}\dd s\dd t$ with $\sup_r|b_r(s,t)|\ll_{I,q}\sup_r\|\mathcal K_r\|_{C^q(I^2)}(1+|s|+|t|)^{-q}$ for even $q$. The hypothesis applies to each $U_t$ with $\|U_t\|_{C^m(I_*)}\ll_{I,I_*,m}(1+|t|)^m$. Taking the common bound for $b_r$ before integrating and applying Cauchy--Schwarz in $r$ bounds the left side of~\eqref{eq:b:coupledms} by a constant times $\sqrt{M_1M_2}\sup_r\|\mathcal K_r\|_{C^q(I^2)}\int_{\R^2}(1+|s|)^m(1+|t|)^m(1+|s|+|t|)^{-q}\dd s\dd t$, and $q=2m+4$ makes the integral converge.
+\end{proof}
+
+\begin{lemma}\label{lem:b:recombine}
+Let $r,\iota$ range over finite sets, $d\ge1$, $w_r\ge0$, and let measurable coefficients satisfy $|c_{\iota,r}(\mathbf t)|\le b_\iota(\mathbf t)$ with $M=\sum_\iota\int_{\R^d}b_\iota(\mathbf t)\dd\mathbf t<\infty$. Then for measurable $F_{\iota,\mathbf t}(r)$, whenever the right side is finite,
+\begin{equation}\label{eq:b:integralms}
+  \sum_rw_r\Bigl|\sum_\iota\int c_{\iota,r}(\mathbf t)F_{\iota,\mathbf t}(r)\dd\mathbf t\Bigr|^2\le M\sum_\iota\int b_\iota(\mathbf t)\sum_rw_r|F_{\iota,\mathbf t}(r)|^2\dd\mathbf t,
+\end{equation}
+and the same holds for finite sums in place of the integrals.
+\end{lemma}
+
+\begin{proof}
+For fixed $r$, weighted Cauchy--Schwarz gives
+\[
+  \Bigl|\sum_\iota\int c_{\iota,r}F_{\iota,\mathbf t}(r)\dd\mathbf t\Bigr|^2\le M\sum_\iota\int b_\iota|F_{\iota,\mathbf t}(r)|^2\dd\mathbf t;
+\]
+multiply by $w_r$ and sum.
+\end{proof}
+
+\subsection{Conclusion}\label{ssec:b:conclusion}
+
+The chain is now closed. Lemma~\ref{lem:b:squarefreecompleted} and Proposition~\ref{prop:b:R} rest on the theta transformation of Section~\ref{ssec:b:fixedray}, the quadratic large sieve of Section~\ref{ssec:b:sieve} and the weight lemmas of Section~\ref{ssec:b:weights}; Proposition~\ref{prop:b:transfer} rests on the two Poisson summations of Section~\ref{ssec:b:transferproof}; Proposition~\ref{prop:b:canonical} follows from these by the induction of Section~\ref{ssec:b:canonicalproof}; Proposition~\ref{prop:b:ms} follows in Section~\ref{ssec:b:completion}; and Section~\ref{ssec:b:reduction} deduces Theorem~\ref{thm:b:main} from Proposition~\ref{prop:b:ms}. Every input not proved here is a published theorem cited at the place where it is used: Patterson's computation of the Fourier coefficients of the cubic theta function~\cite{Pat77}, the transformation formulas of Dunn and Radziwi\l\l~\cite{DR}, the quadratic large sieve of Goldmakher and Louvel~\cite{GL}, Landau's prime ideal theorem~\cite{Lan03}, Hecke's analytic continuation of the $L$-functions of the field~\cite{Hec20}, and the standard facts on Gauss sums, Stirling's formula and Phragm\'en--Lindel\"of from~\cite{IK04}. Applied with $\theta=11/12$ to the Dirichlet $L$-functions $L(s,\chi\psi)$ of Corollary~\ref{cor:halfplane}, Theorem~\ref{thm:b:main} gives Theorem~\ref{thm:every}.
