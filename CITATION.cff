@@ -16,6 +16,7 @@ type: software
 license: Apache-2.0
 repository-code: "https://github.com/creelie/Breakthrough-problems-3"
 url: "https://github.com/creelie/Breakthrough-problems-3/releases/tag/v3.0.0"
+doi: 10.5281/zenodo.23672710
 version: 3.0.0
 date-released: 2026-10-26
 keywords:

@@ -51,13 +51,14 @@ The results were first made public on 15 October 2026 as release v1.0.0 of this 
 [10.5281/zenodo.23629139](https://doi.org/10.5281/zenodo.23629139),
 [10.5281/zenodo.23629649](https://doi.org/10.5281/zenodo.23629649),
 [10.5281/zenodo.23637263](https://doi.org/10.5281/zenodo.23637263),
-[10.5281/zenodo.23638793](https://doi.org/10.5281/zenodo.23638793) and
-[10.5281/zenodo.23671158](https://doi.org/10.5281/zenodo.23671158)); an earlier and incomplete
+[10.5281/zenodo.23638793](https://doi.org/10.5281/zenodo.23638793),
+[10.5281/zenodo.23671158](https://doi.org/10.5281/zenodo.23671158) and
+[10.5281/zenodo.23672710](https://doi.org/10.5281/zenodo.23672710)); an earlier and incomplete
 version of the paper appeared on Hexagon as [hexagon:2610.00256](https://hexagonmath.org/2610.00256)
 on 15 October 2026 and was revised there on 21 October 2026. That version claimed the bound
 for every character from the zero-free half-plane as an external input; release v2.0.0 proved
 everything else in full and stated the every-character bound separately on the machine-checked
-input; this version (v3.0.0) reproduces the proof of the half-plane in the paper, so that every
+input; this version (v3.0.0, [10.5281/zenodo.23672710](https://doi.org/10.5281/zenodo.23672710)) reproduces the proof of the half-plane in the paper, so that every
 statement is proved in the text.
 
 ## Layout
@@ -140,6 +141,7 @@ Python checks and attaches the paper files of `dist/`.
 
 | Release | DOI |
 | --- | --- |
+| v3.0.0 | [10.5281/zenodo.23672710](https://doi.org/10.5281/zenodo.23672710) |
 | v2.0.0 | [10.5281/zenodo.23671158](https://doi.org/10.5281/zenodo.23671158) |
 | v1.6.0 | [10.5281/zenodo.23638793](https://doi.org/10.5281/zenodo.23638793) |
 | v1.5.0 | [10.5281/zenodo.23637263](https://doi.org/10.5281/zenodo.23637263) |
