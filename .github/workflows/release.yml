@@ -1,19 +1,18 @@
 name: release
 
-# Run by hand from the Actions tab (or the API) after the PR is merged. It runs the four numerical
-# check programs again, then publishes a GitHub release with the paper files in dist/ and the notes
-# in .github/RELEASE_NOTES.md. Zenodo archives the release and mints a DOI if the repository is
-# switched on at https://zenodo.org/account/settings/github/. The Lean build (OpenAI's 2,900 modules
-# from source, several hours and about 20 GB of disk) is run locally with ./run_all.sh; its axiom
-# output is recorded in README.md.
+# Run by hand from the Actions tab after the pull request is merged. It runs the C and Python
+# checks (the Lean build, OpenAI's 2,924 modules compiled from source, takes several hours and
+# is run locally with ./run_all.sh; its axiom output is recorded in lean/axioms.txt and in
+# README.md), then publishes a GitHub release with the paper files in dist/ and the notes in
+# .github/RELEASE_NOTES.md.
 
 on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "Release tag, e.g. v1.0.0"
+        description: "Release tag, e.g. v2.0.0"
         required: true
-        default: "v1.0.0"
+        default: "v2.0.0"
       target:
         description: "Branch or commit to tag"
         required: true
@@ -21,7 +20,7 @@ on:
       title:
         description: "Release title"
         required: true
-        default: "The Pólya–Vinogradov inequality with log log q"
+        default: "The Pólya–Vinogradov inequality with log log q for all but q^ε characters"
 
 permissions:
   contents: write
@@ -29,16 +28,13 @@ permissions:
 jobs:
   checks:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
         with:
           ref: ${{ inputs.target }}
-      - uses: julia-actions/setup-julia@v2
-        with:
-          version: "1.11"
-      - name: Run the Python, Julia, C and C++ checks
-        run: ./run_all.sh --skip-lean
+      - name: C and Python checks
+        run: SKIP_LEAN=1 ./run_all.sh
 
   release:
     needs: checks
@@ -49,12 +45,9 @@ jobs:
           ref: ${{ inputs.target }}
       - name: Check the paper files
         run: |
-          for f in dist/PolyaVinogradovLogLog_final2.pdf dist/PolyaVinogradovLogLog_final2-tex.zip \
-                   dist/PolyaVinogradovLogLog_final2-arxiv.tar.gz \
-                   preprintPolyaVinogradovLogLog/PolyaVinogradovLogLog.pdf \
-                   MasterPolyaVinogradovLogLog_masterzipfinal2.zip \
-                   paper/paper1/PolyaVinogradovLogLog-Annals.pdf \
-                   paper/paper2/PolyaVinogradovLogLog-Annals-tex.zip; do
+          for f in dist/PolyaVinogradovLogLog_final2.pdf \
+                   dist/PolyaVinogradovLogLog_final2-tex.zip \
+                   dist/PolyaVinogradovLogLog_final2-arxiv.tar.gz; do
             test -s "$f" || { echo "missing $f"; exit 1; }
           done
       - name: Publish the release
@@ -65,7 +58,6 @@ jobs:
           TITLE: ${{ inputs.title }}
         run: |
           gh release create "$TAG" dist/PolyaVinogradovLogLog_final2* \
-            paper/paper1/PolyaVinogradovLogLog-Annals.pdf paper/paper2/PolyaVinogradovLogLog-Annals-tex.zip \
             --target "$TARGET" \
             --title "$TAG: $TITLE" \
             --notes-file .github/RELEASE_NOTES.md
