@@ -129,7 +129,7 @@ Python checks and attaches the paper files of `dist/`.
 
 | Release | DOI |
 | --- | --- |
-| v2.0.0 | [10.5281/zenodo.NNNN](https://doi.org/10.5281/zenodo.NNNN) |
+| v2.0.0 | [10.5281/zenodo.23671158](https://doi.org/10.5281/zenodo.23671158) |
 | v1.6.0 | [10.5281/zenodo.23638793](https://doi.org/10.5281/zenodo.23638793) |
 | v1.5.0 | [10.5281/zenodo.23637263](https://doi.org/10.5281/zenodo.23637263) |
 | v1.4.0 | [10.5281/zenodo.23629649](https://doi.org/10.5281/zenodo.23629649) |
