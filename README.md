@@ -1,6 +1,6 @@
 # The Pólya–Vinogradov inequality with log log q for every character
 
-Deep Bhattacharjee and Ushashi Bhattacharya. Final revision, 26 October 2026.
+Deep Bhattacharjee and Ushashi Bhattacharya. Version 4, 30 October 2026.
 
 Let χ be a primitive Dirichlet character modulo q ≥ 3 and let M(χ) be the largest modulus of
 a partial sum ∑_{n ≤ x} χ(n). The Pólya–Vinogradov inequality bounds M(χ) by a constant times
@@ -26,8 +26,14 @@ hypothesis:
   Dirichlet L-function, has no zero with Re s > 11/12. The theorem and its proof are due to
   OpenAI (*The quasi-Riemann hypothesis: a cubic theta argument with a fixed ray class
   character*, 5 October 2026, https://github.com/openai/math); Appendix B reproduces the proof
-  in full, with credit to them, so that the paper is complete in itself. Theorem 1.5 is
-  Theorem B.1 fed into the transfer theorem with θ = 11/12.
+  in full, with credit to them; every input of that proof is a published theorem, so no
+  statement of the paper rests on an unrefereed source. Theorem 1.5 is Theorem B.1 fed into the
+  transfer theorem with θ = 11/12.
+- **Theorem 1.6 (Euler–Kronecker constants, new in v4).** The Euler–Kronecker constant γ_m of
+  the cyclotomic field Q(ζ_m) satisfies γ_m ≤ 12 log m + 36 log log m + C for every m ≥ 3, and
+  γ_q ≥ −C log q log log q for every prime q ≥ 5, with an absolute constant C. Ihara proved the
+  upper bound (2 + o(1)) log q only under the generalised Riemann hypothesis; the proof here uses
+  the half-plane of Theorem B.1, the explicit formula and the Brun–Titchmarsh inequality.
 
 The transfer theorem is proved by a contour shift for Riesz means of prime sums, a dissection
 of the circle into major and minor arcs, and a weak form of the Montgomery–Vaughan bound for
@@ -58,15 +64,17 @@ version of the paper appeared on Hexagon as [hexagon:2610.00256](https://hexagon
 on 15 October 2026 and was revised there on 21 October 2026. That version claimed the bound
 for every character from the zero-free half-plane as an external input; release v2.0.0 proved
 everything else in full and stated the every-character bound separately on the machine-checked
-input; this version (v3.0.0, [10.5281/zenodo.23672710](https://doi.org/10.5281/zenodo.23672710)) reproduces the proof of the half-plane in the paper, so that every
-statement is proved in the text.
+input; v3.0.0 ([10.5281/zenodo.23672710](https://doi.org/10.5281/zenodo.23672710), hexagon:2610.00256v3) reproduced the proof of the half-plane in the paper. This
+version (v4.0.0) adds Section 8 on Euler–Kronecker constants and a check of the arithmetic identities
+of Appendix B, and leaves no statement resting on an unrefereed source.
 
 ## Layout
 
-- `paper/main.tex`, `paper/app.tex`, `paper/appB.tex`, `paper/figures/`: the LaTeX source (amsart, single column), Appendix A, Appendix B and the four figures; `paper/main.pdf` the compiled paper (51 pages).
+- `paper/main.tex`, `paper/app.tex`, `paper/appB.tex`, `paper/figures/`: the LaTeX source (amsart, single column), Appendix A, Appendix B and the four figures; `paper/main.pdf` the compiled paper (53 pages).
 - `figures/make_figures.py`: draws the four figures to `paper/figures/` at 200 dpi (matplotlib).
 - `dist/`: the paper as `PolyaVinogradovLogLog_final2.pdf`, its source zip and the arXiv tarball.
 - `checks/python/check.py`: Chebyshev's bounds to 10^6, the parameters (3.1) and inequalities (3.2) of the transfer theorem in exact rationals, the arithmetic of Proposition 5.5, the count of Section 6 and the constants of Section 7, every numerical inequality of Appendix A, and the sizes M(χ)/(√q log log q) for the primes between 1000 and 4000 and |L'/L(1, χ)|/log log q for the primes up to 300 against reference values of the Euler–Kronecker constants (about twelve minutes).
+- `checks/python/eisenstein_check.py`: the Gauss-sum and reciprocity identities of Lemma B.3 over the Eisenstein integers, for 77 prime moduli (norms 7 to 397) and 216 composite moduli (about four minutes).
 - `checks/c/check.c`: Chebyshev's bounds to 10^7 by a sieve, the parameters and the arithmetic of Proposition 5.5 and Section 6 on a finer grid, and M(χ) for the quadratic characters modulo the primes between 10^4 and 10^5 against the Pólya bound.
 - `lean/`: the Lean 4 library described below, with `Axioms.lean` and the recorded axiom report `lean/axioms.txt`.
 - `NOTICE`: provenance and licences of the third-party Lean sources.
@@ -141,6 +149,7 @@ Python checks and attaches the paper files of `dist/`.
 
 | Release | DOI |
 | --- | --- |
+| v4.0.0 | to be recorded |
 | v3.0.0 | [10.5281/zenodo.23672710](https://doi.org/10.5281/zenodo.23672710) |
 | v2.0.0 | [10.5281/zenodo.23671158](https://doi.org/10.5281/zenodo.23671158) |
 | v1.6.0 | [10.5281/zenodo.23638793](https://doi.org/10.5281/zenodo.23638793) |
@@ -154,7 +163,7 @@ Concept DOI of all versions: [10.5281/zenodo.23383715](https://doi.org/10.5281/z
 
 ## Authors
 
-Deep Bhattacharjee (corresponding author), Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India; Formerly, University of Calcutta, Senate House, 87/1 College Street, Kolkata 700073, West Bengal, India.
+Deep Bhattacharjee (corresponding author), Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India; Formerly, University of Calcutta (Heramba Chandra College), 23/49 Gariahat Road, Golpark, Kolkata 700029, West Bengal, India.
 Emails: d.bhattacharjee@erl-forschung.de, itsdeep@live.com, egspl@proton.me (for questions about this repository).
 ORCID: 0000-0003-0466-750X.
 

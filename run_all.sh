@@ -4,6 +4,8 @@
 #                                   the arithmetic of Proposition 5.5, the count of Section 6, the
 #                                   constants of Section 7 and of Appendix A, and the sizes M(chi) and
 #                                   |L'/L(1,chi)| for small prime moduli (about twelve minutes)
+#   Python  checks/python/eisenstein_check.py  the Gauss-sum and reciprocity identities of Lemma B.3
+#                                   over Z[w] for 77 prime and 216 composite moduli (about four minutes)
 #   C       checks/c/check.c        Chebyshev's bounds to 10^7, the parameters, the arithmetic of
 #                                   Proposition 5.5 and Section 6 on a finer grid, and M(chi) for the
 #                                   quadratic characters modulo the primes between 10^4 and 10^5
@@ -27,6 +29,7 @@ step "C"
 
 step "Python"
 python3 -I "$ROOT/checks/python/check.py"
+python3 -I "$ROOT/checks/python/eisenstein_check.py"
 
 step "Lean"
 if [ "${SKIP_LEAN:-0}" = 1 ] || ! command -v lake >/dev/null 2>&1; then echo "lean build skipped"; else
