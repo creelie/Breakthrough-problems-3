@@ -33,36 +33,53 @@ def arrow(ax, p, q, text=None, dx=0.0, dy=0.0):
                 bbox=dict(fc="white", ec="none", pad=1))
 
 # ---------------------------------------------------------------- fig_flow
-fig, ax = plt.subplots(figsize=(8.0, 5.6))
-ax.set_xlim(0, 11); ax.set_ylim(0, 8.3); ax.axis("off")
-F = 7.0
+fig, ax = plt.subplots(figsize=(10.0, 5.9))
+ax.set_xlim(0, 15.3); ax.set_ylim(0.2, 9.0); ax.axis("off")
+F = 6.9
+W = 4.75
+XL, XM, XR = 2.5, 7.65, 12.8
 def tb(x, y, w, h, t, fc="#f2f2f2"):
     ax.add_patch(FancyBboxPatch((x - w / 2, y - h / 2), w, h, boxstyle="round,pad=0.02,rounding_size=0.08",
                                 fc=fc, ec="black", lw=0.8))
     ax.text(x, y, t, ha="center", va="center", fontsize=F)
-tb(2.8, 7.75, 5.4, 0.85, "Theorem 1.2: $M(\\chi)\\leq C_\\varepsilon\\sqrt{q}\\log\\log q$\nfor all but $q^{\\varepsilon}$ of the primitive characters mod $q$", fc="#dde8f5")
-tb(8.2, 7.75, 5.4, 0.85, "Theorem 1.5: $M(\\chi)\\leq C_{11/12}\\sqrt{q}\\log\\log q$ and\n$|L'/L(1,\\chi)|\\leq C_5\\log\\log q$ for every character", fc="#dde8f5")
-tb(2.8, 6.25, 5.4, 0.95, "Theorem 1.1 (transfer): if no $L(s,\\chi\\psi)$, $\\psi$ mod $r\\leq R$,\nhas a zero in $\\mathrm{Re}\\,s>\\theta$, $|\\mathrm{Im}\\,s|\\leq5q^2$,\nthen $M(\\chi)\\leq C_\\theta\\sqrt{q}\\log\\log q$", fc="#dde8f5")
-tb(8.2, 6.25, 5.4, 0.95, "Theorem B.1 (Appendix B, OpenAI): no Dirichlet\n$L$-function has a zero with $\\mathrm{Re}\\,s>11/12$;\nCorollary 1.3 and Proposition 7.1 with $\\theta=11/12$", fc="#f5e6dd")
-arrow(ax, (2.75, 6.73), (2.75, 7.32))
-arrow(ax, (8.25, 6.73), (8.25, 7.32))
-arrow(ax, (5.25, 6.25), (5.75, 6.25))
-tb(2.8, 4.8, 5.4, 0.8, "Lemma 5.1: $M(\\chi)\\leq\\sqrt{q}\\,(B+6)$ if\n$|\\sum_{m\\leq H}\\bar\\chi(m)e(m\\beta)/m|\\leq B$ for $H\\leq q/2$")
-arrow(ax, (2.75, 5.2), (2.75, 5.77))
-tb(2.8, 3.55, 5.4, 0.8, "Proposition 5.5: $B=C_4\\log\\log q$\n(major arcs, minor arcs, smooth $m$: Lemma 5.2)")
-arrow(ax, (2.75, 3.95), (2.75, 4.4))
-tb(1.3, 2.0, 2.2, 1.05, "major arcs:\nLemma 5.4, Cor. 3.8,\nProposition 3.7\n(contour shift)", fc="#e8f0e0")
-tb(4.2, 2.0, 2.2, 1.05, "minor arcs:\nTheorem 4.1\n(bilinear forms,\nsieve, Lemma 2.2)", fc="#e8f0e0")
-arrow(ax, (1.3, 2.53), (2.2, 3.15))
-arrow(ax, (4.2, 2.53), (3.3, 3.15))
-tb(8.2, 4.8, 5.4, 0.8, "Section 6: count the characters $\\chi$ for which some\ntwist $\\chi\\psi$ has a zero in the rectangle (Theorem 1.2)", fc="#f5e6dd")
-arrow(ax, (6.9, 5.2), (4.3, 6.9))
-tb(8.2, 3.55, 5.4, 0.8, "Theorem 2.3 (Appendix A): nonprincipal $\\xi$ mod $k$ together,\n$\\sum N(\\sigma,T,\\xi)\\leq 10^{12}(kT)^{12(1-\\sigma)}(\\log kT)^{9}$, $\\sigma\\geq\\frac{11}{12}$", fc="#f5e6dd")
-arrow(ax, (8.25, 3.95), (8.25, 4.4))
-tb(8.2, 2.3, 5.4, 0.8, "Theorem 1.4: $|L'/L(1,\\chi)|\\leq C_\\varepsilon\\log\\log q$\nfor all but $q^{\\varepsilon}$ of the nonprincipal characters", fc="#dde8f5")
-arrow(ax, (8.25, 3.15), (8.25, 2.7))
-tb(8.2, 0.8, 5.4, 1.05, "Section 7, Prop. 7.1: residue of $L'/L(s+1,\\chi)\\,x^s/(s(s+1))$\nat $s=0$; the zero-free rectangle has height\n$(\\log q)^{4/(1-\\theta)}$ only", fc="#e8f0e0")
-arrow(ax, (8.25, 1.33), (8.25, 1.9))
+BLUE, RED, GREEN, GREY = "#dde8f5", "#f5e6dd", "#e8f0e0", "#f2f2f2"
+# left column: the transfer theorem
+tb(XL, 7.6, W, 1.0, "Theorem 1.1 (transfer): if no $L(s,\\chi\\psi)$\nwith $\\psi$ mod $r\\leq R$ has a zero in $\\mathrm{Re}\\,s>\\theta$,\n$|\\mathrm{Im}\\,s|\\leq5q^2$, then $M(\\chi)\\leq C_\\theta\\sqrt{q}\\log\\log q$", fc=BLUE)
+tb(XL, 6.05, W, 0.85, "Lemma 5.1: $M(\\chi)\\leq\\sqrt{q}\\,(B+6)$ if\n$|\\sum_{m\\leq H}\\bar\\chi(m)e(m\\beta)/m|\\leq B$ for $H\\leq q/2$")
+tb(XL, 4.6, W, 0.85, "Proposition 5.5: $B=C_4\\log\\log q$\n(major arcs, minor arcs, smooth $m$: Lemma 5.2)")
+tb(1.25, 2.9, 2.25, 1.15, "major arcs:\nLemma 5.4, Cor. 3.8,\nProposition 3.7\n(contour shift)", fc=GREEN)
+tb(3.75, 2.9, 2.25, 1.15, "minor arcs:\nTheorem 4.1\n(bilinear forms,\nsieve, Lemma 2.2)", fc=GREEN)
+arrow(ax, (XL, 6.48), (XL, 7.1))
+arrow(ax, (XL, 5.03), (XL, 5.62))
+arrow(ax, (1.25, 3.48), (1.9, 4.17))
+arrow(ax, (3.75, 3.48), (3.1, 4.17))
+# middle column: the exceptional characters
+tb(XM, 7.6, W, 1.0, "Theorem 1.2: $M(\\chi)\\leq C_\\varepsilon\\sqrt{q}\\log\\log q$\nfor all but $q^{\\varepsilon}$ of the\nprimitive characters mod $q$", fc=BLUE)
+tb(XM, 6.05, W, 0.85, "Section 6: count the characters $\\chi$ for which\nsome twist $\\chi\\psi$ has a zero in the rectangle", fc=RED)
+tb(XM, 4.6, W, 0.85, "Theorem 2.3 (Appendix A): for $\\sigma\\geq\\frac{11}{12}$,\n$\\sum_{\\xi\\neq\\xi_0}N(\\sigma,T,\\xi)\\leq 10^{12}(kT)^{12(1-\\sigma)}(\\log kT)^{9}$", fc=RED)
+tb(XM, 3.05, W, 0.85, "Theorem 1.4: $|L'/L(1,\\chi)|\\leq C_\\varepsilon\\log\\log q$\nfor all but $q^{\\varepsilon}$ of the nonprincipal characters", fc=BLUE)
+tb(XM, 1.35, W, 1.05, "Section 7, Proposition 7.1: residue of\n$L'/L(s+1,\\chi)\\,x^s/(s(s+1))$ at $s=0$; the zero-free\nrectangle has height $(\\log q)^{4/(1-\\theta)}$ only", fc=GREEN)
+arrow(ax, (XM, 6.48), (XM, 7.1))
+arrow(ax, (XM, 5.03), (XM, 5.62))
+arrow(ax, (XM, 4.17), (XM, 3.48))
+arrow(ax, (XM, 1.88), (XM, 2.62))
+# right column: the half-plane and its consequences
+tb(XR, 7.6, W, 1.0, "Theorem 1.5: $M(\\chi)\\leq C\\sqrt{q}\\log\\log q$ and\n$|L'/L(1,\\chi)|\\leq C\\log\\log q$\nfor every character", fc=BLUE)
+tb(XR, 6.05, W, 0.85, "Theorem B.1 (Appendix B, due to OpenAI):\nno Dirichlet $L$-function has a zero\nwith $\\mathrm{Re}\\,s>11/12$", fc=RED)
+tb(XR, 4.6, W, 0.85, "Theorem 1.6: $\\gamma_m\\leq12\\log m+36\\log\\log m+C$,\n$\\gamma_q\\geq-C\\log q\\log\\log q$ for primes $q$", fc=BLUE)
+tb(XR, 3.05, W, 0.85, "Section 8: explicit formula for $\\sum_\\chi\\psi(x,\\chi)$,\n$\\zeta_{\\mathbb{Q}(\\zeta_m)}=\\prod_\\chi L(s,\\chi^*)$, Brun–Titchmarsh", fc=GREEN)
+arrow(ax, (XR, 6.48), (XR, 7.1))
+arrow(ax, (XR, 5.62), (XR, 5.03))
+arrow(ax, (XR, 3.48), (XR, 4.17))
+# across the columns
+arrow(ax, (XL + W / 2 + 0.03, 7.6), (XM - W / 2 - 0.03, 7.6))
+ax.add_patch(FancyArrowPatch((XL, 8.12), (XR, 8.12), arrowstyle="-|>", mutation_scale=10, lw=0.8, color="black",
+                             shrinkA=0, shrinkB=0, connectionstyle="arc3,rad=-0.09"))
+ax.text((XL + XR) / 2, 8.82, "$\\theta=11/12$", fontsize=7.5, ha="center", va="center",
+        bbox=dict(fc="white", ec="none", pad=1))
+XG = (XM + XR) / 2
+ax.plot([XM + W / 2 + 0.03, XG, XG], [1.35, 1.35, 7.35], color="black", lw=0.8)
+arrow(ax, (XG, 7.35), (XR - W / 2 - 0.03, 7.35))
 fig.savefig(os.path.join(OUT, "fig_flow.png"), dpi=200, bbox_inches="tight")
 plt.close(fig)
 

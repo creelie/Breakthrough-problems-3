@@ -1,12 +1,12 @@
 {
   "title": "The Pólya–Vinogradov inequality with log log q for every character: paper, Lean 4 library and checking programs",
   "upload_type": "software",
-  "description": "<p>Final revision of the paper, single column (amsart), 51 pages, with its LaTeX source, programs that check the explicit constants of the proofs and compute the character sums for small moduli, and a Lean 4 library. The paper proves, with no hypothesis, that M(χ) ≤ C √q log log q for every primitive Dirichlet character χ modulo q ≥ 3, with an absolute constant C, where M(χ) is the largest modulus of a partial sum of χ, and that |L'/L(1, χ)| ≤ C log log q for every nonprincipal character; and, from Chebyshev's bounds alone, that for every ε &gt; 0 at most q^ε of the primitive characters modulo q have M(χ) &gt; C_ε √q log log q and at most q^ε of the nonprincipal characters have |L'/L(1, χ)| &gt; C_ε log log q. The proof is a transfer theorem for a single character, proved by a contour shift, the circle method and a weak Montgomery–Vaughan bound from Selberg's sieve; a count of the exceptional characters by a zero-density theorem proved in full in Appendix A with explicit constants; and the zero-free half-plane Re s &gt; 11/12 for all finite-order Hecke L-functions over Q(√−3), due to OpenAI (The quasi-Riemann hypothesis: a cubic theta argument with a fixed ray class character, 5 October 2026), whose proof is reproduced in full in Appendix B with credit to them, so that the paper is complete in itself. OpenAI's Lean 4 proof of the wider half-plane Re s &gt; 7/8 is compiled from source and checked by the Lean kernel in this repository as an independent check.</p><p>The results were first made public on 15 October 2026 as release v1.0.0 of this repository (concept DOI 10.5281/zenodo.23383715). An earlier and incomplete version of the paper appeared on Hexagon as hexagon:2610.00256.</p>",
+  "description": "<p>Version 4 of the paper, single column (amsart), 53 pages, with its LaTeX source, programs that check the explicit constants of the proofs, the arithmetic identities of Appendix B and the character sums for small moduli, and a Lean 4 library. The paper proves, with no hypothesis, that M(χ) ≤ C √q log log q for every primitive Dirichlet character χ modulo q ≥ 3, with an absolute constant C, where M(χ) is the largest modulus of a partial sum of χ, and that |L'/L(1, χ)| ≤ C log log q for every nonprincipal character. This is the bound that Montgomery and Vaughan deduced from the generalised Riemann hypothesis, sharp up to the constant by a theorem of Paley. The proof combines a transfer theorem for a single character with the zero-free half-plane Re s &gt; 11/12 for all finite-order Hecke L-functions over Q(√−3), and so for all Dirichlet L-functions; the half-plane and its proof are due to OpenAI (The quasi-Riemann hypothesis: a cubic theta argument with a fixed ray class character, 5 October 2026), and Appendix B gives the proof in full with every external input a published theorem. New in this version: the Euler–Kronecker constant γ_m of Q(ζ_m) satisfies γ_m ≤ 12 log m + 36 log log m + C for every m ≥ 3, an order known before only under the generalised Riemann hypothesis, and γ_q ≥ −C log q log log q for primes q. From Chebyshev's bounds alone, at most q^ε characters modulo q violate the bounds for M(χ) and L'/L(1, χ). OpenAI's Lean 4 proof of the wider half-plane Re s &gt; 7/8 is compiled from source and checked by the Lean kernel in this repository as an independent check; nothing in the paper uses it.</p><p>The results were first made public on 15 October 2026 as release v1.0.0 of this repository (concept DOI 10.5281/zenodo.23383715). Version 3 (10.5281/zenodo.23672710) is hexagon:2610.00256v3; this version replaces it on Hexagon.</p>",
   "creators": [
     {
       "name": "Bhattacharjee, Deep",
       "orcid": "0000-0003-0466-750X",
-      "affiliation": "Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India; Formerly, University of Calcutta, Senate House, 87/1 College Street, Kolkata 700073, West Bengal, India"
+      "affiliation": "Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India; Formerly, University of Calcutta (Heramba Chandra College), 23/49 Gariahat Road, Golpark, Kolkata 700029, West Bengal, India"
     },
     {
       "name": "Bhattacharya, Ushashi",
@@ -17,14 +17,16 @@
   "keywords": [
     "Pólya–Vinogradov inequality",
     "character sums",
-    "zero-density theorems",
-    "Selberg's sieve",
     "zero-free half-plane",
+    "Euler–Kronecker constants",
+    "cyclotomic fields",
     "cubic theta function",
     "11L40",
     "11M06",
     "11M26",
-    "11N36"
+    "11N36",
+    "11R18",
+    "11R42"
   ],
   "license": "apache-2.0",
   "related_identifiers": [

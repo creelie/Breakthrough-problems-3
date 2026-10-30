@@ -35,25 +35,27 @@
 
 \author{Deep Bhattacharjee\,\orcidlink{0000-0003-0466-750X}}
 \address{Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India}
-\address{Formerly, University of Calcutta, Senate House, 87/1 College Street, Kolkata 700073, West Bengal, India}
+\address{Formerly, University of Calcutta (Heramba Chandra College), 23/49 Gariahat Road, Golpark, Kolkata 700029, West Bengal, India}
 \email{d.bhattacharjee@erl-forschung.de}
 \email{itsdeep@live.com}
 \email{egspl@proton.me}
-\thanks{\sloppy Corresponding author: Deep Bhattacharjee. Email: \href{mailto:d.bhattacharjee@erl-forschung.de}{d.bhattacharjee@erl-forschung.de}, \href{mailto:itsdeep@live.com}{itsdeep@live.com}, \href{mailto:egspl@proton.me}{egspl@proton.me}; ORCID \href{https://orcid.org/0000-0003-0466-750X}{0000-0003-0466-750X}.}
+\thanks{\sloppy Corresponding author: Deep Bhattacharjee. Email: \href{mailto:d.bhattacharjee@erl-forschung.de}{d.bhattacharjee@erl-forschung.de}, \href{mailto:itsdeep@live.com}{itsdeep@live.com}, \href{mailto:egspl@proton.me}{egspl@proton.me}; ORCID \href{https://orcid.org/0000-0003-0466-750X}{0000-0003-0466-750X}}
 \author{Ushashi Bhattacharya\,\orcidlink{0009-0002-2254-3914}}
 \address{Formerly, National Taiwan University, Taipei 106319, Taiwan}
 \email{rai.bhattacharya.in@gmail.com}
 \thanks{Ushashi Bhattacharya: email \href{mailto:rai.bhattacharya.in@gmail.com}{rai.bhattacharya.in@gmail.com}; ORCID \href{https://orcid.org/0009-0002-2254-3914}{0009-0002-2254-3914}.}
 
-\subjclass[2020]{11L40; 11M06; 11M26; 11N36}
-\keywords{P\'olya--Vinogradov inequality; character sums; zero-density theorems; Selberg's sieve}
-\date{26 October 2026}
+\subjclass[2020]{11L40; 11M06; 11M26; 11N36; 11R18; 11R42}
+\keywords{P\'olya--Vinogradov inequality; character sums; zero-free regions; Euler--Kronecker constants}
+\date{30 October 2026}
 
+
+\raggedbottom
 \begin{document}
 
 \begin{abstract}
 \itshape
-Let $\chi$ be a primitive Dirichlet character modulo $q\ge3$ and let $M(\chi)$ be the largest modulus of a partial sum $\sum_{n\le x}\chi(n)$. The P\'olya--Vinogradov inequality bounds $M(\chi)$ by a constant times $\sqrt q\log q$. Paley showed that $\sqrt q\log\log q$ is the most that can be hoped for, and Montgomery and Vaughan proved that this is the truth if the generalised Riemann hypothesis holds. Without any hypothesis we prove that $M(\chi)\le C\sqrt q\log\log q$ for every primitive character $\chi$ to every modulus $q\ge3$, with an absolute constant $C$, and that $|L'/L(1,\chi)|\le C\log\log q$ for every nonprincipal character. We also prove, from the elementary bounds of Chebyshev alone, that for every $\varepsilon>0$ there is a constant $C_\varepsilon$ such that at most $q^{\varepsilon}$ of the primitive characters modulo $q$ have $M(\chi)>C_\varepsilon\sqrt q\log\log q$, and at most $q^{\varepsilon}$ of the nonprincipal characters have $|L'/L(1,\chi)|>C_\varepsilon\log\log q$. The proof has two parts. The first is a transfer theorem for a single character: if $\theta<1$ is fixed and the $L$-functions of the twists $\chi\psi$ of $\chi$ by the characters $\psi$ of the moduli up to $(\log q)^{16}$ have no zero in the rectangle $\Re s>\theta$, $|\Im s|\le5q^2$, then $M(\chi)\le C_\theta\sqrt q\log\log q$. It is proved by a contour shift for Riesz means of prime sums, a dissection of the circle into major and minor arcs, and a weak form of the Montgomery--Vaughan bound for exponential sums with multiplicative coefficients, which we prove with Selberg's sieve as the only arithmetic input. The second part counts the characters that fail the hypothesis of the transfer theorem by a zero-density theorem in the manner of Ingham and Montgomery, which bounds the number of zeros of all $L$-functions to a modulus in such a rectangle by a power of the modulus that tends to zero as $\theta$ tends to one. The same transfer theorem shows that a zero-free half-plane $\Re s>\theta$ for all Dirichlet $L$-functions gives the bound for every character, and such a half-plane exists: OpenAI has proved that every Dirichlet $L$-function, and every finite-order Hecke $L$-function over $\mathbb Q(\sqrt{-3})$, has no zero with $\Re s>11/12$, by a mean square of twisted M\"obius sums over the Eisenstein integers, two Poisson summations, the transformation of Kubota's cubic theta function and the quadratic large sieve. Their proof is reproduced in full in a second appendix, with credit to them, so that the paper is complete in itself: the zero-density theorem is proved in the first appendix with explicit constants, and every statement of the paper is proved in the text.
+Let $\chi$ be a primitive Dirichlet character modulo $q\ge3$ and let $M(\chi)$ be the largest modulus of a partial sum of $\chi$. We prove that $M(\chi)\le C\sqrt q\log\log q$ and $|L'/L(1,\chi)|\le C\log\log q$ for every such $\chi$, with an absolute constant $C$. This is the bound that Montgomery and Vaughan deduced from the generalised Riemann hypothesis, and by a theorem of Paley it is sharp up to the value of $C$. The proof combines a transfer theorem, which gives the bound for one character from a zero-free rectangle for its twists, with the zero-free half-plane $\Re s>11/12$ for all Dirichlet $L$-functions found by OpenAI, whose proof is given in full. The same half-plane bounds the Euler--Kronecker constant of $\mathbb Q(\zeta_m)$ above by $12\log m+O(\log\log m)$ for every $m$, an order known before only under the generalised Riemann hypothesis, and below by $-O(\log q\log\log q)$ for primes $q$. Without the half-plane the bounds for $M(\chi)$ and $L'/L(1,\chi)$ hold for all but $q^\varepsilon$ characters modulo $q$.
 \end{abstract}
 
 \maketitle
@@ -63,7 +65,7 @@ Let $\chi$ be a primitive Dirichlet character modulo $q\ge3$ and let $M(\chi)$ b
 \medskip
 \begin{quote}
 \small\sloppy
-\noindent\textbf{Note.} The results of this paper were first made public on 15 October 2026, as release \texttt{v1.0.0} of the repository \url{https://github.com/creelie/Breakthrough-problems-3} (concept DOI \href{https://doi.org/10.5281/zenodo.23383715}{10.5281/zenodo.23383715}); later versions are archived on Zenodo as \href{https://doi.org/10.5281/zenodo.23563651}{10.5281/zenodo.23563651}, \href{https://doi.org/10.5281/zenodo.23629139}{10.5281/zenodo.23629139}, \href{https://doi.org/10.5281/zenodo.23629649}{10.5281/zenodo.23629649}, \href{https://doi.org/10.5281/zenodo.23637263}{10.5281/zenodo.23637263} and \href{https://doi.org/10.5281/zenodo.23638793}{10.5281/zenodo.23638793}. An earlier and incomplete version of the paper appeared on Hexagon on 15 October 2026 as the preprint \texttt{hexagon:2610.00256}, available at \url{https://hexagonmath.org/2610.00256}, and was revised there on 21 October 2026. That version claimed the bound $\sqrt q\log\log q$ for every primitive character; it deduced it from a zero-free half-plane for all Dirichlet $L$-functions announced in an unrefereed preprint of another group, which was cited as an external input, and it had a short abstract. The second version, release \texttt{v2.0.0} of the same repository, archived as \href{https://doi.org/10.5281/zenodo.23671158}{10.5281/zenodo.23671158}, proved every statement except that one in the paper, the zero-density theorem of Montgomery included, from Chebyshev's bounds alone, and stated the bound for every character as a theorem resting on the zero-free half-plane $\Re s>7/8$ of that preprint, whose machine-checked proof the authors compiled and checked. In this version the paper is complete in itself: Appendix~\ref{app:halfplane} reproduces in full, with credit to OpenAI, their proof of the zero-free half-plane $\Re s>11/12$ for all finite-order Hecke $L$-functions over $\mathbb Q(\sqrt{-3})$, from which Theorem~\ref{thm:every} follows by the transfer theorem, and the title states the result for every character. The source of this revision is in release \texttt{v3.0.0} of the same repository, archived as \href{https://doi.org/10.5281/zenodo.23672710}{10.5281/zenodo.23672710}, with programs that check the explicit constants of the proofs, compute the sums of this paper for small moduli, and contain the compiled Lean~4 proof of the half-plane $\Re s>7/8$ as an independent check.
+\noindent\textbf{Note.} The results of this paper were first made public on 15 October 2026, as release \texttt{v1.0.0} of the repository \url{https://github.com/creelie/Breakthrough-problems-3} (concept DOI \href{https://doi.org/10.5281/zenodo.23383715}{10.5281/zenodo.23383715}). An earlier and incomplete version of the paper appeared on Hexagon on 15 October 2026 as the preprint \texttt{hexagon:2610.00256}, available at \url{https://hexagonmath.org/2610.00256}, and was revised there on 21 October 2026; it deduced the bound for every character from a zero-free half-plane announced in an unrefereed preprint, cited as an external input. The second version, release \texttt{v2.0.0} (\href{https://doi.org/10.5281/zenodo.23671158}{10.5281/zenodo.23671158}), proved every other statement from Chebyshev's bounds alone, the zero-density theorem included. The third version, release \texttt{v3.0.0} (\href{https://doi.org/10.5281/zenodo.23672710}{10.5281/zenodo.23672710}), posted on Hexagon as \texttt{2610.00256v3}, added Appendix~\ref{app:halfplane} with the proof of the half-plane $\Re s>11/12$. In this version no statement rests on an unrefereed source: every input of Appendix~\ref{app:halfplane} is a published theorem, and its arithmetic identities have been checked step by step; Section~\ref{sec:ek} on Euler--Kronecker constants is new. Earlier releases are archived on Zenodo as \href{https://doi.org/10.5281/zenodo.23563651}{10.5281/zenodo.23563651}, \href{https://doi.org/10.5281/zenodo.23629139}{10.5281/zenodo.23629139}, \href{https://doi.org/10.5281/zenodo.23629649}{10.5281/zenodo.23629649}, \href{https://doi.org/10.5281/zenodo.23637263}{10.5281/zenodo.23637263} and \href{https://doi.org/10.5281/zenodo.23638793}{10.5281/zenodo.23638793}. The source of this version is release \texttt{v4.0.0} of the same repository.
 \end{quote}
 
 \section{Introduction}
@@ -94,7 +96,7 @@ For every $\varepsilon>0$ there is a constant $C_\varepsilon$ such that for ever
 is at most $q^{\varepsilon}$.
 \end{theorem}
 
-For a prime $q$ there are $q-2$ primitive characters, so Theorem~\ref{thm:main} gives the bound of Montgomery and Vaughan for all but a vanishing proportion $q^{\varepsilon-1}$ of them. We do not know a reference for this statement. The results of Granville and Soundararajan and of Bober, Goldmakher, Granville and Koukoulopoulos on the distribution of large character sums~\cite{GS07,BGGK18} are proved by a different method, through the structure of the characters with large sums, and they bound the number of characters with $M(\chi)$ above a given multiple of $\sqrt q\log\log q$ only in the range of multiples below $\log\log q$ minus a large constant; the complementary range, which is the one of Theorem~\ref{thm:main}, is where the zero-density theorem enters.
+For a prime $q$ there are $q-2$ primitive characters, so Theorem~\ref{thm:main} gives the bound of Montgomery and Vaughan for all but a vanishing proportion $q^{\varepsilon-1}$ of them. Theorem~\ref{thm:every} below supersedes it; Theorem~\ref{thm:main} is kept because its proof uses neither Appendix~\ref{app:halfplane} nor anything beyond Chebyshev's bounds. The results of Granville and Soundararajan and of Bober, Goldmakher, Granville and Koukoulopoulos on the distribution of large character sums~\cite{GS07,BGGK18} are proved by a different method, through the structure of the characters with large sums, and they bound the number of characters with $M(\chi)$ above a given multiple of $\sqrt q\log\log q$ only in the range of multiples below $\log\log q$ minus a large constant; the complementary range, which is the one of Theorem~\ref{thm:main}, is where the zero-density theorem enters.
 
 The transfer theorem also shows what a zero-free half-plane gives.
 
@@ -102,7 +104,7 @@ The transfer theorem also shows what a zero-free half-plane gives.
 Let $1/2\le\theta<1$ and suppose that $L(s,\xi)\ne0$ for $\Re s>\theta$ for every nonprincipal Dirichlet character $\xi$. Then $M(\chi)\le C_\theta\sqrt q\log\log q$ for every primitive character $\chi$ modulo $q\ge3$, with the constant of Theorem~\ref{thm:transfer}.
 \end{corollary}
 
-Such a half-plane exists, with $\theta=11/12$: it is Theorem~\ref{thm:b:main} of Appendix~\ref{app:halfplane}, due to OpenAI, and Theorem~\ref{thm:every} below records what it gives.
+Such a half-plane exists, with $\theta=11/12$: it is Theorem~\ref{thm:b:main}, proved in Appendix~\ref{app:halfplane} by an argument due to OpenAI, and Theorem~\ref{thm:every} below records what it gives.
 
 The same zero-free rectangle controls the logarithmic derivative of $L(s,\chi)$ at $s=1$, and here the rectangle needed is small: its height is a power of $\log q$.
 
@@ -114,7 +116,7 @@ For every $\varepsilon>0$ there is a constant $C_\varepsilon$ such that for ever
 is at most $q^{\varepsilon}$.
 \end{theorem}
 
-Theorems~\ref{thm:transfer} to~\ref{thm:logderiv} are proved in this paper from Chebyshev's bounds alone; the zero-density theorem they use is proved in Appendix~\ref{app:zd}. The bound for every character needs a zero-free half-plane for all Dirichlet $L$-functions, and one is now known. OpenAI has proved that every finite-order Hecke $L$-function over $\mathbb Q(\sqrt{-3})$ has no zero with $\Re s>11/12$~\cite{OAI26b}; by base change, $L_K(s,\chi\circ\mathrm N)=L(s,\chi)L(s,\chi\chi_{-3})$ for a Dirichlet character $\chi$, so no Dirichlet $L$-function has a zero there either. The proof works with the M\"obius function of the Eisenstein integers: a zero to the right of the line $\Re s=11/12$ would prevent a power saving in the smoothed M\"obius sums of the field, and that power saving is obtained from a mean square over a family of such sums twisted by sextic residue symbols, which is estimated by two applications of Poisson summation, the transformation of Kubota's cubic theta function at the cusps, Patterson's formula for its Fourier coefficients and the quadratic large sieve over number fields. Appendix~\ref{app:halfplane} reproduces that proof in full, with credit to its authors, so that the paper is complete in itself. The same group had earlier proved the weaker half-plane $\Re s>7/8$ with a proof written in Lean~4 and checked by the Lean kernel against the Mathlib library~\cite{OAI26}; we compiled that proof from its source and ran the kernel check ourselves, and the build, its axiom report and a Lean proof of the two bounds below from that input are in the archive cited in the data availability section, as an independent check of the conclusion.
+Theorems~\ref{thm:transfer} to~\ref{thm:logderiv} are proved in this paper from Chebyshev's bounds alone; the zero-density theorem they use is proved in Appendix~\ref{app:zd}. The bound for every character needs a zero-free half-plane for all Dirichlet $L$-functions, and Appendix~\ref{app:halfplane} proves one: every finite-order Hecke $L$-function over $\mathbb Q(\sqrt{-3})$ has no zero with $\Re s>11/12$, and by base change, $L_K(s,\chi\circ\mathrm N)=L(s,\chi)L(s,\chi\chi_{-3})$ for a Dirichlet character $\chi$, so no Dirichlet $L$-function has a zero there either. The argument is due to OpenAI~\cite{OAI26b}; Appendix~\ref{app:halfplane} gives it in full, with every input taken from published work, so that no statement of this paper rests on an unrefereed source. It works with the M\"obius function of the Eisenstein integers: a zero to the right of the line $\Re s=11/12$ would prevent a power saving in the smoothed M\"obius sums of the field, and that power saving is obtained from a mean square over a family of such sums twisted by sextic residue symbols, which is estimated by two applications of Poisson summation, the transformation of Kubota's cubic theta function at the cusps, Patterson's formula for its Fourier coefficients and the quadratic large sieve over number fields of Goldmakher and Louvel.
 
 \begin{theorem}\label{thm:every}
 Let $\theta=11/12$, and let $C_\theta$ and $C_5$ be the constants of Theorem~\ref{thm:transfer} and of Proposition~\ref{prop:logderiv}. Then $M(\chi)\le C_\theta\sqrt q\log\log q$ for every primitive character $\chi$ modulo $q\ge3$, and $|L'/L(1,\chi)|\le C_5\log\log q$ for every nonprincipal character $\chi$ modulo $q\ge3$.
@@ -124,15 +126,21 @@ Let $\theta=11/12$, and let $C_\theta$ and $C_5$ be the constants of Theorem~\re
 By Theorem~\ref{thm:b:main}, $L(s,\xi)\ne0$ for $\Re s>11/12$ for every nonprincipal Dirichlet character $\xi$. The first bound is then Corollary~\ref{cor:halfplane} with $\theta=11/12$. For the second, $L(s,\chi)\ne0$ in the rectangle of Proposition~\ref{prop:logderiv}, which gives the bound.
 \end{proof}
 
-The constants of Theorem~\ref{thm:every} are absolute. Since the half-plane $\Re s>7/8$ of~\cite{OAI26} is wider, the same proof with $\theta=7/8$ gives the two bounds with the smaller constants $C_{7/8}$ and $C_5$; the statement with $\theta=11/12$ is the one whose proof is in this paper. Under the generalised Riemann hypothesis the bound $|L'/L(1,\chi)|\ll\log\log q$ holds for every nonprincipal character~\cite{IMS09}. The constants $C_\varepsilon$ of Theorems~\ref{thm:main} and~\ref{thm:logderiv} tend to infinity as $\varepsilon$ tends to zero, since $\theta=1-\varepsilon/48$ enters the proof through the width $1-\theta$ of the zero-free rectangle; in the proof they grow like a power of $1/\varepsilon$. The exceptional characters are those whose $L$-function, or one of whose twists by a character of small modulus, has a zero near the line $\Re s=1$ at a height at most $5q^2$; the theorems say nothing about those characters, and the Euler--Kronecker constant of $\mathbb Q(\zeta_q)$, which is a sum over all the characters modulo $q$, is not controlled by them.
+The constants of Theorem~\ref{thm:every} are absolute. Under the generalised Riemann hypothesis the bound $|L'/L(1,\chi)|\ll\log\log q$ holds for every nonprincipal character~\cite{IMS09}. The constants $C_\varepsilon$ of Theorems~\ref{thm:main} and~\ref{thm:logderiv} tend to infinity as $\varepsilon$ tends to zero, since $\theta=1-\varepsilon/48$ enters the proof through the width $1-\theta$ of the zero-free rectangle; in the proof they grow like a power of $1/\varepsilon$. The exceptional characters are those whose $L$-function, or one of whose twists by a character of small modulus, has a zero near the line $\Re s=1$ at a height at most $5q^2$; Theorems~\ref{thm:main} and~\ref{thm:logderiv} say nothing about those characters, and the Euler--Kronecker constant of $\mathbb Q(\zeta_q)$, which is a sum over all the characters modulo $q$, is not controlled by them. The half-plane controls it, through the primes in the progression $1\bmod q$ rather than through the individual values $L'/L(1,\chi)$, whose sum over the characters the bound of Theorem~\ref{thm:every} would control only up to a factor $\varphi(q)$.
+
+\begin{theorem}\label{thm:ekintro}
+Let $\gamma_m$ be the Euler--Kronecker constant of $\mathbb Q(\zeta_m)$. There is an absolute constant $C$ such that $\gamma_m\le12\log m+36\log\log m+C$ for every $m\ge3$ and $\gamma_q\ge-C\log q\log\log q$ for every prime $q\ge5$.
+\end{theorem}
+
+Ihara proved the upper bound $\gamma_q\le(2+o(1))\log q$ for primes $q$ under the generalised Riemann hypothesis~\cite{Iha06}; Theorem~\ref{thm:ekintro}, proved in Section~\ref{sec:ek}, gives the same order with no hypothesis. The constant $12$ is $1/(1-\theta)$ for $\theta=11/12$.
 
 \subsection*{The proof}
-Figure~\ref{fig:flow} shows how the parts fit together. Lemma~\ref{lem:polya} reduces $M(\chi)$ to the sums $\sum_{m\le H}\bar\chi(m)e(m\beta)/m$ with $H\le q/2$. On the major arcs, where $\beta$ is close to a fraction with denominator at most $R$, the integers $m$ with a large prime factor are written as $pm'$, the additive character $e(pmb/r)$ is expanded in the multiplicative characters $\psi$ modulo $r$, and the prime sums of $\chi\psi$ are bounded with a power saving by a contour shift for the Riesz mean $\sum_{n\le x}\chi\psi(n)\Lambda(n)(1-n/x)$, Proposition~\ref{prop:riesz}. The contour is a rectangle of height $x^2$ and not a whole vertical strip, which is why the hypothesis~\eqref{eq:hyp} is a rectangle and not a half-plane: on the line $\Re s=2$ the kernel $x^s/(s(s+1))$ decays like $|\Im s|^{-2}$, so the part of the integral above the height $x^2$ is bounded by a constant. On the minor arcs the sum is bounded by Theorem~\ref{thm:mv}, a weak form of the theorem of Montgomery and Vaughan on exponential sums with multiplicative coefficients, whose proof needs only the spacing of the multiples of $\beta$ and Selberg's upper bound for prime pairs. The integers with only small prime factors are few enough to be counted trivially. Section~\ref{sec:count} counts the characters for which~\eqref{eq:hyp} fails: a zero of $L(s,\chi\psi)$ is a zero of the $L$-function of a character modulo $qr$, the map $\chi\mapsto\chi\psi$ is injective for fixed $\psi$, and Theorem~\ref{thm:zd} bounds the zeros of all the characters modulo $qr$ with $r\le R$ together. Section~\ref{sec:logderiv} proves Theorem~\ref{thm:logderiv} by the same contour shift, now crossing the pole of $L'/L(s+1,\chi)/(s(s+1))$ at $s=0$, whose residue is $L'/L(1,\chi)$. Appendix~\ref{app:halfplane} proves the zero-free half-plane that Theorem~\ref{thm:every} feeds into the transfer theorem; Figure~\ref{fig:halfplane} there shows its parts. The counting arguments are of the same kind as the counts attached to finite complexes and group actions in the authors' earlier work~\cite{Bha22a,Bha22b,BB26}.
+Figure~\ref{fig:flow} shows how the parts fit together. Lemma~\ref{lem:polya} reduces $M(\chi)$ to the sums $\sum_{m\le H}\bar\chi(m)e(m\beta)/m$ with $H\le q/2$. On the major arcs, where $\beta$ is close to a fraction with denominator at most $R$, the integers $m$ with a large prime factor are written as $pm'$, the additive character $e(pmb/r)$ is expanded in the multiplicative characters $\psi$ modulo $r$, and the prime sums of $\chi\psi$ are bounded with a power saving by a contour shift for the Riesz mean $\sum_{n\le x}\chi\psi(n)\Lambda(n)(1-n/x)$, Proposition~\ref{prop:riesz}. The contour is a rectangle of height $x^2$ and not a whole vertical strip, which is why the hypothesis~\eqref{eq:hyp} is a rectangle and not a half-plane: on the line $\Re s=2$ the kernel $x^s/(s(s+1))$ decays like $|\Im s|^{-2}$, so the part of the integral above the height $x^2$ is bounded by a constant. On the minor arcs the sum is bounded by Theorem~\ref{thm:mv}, a weak form of the theorem of Montgomery and Vaughan on exponential sums with multiplicative coefficients, whose proof needs only the spacing of the multiples of $\beta$ and Selberg's upper bound for prime pairs. The integers with only small prime factors are few enough to be counted trivially. Section~\ref{sec:count} counts the characters for which~\eqref{eq:hyp} fails: a zero of $L(s,\chi\psi)$ is a zero of the $L$-function of a character modulo $qr$, the map $\chi\mapsto\chi\psi$ is injective for fixed $\psi$, and Theorem~\ref{thm:zd} bounds the zeros of all the characters modulo $qr$ with $r\le R$ together. Section~\ref{sec:logderiv} proves Theorem~\ref{thm:logderiv} by the same contour shift, now crossing the pole of $L'/L(s+1,\chi)/(s(s+1))$ at $s=0$, whose residue is $L'/L(1,\chi)$. Section~\ref{sec:ek} proves Theorem~\ref{thm:ekintro} from the half-plane, the explicit formula and the Brun--Titchmarsh inequality. Appendix~\ref{app:halfplane} proves the zero-free half-plane that Theorem~\ref{thm:every} feeds into the transfer theorem; Figure~\ref{fig:halfplane} there shows its parts. The counting arguments are of the same kind as the counts attached to finite complexes and group actions in the authors' earlier work~\cite{Bha22a,Bha22b,BB26}.
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.96\textwidth]{figures/fig_flow.png}
-\caption{The structure of the proofs. The character sum is reduced to the sums $\sum_{m\le H}\bar\chi(m)e(m\beta)/m$, which are bounded on the major arcs by the prime sums of the twists $\chi\psi$ (Proposition~\ref{prop:riesz}, Corollary~\ref{cor:prime}, Lemma~\ref{lem:major}) and on the minor arcs by Theorem~\ref{thm:mv}. The zero-density theorem bounds the number of characters for which the major-arc input fails.}
+\caption{The structure of the proofs. The character sum is reduced to the sums $\sum_{m\le H}\bar\chi(m)e(m\beta)/m$, which are bounded on the major arcs by the prime sums of the twists $\chi\psi$ (Proposition~\ref{prop:riesz}, Corollary~\ref{cor:prime}, Lemma~\ref{lem:major}) and on the minor arcs by Theorem~\ref{thm:mv}. The zero-density theorem bounds the number of characters for which the major-arc input fails (middle column). The zero-free half-plane of Appendix~\ref{app:halfplane} removes the exceptions and gives the Euler--Kronecker bounds of Section~\ref{sec:ek} (right column).}
 \label{fig:flow}
 \end{figure}
 
@@ -924,6 +932,103 @@ As before let $0<\varepsilon\le1$, $\theta=1-\varepsilon/48$, and let $C_5$ and 
 Here $T_1\le2(\log(q+2))^{192/\varepsilon}$, so $T_1^{\varepsilon/4}\le2(\log(q+2))^{48}$, and $\log(qT_1)\le\log q+1+192\varepsilon^{-1}\log\log(q+2)$. Hence $|E'_q|\le q^{\varepsilon/4}P_\varepsilon(\log q)$ for a polynomial $P_\varepsilon$, and there is $q_1=q_1(\varepsilon)$ with $|E'_q|\le q^{\varepsilon}$ for $q\ge q_1$. For $3\le q<q_1$ there are finitely many nonprincipal characters, each with $L(1,\chi)\ne0$ by Dirichlet's theorem~\cite[Chapter~4]{Dav80}, so $|L'/L(1,\chi)|/\log\log q$ is bounded on them by a constant $C'$ depending on $\varepsilon$; no character is exceptional there. The theorem holds with $C_\varepsilon=\max(C_5,C')$.
 \end{proof}
 
+\section{Euler--Kronecker constants of cyclotomic fields}\label{sec:ek}
+
+For $m\ge3$ let $K_m=\mathbb Q(\zeta_m)$ and write the Laurent expansion of its Dedekind zeta function at $s=1$ as $\zeta_{K_m}(s)=c_{-1}/(s-1)+c_0+O(s-1)$. The Euler--Kronecker constant of $K_m$ is $\gamma_m=c_0/c_{-1}$~\cite{Iha06}, so that
+\begin{equation}\label{eq:ekdef}
+  -\frac{\zeta_{K_m}'}{\zeta_{K_m}}(s)=\frac1{s-1}-\gamma_m+O(s-1)\qquad(s\to1).
+\end{equation}
+Ihara proved, under the generalised Riemann hypothesis, that $\gamma_q\le(2+o(1))\log q$ for primes $q$, and conjectured bounds of the same order on both sides; Ford, Luca and Moree showed that the lower half of that conjecture fails if the prime $k$-tuples and Elliott--Halberstam conjectures hold~\cite{Iha06,FLM14}. The zero-free half-plane of Appendix~\ref{app:halfplane} gives an upper bound of the order $\log m$ with no hypothesis.
+
+\begin{theorem}[Theorem~\ref{thm:ekintro}]\label{thm:ek}
+There is an absolute constant $C$ such that
+\[
+  \gamma_m\le12\log m+36\log\log m+C\qquad\text{for every }m\ge3,
+\]
+and
+\[
+  \gamma_q\ge-C\log q\log\log q\qquad\text{for every prime }q\ge5.
+\]
+\end{theorem}
+
+Throughout this section $\theta=11/12$, $\chi_0$ is the principal character modulo $m$, and for a character $\chi$ modulo $m$ we write $\chi^*$ for the primitive character that induces it and $\psi(x,\chi)=\sum_{n\le x}\chi(n)\Lambda(n)$. The constants $C_1,C_2,\dots$ are absolute.
+
+\begin{lemma}\label{lem:ekpsi}
+For $m\ge3$ and $x\ge2$ put $E_m(x)=\sum_{\chi\bmod m}\psi(x,\chi)-x$. Then $|E_m(x)|\le C_1\varphi(m)x^{\theta}\log^2(mx)$.
+\end{lemma}
+
+\begin{proof}
+Let $\chi^*$ be primitive modulo $k\ge3$. By Theorem~\ref{thm:b:main} the function $L(s,\chi^*)$ has no zero with $\Re s>\theta$, and by the functional equation, which maps a zero $\rho$ in the critical strip to the zero $1-\bar\rho$ of the same function, none with $0<\Re s<1-\theta$; so every nontrivial zero $\rho$ satisfies $1-\theta\le\Re\rho\le\theta$ and $|\rho|\ge1/12$. The truncated explicit formula~\cite[Chapter~19]{Dav80} with $T=x$ gives
+\[
+  \psi(x,\chi^*)=-\sum_{|\Im\rho|<x}\frac{x^\rho}\rho-b(\chi^*)+O\bigl(x^{1/4}\log x+\log^2(kx)\bigr),
+\]
+where $b(\chi^*)=-\sum_{|\Im\rho|<1}1/\rho+O(\log k)$; the number of zeros with $t\le|\Im\rho|\le t+1$ is $O(\log(k(t+2)))$~\cite[Chapter~16]{Dav80}. With $|\rho|\ge1/12$ and $|x^\rho|\le x^\theta$ this gives $|\psi(x,\chi^*)|\le C_2x^\theta\log^2(kx)$. The same argument for the Riemann zeta function, whose nontrivial zeros satisfy the same bounds by Theorem~\ref{thm:b:main}, and the explicit formula of~\cite[Chapter~17]{Dav80} give $|\psi(x)-x|\le C_2x^\theta\log^2x$. Passing from $\chi^*$ to $\chi$, and from $\psi(x)$ to $\psi(x,\chi_0)$, changes the sum only at the powers $p^j\le x$ of the primes $p\mid m$, which contribute at most $\omega(m)\log x\le2\log m\log x$. Summing over the $\varphi(m)$ characters gives the lemma.
+\end{proof}
+
+\begin{lemma}\label{lem:ekidentity}
+For $m\ge3$ and $Q\ge2$ put $S_m(Q)=\sum_{n\le Q,\ n\equiv1\ (m)}\Lambda(n)/n$. Then
+\[
+  \gamma_m=\log Q-\varphi(m)S_m(Q)-R_m+\frac{E_m(Q)}Q-\int_Q^\infty\frac{E_m(x)}{x^2}\,dx,
+\]
+where $0\le R_m\le2\log m$, and $R_q=\log q/(q-1)$ for a prime $q$.
+\end{lemma}
+
+\begin{proof}
+The Dedekind zeta function of $K_m$ is $\zeta_{K_m}(s)=\prod_{\chi\bmod m}L(s,\chi^*)$~\cite[Theorem~4.3]{Was97}. For $\Re s>1$, taking logarithmic derivatives and expanding,
+\[
+  -\frac{\zeta_{K_m}'}{\zeta_{K_m}}(s)=\sum_{n\ge1}\frac{\Lambda(n)c_m(n)}{n^s},\qquad c_m(n)=\sum_{\chi\bmod m}\chi^*(n).
+\]
+For $(n,m)=1$ we have $\chi^*(n)=\chi(n)$, so $c_m(n)=\varphi(m)\mathbf 1_{n\equiv1\,(m)}$. Let $p\mid m$ and write $m_p=m/p^{v_p(m)}$. The characters $\chi$ modulo $m$ whose conductor is prime to $p$ are exactly those induced from the characters $\chi'$ modulo $m_p$, and for them $\chi^*(p^j)=\chi'(p^j)$; for the others $\chi^*(p^j)=0$. Hence $c_m(p^j)=\varphi(m_p)\mathbf 1_{p^j\equiv1\,(m_p)}$, and
+\[
+  -\frac{\zeta_{K_m}'}{\zeta_{K_m}}(s)=\varphi(m)\sum_{n\equiv1\,(m)}\frac{\Lambda(n)}{n^s}+R_m(s),\qquad R_m(s)=\sum_{p\mid m}\varphi(m_p)\log p\sum_{\substack{j\ge1\\p^j\equiv1\,(m_p)}}p^{-js}.
+\]
+The series $R_m(s)$ converges at $s=1$; put $R_m=R_m(1)\ge0$. If $m_p\le2$ the inner sum at $s=1$ is $1/(p-1)$ and $\varphi(m_p)=1$, so the term is at most $\log p$. If $m_p\ge3$ the exponents $j$ with $p^j\equiv1\pmod{m_p}$ are the multiples of the order $o$ of $p$ modulo $m_p$, and $p^o>m_p$, so the inner sum is at most $2p^{-o}<2/m_p$ and the term is at most $2\log p$. Hence $R_m\le2\sum_{p\mid m}\log p\le2\log m$; for a prime $q$ the only term is $p=q$, $m_q=1$, and $R_q=\log q/(q-1)$.
+
+Let $A(x)=\varphi(m)\sum_{n\le x,\,n\equiv1\,(m)}\Lambda(n)=\sum_{\chi\bmod m}\psi(x,\chi)$, so that $A(x)=x+E_m(x)$ for $x\ge2$; put $E_m(x)=A(x)-x$ for $1\le x<2$ as well, so that $E_m(1)=-1$ and $|E_m(x)|\le2$ on $[1,2)$. For real $s>1$, partial summation gives
+\[
+  \varphi(m)\sum_{n\equiv1\,(m)}\frac{\Lambda(n)}{n^s}=\int_{1}^\infty x^{-s}\,dA(x)=\frac1{s-1}+1+s\int_1^\infty\frac{E_m(x)}{x^{s+1}}\,dx,
+\]
+the boundary terms being $-E_m(1)=1$ at $x=1$ and $0$ at infinity by Lemma~\ref{lem:ekpsi}. By the same lemma the last integral converges uniformly for $s\ge1$. Comparing with~\eqref{eq:ekdef} and letting $s\to1^+$,
+\[
+  \gamma_m=-1-\int_1^\infty\frac{E_m(x)}{x^2}\,dx-R_m.
+\]
+Finally, with $dA(x)=dx+dE_m(x)$ and integration by parts,
+\[
+  \varphi(m)S_m(Q)=\int_1^Q\frac{dA(x)}x=\log Q+\frac{E_m(Q)}Q+1+\int_1^Q\frac{E_m(x)}{x^2}\,dx,
+\]
+that is
+\[
+  -1-\int_1^Q\frac{E_m(x)}{x^2}\,dx=\log Q-\varphi(m)S_m(Q)+\frac{E_m(Q)}Q,
+\]
+which gives the identity of the lemma.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:ek}]
+Take $Q=m^{12}(\log m)^{36}$, so that $Q^{\theta-1}=m^{-1}(\log m)^{-3}$ and $\log(mQ)\le50\log m$ for $m\ge3$. By Lemma~\ref{lem:ekpsi}, since $\varphi(m)\le m$,
+\[
+\begin{split}
+  \frac{|E_m(Q)|}Q+\int_Q^\infty\frac{|E_m(x)|}{x^2}\,dx&\le C_1\varphi(m)\Bigl(Q^{\theta-1}\log^2(mQ)+\int_Q^\infty x^{\theta-2}\log^2(mx)\,dx\Bigr)\\
+  &\le C_3\varphi(m)Q^{\theta-1}\log^2(mQ)\le\frac{2500\,C_3}{\log m}.
+\end{split}
+\]
+Since $S_m(Q)\ge0$ and $R_m\ge0$, Lemma~\ref{lem:ekidentity} gives $\gamma_m\le\log Q+C_4=12\log m+36\log\log m+C_4$.
+
+For the lower bound let $q\ge5$ be prime, so $\varphi(q)=q-1$, and split $S_q(Q)=S'+S''$ into the primes and the higher prime powers. Every prime $p\equiv1\pmod q$ satisfies $p\ge2q+1$, since $p$ is odd. By the Brun--Titchmarsh inequality of Montgomery and Vaughan~\cite[Theorem~2]{MV73}, $\pi(x;q,1)\le2x/((q-1)\log(x/q))$ for $x>q$, and partial summation gives
+\[
+  (q-1)S'\le\frac{2\log Q}{\log(Q/q)}+2\int_{2q}^Q\frac{\log x\,dx}{x\log(x/q)}
+  =\frac{2\log Q}{\log(Q/q)}+2\log q\,\log\frac{\log(Q/q)}{\log2}+2\log\frac Q{2q},
+\]
+which is at most $2\log q\log\log q+C_5\log q$. For $S''$ consider the prime powers $n=p^j\equiv1\pmod q$ with $j\ge2$. Those with $n\le q^2$ have $p<q$, and for each $j$ at most $j-1$ residues $p\in[2,q-1]$ satisfy $p^j\equiv1\pmod q$; as $j\le2\log q/\log2$, there are at most $s\le5\log^2q$ such $n$, all distinct and of the form $tq+1$ with $t\ge1$, so their contribution to $(q-1)S''$ is at most $(q-1)\sum_{t\le s}\log(q^2)/(tq)\le2\log q(1+\log s)\le4\log q\log\log q+C_6\log q$. Those with $n>q^2$ are perfect powers, of which each dyadic interval $(y,2y]$ contains $O(\sqrt y)$, so their contribution is at most $(q-1)\sum_{i\ge0}O\bigl(\log(2^{i+1}q^2)/(2^{i/2}q)\bigr)\le C_7\log q$. By Lemma~\ref{lem:ekidentity}, with $R_q=\log q/(q-1)$ and the tail bound above,
+\[
+  \gamma_q\ge\log Q-(q-1)(S'+S'')-\frac{\log q}{q-1}-\frac{2500\,C_3}{\log q}\ge-6\log q\log\log q-C_8\log q,
+\]
+which is at least $-C\log q\log\log q$.
+\end{proof}
+
+\begin{remark}
+The constant $12$ is $1/(1-\theta)$: the proof uses the half-plane only to give the error term $x^\theta$ in Lemma~\ref{lem:ekpsi}, and a half-plane $\Re s>\theta'$ would give $\gamma_m\le(1/(1-\theta')+o(1))\log m$. The lower bound loses the factor $\log\log q$ in the primes $p\equiv1\pmod q$ below $q^{12}$, where only the Brun--Titchmarsh inequality is available. Under the prime $k$-tuples and Elliott--Halberstam conjectures the ratio $\gamma_q/\log q$ is dense in $(-\infty,1]$~\cite[Theorem~6]{FLM14}, so the lower bound of Theorem~\ref{thm:ek} cannot be improved to $-C\log q$ without contradicting those conjectures.
+\end{remark}
+
 \input{app.tex}
 \input{appB.tex}
 
@@ -933,7 +1038,7 @@ Here $T_1\le2(\log(q+2))^{192/\varepsilon}$, so $T_1^{\varepsilon/4}\le2(\log(q+
 
 \subsection*{Conflict of interest} The authors declare no conflict of interest.
 
-\subsection*{Data availability} The proofs in this paper are complete by hand, the zero-density theorem of Appendix~\ref{app:zd} and the zero-free half-plane of Appendix~\ref{app:halfplane} included. Release \texttt{v3.0.0} of the repository named in the note under the abstract (\href{https://doi.org/10.5281/zenodo.23672710}{10.5281/zenodo.23672710}) contains the source of the paper; programs that check the numerical inequalities between the constants of Sections~\ref{sec:riesz} to~\ref{sec:logderiv} and of Appendix~\ref{app:zd}, and that compute $M(\chi)/(\sqrt q\log\log q)$ and $|L'/L(1,\chi)|/\log\log q$ for the characters to small prime moduli; and, as an independent check of Theorem~\ref{thm:every}, the Lean~4 sources of the proof of the half-plane $\Re s>7/8$ of~\cite{OAI26}, which we compiled with Lean~4.34.1 and the Mathlib library, with the report of the Lean kernel that the theorem depends on no axiom beyond the three standard ones \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}, and a Lean~4 proof, checked in the same build, of the two bounds of Theorem~\ref{thm:every} from that theorem. No statement of the paper depends on these programs.
+\subsection*{Data availability} The proofs in this paper are complete by hand, the zero-density theorem of Appendix~\ref{app:zd} and the zero-free half-plane of Appendix~\ref{app:halfplane} included, and no statement depends on a computer calculation. Release \texttt{v4.0.0} of the repository named in the note under the abstract contains the source of the paper and programs that check the numerical inequalities between the constants of Sections~\ref{sec:riesz} to~\ref{sec:logderiv} and of Appendix~\ref{app:zd}, compute $M(\chi)/(\sqrt q\log\log q)$ and $|L'/L(1,\chi)|/\log\log q$ for the characters to small prime moduli, and check the Gauss-sum and reciprocity identities of Lemma~\ref{lem:b:arithmetic} over the Eisenstein integers for $77$ prime and $216$ composite moduli. As an independent check of the conclusion, it also contains the Lean~4 sources of OpenAI's proof of the wider half-plane $\Re s>7/8$~\cite{OAI26}, stated for the Dirichlet $L$-functions of the Mathlib library, which we compiled with Lean~4.34.1 and Mathlib; the Lean kernel reports that the theorem depends on no axiom beyond \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}. Nothing in the paper uses that formal proof.
 
 \begingroup\sloppy\emergencystretch=3em\hbadness=10000
 \begin{thebibliography}{99}
@@ -962,6 +1067,9 @@ NIST Digital Library of Mathematical Functions, \S10.43, equation (10.43.19), \u
 \bibitem{DR}
 A.~Dunn, M.~Radziwi\l\l, Bias in cubic Gauss sums: Patterson's conjecture, Ann. of Math. (2) 200 (2024), no. 3, 967--1057. \href{https://doi.org/10.4007/annals.2024.200.3.3}{doi:10.4007/annals.2024.200.3.3}.
 
+\bibitem{FLM14}
+K.~Ford, F.~Luca, P.~Moree, Values of the Euler $\varphi$-function not divisible by a given odd prime, and the distribution of Euler--Kronecker constants for cyclotomic fields, Math. Comp. 83 (2014), no. 287, 1447--1476. \href{https://doi.org/10.1090/S0025-5718-2013-02749-4}{doi:10.1090/S0025-5718-2013-02749-4}.
+
 \bibitem{GL}
 L.~Goldmakher, B.~Louvel, A quadratic large sieve inequality over number fields, Math. Proc. Cambridge Philos. Soc. 154 (2013), no. 2, 193--212. \href{https://doi.org/10.1017/S0305004112000370}{doi:10.1017/S0305004112000370}.
 
@@ -983,14 +1091,17 @@ D.~R. Heath-Brown, S.~J. Patterson, The distribution of Kummer sums at prime arg
 \bibitem{Hec20}
 E.~Hecke, Eine neue Art von Zetafunktionen und ihre Beziehungen zur Verteilung der Primzahlen, I, II, Math. Z. 1 (1918), 357--376; 6 (1920), 11--51. \href{https://doi.org/10.1007/BF01465095}{doi:10.1007/BF01465095}; \href{https://doi.org/10.1007/BF01202991}{doi:10.1007/BF01202991}.
 
+\bibitem{Iha06}
+Y.~Ihara, On the Euler--Kronecker constants of global fields and primes with small norms, in: Algebraic Geometry and Number Theory, Progr. Math. 253, Birkh\"auser, Boston, 2006, 407--451. \href{https://doi.org/10.1007/978-0-8176-4532-8_5}{doi:10.1007/978-0-8176-4532-8\_5}.
+
+\bibitem{IMS09}
+Y.~Ihara, V.~K. Murty, M.~Shimura, On the logarithmic derivatives of Dirichlet $L$-functions at $s=1$, Acta Arith. 137 (2009), 253--276. \href{https://doi.org/10.4064/aa137-3-6}{doi:10.4064/aa137-3-6}.
+
 \bibitem{Ing40}
 A.~E. Ingham, On the estimation of $N(\sigma,T)$, Quart. J. Math. Oxford Ser. 11 (1940), 201--202. \href{https://doi.org/10.1093/qmath/os-11.1.201}{doi:10.1093/qmath/os-11.1.201}.
 
 \bibitem{IK04}
 H.~Iwaniec, E.~Kowalski, Analytic Number Theory, American Mathematical Society Colloquium Publications 53, American Mathematical Society, Providence, RI, 2004. \href{https://doi.org/10.1090/coll/053}{doi:10.1090/coll/053}.
-
-\bibitem{IMS09}
-Y.~Ihara, V.~K. Murty, M.~Shimura, On the logarithmic derivatives of Dirichlet $L$-functions at $s=1$, Acta Arith. 137 (2009), 253--276. \href{https://doi.org/10.4064/aa137-3-6}{doi:10.4064/aa137-3-6}.
 
 \bibitem{Kub69}
 T.~Kubota, On Automorphic Functions and the Reciprocity Law in a Number Field, Lectures in Mathematics, Department of Mathematics, Kyoto University 2, Kinokuniya, Tokyo, 1969.
@@ -1000,6 +1111,9 @@ E.~Landau, Neuer Beweis des Primzahlsatzes und Beweis des Primidealsatzes, Math.
 
 \bibitem{Mon71}
 H.~L. Montgomery, Topics in Multiplicative Number Theory, Lecture Notes in Mathematics 227, Springer, Berlin, 1971. \href{https://doi.org/10.1007/BFb0060851}{doi:10.1007/BFb0060851}.
+
+\bibitem{MV73}
+H.~L. Montgomery, R.~C. Vaughan, The large sieve, Mathematika 20 (1973), no. 2, 119--134. \href{https://doi.org/10.1112/S0025579300004708}{doi:10.1112/S0025579300004708}.
 
 \bibitem{MV77}
 H.~L. Montgomery, R.~C. Vaughan, Exponential sums with multiplicative coefficients, Invent. Math. 43 (1977), 69--82. \href{https://doi.org/10.1007/BF01390204}{doi:10.1007/BF01390204}.
@@ -1018,6 +1132,9 @@ S.~J. Patterson, A cubic analogue of the theta series, J. Reine Angew. Math. 296
 
 \bibitem{Rud87}
 W.~Rudin, Real and Complex Analysis, 3rd ed., McGraw-Hill, New York, 1987.
+
+\bibitem{Was97}
+L.~C. Washington, Introduction to Cyclotomic Fields, 2nd ed., Graduate Texts in Mathematics 83, Springer, New York, 1997. \href{https://doi.org/10.1007/978-1-4612-1934-7}{doi:10.1007/978-1-4612-1934-7}.
 
 \bibitem{Yos87}
 A.~Yoshimoto, On the cubic theta function, Nagoya Math. J. 105 (1987), 153--167. \href{https://doi.org/10.1017/S0027763000000817}{doi:10.1017/S0027763000000817}.
