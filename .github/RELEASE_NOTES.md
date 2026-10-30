@@ -14,7 +14,8 @@ New in this version:
   γ_q ≥ −C log q log log q for primes q (Theorem 1.6).
 - No statement rests on an unrefereed source: the preprints of OpenAI are cited for attribution
   only.
-- A shorter abstract; the new affiliation of the first author.
+- A shorter abstract and the standard structure (no note under the abstract); the new affiliation
+  of the first author.
 - `checks/python/eisenstein_check.py` checks the Gauss-sum and reciprocity identities of Lemma B.3
   over the Eisenstein integers.
 
