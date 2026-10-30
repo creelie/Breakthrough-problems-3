@@ -15,9 +15,9 @@ authors:
 type: software
 license: Apache-2.0
 repository-code: "https://github.com/creelie/Breakthrough-problems-3"
-url: "https://github.com/creelie/Breakthrough-problems-3/releases/tag/v4.0.0"
+url: "https://github.com/creelie/Breakthrough-problems-3/releases/tag/v4.0.1"
 doi: 10.5281/zenodo.23383715
-version: 4.0.0
+version: 4.0.1
 date-released: 2026-10-30
 keywords:
   - Pólya–Vinogradov inequality

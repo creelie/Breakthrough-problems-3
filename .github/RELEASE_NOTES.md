@@ -21,6 +21,10 @@ New in this version:
 
 Version 3 (10.5281/zenodo.23672710) is hexagon:2610.00256v3; this version replaces it there.
 
+Release v4.0.1 is the journal version: it adds a title-page footnote naming the preprint
+hexagon:2610.00256v3. The rest of the paper is that of release v4.0.0
+(10.5281/zenodo.23789368).
+
 Files: the paper (`PolyaVinogradovLogLog_final2.pdf`), its LaTeX source with the figures
 (`PolyaVinogradovLogLog_final2-tex.zip`) and the arXiv tarball
 (`PolyaVinogradovLogLog_final2-arxiv.tar.gz`).
