@@ -12,7 +12,7 @@ on:
       tag:
         description: "Release tag, e.g. v2.0.0"
         required: true
-        default: "v4.0.0"
+        default: "v4.0.1"
       target:
         description: "Branch or commit to tag"
         required: true
