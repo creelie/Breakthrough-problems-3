@@ -1,4 +1,4 @@
-Deep Bhattacharjee and Ushashi Bhattacharya, *The Pólya–Vinogradov inequality with log log q for every character*. Version 4, single column (amsart), 53 pages.
+Deep Bhattacharjee, Priyabrata Mandal and Ushashi Bhattacharya, *The Pólya–Vinogradov inequality with log log q for every character*. Version 4, single column (amsart), 53 pages.
 
 M(χ) ≤ C √q log log q for every primitive Dirichlet character χ modulo q ≥ 3, with an absolute
 constant C, where M(χ) is the largest modulus of a partial sum of χ, and |L'/L(1, χ)| ≤ C log log q
@@ -21,9 +21,10 @@ New in this version:
 
 Version 3 (10.5281/zenodo.23672710) is hexagon:2610.00256v3; this version replaces it there.
 
-Release v4.0.1 is the journal version: it adds a title-page footnote naming the preprint
-hexagon:2610.00256v3. The rest of the paper is that of release v4.0.0
-(10.5281/zenodo.23789368).
+Release v4.1.0 is the arXiv version: Priyabrata Mandal (Maulana Azad National Institute of
+Technology Bhopal) joins as second author, and a title-page footnote names the Hexagon version
+hexagon:2610.00256v3, https://hexagonmath.org/2610.00256v3, and the change of authors. The
+mathematics is that of release v4.0.1 (10.5281/zenodo.23791644).
 
 Files: the paper (`PolyaVinogradovLogLog_final2.pdf`), its LaTeX source with the figures
 (`PolyaVinogradovLogLog_final2-tex.zip`) and the arXiv tarball
