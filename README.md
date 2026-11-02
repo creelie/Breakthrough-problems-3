@@ -65,7 +65,7 @@ on 15 October 2026 and was revised there on 21 October 2026. That version claime
 for every character from the zero-free half-plane as an external input; release v2.0.0 proved
 everything else in full and stated the every-character bound separately on the machine-checked
 input; v3.0.0 ([10.5281/zenodo.23672710](https://doi.org/10.5281/zenodo.23672710), hexagon:2610.00256v3) reproduced the proof of the half-plane in the paper. This
-version (v4.0.0, [10.5281/zenodo.23789368](https://doi.org/10.5281/zenodo.23789368); v4.0.1 adds a title-page footnote naming the preprint hexagon:2610.00256v3) adds Section 8 on Euler–Kronecker constants and a check of the arithmetic identities
+version (v4.0.0, [10.5281/zenodo.23789368](https://doi.org/10.5281/zenodo.23789368); v4.0.1 adds a title-page footnote naming the preprint hexagon:2610.00256v3; v4.1.0 is the arXiv version, with Priyabrata Mandal as second author) adds Section 8 on Euler–Kronecker constants and a check of the arithmetic identities
 of Appendix B, and leaves no statement resting on an unrefereed source.
 
 ## Layout
