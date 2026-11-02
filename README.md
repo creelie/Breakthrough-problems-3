@@ -1,6 +1,6 @@
 # The Pólya–Vinogradov inequality with log log q for every character
 
-Deep Bhattacharjee and Ushashi Bhattacharya. Version 4, 30 October 2026.
+Deep Bhattacharjee, Priyabrata Mandal and Ushashi Bhattacharya. Version 4, 2 November 2026.
 
 Let χ be a primitive Dirichlet character modulo q ≥ 3 and let M(χ) be the largest modulus of
 a partial sum ∑_{n ≤ x} χ(n). The Pólya–Vinogradov inequality bounds M(χ) by a constant times
@@ -167,6 +167,9 @@ Concept DOI of all versions: [10.5281/zenodo.23383715](https://doi.org/10.5281/z
 Deep Bhattacharjee (corresponding author), Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India; Formerly, University of Calcutta (Heramba Chandra College), 23/49 Gariahat Road, Golpark, Kolkata 700029, West Bengal, India.
 Emails: d.bhattacharjee@erl-forschung.de, itsdeep@live.com, egspl@proton.me (for questions about this repository).
 ORCID: 0000-0003-0466-750X.
+
+Priyabrata Mandal, Department of Mathematics, Bioinformatics and Computer Applications, Maulana Azad National Institute of Technology Bhopal, Bhopal 462003, India.
+Email: priyabrata@manit.ac.in. ORCID: 0000-0001-6472-6239.
 
 Ushashi Bhattacharya, Formerly, National Taiwan University, Taipei 106319, Taiwan.
 Email: rai.bhattacharya.in@gmail.com. ORCID: 0009-0002-2254-3914.
