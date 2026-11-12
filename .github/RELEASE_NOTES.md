@@ -1,33 +1,8 @@
-Deep Bhattacharjee, Priyabrata Mandal and Ushashi Bhattacharya, *The Pólya–Vinogradov inequality with log log q for every character*. Version 4, single column (amsart), 53 pages.
+Deep Bhattacharjee, *Character sums with log log q outside a sparse set of characters*. Version 5.0.0, amsart, 17 pages.
 
-M(χ) ≤ C √q log log q for every primitive Dirichlet character χ modulo q ≥ 3, with an absolute
-constant C, where M(χ) is the largest modulus of a partial sum of χ, and |L'/L(1, χ)| ≤ C log log q
-for every nonprincipal character (Theorem 1.5). The proof combines a transfer theorem for a single
-character with the zero-free half-plane Re s > 11/12 for all Dirichlet L-functions; the half-plane
-and its proof are due to OpenAI, and Appendix B gives the proof in full, with every external input
-a published theorem.
+M(χ) ≤ c ε⁻¹ √q log log q for all but O((log q)^51 q^ε) primitive characters χ modulo q, uniformly in
+0 < ε ≤ 1, with a tail bound for every larger threshold and the analogous bound for L'/L(1, χ); a
+zero-free half-plane Re s > θ would give both for every character, with a constant of order (1 − θ)⁻¹.
+Section 7 reports M(χ) for all 5,733,937 nonprincipal characters to prime moduli below 10^4.
 
-New in this version:
-
-- Section 8: the Euler–Kronecker constant γ_m of Q(ζ_m) satisfies γ_m ≤ 12 log m + 36 log log m + C
-  for every m ≥ 3, an order known before only under the generalised Riemann hypothesis (Ihara), and
-  γ_q ≥ −C log q log log q for primes q (Theorem 1.6).
-- No statement rests on an unrefereed source: the preprints of OpenAI are cited for attribution
-  only.
-- A shorter abstract and the standard structure (no note under the abstract); the new affiliation
-  of the first author.
-- `checks/python/eisenstein_check.py` checks the Gauss-sum and reciprocity identities of Lemma B.3
-  over the Eisenstein integers.
-
-Version 3 (10.5281/zenodo.23672710) is hexagon:2610.00256v3; this version replaces it there.
-
-Release v4.1.0 is the arXiv version: Priyabrata Mandal (Maulana Azad National Institute of
-Technology Bhopal) joins as second author, and a title-page footnote names the Hexagon version
-hexagon:2610.00256v3, https://hexagonmath.org/2610.00256v3, and the change of authors. The
-mathematics is that of release v4.0.1 (10.5281/zenodo.23791644).
-
-Files: the paper (`PolyaVinogradovLogLog_final2.pdf`), its LaTeX source with the figures
-(`PolyaVinogradovLogLog_final2-tex.zip`) and the arXiv tarball
-(`PolyaVinogradovLogLog_final2-arxiv.tar.gz`).
-
-Contact: d.bhattacharjee@erl-forschung.de, itsdeep@live.com; for this repository egspl@proton.me.
+Files: PVPaper.pdf (the paper) and PVTeX.zip (main.tex and figures/*.png).

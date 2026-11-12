@@ -1,56 +1,23 @@
 {
-  "title": "The Pólya–Vinogradov inequality with log log q for every character: paper, Lean 4 library and checking programs",
+  "title": "Character sums with log log q outside a sparse set of characters: paper, programs and Lean 4 checks",
   "upload_type": "software",
-  "description": "<p>Version 4.1 of the paper, by Deep Bhattacharjee, Priyabrata Mandal and Ushashi Bhattacharya, single column (amsart), 53 pages, with its LaTeX source, programs that check the explicit constants of the proofs, the arithmetic identities of Appendix B and the character sums for small moduli, and a Lean 4 library. The paper proves, with no hypothesis, that M(χ) ≤ C √q log log q for every primitive Dirichlet character χ modulo q ≥ 3, with an absolute constant C, where M(χ) is the largest modulus of a partial sum of χ, and that |L'/L(1, χ)| ≤ C log log q for every nonprincipal character. This is the bound that Montgomery and Vaughan deduced from the generalised Riemann hypothesis, sharp up to the constant by a theorem of Paley. The proof combines a transfer theorem for a single character with the zero-free half-plane Re s &gt; 11/12 for all finite-order Hecke L-functions over Q(√−3), and so for all Dirichlet L-functions; the half-plane and its proof are due to OpenAI (The quasi-Riemann hypothesis: a cubic theta argument with a fixed ray class character, 5 October 2026), and Appendix B gives the proof in full with every external input a published theorem. Since version 4 the paper also proves that the Euler–Kronecker constant γ_m of Q(ζ_m) satisfies γ_m ≤ 12 log m + 36 log log m + C for every m ≥ 3, an order known before only under the generalised Riemann hypothesis, and γ_q ≥ −C log q log log q for primes q. From Chebyshev's bounds alone, at most q^ε characters modulo q violate the bounds for M(χ) and L'/L(1, χ). OpenAI's Lean 4 proof of the wider half-plane Re s &gt; 7/8 is compiled from source and checked by the Lean kernel in this repository as an independent check; nothing in the paper uses it.</p><p>The results were first made public on 15 October 2026 as release v1.0.0 of this repository (concept DOI 10.5281/zenodo.23383715). Version 3 (10.5281/zenodo.23672710) is hexagon:2610.00256v3. Version 4.1 is the arXiv version, with Priyabrata Mandal as second author; its mathematics is that of version 4.0.1 (10.5281/zenodo.23791644).</p>",
+  "description": "<p>Version 5 of this record: a new paper by Deep Bhattacharjee, amsart, 17 pages, with its LaTeX source, the C and Julia programs that compute the maximal character sums M(χ) for all 5,733,937 nonprincipal characters to prime moduli below 10^4, and a Lean 4 file with the integer arithmetic of the proofs. The paper proves, without hypothesis, that M(χ) ≤ c ε<sup>−1</sup> √q log log q for all but O((log q)<sup>51</sup> q<sup>ε</sup>) primitive characters modulo q, uniformly in 0 &lt; ε ≤ 1, with a tail bound for every larger threshold, and the analogous statement for L'/L(1, χ). The bound for every character remains open; a zero-free half-plane Re s &gt; θ would give it with a constant of order (1 − θ)<sup>−1</sup>. Earlier versions of this record contain a different paper.</p>",
   "creators": [
     {
       "name": "Bhattacharjee, Deep",
       "orcid": "0000-0003-0466-750X",
       "affiliation": "Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India; Formerly, University of Calcutta (Heramba Chandra College), 23/49 Gariahat Road, Golpark, Kolkata 700029, West Bengal, India"
-    },
-    {
-      "name": "Mandal, Priyabrata",
-      "orcid": "0000-0001-6472-6239",
-      "affiliation": "Department of Mathematics, Bioinformatics and Computer Applications, Maulana Azad National Institute of Technology Bhopal, Bhopal 462003, India"
-    },
-    {
-      "name": "Bhattacharya, Ushashi",
-      "orcid": "0009-0002-2254-3914",
-      "affiliation": "Formerly, National Taiwan University, Taipei 106319, Taiwan"
     }
   ],
   "keywords": [
     "Pólya–Vinogradov inequality",
     "character sums",
-    "zero-free half-plane",
-    "Euler–Kronecker constants",
-    "cyclotomic fields",
-    "cubic theta function",
+    "zero-density estimates",
     "11L40",
     "11M06",
-    "11M26",
-    "11N36",
-    "11R18",
-    "11R42"
+    "11M26"
   ],
   "license": "apache-2.0",
-  "related_identifiers": [
-    {
-      "identifier": "https://github.com/openai/math",
-      "relation": "references",
-      "resource_type": "software",
-      "scheme": "url"
-    },
-    {
-      "identifier": "https://hexagonmath.org/2610.00256",
-      "scheme": "url",
-      "relation": "isNewVersionOf"
-    },
-    {
-      "identifier": "10.5281/zenodo.23383715",
-      "scheme": "doi",
-      "relation": "isNewVersionOf"
-    }
-  ],
-  "access_right": "open"
+  "access_right": "open",
+  "version": "5.0.0"
 }

@@ -1,1144 +1,866 @@
 \documentclass[11pt,a4paper,reqno]{amsart}
-
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{amsmath,amssymb,amsthm,mathtools}
-\usepackage{mathrsfs}
 \usepackage{graphicx}
+\usepackage{array,booktabs}
 \usepackage[margin=28mm]{geometry}
 \usepackage{xurl}
 \usepackage[hidelinks]{hyperref}
-\usepackage{orcidlink}
 \usepackage{microtype}
-\emergencystretch=3em
+\emergencystretch=2em
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
-\newtheorem{definition}[theorem]{Definition}
 \numberwithin{equation}{section}
 
 \renewcommand{\Re}{\operatorname{Re}}
+\renewcommand{\Im}{\operatorname{Im}}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
-\newcommand{\N}{\mathbb{N}}
-\newcommand{\LL}{\mathcal{L}}
-\DeclareMathOperator{\ord}{ord}
-\hypersetup{pdftitle={The Polya-Vinogradov inequality with log log q for every character},pdfauthor={Deep Bhattacharjee, Priyabrata Mandal, Ushashi Bhattacharya}}
+\newcommand{\eps}{\varepsilon}
+\hypersetup{pdftitle={Character sums with log log q outside a sparse set of characters},pdfauthor={Deep Bhattacharjee}}
 
-\title[P\'olya--Vinogradov with $\log\log q$ for every character]{The P\'olya--Vinogradov inequality with $\log\log q$\\ for every character}
+\title[Character sums outside a sparse set]{Character sums with $\log\log q$ outside a sparse set of characters}
 
-\author{Deep Bhattacharjee\,\orcidlink{0000-0003-0466-750X}}
+\author{Deep Bhattacharjee}
 \address{Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India}
 \address{Formerly, University of Calcutta (Heramba Chandra College), 23/49 Gariahat Road, Golpark, Kolkata 700029, West Bengal, India}
 \email{d.bhattacharjee@erl-forschung.de}
 \email{itsdeep@live.com}
 \email{egspl@proton.me}
-\thanks{\sloppy Corresponding author: Deep Bhattacharjee. Email: \href{mailto:d.bhattacharjee@erl-forschung.de}{d.bhattacharjee@erl-forschung.de}, \href{mailto:itsdeep@live.com}{itsdeep@live.com}, \href{mailto:egspl@proton.me}{egspl@proton.me}; ORCID \href{https://orcid.org/0000-0003-0466-750X}{0000-0003-0466-750X}}
-\thanks{This paper is an improved and corrected version, with complete proofs and new results, of its Hexagon version, the preprint 2610.00256v3, \url{https://hexagonmath.org/2610.00256v3}, whose authors are Deep Bhattacharjee and Ushashi Bhattacharya. Priyabrata Mandal is an author of the present version.}
-\author{Priyabrata Mandal\,\orcidlink{0000-0001-6472-6239}}
-\address{Department of Mathematics, Bioinformatics and Computer Applications, Maulana Azad National Institute of Technology Bhopal, Bhopal 462003, India}
-\email{priyabrata@manit.ac.in}
-\thanks{Priyabrata Mandal: email \href{mailto:priyabrata@manit.ac.in}{priyabrata@manit.ac.in}; ORCID \href{https://orcid.org/0000-0001-6472-6239}{0000-0001-6472-6239}.}
-\author{Ushashi Bhattacharya\,\orcidlink{0009-0002-2254-3914}}
-\address{Formerly, National Taiwan University, Taipei 106319, Taiwan}
-\email{rai.bhattacharya.in@gmail.com}
-\thanks{Ushashi Bhattacharya: email \href{mailto:rai.bhattacharya.in@gmail.com}{rai.bhattacharya.in@gmail.com}; ORCID \href{https://orcid.org/0009-0002-2254-3914}{0009-0002-2254-3914}.}
+\urladdr{https://orcid.org/0000-0003-0466-750X}
 
-\subjclass[2020]{Primary 11L40, 11M26; Secondary 11M06, 11N36, 11R18, 11R42}
-\keywords{P\'olya--Vinogradov inequality; character sums; zero-free regions; Euler--Kronecker constants}
-\date{2 November 2026}
+\subjclass[2020]{11L40; 11M06; 11M26}
+\keywords{P\'olya--Vinogradov inequality; character sums; zero-density estimates}
+\date{}
 
-
-\raggedbottom
 \begin{document}
 
 \begin{abstract}
-\itshape
-Let $\chi$ be a primitive Dirichlet character modulo $q\ge3$ and let $M(\chi)$ be the largest modulus of a partial sum of $\chi$. We prove that $M(\chi)\le C\sqrt q\log\log q$ and $|L'/L(1,\chi)|\le C\log\log q$ for every such $\chi$, with an absolute constant $C$. This is the bound that Montgomery and Vaughan deduced from the generalised Riemann hypothesis, and by a theorem of Paley it is sharp up to the value of $C$. The proof combines a transfer theorem, which gives the bound for one character from a zero-free rectangle for its twists, with the zero-free half-plane $\Re s>11/12$ for all Dirichlet $L$-functions found by OpenAI, whose proof is given in full. The same half-plane bounds the Euler--Kronecker constant of $\mathbb Q(\zeta_m)$ above by $12\log m+O(\log\log m)$ for every $m$, an order known before only under the generalised Riemann hypothesis, and below by $-O(\log q\log\log q)$ for primes $q$. Without the half-plane the bounds for $M(\chi)$ and $L'/L(1,\chi)$ hold for all but $q^\varepsilon$ characters modulo $q$.
+For a primitive character $\chi$ modulo $q$ let $M(\chi)$ be the largest partial sum of $\chi$ in modulus. We show that $M(\chi)\le c\,\eps^{-1}\sqrt q\log\log q$ for all but $O\bigl((\log q)^{C}q^{\eps}\bigr)$ primitive characters modulo $q$, uniformly for $0<\eps\le1$, with absolute constants. Consequently at most $q^{O(1/\tau)}(\log q)^{C}$ characters have $M(\chi)>\tau\sqrt q\log\log q$, and all but $\exp(O((\log\log q)^2))$ characters satisfy $M(\chi)\ll\sqrt q\log q/\log\log q$. The bound $|L'/L(1,\chi)|\ll\eps^{-1}(\log\log q+\log(2/\eps))$ holds outside a set of comparable size, and a zero-free half-plane $\Re s>\theta$ would give both bounds for every character with a constant of order $(1-\theta)^{-1}$.
 \end{abstract}
 
 \maketitle
-
 \section{Introduction}
 
-Let $\chi$ be a primitive Dirichlet character modulo $q\ge3$ and put
+Let $\chi$ be a primitive Dirichlet character modulo $q\ge3$ and
 \[
   M(\chi)=\max_{x\ge1}\Bigl|\sum_{n\le x}\chi(n)\Bigr|.
 \]
-The P\'olya--Vinogradov inequality states that $M(\chi)\ll\sqrt q\log q$~\cite[Chapter~23]{Dav80}.\footnote{The proof expands $\chi$ in additive characters through the Gauss sum $\tau(\bar\chi)$, whose modulus is $\sqrt q$ for primitive $\chi$, and bounds the resulting geometric series trivially; Lemma~\ref{lem:polya} below is the same argument with the harmonic sums kept.} Paley proved that the factor $\log q$ cannot be replaced by anything smaller than $\log\log q$: for infinitely many primitive quadratic characters $M(\chi)>c\sqrt q\log\log q$~\cite{Pal32}. Montgomery and Vaughan proved the matching upper bound $M(\chi)\ll\sqrt q\log\log q$ under the generalised Riemann hypothesis~\cite{MV77}. Without hypothesis, Granville and Soundararajan lowered the exponent of $\log q$ for characters of fixed odd order~\cite{GS07},\footnote{For a primitive character of odd order $g$ they obtain $M(\chi)\ll\sqrt q(\log q)^{1-\delta_g/2+o(1)}$ with $\delta_g=1-\frac g\pi\sin\frac\pi g$, and under the generalised Riemann hypothesis the same exponent of $\log\log q$.} and Bober, Goldmakher, Granville and Koukoulopoulos determined the distribution of $M(\chi)/(\sqrt q\log\log q)$ over the characters to a prime modulus in the range where that ratio is at most $\log\log q$ minus a large constant~\cite{BGGK18}.
+P\'olya and Vinogradov showed in 1918 that $M(\chi)\ll\sqrt q\log q$. Paley~\cite{Pal32} found infinitely many quadratic characters with $M(\chi)\gg\sqrt q\log\log q$, and Montgomery and Vaughan~\cite{MV77} proved that $M(\chi)\ll\sqrt q\log\log q$ for every $\chi$ if the generalised Riemann hypothesis holds. Without a hypothesis, the factor $\log q$ has been lowered only for special families: Granville and Soundararajan~\cite{GS07} saved a power of $\log q$ for characters of fixed odd order, and Goldmakher~\cite{Gol12} and Lamzouri and Mangerel~\cite{LM22} refined this. Bober, Goldmakher, Granville and Koukoulopoulos~\cite{BGGK18} determined, for prime $q$, the proportion of characters with $M(\chi)>\tau\sqrt q$ when $\tau\le\log\log q-C$; that proportion decays doubly exponentially in $\tau$.
 
-Montgomery and Vaughan use the Riemann hypothesis in one place: on the major arcs of a circle method, for the prime sums of the characters $\chi\psi$ twisted by additive characters, where $\psi$ runs over the characters of a small modulus $r$. What that step needs is a power saving in these prime sums up to the height $q$, and a power saving follows from the absence of zeros of $L(s,\chi\psi)$ in a rectangle of fixed width to the left of the line $\Re s=1$ and of height a power of $q$. Our first theorem makes this precise.
+This paper is about the characters on the far side of that range, those with $M(\chi)$ at least a large multiple of $\sqrt q\log\log q$. We show that there are very few of them, with a bound that is uniform in the multiple.
 
-\begin{theorem}[transfer theorem]\label{thm:transfer}
-Let $1/2\le\theta<1$. There is a constant $C_\theta$ with the following property. Let $\chi$ be a primitive character modulo $q\ge3$, put $M=\lceil\log q\rceil$ and $R=M^{16}$, and suppose that for every $r\le R$ and every character $\psi$ modulo $r$,
-\begin{equation}\label{eq:hyp}
-  L(s,\chi\psi)\ne0\qquad\text{for }\Re s>\theta,\ |\Im s|\le5q^2.
-\end{equation}
-Then $M(\chi)\le C_\theta\sqrt q\log\log q$.
-\end{theorem}
-
-The number of zeros of all the $L$-functions to a modulus in such a rectangle is bounded by a zero-density theorem of the kind first proved by Ingham and Montgomery, Theorem~\ref{thm:zd} below, which we prove in Appendix~\ref{app:zd}: the bound is a power of the modulus whose exponent tends to zero as $\theta$ tends to one, times a power of the logarithm. Counting the characters $\chi$ for which~\eqref{eq:hyp} fails gives our main result.
-
-\begin{theorem}\label{thm:main}
-For every $\varepsilon>0$ there is a constant $C_\varepsilon$ such that for every $q\ge3$ the number of primitive characters $\chi$ modulo $q$ with
+\begin{theorem}\label{thm:A}
+There are absolute constants $c_1,c_2,c_3>0$ such that for every $q\ge3$ and every $0<\eps\le1$,
 \[
-  M(\chi)>C_\varepsilon\sqrt q\log\log q
+  \#\Bigl\{\chi\bmod q\ \text{primitive}:\ M(\chi)>\frac{c_1}{\eps}\sqrt q\log\log q\Bigr\}\le c_2(\log q)^{c_3}q^{\eps}.
 \]
-is at most $q^{\varepsilon}$.
 \end{theorem}
 
-For a prime $q$ there are $q-2$ primitive characters, so Theorem~\ref{thm:main} gives the bound of Montgomery and Vaughan for all but a vanishing proportion $q^{\varepsilon-1}$ of them. Theorem~\ref{thm:every} below supersedes it; Theorem~\ref{thm:main} is kept because its proof uses neither Appendix~\ref{app:halfplane} nor anything beyond Chebyshev's bounds. The results of Granville and Soundararajan and of Bober, Goldmakher, Granville and Koukoulopoulos on the distribution of large character sums~\cite{GS07,BGGK18} are proved by a different method, through the structure of the characters with large sums, and they bound the number of characters with $M(\chi)$ above a given multiple of $\sqrt q\log\log q$ only in the range of multiples below $\log\log q$ minus a large constant; the complementary range, which is the one of Theorem~\ref{thm:main}, is where the zero-density theorem enters.
+For a prime $q$ there are $q-2$ primitive characters, so the bound $\sqrt q\log\log q$ of Montgomery and Vaughan holds, with the constant $c_1/\eps$, for all but a proportion $q^{\eps-1+o(1)}$ of them. Read the other way, Theorem~\ref{thm:A} is a tail bound.
 
-The transfer theorem also shows what a zero-free half-plane gives.
-
-\begin{corollary}\label{cor:halfplane}
-Let $1/2\le\theta<1$ and suppose that $L(s,\xi)\ne0$ for $\Re s>\theta$ for every nonprincipal Dirichlet character $\xi$. Then $M(\chi)\le C_\theta\sqrt q\log\log q$ for every primitive character $\chi$ modulo $q\ge3$, with the constant of Theorem~\ref{thm:transfer}.
+\begin{corollary}\label{cor:tail}
+With the constants of Theorem~\ref{thm:A}, for every $q\ge3$ and every $\tau\ge c_1$,
+\[
+  \#\bigl\{\chi\bmod q\ \text{primitive}:\ M(\chi)>\tau\sqrt q\log\log q\bigr\}\le c_2(\log q)^{c_3}q^{c_1/\tau}.
+\]
+In particular all but $\exp\bigl(O((\log\log q)^2)\bigr)$ primitive characters modulo $q$ satisfy $M(\chi)\ll\sqrt q\log q/\log\log q$, and all but $q^{O(1/\log\log q)}$ satisfy $M(\chi)\ll\sqrt q(\log\log q)^2$.
 \end{corollary}
 
-Such a half-plane exists, with $\theta=11/12$: it is Theorem~\ref{thm:b:main}, proved in Appendix~\ref{app:halfplane} by an argument due to OpenAI, and Theorem~\ref{thm:every} below records what it gives.
+The corollary follows by taking $\eps=c_1/\tau$, and then $\tau=\log q/(\log\log q)^2$ and $\tau=c_1\log\log q$. For comparison, the frequency found in~\cite{BGGK18} is $\exp(-\exp(\tau'+O(1)))$ for $M(\chi)>\tau'\sqrt q$ with $\tau'\le\log\log q-C$; at the end of that range this is $q^{-c}$ for a constant $c$, and Corollary~\ref{cor:tail} continues it, in the units $\sqrt q\log\log q$, to every larger threshold.\footnote{The two results use different information. The distribution in~\cite{BGGK18} comes from the structure of characters with large sums, which must pretend to be characters of small conductor and opposite parity. Theorem~\ref{thm:A} comes from the zeros of the $L$-functions of the twists $\chi\psi$ by characters $\psi$ of small modulus, through a zero-density estimate.}
 
-The same zero-free rectangle controls the logarithmic derivative of $L(s,\chi)$ at $s=1$, and here the rectangle needed is small: its height is a power of $\log q$.
+The proof of Theorem~\ref{thm:A} rests on a transfer principle: the argument of Montgomery and Vaughan needs the Riemann hypothesis only through a power saving in prime sums of the twists $\chi\psi$, and a zero-free rectangle of any fixed width supplies such a saving. The point of the present version is the dependence on the width.
 
-\begin{theorem}\label{thm:logderiv}
-For every $\varepsilon>0$ there is a constant $C_\varepsilon$ such that for every $q\ge3$ the number of nonprincipal characters $\chi$ modulo $q$ with
+\begin{theorem}[transfer]\label{thm:B}
+There is an absolute constant $c_4$ with the following property. Let $\chi$ be a primitive character modulo $q\ge3$, let $1/2\le\theta<1$, put $R=\lceil\log q\rceil^{16}$, and suppose that for every $r\le R$ and every character $\psi$ modulo $r$
+\begin{equation}\label{eq:H}
+  L(s,\chi\psi)\ne0\qquad\text{for }\Re s>\theta,\ |\Im s|\le q.
+\end{equation}
+Then
 \[
-  \Bigl|\frac{L'}{L}(1,\chi)\Bigr|>C_\varepsilon\log\log q
+  M(\chi)\le\frac{c_4}{1-\theta}\sqrt q\log\log q.
 \]
-is at most $q^{\varepsilon}$.
 \end{theorem}
 
-Theorems~\ref{thm:transfer} to~\ref{thm:logderiv} are proved in this paper from Chebyshev's bounds alone; the zero-density theorem they use is proved in Appendix~\ref{app:zd}. The bound for every character needs a zero-free half-plane for all Dirichlet $L$-functions, and Appendix~\ref{app:halfplane} proves one: every finite-order Hecke $L$-function over $\mathbb Q(\sqrt{-3})$ has no zero with $\Re s>11/12$, and by base change, $L_K(s,\chi\circ\mathrm N)=L(s,\chi)L(s,\chi\chi_{-3})$ for a Dirichlet character $\chi$, so no Dirichlet $L$-function has a zero there either. The argument is due to OpenAI~\cite{OAI26b}; Appendix~\ref{app:halfplane} gives it in full, with every input taken from published work, so that no statement of this paper rests on an unrefereed source. It works with the M\"obius function of the Eisenstein integers: a zero to the right of the line $\Re s=11/12$ would prevent a power saving in the smoothed M\"obius sums of the field, and that power saving is obtained from a mean square over a family of such sums twisted by sextic residue symbols, which is estimated by two applications of Poisson summation, the transformation of Kubota's cubic theta function at the cusps, Patterson's formula for its Fourier coefficients and the quadratic large sieve over number fields of Goldmakher and Louvel.
+The factor $(1-\theta)^{-1}$ is what makes Theorem~\ref{thm:A} uniform in $\eps$. It comes from the smooth numbers in the circle method: the major arcs need a cutoff $Y$ with $Y^{1-\theta}$ larger than a power of $\log q$, and the harmonic sum over integers free of prime factors above $Y$ is of size $\log Y\asymp(1-\theta)^{-1}\log\log q$. We do not know whether a smaller power of $(1-\theta)^{-1}$ is possible. The hypothesis~\eqref{eq:H} with $\theta=1/2$ is part of the generalised Riemann hypothesis, so Theorem~\ref{thm:B} contains the theorem of Montgomery and Vaughan. It also shows what a zero-free half-plane would give.
 
-\begin{theorem}\label{thm:every}
-Let $\theta=11/12$, and let $C_\theta$ and $C_5$ be the constants of Theorem~\ref{thm:transfer} and of Proposition~\ref{prop:logderiv}. Then $M(\chi)\le C_\theta\sqrt q\log\log q$ for every primitive character $\chi$ modulo $q\ge3$, and $|L'/L(1,\chi)|\le C_5\log\log q$ for every nonprincipal character $\chi$ modulo $q\ge3$.
+\begin{corollary}\label{cor:half}
+Let $1/2\le\theta<1$ and suppose that no Dirichlet $L$-function of a nonprincipal character vanishes in the half-plane $\Re s>\theta$. Then every primitive character $\chi$ modulo $q\ge3$ satisfies $M(\chi)\le c_4(1-\theta)^{-1}\sqrt q\log\log q$ and
+\[
+  \Bigl|\frac{L'}{L}(1,\chi)\Bigr|\le\frac{c_5}{1-\theta}\Bigl(\log\log q+\log\frac2{1-\theta}\Bigr),
+\]
+with $c_4$ as in Theorem~\ref{thm:B} and $c_5$ as in Theorem~\ref{thm:C} below.
+\end{corollary}
+
+No such half-plane is known for any $\theta<1$. The second bound of Corollary~\ref{cor:half} is the case of every character of the following analogue of Theorem~\ref{thm:A} for the logarithmic derivative at $s=1$; under the generalised Riemann hypothesis $|L'/L(1,\chi)|\le(2+o(1))\log\log q$ for every nonprincipal $\chi$~\cite{IMS09}.
+
+\begin{theorem}\label{thm:C}
+There are absolute constants $c_5,c_6,c_7>0$ such that for every $q\ge3$ and every $0<\eps\le1$,
+\[
+  \#\Bigl\{\chi\bmod q\ \text{primitive}:\ \Bigl|\frac{L'}{L}(1,\chi)\Bigr|>\frac{c_5}{\eps}\Bigl(\log\log q+\log\frac2\eps\Bigr)\Bigr\}
+  \le c_6\Bigl(\frac{\log q}{\eps}\Bigr)^{c_7}q^{\eps}.
+\]
 \end{theorem}
 
-\begin{proof}
-By Theorem~\ref{thm:b:main}, $L(s,\xi)\ne0$ for $\Re s>11/12$ for every nonprincipal Dirichlet character $\xi$. The first bound is then Corollary~\ref{cor:halfplane} with $\theta=11/12$. For the second, $L(s,\chi)\ne0$ in the rectangle of Proposition~\ref{prop:logderiv}, which gives the bound.
-\end{proof}
+Here the zero-free rectangle that is needed has height of order $\log q/\eps$ instead of $q$, and the proof is a contour integral with a smoothed weight, in which the size of $L'/L$ next to the zeros is controlled by the partial fraction formula.
 
-The constants of Theorem~\ref{thm:every} are absolute. Under the generalised Riemann hypothesis the bound $|L'/L(1,\chi)|\ll\log\log q$ holds for every nonprincipal character~\cite{IMS09}. The constants $C_\varepsilon$ of Theorems~\ref{thm:main} and~\ref{thm:logderiv} tend to infinity as $\varepsilon$ tends to zero, since $\theta=1-\varepsilon/48$ enters the proof through the width $1-\theta$ of the zero-free rectangle; in the proof they grow like a power of $1/\varepsilon$. The exceptional characters are those whose $L$-function, or one of whose twists by a character of small modulus, has a zero near the line $\Re s=1$ at a height at most $5q^2$; Theorems~\ref{thm:main} and~\ref{thm:logderiv} say nothing about those characters, and the Euler--Kronecker constant of $\mathbb Q(\zeta_q)$, which is a sum over all the characters modulo $q$, is not controlled by them. The half-plane controls it, through the primes in the progression $1\bmod q$ rather than through the individual values $L'/L(1,\chi)$, whose sum over the characters the bound of Theorem~\ref{thm:every} would control only up to a factor $\varphi(q)$.
+\subsection*{Numerical evidence and open problems}
+Section~\ref{sec:num} reports the values of $M(\chi)$ for all nonprincipal characters to prime moduli below $10^4$, $5\,733\,937$ characters in all. The ratio $M(\chi)/(\sqrt q\log\log q)$ exceeds $1$ only for six characters, all to moduli below $12$, and stays below $0.85$ for $q>1000$; for every one of the $1227$ moduli the maximum is attained by an odd character; and the number of characters above a fixed multiple of $\sqrt q\log\log q$ drops off far faster than any tail bound of the shape of Corollary~\ref{cor:tail}. Section~\ref{sec:open} lists the conjectures around $M(\chi)$ and $L'/L(1,\chi)$ with what is known about each, including what the present results add (Table~\ref{tab:verdicts}).
 
-\begin{theorem}\label{thm:ekintro}
-Let $\gamma_m$ be the Euler--Kronecker constant of $\mathbb Q(\zeta_m)$. There is an absolute constant $C$ such that $\gamma_m\le12\log m+36\log\log m+C$ for every $m\ge3$ and $\gamma_q\ge-C\log q\log\log q$ for every prime $q\ge5$.
-\end{theorem}
-
-Ihara proved the upper bound $\gamma_q\le(2+o(1))\log q$ for primes $q$ under the generalised Riemann hypothesis~\cite{Iha06}; Theorem~\ref{thm:ekintro}, proved in Section~\ref{sec:ek}, gives the same order with no hypothesis. The constant $12$ is $1/(1-\theta)$ for $\theta=11/12$.
-
-\subsection*{The proof}
-Figure~\ref{fig:flow} shows how the parts fit together. Lemma~\ref{lem:polya} reduces $M(\chi)$ to the sums $\sum_{m\le H}\bar\chi(m)e(m\beta)/m$ with $H\le q/2$. On the major arcs, where $\beta$ is close to a fraction with denominator at most $R$, the integers $m$ with a large prime factor are written as $pm'$, the additive character $e(pmb/r)$ is expanded in the multiplicative characters $\psi$ modulo $r$, and the prime sums of $\chi\psi$ are bounded with a power saving by a contour shift for the Riesz mean $\sum_{n\le x}\chi\psi(n)\Lambda(n)(1-n/x)$, Proposition~\ref{prop:riesz}. The contour is a rectangle of height $x^2$ and not a whole vertical strip, which is why the hypothesis~\eqref{eq:hyp} is a rectangle and not a half-plane: on the line $\Re s=2$ the kernel $x^s/(s(s+1))$ decays like $|\Im s|^{-2}$, so the part of the integral above the height $x^2$ is bounded by a constant. On the minor arcs the sum is bounded by Theorem~\ref{thm:mv}, a weak form of the theorem of Montgomery and Vaughan on exponential sums with multiplicative coefficients, whose proof needs only the spacing of the multiples of $\beta$ and Selberg's upper bound for prime pairs. The integers with only small prime factors are few enough to be counted trivially. Section~\ref{sec:count} counts the characters for which~\eqref{eq:hyp} fails: a zero of $L(s,\chi\psi)$ is a zero of the $L$-function of a character modulo $qr$, the map $\chi\mapsto\chi\psi$ is injective for fixed $\psi$, and Theorem~\ref{thm:zd} bounds the zeros of all the characters modulo $qr$ with $r\le R$ together. Section~\ref{sec:logderiv} proves Theorem~\ref{thm:logderiv} by the same contour shift, now crossing the pole of $L'/L(s+1,\chi)/(s(s+1))$ at $s=0$, whose residue is $L'/L(1,\chi)$. Section~\ref{sec:ek} proves Theorem~\ref{thm:ekintro} from the half-plane, the explicit formula and the Brun--Titchmarsh inequality. Appendix~\ref{app:halfplane} proves the zero-free half-plane that Theorem~\ref{thm:every} feeds into the transfer theorem; Figure~\ref{fig:halfplane} there shows its parts. The counting arguments are of the same kind as the counts attached to finite complexes and group actions in earlier work of the first and third authors~\cite{Bha22a,Bha22b,BB26}.
+\subsection*{Plan}
+Section~\ref{sec:prelim} collects the inputs: the expansion of a character sum through Gauss sums, the explicit formula, a zero-density estimate and the estimate of Montgomery and Vaughan for exponential sums with multiplicative coefficients. Section~\ref{sec:prime} turns a zero-free rectangle into a bound for twisted prime sums. Section~\ref{sec:transfer} proves Theorem~\ref{thm:B}, Section~\ref{sec:count} counts the characters for which~\eqref{eq:H} fails and proves Theorem~\ref{thm:A}, and Section~\ref{sec:logder} proves Theorem~\ref{thm:C} and Corollary~\ref{cor:half}. Figure~\ref{fig:flow} shows how the parts depend on each other.
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.96\textwidth]{figures/fig_flow.png}
-\caption{The structure of the proofs. The character sum is reduced to the sums $\sum_{m\le H}\bar\chi(m)e(m\beta)/m$, which are bounded on the major arcs by the prime sums of the twists $\chi\psi$ (Proposition~\ref{prop:riesz}, Corollary~\ref{cor:prime}, Lemma~\ref{lem:major}) and on the minor arcs by Theorem~\ref{thm:mv}. The zero-density theorem bounds the number of characters for which the major-arc input fails (middle column). The zero-free half-plane of Appendix~\ref{app:halfplane} removes the exceptions and gives the Euler--Kronecker bounds of Section~\ref{sec:ek} (right column).}
+\includegraphics[width=0.92\textwidth]{figures/fig_flow.png}
+\caption{The logical structure. Solid arrows are implications proved here; the dashed arrow is the hypothetical half-plane of Corollary~\ref{cor:half}.}
 \label{fig:flow}
 \end{figure}
+\section{Inputs}\label{sec:prelim}
 
-The paper is organised as follows. Section~\ref{sec:prelim} collects Chebyshev's bounds, Selberg's sieve and the zero-density theorem. Section~\ref{sec:riesz} bounds Riesz means of prime sums by a contour shift in a rectangle. Section~\ref{sec:mv} proves the bound for exponential sums with multiplicative coefficients. Section~\ref{sec:pv} proves Theorem~\ref{thm:transfer}, Section~\ref{sec:count} proves Theorem~\ref{thm:main} and Corollary~\ref{cor:halfplane}, and Section~\ref{sec:logderiv} proves Theorem~\ref{thm:logderiv}.
-
-\section{Preliminaries}\label{sec:prelim}
-
-Throughout, $p$ and $\ell$ denote primes, $\Lambda$ is the von Mangoldt function,
-$\theta(x)=\sum_{p\le x}\log p$, $\psi(x)=\sum_{n\le x}\Lambda(n)$, $e(x)=e^{2\pi ix}$, and
-$\|x\|$ is the distance from $x$ to the nearest integer. We write $\omega(n)$ for the number of
-prime factors of $n$, $\Omega(n)$ for the number of prime factors counted with multiplicity, and $P(n)$
-for the largest prime factor of $n\ge2$, with $P(1)=1$. The letter $\theta$ is also used for the abscissa of a zero-free rectangle; the two uses are never close to each other.
-
-\begin{lemma}\label{lem:chebyshev}
-For $x\ge1$ and integers $N\ge2$,
-\begin{enumerate}
-\item[(i)] $\theta(x)\le x\log4$;
-\item[(ii)] $\psi(x)-\theta(x)\le2\sqrt x\log x$ and $\psi(x)\le4x$;
-\item[(iii)] $\sum_{p\le N}\frac{\log p}p\le\log N+\log4$;
-\item[(iv)] $\sum_{p\le N}\frac1p\le\log\log N+10$;
-\item[(v)] $\sum_{n\le x}\frac{\Lambda(n)}n\le\log x+3$.
-\end{enumerate}
-\end{lemma}
-
-\begin{proof}
-(i) It suffices to treat integers $m\ge1$, and we use induction on $m$. The cases $m=1,2$ are
-clear, and for even $m>2$ we have $\theta(m)=\theta(m-1)$. Let $m=2n+1$. The primes in
-$(n+1,2n+1]$ divide $\binom{2n+1}n$, and $2\binom{2n+1}n\le2^{2n+1}$ because $\binom{2n+1}n$ and
-$\binom{2n+1}{n+1}$ are equal terms of the binomial expansion of $(1+1)^{2n+1}$. Hence
-$\theta(2n+1)\le\theta(n+1)+n\log4\le(2n+1)\log4$.
-
-(ii) We have $\psi(x)-\theta(x)=\sum_{k\ge2}\theta(x^{1/k})$, where only $k\le\log x/\log2$
-contribute. Each term is at most $\sqrt x\log4$ by~(i), so the sum is at most
-$(\log x/\log2)\sqrt x\log4=2\sqrt x\log x$. Since $\log x\le\sqrt x$, $\psi(x)\le(\log4+2)x\le4x$.
-
-(iii) By Legendre's formula and~(i),
+Throughout, $p$ denotes a prime, $\Lambda$ is the von Mangoldt function, $e(x)=e^{2\pi ix}$, $\|x\|$ is the distance from $x$ to the nearest integer, and $P(n)$ is the largest prime factor of $n\ge2$, with $P(1)=1$. For a Dirichlet character $\xi$ put
 \[
-  N\log N\ge\log N!\ge\sum_{p\le N}\Bigl\lfloor\frac Np\Bigr\rfloor\log p
-  \ge N\sum_{p\le N}\frac{\log p}p-N\log4.
+  \psi(x,\xi)=\sum_{n\le x}\xi(n)\Lambda(n),\qquad\vartheta(x,\xi)=\sum_{p\le x}\xi(p)\log p .
 \]
+The letters $c,C$, with or without subscripts, denote positive absolute constants, and $A\ll B$ means $|A|\le CB$ with such a constant. A zero of an $L$-function always means a zero in the strip $0\le\Re s\le1$, written $\rho=\beta+i\gamma$.
 
-(iv) Let $A(u)=\sum_{p\le u}\log p/p$. Partial summation and~(iii) give
-\[
-  \sum_{p\le N}\frac1p=\frac{A(N)}{\log N}+\int_2^N\frac{A(u)}{u\log^2u}\,du
-  \le1+\frac{\log4}{\log2}+\int_2^N\Bigl(\frac1{u\log u}+\frac{\log4}{u\log^2u}\Bigr)du,
-\]
-and the integral is at most $\log\log N-\log\log2+2$.
-
-(v) The primes contribute at most $\log x+\log4$ by~(iii) applied to $N=\lfloor x\rfloor$ (for $x<2$ the sum is empty). The prime powers $p^k$ with $k\ge2$ contribute at most
-$\sum_p\log p\sum_{k\ge2}p^{-k}=\sum_p\log p/(p(p-1))$. The primes $p\le7$ give $\log2/2+\log3/6+\log5/20+\log7/42<0.66$, and the primes $p\ge11$ give at most $\sum_{p\ge11}2\sqrt p/(p(p-1))\le2\sum_{n\ge11}n^{-3/2}\le2\int_{10}^\infty u^{-3/2}du<0.64$, since $\log p\le2\sqrt p$. The total is at most $\log x+\log4+1.3<\log x+3$.
-\end{proof}
-
-We use Selberg's upper bound sieve in the following form; for the method
-see~\cite[Chapter~3]{HR74}, and we give the proof of the form we need.\footnote{The weights
-$\lambda_d$ are those of Selberg's quadratic form, and the only feature used later is the bound
-$|\lambda_d|\le1$, which makes the remainder term at most a sum of $3^{\omega(d)}|R_d|$ over
-$d\le y$.}
-
-\begin{lemma}\label{lem:selberg}
-Let $a_1,\dots,a_X$ be integers, $P$ a squarefree integer, $\nu$ a multiplicative function with
-$0<\nu(p)<1$ for $p\mid P$, and $y\ge1$. For $d\mid P$ put
-$R_d=\#\{n\le X:d\mid a_n\}-\nu(d)X$, and for $l\mid P$ put
-$g(l)=\prod_{p\mid l}\nu(p)/(1-\nu(p))$. Then
-\[
-  \#\{n\le X:(a_n,P)=1\}\le\frac XS+\sum_{\substack{d\mid P\\d\le y}}3^{\omega(d)}|R_d|,
-  \qquad S=\sum_{\substack{l\mid P\\l\le\sqrt y}}g(l).
-\]
-\end{lemma}
-
-\begin{proof}
-Let $D$ be the set of divisors $d$ of $P$ with $d\le\sqrt y$, and let $(\lambda_d)_{d\in D}$ be
-real numbers with $\lambda_1=1$. If $(a_n,P)=1$ then $\sum_{d\in D,\,d\mid a_n}\lambda_d=1$, and
-otherwise this sum is real, so
-\begin{align*}
-  \#\{n:(a_n,P)=1\}&\le\sum_{n\le X}\Bigl(\sum_{\substack{d\in D\\d\mid a_n}}\lambda_d\Bigr)^2\\
-  &=X\sum_{d_1,d_2\in D}\lambda_{d_1}\lambda_{d_2}\nu([d_1,d_2])
-  +\sum_{d_1,d_2\in D}\lambda_{d_1}\lambda_{d_2}R_{[d_1,d_2]}.
-\end{align*}
-Write $Q$ for the double sum in the first term. Since $\nu$ is multiplicative and $d_1,d_2$ are
-squarefree, $\nu([d_1,d_2])=\nu(d_1)\nu(d_2)/\nu((d_1,d_2))$. Let $h$ be the multiplicative
-function on the divisors of $P$ with $h(p)=1/\nu(p)-1=1/g(p)$; then $1/\nu(m)=\sum_{l\mid m}h(l)$
-for $m\mid P$, and
-\[
-  Q=\sum_{l\mid P}h(l)\Bigl(\sum_{\substack{d\in D\\l\mid d}}\lambda_d\nu(d)\Bigr)^2
-  =\sum_{l\in D}\frac{y_l^2}{g(l)},\qquad y_l=\sum_{\substack{d\in D\\l\mid d}}\lambda_d\nu(d).
-\]
-M\"obius inversion gives $\lambda_d\nu(d)=\sum_{l\in D,\,d\mid l}\mu(l/d)y_l$, so the condition
-$\lambda_1=1$ reads $\sum_{l\in D}\mu(l)y_l=1$. By Cauchy's inequality
-\[
-  1\le\Bigl(\sum_{l\in D}\frac{y_l^2}{g(l)}\Bigr)\Bigl(\sum_{l\in D}g(l)\Bigr)=QS,
-\]
-with equality for $y_l=\mu(l)g(l)/S$. We make this choice, so that $Q=1/S$. Then, writing
-$l=de$,
-\[
-  \lambda_d=\frac{1}{\nu(d)S}\sum_{\substack{l\in D\\d\mid l}}\mu(l/d)\mu(l)g(l)
-  =\frac{\mu(d)g(d)}{\nu(d)S}\sum_{\substack{e\in D,\ (e,d)=1\\de\le\sqrt y}}g(e).
-\]
-Since $g(d)/\nu(d)=\prod_{p\mid d}(1-\nu(p))^{-1}=\prod_{p\mid d}(1+g(p))=\sum_{f\mid d}g(f)$, we
-get $|\lambda_d|\le S^{-1}\sum_{f\mid d}\sum_eg(fe)$, and the products $fe$ are distinct elements
-of $D$; hence $|\lambda_d|\le1$. Finally $[d_1,d_2]\le d_1d_2\le y$, and every $d\mid P$ is the
-least common multiple of at most $3^{\omega(d)}$ pairs $(d_1,d_2)$, so the second term is at most
-$\sum_{d\mid P,\,d\le y}3^{\omega(d)}|R_d|$.
-\end{proof}
-
-For a Dirichlet character $\xi$ modulo $k$, real $\sigma$ and $T\ge2$ let
-\[
-  N(\sigma,T,\xi)=\#\{\rho=\beta+i\gamma:L(\rho,\xi)=0,\ \beta\ge\sigma,\ |\gamma|\le T\}.
-\]
-For $\sigma>0$ the zeros counted are those of the $L$-function of the primitive character inducing $\xi$, since the Euler factors removed in passing from that character to $\xi$ vanish only on the line $\Re s=0$. The zero-density theorem we need is the following; it is proved in Appendix~\ref{app:zd}, with the constant written out.
-
-\begin{theorem}\label{thm:zd}
-Let $c_0=10^{12}$. For every $k\ge3$, every $T\ge2$ and every $\sigma$ with $11/12\le\sigma\le1$,
-\begin{equation}\label{eq:zd}
-  \sum_{\substack{\xi\bmod k\\ \xi\ne\xi_0}}N(\sigma,T,\xi)\le c_0\,(kT)^{12(1-\sigma)}(\log kT)^{9},
-\end{equation}
-the sum running over the nonprincipal characters modulo $k$.
-\end{theorem}
-
-Theorems~12.1 and~12.2 of~\cite{Mon71} give the sum over all characters modulo $k$, principal character included, with the bounds $\ll(kT)^{3(1-\sigma)/(2-\sigma)}(\log kT)^9$ for $1/2\le\sigma\le4/5$ and $\ll(kT)^{2(1-\sigma)/\sigma}(\log kT)^{14}$ for $4/5\le\sigma\le1$, with unspecified absolute constants; these are stronger than~\eqref{eq:zd} in the exponent of $kT$. We prove the weaker form~\eqref{eq:zd} because its constant is explicit and because the proof, which follows Ingham~\cite{Ing40} and Montgomery, is short enough to be given in full.\footnote{Whether the zeros are counted in $0<\gamma\le T$ or in $|\gamma|\le T$ affects only the constant, since the zeros of $L(s,\bar\xi)$ are the conjugates of the zeros of $L(s,\xi)$ and the sum is over all characters modulo $k$.} In the proof of Theorem~\ref{thm:main} only the shape of~\eqref{eq:zd} matters, namely that the exponent of $kT$ tends to zero with $1-\sigma$.
-
-\section{Riesz means of prime sums}\label{sec:riesz}
-
-For an arithmetic function $a$ and $x\ge1$ put
-\[
-  S(a;x)=\sum_{n\le x}a(n)\Bigl(1-\frac nx\Bigr),\qquad
-  S(\xi;x)=S(\xi\Lambda;x)=\sum_{n\le x}\xi(n)\Lambda(n)\Bigl(1-\frac nx\Bigr).
-\]
-The weight $1-n/x$ makes the Mellin kernel absolutely integrable, which keeps the contour shift
-below free of truncation errors. The aim of this section is Proposition~\ref{prop:riesz}, which bounds $S(\xi;x)$ with a power saving when $L(s,\xi)$ has no zero in a rectangle of height $x^2+2$ to the left of $\Re s=1$.
-
-\begin{lemma}\label{lem:mellin}
-Let $a\colon\N\to\C$ satisfy $\sum_n|a(n)|n^{-\sigma}<\infty$ for $\sigma>1$, and let
-$F(s)=\sum_na(n)n^{-s}$ for $\Re s>1$.
-\begin{enumerate}
-\item[(i)] For $\Re s>1$, $\displaystyle\int_1^\infty S(a;x)\,x^{-s-1}\,dx=\frac{F(s)}{s(s+1)}$.
-\item[(ii)] For $x>0$, $\displaystyle S(a;x)=\frac1{2\pi}\int_{-\infty}^{\infty}
-F(2+it)\,\frac{x^{2+it}}{(2+it)(3+it)}\,dt$.
-\end{enumerate}
-\end{lemma}
-
-\begin{proof}
-(i) For $n\ge1$, $\int_n^\infty(1-n/x)x^{-s-1}dx=n^{-s}/s-n^{-s}/(s+1)=n^{-s}/(s(s+1))$. Since
-$\sum_n|a(n)|\int_n^\infty x^{-\sigma-1}dx=\sigma^{-1}\sum_n|a(n)|n^{-\sigma}<\infty$, the sum
-and the integral may be exchanged.
-
-(ii) For $y>0$ let $k(y)=\frac1{2\pi i}\int_{(2)}y^s\,\frac{ds}{s(s+1)}$. If $y\ge1$, moving the
-line of integration to $\Re s=-U$, with $U>2$, picks up the residues $1$ at $s=0$ and
-$-1/y$ at $s=-1$. For each fixed $U$, the horizontal integrals tend to zero as their
-height tends to infinity: their lengths are fixed and the denominator is of order
-the square of that height. On the new vertical line,
-\[
- \int_{-\infty}^{\infty}\frac{|y^{-U+it}|}{|(-U+it)(1-U+it)|}\,dt
- \le y^{-U}\int_{-\infty}^{\infty}\frac{dt}{(U-1)^2+t^2}
- =\frac{\pi y^{-U}}{U-1}.
-\]
-This tends to zero for $y\ge1$, including $y=1$, so $k(y)=1-1/y$ there.
-For $y<1$, shifting instead to $\Re s=U$ crosses no pole and leaves an integral
-bounded by $\pi y^U/U$, which tends to zero. As
-$|s(s+1)|^{-1}$ is integrable on $\Re s=2$ and $\sum_n|a(n)|n^{-2}<\infty$, summation and
-integration may be exchanged, and the right side equals $\sum_na(n)k(x/n)=S(a;x)$.
-\end{proof}
-
-\begin{lemma}\label{lem:size}
-Let $\chi$ be nonprincipal modulo $q$. For $\Re s=\sigma>0$, $|L(s,\chi)|\le q|s|/\sigma$.
-\end{lemma}
-
-\begin{proof}
-Put $A(t)=\sum_{n\le t}\chi(n)$; then $|A(t)|\le q$, since the sum of $\chi$ over a period vanishes, and partial summation gives
-$L(s,\chi)=s\int_1^\infty A(t)t^{-s-1}\,dt$ for $\sigma>0$. Hence
-$|L(s,\chi)|\le q|s|\int_1^\infty t^{-\sigma-1}dt=q|s|/\sigma$.
-\end{proof}
-
-\begin{lemma}\label{lem:euler}
-Let $A_0=\frac32\sum_\ell\ell^{-3/2}$. For every Dirichlet character $\chi$ the series
-$E(s)=-\sum_\ell\log(1-\chi(\ell)\ell^{-s})$ is holomorphic on $\Re s>1$, $e^{E(s)}=L(s,\chi)$
-there, and $|E(s)|\le A_0$ for $\Re s\ge3/2$. Moreover $|L'/L(s,\chi)|\le2$ for $\Re s\ge2$.
-\end{lemma}
-
-\begin{proof}
-For $\Re s\ge1$ we have $|\chi(\ell)\ell^{-s}|\le1/2$, and $|\log(1-w)|\le\sum_k|w|^k/k
-\le\frac32|w|$ for $|w|\le1/2$: indeed, the terms with $k\ge2$ have total at most
-$|w|^2/(2(1-|w|))\le |w|/2$. The series therefore converges locally uniformly on $\Re s>1$
-and is bounded by $A_0$ on $\Re s\ge3/2$, and the Euler product gives $e^E=L$. For $\Re s\ge2$ the derivative $E'(s)=-\sum_n\chi(n)\Lambda(n)n^{-s}$ has modulus at most $\sum_{n\ge2}\log n/n^2$, and since $\log u/u^2$ decreases for $u\ge2$ this is at most $\log2/4+\int_2^\infty\log u\,u^{-2}\,du=\log2/4+(1+\log2)/2<2$.
-\end{proof}
-
-\begin{lemma}[Borel--Carath\'eodory]\label{lem:bc}
-Let $h$ be holomorphic on a neighbourhood of the disc $|z-c|\le R$ and let $0<r<R$. Then
-\[
-  \max_{|z-c|\le r}|h(z)-h(c)|\le\frac{2r}{R-r}\max_{|w-c|=R}\Re\bigl(h(w)-h(c)\bigr).
-\]
-\end{lemma}
-
-\begin{proof}
-Put $g(z)=h(c+z)-h(c)$ and $A=\max_{|w|=R}\Re g(w)$. The mean of $\Re g$ over the circle
-$|w|=R$ is $\Re g(0)=0$, so $A\ge0$. If $A=0$, then $\Re g$ vanishes on the circle, hence on the
-disc, and $g$ is an imaginary constant equal to $g(0)=0$. Let $A>0$. By the maximum principle
-$\Re g\le A$ on $|z|\le R$, so $|2A-g|\ge A$ there and $\phi=g/(2A-g)$ is holomorphic. Since
-$|g|^2-|2A-g|^2=4A(\Re g-A)\le0$, we have $|\phi|\le1$, and $\phi(0)=0$. Schwarz's lemma gives
-$|\phi(z)|\le|z|/R$, and from $g=2A\phi/(1+\phi)$ we get $|g(z)|\le2A|z|/(R-|z|)$.
-\end{proof}
-
-\begin{lemma}\label{lem:logderiv}
-Let $0<\delta<1/1000$, $1/2\le a\le1$, $t\in\R$, and let $\chi$ be nonprincipal modulo $q$ with
-$L(s,\chi)\ne0$ for $\Re s>a+2\delta$, $|\Im s-t|\le2$. Put $K_1=(1+2A_0)/(2\delta^2)$. For
-$a+8\delta\le\sigma\le2$,
-\[
-  \Bigl|\frac{L'}{L}(\sigma+it,\chi)\Bigr|\le K_1\log\bigl(2q(3+|t|)^2\bigr).
-\]
-\end{lemma}
-
-\begin{proof}
-Let $c=2+it$, $R=2-a-3\delta$, $r=2-a-6\delta$ and $\Lambda_0=\log(2q(3+|t|)^2)\ge\log18>1$.
-The disc $|z-c|<2-a-2\delta$ has radius at most $3/2$, so it lies in the strip $|\Im z-t|\le2$, and on it $\Re z>a+2\delta$; hence $L(z,\chi)$ has no zero there
-and has a holomorphic logarithm $h$. On $|z-c|<1/2$ both $h$ and the function $E$ of
-Lemma~\ref{lem:euler} are logarithms of $L$, so they differ by a constant in $2\pi i\Z$; we
-choose $h=E$ there. Then $|h(c)|\le A_0$.
-
-If $|z-c|\le R$, then $\Re z\ge a+3\delta\ge1/2$ and $|z|\le|c|+3/2\le4+|t|$, so
-Lemma~\ref{lem:size} gives $\Re h(z)=\log|L(z,\chi)|\le\log(2q(4+|t|))\le\Lambda_0$.
-Lemma~\ref{lem:bc} gives, for $|z-c|\le r$,
-\[
-  |h(z)-h(c)|\le\frac{2r}{R-r}\bigl(\Lambda_0+A_0\bigr)\le\frac{\Lambda_0+A_0}{\delta},
-\]
-as $r\le3/2$ and $R-r=3\delta$. Hence $|h(z)|\le A_0+(\Lambda_0+A_0)/\delta\le(1+2A_0)\Lambda_0/\delta$
-on $|z-c|\le r$. For $w=\sigma+it$ with $a+8\delta\le\sigma\le2$ we have $|w-c|=2-\sigma\le r-2\delta$,
-so the circle $|z-w|=2\delta$ lies in $|z-c|\le r$, and Cauchy's estimate gives
-$|L'/L(w,\chi)|=|h'(w)|\le(1+2A_0)\Lambda_0/(2\delta^2)$.
-\end{proof}
-
-\begin{lemma}\label{lem:elementary}
-For $q\ge1$, $t\in\R$ and $s=\sigma+it$ with $\sigma\ge1/2$,
-\[
-  \log\bigl(2q(3+|t|)^2\bigr)\le10\log(q+2)(1+|t|)^{1/2},\qquad |s(s+1)|\ge\tfrac18(1+|t|)^2.
-\]
-\end{lemma}
-
-\begin{proof}
-We have $\log(2q)\le2\log(q+2)$, and $\log y\le2y^{1/2}$ with $3+|t|\le4(1+|t|)$ gives
-$\log(3+|t|)\le4(1+|t|)^{1/2}$; the first bound follows from $\log(q+2)\ge1$. For the second,
-$|s|\ge\max(\sigma,|t|)\ge(1+|t|)/4$ and $|s+1|\ge\max(\sigma+1,|t|)\ge(1+|t|)/2$.
-\end{proof}
-
-\begin{proposition}\label{prop:riesz}
-Let $0<\delta<1/1000$, $1/2\le a\le1$, and put $K=90K_1+6$ with $K_1$ as in Lemma~\ref{lem:logderiv}. Let $x\ge1$ and let $\xi$ be nonprincipal modulo $k$ with $L(s,\xi)\ne0$ for $\Re s>a+2\delta$, $|\Im s|\le x^2+2$. Then
-\[
-  |S(\xi;x)|\le K\,x^{a+8\delta}\log(k+2).
-\]
-\end{proposition}
-
-\begin{proof}
-Put $\sigma_0=a+8\delta$, $T=x^2$ and
-\[
-  \Phi(s)=-\frac{L'}{L}(s,\xi)\,\frac{x^s}{s(s+1)}.
-\]
-For $\Re s>1$, $-L'/L(s,\xi)=\sum_n\xi(n)\Lambda(n)n^{-s}$, so Lemma~\ref{lem:mellin}(ii) gives
-$2\pi S(\xi;x)=\int_{-\infty}^\infty\Phi(2+it)\,dt$. We split the integral at $|t|=T$.
-
-For $|t|>T$ we use the line $\Re s=2$ as it stands: $|L'/L(2+it,\xi)|\le2$ by Lemma~\ref{lem:euler}, $|x^{2+it}|=x^2$ and $|s(s+1)|\ge(1+|t|)^2/8$ by Lemma~\ref{lem:elementary}, so
-\[
-  \int_{|t|>T}|\Phi(2+it)|\,dt\le2\int_T^\infty\frac{16x^2}{(1+t)^2}\,dt=\frac{32x^2}{1+T}\le32.
-\]
-
-For $|t|\le T$ we move the line of integration to $\Re s=\sigma_0$ inside the rectangle $\sigma_0\le\Re s\le2$, $|\Im s|\le T$ (Figure~\ref{fig:splane}). The function $\Phi$ is holomorphic on a neighbourhood of this rectangle, since $L(s,\xi)$ has no zero with $\Re s\ge\sigma_0>a+2\delta$ and $|\Im s|\le T+2$, and $s(s+1)\ne0$ there. By Cauchy's theorem the integral of $\Phi$ over the right side equals the integral over the left side plus the integrals over the two horizontal sides, with the appropriate orientations. On the rectangle, Lemma~\ref{lem:logderiv} applies at every point $\sigma+it$, because the hypothesis gives $L(s,\xi)\ne0$ for $\Re s>a+2\delta$ and $|\Im s-t|\le2$ when $|t|\le T$, and with Lemma~\ref{lem:elementary} it gives
-\[
-  |\Phi(\sigma+it)|\le80K_1\log(k+2)\,x^{\sigma}(1+|t|)^{-3/2}\qquad(\sigma_0\le\sigma\le2,\ |t|\le T).
-\]
-Since $\int_\R(1+|t|)^{-3/2}dt=4$, the left side contributes at most $320K_1\log(k+2)x^{\sigma_0}$. Each horizontal side has length $2-\sigma_0\le3/2$ and lies at height $T$, so it contributes at most
-\[
-  \tfrac32\cdot80K_1\log(k+2)\,x^2(1+T)^{-3/2}\le120K_1\log(k+2)\,x^{-1}\le120K_1\log(k+2)\,x^{\sigma_0},
-\]
-because $x^2(1+x^2)^{-3/2}\le x^{-1}$. Adding the three contributions and the tail, and using $\log(k+2)\ge1$ and $x^{\sigma_0}\ge1$,
-\[
-  2\pi|S(\xi;x)|\le(560K_1+32)\,x^{\sigma_0}\log(k+2),
-\]
-and $(560K_1+32)/(2\pi)\le90K_1+6$.
-\end{proof}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.8\textwidth]{figures/fig_splane.png}
-\caption{The contour shift in the proof of Proposition~\ref{prop:riesz}. The integral over the line $\Re s=2$ is cut at the height $T=x^2$; the part beyond is bounded by the decay of the kernel, and the part within is moved to the line $\Re s=\sigma_0$ through the rectangle, which lies inside the region $\Re s>a+2\delta$, $|\Im s|\le x^2+2$ where $L(s,\xi)$ has no zero (dots: zeros outside that region; crosses: the poles of the kernel at $0$ and $-1$). Horizontal spacing is schematic.}
-\label{fig:splane}
-\end{figure}
-
-\subsection*{Parameters}
-For $1/2\le\theta<1$ we fix once and for all
-\begin{equation}\label{eq:parameters}
-  \delta_\theta=\min\Bigl(\frac1{2000},\frac{1-\theta}{100}\Bigr),\quad
-  a_\theta=\max\Bigl(\frac12,\theta-2\delta_\theta\Bigr),\quad
-  \sigma_\theta=a_\theta+8\delta_\theta,\quad
-  \eta_\theta=\frac{1-\sigma_\theta}4,
-\end{equation}
-and we write $K_\theta$ for the constant $K$ of Proposition~\ref{prop:riesz} with $\delta=\delta_\theta$. Then $0<\delta_\theta<1/1000$, $1/2\le a_\theta\le1$ and $a_\theta+2\delta_\theta\ge\theta$, so that a character with no zero in $\Re s>\theta$, $|\Im s|\le x^2+2$ satisfies the hypothesis of Proposition~\ref{prop:riesz}. Moreover
-\begin{equation}\label{eq:sigmatheta}
-  \theta<\sigma_\theta<1,\qquad 1-\sigma_\theta\ge\tfrac12(1-\theta),\qquad \tfrac18(1-\theta)\le\eta_\theta\le\tfrac18.
-\end{equation}
-Indeed, if $a_\theta=\theta-2\delta_\theta$ then $\sigma_\theta=\theta+6\delta_\theta\le\theta+\frac6{100}(1-\theta)$, and if $a_\theta=1/2$ then $\theta<1/2+2\delta_\theta$ and $\sigma_\theta=1/2+8\delta_\theta\le1/2+8/2000$, while $1-\theta\le1/2$; in both cases $\theta<\sigma_\theta$ and $1-\sigma_\theta\ge\frac{94}{100}(1-\theta)$. The upper bound $\eta_\theta\le1/8$ follows from $\sigma_\theta\ge1/2$.
-
-\begin{corollary}\label{cor:prime}
-Let $1/2\le\theta<1$, with the parameters~\eqref{eq:parameters}, and put $C_3=8K_\theta+8/\eta_\theta$. Let $x\ge1$ and let $\xi$ be nonprincipal modulo $k$ with $L(s,\xi)\ne0$ for $\Re s>\theta$, $|\Im s|\le4x^2+2$. Then:
-\begin{enumerate}
-\item[(i)] $|S(\xi;y)|\le K_\theta\,y^{\sigma_\theta}\log(k+2)$ for $1\le y\le2x$;
-\item[(ii)] $\bigl|\sum_{p\le x}\xi(p)\log p\bigr|\le C_3x^{1-\eta_\theta}\log(k+2)$;
-\item[(iii)] for integers $2\le A\le B\le x$ and $\gamma\in\R$,
-\begin{equation}\label{eq:twistedprime}
-  \Bigl|\sum_{A<p\le B}\xi(p)e(p\gamma)\Bigr|\le
-  2C_3\,\frac{B^{1-\eta_\theta}\log(k+2)(2+2\pi|\gamma|B)}{\log A}.
-\end{equation}
-\end{enumerate}
-\end{corollary}
-
-\begin{proof}
-Write $\sigma=\sigma_\theta$, $\eta=\eta_\theta$ and $K=K_\theta$, so that $1+\sigma=2-4\eta$. (i) For $y\le2x$ we have $y^2+2\le4x^2+2$, so Proposition~\ref{prop:riesz} applies to $y$.
-
-(ii) Put $T(y)=yS(\xi;y)=\sum_{n\le y}\xi(n)\Lambda(n)(y-n)$ and $h=x^{1-2\eta}$, so that $1\le h\le x$. Then
-\[
-  T(x+h)-T(x)=h\sum_{n\le x}\xi(n)\Lambda(n)+\sum_{x<n\le x+h}\xi(n)\Lambda(n)(x+h-n),
-\]
-and the last sum has at most $h+1$ terms, each of modulus at most $h\log(2x)$. With
-$|T(y)|\le Ky^{1+\sigma}\log(k+2)$ for $y\le2x$, from~(i), this gives
-\[
-  \Bigl|\sum_{n\le x}\xi(n)\Lambda(n)\Bigr|\le\frac{2K(2x)^{1+\sigma}\log(k+2)}h+(h+1)\log(2x).
-\]
-Here $(2x)^{1+\sigma}/h\le4x^{2-4\eta-1+2\eta}=4x^{1-2\eta}$, so the first term is at most $8Kx^{1-\eta}\log(k+2)$. Since $\eta\le1/8$ we have $1\le x^\eta/\eta$, and $\log x=\eta^{-1}\log x^\eta\le x^\eta/\eta$, so $\log(2x)\le1+\log x\le2x^\eta/\eta$, and the second term is at most $2x^{1-2\eta}\cdot2x^{\eta}/\eta=4x^{1-\eta}/\eta$. The prime powers $p^j$ with $j\ge2$ contribute at most
-$\psi(x)-\theta(x)\le2\sqrt x\log x\le2x^{1/2+\eta}/\eta\le2x^{1-\eta}/\eta$ by Lemma~\ref{lem:chebyshev}(ii), since $\eta\le1/4$. As $\log(k+2)\ge1$, (ii) follows with $C_3=8K+8/\eta$.
-
-(iii) Let $\Pi(u)=\sum_{p\le u}\xi(p)\log p$ and $f(u)=e(u\gamma)/\log u$. Partial summation gives
-\[
-  \sum_{A<p\le B}\xi(p)e(p\gamma)=f(B)\Pi(B)-f(A)\Pi(A)-\int_A^B\Pi(u)f'(u)\,du,
-\]
-and $|f'(u)|\le2\pi|\gamma|/\log A+1/(u\log^2u)$ for $u\ge A$. By~(ii), applied at every $u\le x$, the right side is at most
-$C_3B^{1-\eta}\log(k+2)\bigl(3+2\pi|\gamma|B\bigr)/\log A$, which gives~\eqref{eq:twistedprime}.
-\end{proof}
-\section{Exponential sums with multiplicative coefficients}\label{sec:mv}
-
-For $M>0$ put $w_M(\theta)=M$ if $\|\theta\|<1/M$ and $w_M(\theta)=1/\|\theta\|$ otherwise;
-then $0\le w_M(\theta)\le M$ and $w_M(-\theta)=w_M(\theta)$.
-
-\begin{theorem}\label{thm:mv}
-There is an absolute constant $C_1$ with the following property. Let $f$ be completely
-multiplicative with $|f(n)|\le1$, let $\alpha\in\R$, and let $a,r$ be coprime integers with
-$r\ge1$, $|\alpha-a/r|\le r^{-2}$ and $2\le R\le r\le N/R$. Then
-\[
-  \Bigl|\sum_{n\le N}f(n)e(n\alpha)\Bigr|\le C_1\Bigl(\frac N{\log N}
-  +\frac{N(\log N)^2}{R^{1/4}}\Bigr).
-\]
-\end{theorem}
-
-Montgomery and Vaughan~\cite[Corollary~1]{MV77} proved this for multiplicative $f$ with
-$N(\log R)^{3/2}R^{-1/2}$ in place of $N(\log N)^2R^{-1/4}$. The proof below follows their
-approach, a bilinear decomposition together with the spacing of the multiples of $\alpha$ and an
-upper bound for prime pairs, with cruder estimates, which suffice for Theorem~\ref{thm:transfer}.
-
-\begin{lemma}\label{lem:spacing}
-Let $a,r$ be coprime with $r\ge2$ and $|\alpha-a/r|\le r^{-2}$, and let $H\ge0$ be an integer.
-\begin{enumerate}
-\item[(i)] $\|k\alpha\|\ge1/(2r)$ for every integer $k$ with $0<|k|\le r/2$.
-\item[(ii)] $\#\{1\le h\le H:\|h\alpha\|<t\}\le(4H/r+1)(4rt+1)$ for every $t\ge0$.
-\item[(iii)] For $M>0$ and every integer $K\ge0$ with $M\le2^K$,
-\begin{align*}
-  \sum_{h\le H}w_M(h\alpha)&\le\Bigl(\frac{4H}r+1\Bigr)(3M+4r+8rK),\\
-  \sum_{h\le H}w_M(h\alpha)^2&\le\Bigl(\frac{4H}r+1\Bigr)(20rM+3M^2).
-\end{align*}
-\end{enumerate}
-\end{lemma}
-
-\begin{proof}
-(i) Let $z$ be the integer nearest to $k\alpha$. Since $0<|k|<r$ and $(a,r)=1$, $r\nmid ka$, so
-$|ka/r-z|\ge1/r$ and $\|k\alpha\|\ge1/r-|k|\,|\alpha-a/r|\ge1/(2r)$.
-
-(ii) Let $L=\lfloor r/2\rfloor$, so $L\ge r/4$. For $k$ in a block of $L$ consecutive integers let
-$y_k=k\alpha-z_k$ with $z_k$ the integer nearest to $k\alpha$. For $k\ne k'$ in the block,
-$0<|k-k'|<L\le r/2$ and $y_k-y_{k'}\equiv(k-k')\alpha\pmod1$, so $|y_k-y_{k'}|\ge1/(2r)$ by~(i).
-Points of $(-t,t)$ at mutual distances at least $1/(2r)$ number at most $4rt+1$, and $[1,H]$ is
-covered by at most $H/L+1\le4H/r+1$ blocks.
-
-(iii) If $\|\theta\|\ge1/M$, let $k\ge1$ be least with $\|\theta\|<2^k/M$; then $k\le K$ because
-$\|\theta\|\le1/2<2^K/M$, and $\|\theta\|\ge2^{k-1}/M$, so $w_M(\theta)\le2^{1-k}M$. Hence
-\[
-  w_M(\theta)^j\le M^j\,[\|\theta\|<1/M]+\sum_{k=1}^K(2^{1-k}M)^j\,[\|\theta\|<2^k/M]\qquad(j=1,2).
-\]
-Summing over $h\le H$ with~(ii), the first sum is at most
-$(4H/r+1)\bigl(4r+M+\sum_{k\le K}(8r+2^{1-k}M)\bigr)$ and the second at most
-$(4H/r+1)\bigl(4rM+M^2+\sum_{k\ge1}(16rM2^{-k}+4M^24^{-k})\bigr)$.
-\end{proof}
-
-\begin{lemma}\label{lem:bilinear}
-Let $\theta,\alpha\in\R$, $U>0$, and let $A,B,N$ be nonnegative integers with $B\le A+U$.
-\begin{enumerate}
-\item[(i)] $\bigl|\sum_{A<x\le B}e(x\theta)\bigr|\le w_U(\theta)$.
-\item[(ii)] For a finite set $V$ of positive integers and $b:V\to\C$,
-\[
-  \sum_{A<u\le B}\Bigl|\sum_{\substack{v\in V\\uv\le N}}b(v)e(uv\alpha)\Bigr|^2\le
-  \sum_{v,v'\in V}|b(v)|\,|b(v')|\,w_U\bigl((v-v')\alpha\bigr).
-\]
-\item[(iii)] For $M>0$ and an integer $H\ge0$,
-$\sum_{1\le m,m'\le H}w_M((m-m')\alpha)\le H\bigl(M+2\sum_{h\le H}w_M(h\alpha)\bigr)$.
-\end{enumerate}
-\end{lemma}
-
-\begin{proof}
-(i) If $\|\theta\|<1/U$, the sum has at most $U$ terms of modulus $1$. Otherwise
-$\theta\notin\Z$, the sum has modulus at most $|e((B-A)\theta)-1|/|e(\theta)-1|$, and
-$|e(\theta)-1|=2|\sin\pi\theta|\ge4\|\theta\|$, so the modulus is at most $1/(2\|\theta\|)$.
-(ii) Expanding the square gives $\sum_{v,v'}b(v)\overline{b(v')}\sum_ue(u(v-v')\alpha)$, where
-$u$ runs over the integers of $(A,\min(B,N/v,N/v')]$, an interval of length at most $U$; apply~(i).
-(iii) For fixed $m$, the term $m'=m$ is $w_M(0)=M$, and each $h=|m-m'|\in[1,H]$ arises from at
-most two $m'$.
-\end{proof}
-
-\begin{lemma}\label{lem:reduction}
-Let $C_5=1+4\zeta(3/2)$. For every completely multiplicative $f$ with $|f(n)|\le1$, every
-$\alpha\in\R$ and every integer $N\ge1$, the sum $S=\sum_{n\le N}f(n)e(n\alpha)$ satisfies
-\[
-  \Bigl|S\log N-\sum_{p\le N}\log p\,f(p)\sum_{m\le N/p}f(m)e(pm\alpha)\Bigr|\le C_5N.
-\]
-\end{lemma}
-
-\begin{proof}
-Write $S\log N=S_1+S_2$ with
-\[
-  S_1=\sum_{n\le N}f(n)e(n\alpha)\log n,\qquad S_2=\sum_{n\le N}f(n)e(n\alpha)\log(N/n).
-\]
-Then $|S_2|\le N\log N-\log N!\le N$, since
-$N^N/N!\le e^N$. In $S_1$ write $\log n=\sum_{d\mid n}\Lambda(d)$ and $n=dm$; complete
-multiplicativity gives
-\[
-  S_1=\sum_{d\le N}\Lambda(d)f(d)\sum_{m\le N/d}f(m)e(dm\alpha).
-\]
-The terms with
-$d$ prime form the sum in the statement, and the others have modulus at most
-\[
-  N\sum_p\sum_{k\ge2}\frac{\log p}{p^k}\le2N\sum_p\frac{\log p}{p^2}\le4\zeta(3/2)N,
-\]
-since $\log p\le2\sqrt p$.
-\end{proof}
-
-Let $G(h)=\prod_{p\mid h}p/(p-1)$.
-
-\begin{lemma}\label{lem:pairs}
-\begin{enumerate}
-\item[(i)] For every integer $X\ge2$ and every even $h\ge2$,
-\[
-  \#\{0\le n<X:n\text{ and }n+h\text{ prime}\}\le\frac{400\,G(h)^2X}{(\log X)^2}+3X^{3/5}.
-\]
-\item[(ii)] $\sum_{h\le X}G(h)^4\le e^{30}X$ for every $X\ge1$.
-\end{enumerate}
-\end{lemma}
-
-\begin{proof}
-(i) Apply Lemma~\ref{lem:selberg} to $a_n=n(n+h)$, $0\le n<X$, with $y=X^{1/5}$,
-$z=\lfloor y\rfloor$, $P$ the product of the primes $p\le z$ with $p\nmid h$, and
-$\nu(d)=2^{\omega(d)}/d$. Every $p\mid P$ is odd, so $\nu(p)=2/p<1$. For $d\mid P$ the residues $n$
-with $d\mid n(n+h)$ form $2^{\omega(d)}$ classes modulo $d$ (namely $n\equiv0$ or $-h\pmod p$ for
-each $p\mid d$, distinct as $p\nmid h$), and each class contains between $X/d-1$ and $X/d+1$ of
-the integers $0\le n<X$; hence $|R_d|\le2^{\omega(d)}$. Since the prime factors of $d$ are at
-least $3$, $3^{\omega(d)}|R_d|\le6^{\omega(d)}\le d^2\le y^2$, and the error term is at most
-$y^3=X^{3/5}$.
-
-Let $\mathcal M$ be the set of $m\le\sqrt y$ whose prime factors divide $P$. Since
-$\nu(p)/(1-\nu(p))=\sum_{k\ge1}\nu(p)^k$ and $\nu(m)=2^{\Omega(m)}/m$ for these $m$, $g(l)$ is the
-sum of $2^{\Omega(m)}/m$ over the $m$ whose set of prime factors is that of $l$. An $m\in\mathcal M$
-is counted in $g(l)$ for $l$ the product of its prime factors, and $l\le m\le\sqrt y$. Hence,
-with $\tau(m)\le2^{\Omega(m)}$ the number of divisors of $m$,
-\[
-  S\ge\sum_{m\in\mathcal M}\frac{2^{\Omega(m)}}m\ge\sum_{m\in\mathcal M}\frac{\tau(m)}m.
-\]
-Let $T=\lfloor y^{1/4}\rfloor$ and let $B$ be
-the set of $b\le T$ that are prime to $h$; these $b$ are odd. For $b,b'\in B$ the product $bb'$
-lies in $\mathcal M$, and a given $m$ is a product $bb'$ in at most $\tau(m)$ ways, so
-$S\ge\bigl(\sum_{b\in B}1/b\bigr)^2$. If $E$ is a set of primes and $p\notin E$, every $b\le T$
-prime to $E$ is uniquely $p^kb'$ with $b'$ prime to $E\cup\{p\}$, so the sum of $1/b$ over the
-$b\le T$ prime to $E$ is at most $p/(p-1)$ times the same sum for $E\cup\{p\}$. Adding the prime
-factors of $h$ one at a time gives
-\[
-  \sum_{b\in B}\frac1b\ge\frac1{G(h)}\sum_{b\le T}\frac1b\ge\frac{\log(T+1)}{G(h)}.
-\]
-As $T+1>y^{1/4}=X^{1/20}$, we get $S\ge(\log X)^2/(400G(h)^2)$, that is,
-$X/S\le400G(h)^2X/(\log X)^2$. Finally, if $n<X$ and both $n$ and $n+h$ are prime, then
-$n\le z$ or $(n(n+h),P)=1$, so the count is at most $z+1+X/S+y^3\le400G(h)^2X/(\log X)^2+3X^{3/5}$.
-
-(ii) For $t=p-1\ge1$, $(t+1)^5\le(t+31)t^4$, that is, $(p/(p-1))^4\le1+30/p$. Hence
-$G(h)^4\le\sum_d30^{\omega(d)}/d$ over the squarefree $d\mid h$, and
-\begin{align*}
-  \sum_{h\le X}G(h)^4&\le\sum_{d\le X}\mu(d)^2\frac{30^{\omega(d)}}d\cdot\frac Xd
-  \le X\prod_p\Bigl(1+\frac{30}{p^2}\Bigr)\\
-  &\le X\exp\Bigl(30\sum_{n\ge2}\frac1{n^2}\Bigr)\le e^{30}X.\qedhere
-\end{align*}
-\end{proof}
-
-\begin{proof}[Proof of Theorem~\ref{thm:mv}]
-Let $S$ be the sum in the theorem, $L=\log N$ and $\ell=\lfloor\log_2N\rfloor$. Since
-$N\ge rR\ge4$, we have $L\ge1$. If $\ell<64$, then $L<64\log2<45$ and $|S|\le N\le45N/L$. Let now
-$\ell\ge64$, and put $I=\lfloor\log_2\ell\rfloor+1$ and $J=\ell+1-4I$. Then $16^I>\ell^4$, $1\le J\le\ell\le2L$,
-$I\le\ell\le2L$, $2^I\le2\ell$, $N<2^{\ell+1}=2^J16^I$ and
-$J^22^J\le(\ell+1)^22^{\ell+1}\ell^{-4}\le2N$. By Lemma~\ref{lem:reduction},
-$|S|L\le C_5N+|T_1|+|T_2|$, where $T_1$ and $T_2$ are the parts of
-$\sum_p\log p\,f(p)\sum_{m\le N/p}f(m)e(pm\alpha)$ with $p\le2^J$ and with $p>2^J$.
-
-\emph{The small primes.} Let $0\le j<J$, $U=2^j$, $H=\lfloor N/U\rfloor$, and for $U<x\le2U$ let
-$B(x)=\sum_{m\le H,\,xm\le N}f(m)e(xm\alpha)$; the inner sum for a prime $p\in(U,2U]$ is $B(p)$.
-By Cauchy's inequality, Lemma~\ref{lem:bilinear}(ii), (iii) and Lemma~\ref{lem:spacing}(iii) with
-$M=U$, $K=j$,
-\[
-  \sum_{U<p\le2U}\log p\,|B(p)|\le\bigl(U\log^2(2U)\bigr)^{1/2}Q_j^{1/2},
-\]
-where $Q_j=H\bigl(U+2(4H/r+1)(3U+4r+8rj)\bigr)$.
-Since $HU\le N$, $UQ_j\le7NU+(8+16j)Nr+24N^2/r+(32+64j)N^2/U$, and $\log(2U)\le j+1$. Summing over
-$j<J$ with $j+1\le J$, $\sum_{j<J}2^{j/2}\le3\cdot2^{J/2}$,
-$\sqrt{(32+64j)2^{-j}}\le8(j+1)(3/4)^j$ and $\sum_{j\ge0}(j+1)^2(3/4)^j=112$,
-\[
-  |T_1|\le3\sqrt7J\sqrt{N2^J}+J^2N\sqrt{24/r}+896N+J^2\sqrt{24JNr}.
-\]
-Now $J^22^J\le2N$ gives $3\sqrt7J\sqrt{N2^J}\le12N$; $r\ge R\ge\sqrt R$ gives
-$\sqrt{24/r}\le5R^{-1/4}$; and $r\sqrt R\le rR\le N$ gives $\sqrt{24JNr}\le5JNR^{-1/4}$. With
-$J\le2L$ and $L\ge1$, $|T_1|\le908N+60L^3NR^{-1/4}$.
-
-\emph{The large primes.} For $p>2^J$ we have $N/p<16^I$, so the $m$ in $T_2$ lie in
-$(0,16^I-1]$, the union of the blocks $(16^i-1,16^{i+1}-1]$ with $0\le i<I$. Fix $i$, let
-$A=16^i-1$, $U=15\cdot16^i$ and $X=\lfloor N/16^i\rfloor$, and assume $X\ge1$, the block being
-empty otherwise. Only the primes $p\in(2^J,X]$ contribute, since $p\ge X+1$ and $m\ge16^i$ give
-$pm>N$. Let $V$ be the set of these primes, which are odd, and
-$B(m)=\sum_{p\in V,\,pm\le N}\log p\,f(p)e(pm\alpha)$. The block is
-$\sum_{A<m\le A+U}f(m)B(m)$, and by Cauchy's inequality, Lemma~\ref{lem:bilinear}(ii) and
-$\log p\le\lambda=\log(X+1)$, its square is at most $U\lambda^2W$, where
-\[
-  W=\sum_{p,p'\in V}w_U((p-p')\alpha)=|V|U+2\sum_{h=1}^Xw_U(h\alpha)\,\#\{p\in V:p+h\in V\}.
-\]
-The count vanishes for odd $h$, and for even $h$ Lemma~\ref{lem:pairs}(i), applied to $X+1$,
-bounds it by $400G(h)^2(X+1)\lambda^{-2}+3(X+1)^{3/5}$. By Cauchy's inequality,
-Lemma~\ref{lem:pairs}(ii) and Lemma~\ref{lem:spacing}(iii),
-$\sum_{h\le X}G(h)^2w_U(h\alpha)\le e^{15}\sqrt XQ^{1/2}$ with $Q=(4X/r+1)(20rU+3U^2)$, and
-$\sum_{h\le X}w_U(h\alpha)\le XU$. Hence $U\lambda^2W\le A_1+800e^{15}Z+A_3$, where
-\[
-  A_1=U^2\lambda^2X,\qquad Z=U(X+1)\sqrt XQ^{1/2},\qquad A_3=6U^2\lambda^2(X+1)^{3/5}X.
-\]
-Let $\kappa=\log(N+1)\ge\lambda$ and $T_i=4^i\kappa\,(N(2N)^{3/5})^{1/2}$. Since
-$U^2X=225\cdot16^i(16^iX)\le225\cdot16^iN$ and $X+1\le2N$, we get $A_1\le225T_i^2$ and
-$A_3\le1350T_i^2\le37^2T_i^2$. With $w=UX\le15N$, $X\le N/16^i$ and $R\le r\le N/R$,
-\begin{align*}
-  Z^2\le4U^2X^3Q&=320w^3X+\frac{48w^4}r+80rw^3+12Uw^3\\
-  &\le\frac{320\cdot15^3N^4}{16^i}+\frac{48\cdot15^4N^4}R+\frac{80\cdot15^3N^4}R\\
-  &\qquad+180\cdot15^3\cdot16^iN^3,
-\end{align*}
-and every coefficient is at most $40^4$, so $Z^{1/2}\le40(N2^{-i}+2NR^{-1/4}+2^iN^{3/4})$. The
-block is therefore at most
-\begin{align*}
-  &15T_i+40\sqrt{800e^{15}}\bigl(N2^{-i}+2NR^{-1/4}+2^iN^{3/4}\bigr)+37T_i\\
-  &\qquad\le K_b\bigl(N2^{-i}+NR^{-1/4}+2^iN^{3/4}+T_i\bigr),
-\end{align*}
-with $K_b=80\sqrt{800e^{15}}+52$. Summing over $i<I$,
-\[
-  |T_2|\le K_b\bigl(2N+INR^{-1/4}+2^IN^{3/4}+4^I\kappa(N(2N)^{3/5})^{1/2}\bigr).
-\]
-Here $I\le2L^3$; $2^I\le4L\le16N^{1/4}$; $4^I\le16L^2$ and $\kappa\le2L$; and
-$\log x\le15x^{1/15}$ gives $L^3(N(2N)^{3/5})^{1/2}\le2\cdot15^3N$. Hence
-$|T_2|\le K_b(216018N+2L^3NR^{-1/4})$.
-
-Altogether $|S|L\le(C_5+908+216018K_b)N+(60+2K_b)L^3NR^{-1/4}$, and dividing by $L$ gives the
-theorem with $C_1=45+C_5+908+216018K_b+60+2K_b$.
-\end{proof}
-
-
-\section{Proof of Theorem~\ref{thm:transfer}}\label{sec:pv}
-
-In this section $\chi$ is a primitive character modulo $q\ge3$.
+\subsection{Character sums through Gauss sums}
 
 \begin{lemma}\label{lem:polya}
-Let $B\ge0$ be such that $\bigl|\sum_{m\le H}\bar\chi(m)e(m\beta)/m\bigr|\le B$ for every integer
-$H\le q/2$ and every $\beta\in\R$. Then $\bigl|\sum_{n\le x}\chi(n)\bigr|\le\sqrt q\,(B+6)$ for
-every $x\ge0$.
+Let $\chi$ be primitive modulo $q\ge3$, $H=\lfloor q/2\rfloor$, and let $B\ge0$ be such that
+\[
+  \Bigl|\sum_{m\le H}\frac{\bar\chi(m)e(m\beta)}m\Bigr|\le B\qquad\text{for every }\beta\in\R.
+\]
+Then $M(\chi)\le\sqrt q\,(B+2)$.
 \end{lemma}
 
 \begin{proof}
-We may take $x=T$ to be an integer. Let $\tau=\sum_{a\bmod q}\bar\chi(a)e(a/q)$. Since
-$\bar\chi$ is primitive, $\sum_a\bar\chi(a)e(an/q)=\chi(n)\tau$ for every $n$, and summing the
-squares of the moduli of these identities over $n\bmod q$ gives $q\varphi(q)=|\tau|^2\varphi(q)$,
-so $|\tau|=\sqrt q$. Summing over $1\le n\le T$,
+Let $\tau=\sum_{a\bmod q}\bar\chi(a)e(a/q)$. For primitive $\bar\chi$ one has $\sum_a\bar\chi(a)e(an/q)=\chi(n)\tau$ for every integer $n$ and $|\tau|=\sqrt q$~\cite[Chapter~9]{Dav00}. It suffices to bound $\sum_{n\le T}\chi(n)$ for integers $T\ge1$. Summing the first identity over $1\le n\le T$ and writing the residues as $-q/2<a\le q/2$,
 \[
-  \tau\sum_{n\le T}\chi(n)=\sum_{0<|a|\le q/2}\bar\chi(a)\,
-  \frac{e(aT/q)-1}{1-e(-a/q)},
+  \tau\sum_{n\le T}\chi(n)=\sum_{0<|a|\le q/2}\bar\chi(a)\bigl(e(aT/q)-1\bigr)\,g(a/q),\qquad g(\vartheta)=\frac{1}{1-e(-\vartheta)},
 \]
-where $a$ runs over the integers with $-q/2<a\le q/2$, $a\ne0$. For $0<|\vartheta|\le1/2$ put
-$r(\vartheta)=(1-e(-\vartheta))^{-1}-(2\pi i\vartheta)^{-1}$; then $|1-e(-\vartheta)|=2|\sin\pi\vartheta|\ge4|\vartheta|$.
-If $2\pi|\vartheta|\le1$, then $|e(-\vartheta)-1+2\pi i\vartheta|\le(2\pi\vartheta)^2$ and
-$|r(\vartheta)|\le(2\pi\vartheta)^2/(4|\vartheta|\cdot2\pi|\vartheta|)<3$; otherwise
-$|r(\vartheta)|\le1/(4|\vartheta|)+1/(2\pi|\vartheta|)<3$. The terms with $r(a/q)$ contribute at most
-$6q$. Writing $a=\pm m$ with $1\le m\le q/2$, the remaining terms are $q/(2\pi i)$ times a
-combination, with coefficients of modulus at most $1$, of four sums
-$\sum_{m\le H}\bar\chi(m)e(m\beta)/m$ with $H\le q/2$, so they contribute at most $2qB/\pi$.
-Dividing by $|\tau|$ gives the claim.
+since the geometric sum is $\sum_{n=1}^Te(n\vartheta)=e(\vartheta)\frac{e(T\vartheta)-1}{e(\vartheta)-1}=\frac{e(T\vartheta)-1}{1-e(-\vartheta)}$, and $a=0$ contributes nothing because $\bar\chi(0)=0$. With $x=2\pi\vartheta$, $0<|x|\le\pi$, one has $g(\vartheta)=\frac12+\frac i2\cot\frac x2$, so
+\[
+  g(\vartheta)=\frac1{2\pi i\vartheta}+r(\vartheta),\qquad r(\vartheta)=\frac12+\frac i2\Bigl(\cot\frac x2-\frac2x\Bigr).
+\]
+On $0<|y|\le\pi/2$ the odd function $\cot y-1/y$ has modulus at most $2/\pi$, its value at $|y|=\pi/2$, because it is decreasing on $(0,\pi/2]$ and tends to $0$ at $0$. Hence $|r(\vartheta)|\le(1/4+1/\pi^2)^{1/2}<0.6$, and the terms with $r$ contribute at most $2\cdot0.6\cdot q$. In the remaining terms put $a=m$ or $a=-m$ with $1\le m\le H$ (when $q$ is even the residue $q/2$ is not prime to $q$ and has $\bar\chi(q/2)=0$). They equal
+\[
+  \frac q{2\pi i}\sum_{m\le H}\frac{\bar\chi(m)}m\Bigl(e\Bigl(\frac{mT}q\Bigr)-1-\bar\chi(-1)\Bigl(e\Bigl(-\frac{mT}q\Bigr)-1\Bigr)\Bigr),
+\]
+a combination with coefficients of modulus $1$ of four sums of the kind in the hypothesis, so they contribute at most $4qB/(2\pi)$. Dividing by $|\tau|=\sqrt q$ gives $|\sum_{n\le T}\chi(n)|\le\sqrt q\,(2B/\pi+1.2)$.
 \end{proof}
+
+\begin{lemma}\label{lem:twist}
+Let $\chi$ be primitive modulo $q$, let $1\le r<q$ and let $\psi$ be a character modulo $r$. Then $\chi\psi$, as a character modulo $qr$, is nonprincipal. If $\chi'$ is another primitive character modulo $q$ with $\chi'\psi=\chi\psi$, then $\chi'=\chi$.
+\end{lemma}
+
+\begin{proof}
+Let $d=(q,r)$. Every $n$ prime to $q$ with $n\equiv1\pmod d$ has, by the Chinese remainder theorem, a representative $n'\equiv n\pmod q$ with $n'\equiv1\pmod r$, and $n'$ is prime to $qr$. If $\chi\psi$ were principal, then $\chi(n)=\chi(n')=\chi(n')\psi(n')=1$ for all such $n$, so $\chi$ would be trivial on the kernel of $(\Z/q\Z)^\times\to(\Z/d\Z)^\times$ and hence induced by a character modulo $d\le r<q$, which is impossible for a primitive character. If $\chi'\psi=\chi\psi$, then $\chi'$ and $\chi$ agree at every integer prime to $qr$; every residue class prime to $q$ contains such an integer, again by the Chinese remainder theorem, so $\chi'=\chi$.
+\end{proof}
+
+\subsection{Zeros and the explicit formula}
+We use the following facts for a primitive character $\xi$ modulo $k\ge3$; all are in~\cite{Dav00}, Chapters~16 and~19.
+\begin{enumerate}
+\item[(Z1)] For every real $t$ the number of zeros of $L(s,\xi)$ with $|\gamma-t|\le1$ is at most $c_8\log(k(|t|+2))$.
+\item[(Z2)] For $-1\le\sigma\le2$ and $s=\sigma+it$,
+\[
+  \frac{L'}{L}(s,\xi)=\sum_{|\gamma-t|<1}\frac1{s-\rho}+O\bigl(\log(k(|t|+2))\bigr).
+\]
+\item[(Z3)] For $x\ge2$ and $2\le T\le x$,
+\[
+  \psi(x,\xi)=-\sum_{|\gamma|<T}\frac{x^\rho}\rho-(1-a)\log x-b(\xi)+\sum_{m\ge1}\frac{x^{a-2m}}{2m-a}+O\Bigl(\frac{x\log^2(kx)}T+x^{1/4}\log x\Bigr),
+\]
+where $a\in\{0,1\}$ is given by $\xi(-1)=(-1)^a$ and $b(\xi)$ is a constant with
+\[
+  b(\xi)=-\sum_{|\gamma|<1}\frac1\rho+O(\log k).
+\]
+\end{enumerate}
+
+The zero-density estimate we use is Montgomery's~\cite[Theorem~12.2]{Mon71}: for $k\ge1$, $T\ge2$ and $4/5\le\sigma\le1$,
+\begin{equation}\label{eq:zd}
+  \sum_{\xi\bmod k}N(\sigma,T,\xi)\le c_9\,(kT)^{2(1-\sigma)/\sigma}(\log kT)^{14},
+\end{equation}
+where $N(\sigma,T,\xi)$ is the number of zeros of $L(s,\xi)$ with $\beta\ge\sigma$ and $|\gamma|\le T$, and the sum runs over all characters modulo $k$.\footnote{For an imprimitive $\xi$ the zeros in $0<\Re s\le1$ are those of the primitive character inducing it, since the Euler factors that differ vanish only on $\Re s=0$. Only the shape of~\eqref{eq:zd} matters below: the exponent of $kT$ is at most $\frac52(1-\sigma)$, and the logarithmic factor is a fixed power. A log-free estimate of Gallagher's type would remove the factor $(\log q)^{c_3}$ in Theorem~\ref{thm:A} up to the contribution of the moduli $r\le R$.}
+
+\subsection{Exponential sums with multiplicative coefficients}
+The minor arcs are handled by an estimate of Montgomery and Vaughan~\cite[Corollary~1]{MV77}: there is an absolute constant $c_{10}$ such that, if $f$ is multiplicative with $|f(n)|\le1$, $a,r$ are coprime with $|\alpha-a/r|\le r^{-2}$, and $2\le R\le r\le N/R$, then
+\begin{equation}\label{eq:mv}
+  \Bigl|\sum_{n\le N}f(n)e(n\alpha)\Bigr|\le c_{10}\Bigl(\frac N{\log N}+\frac{N(\log R)^{3/2}}{R^{1/2}}\Bigr).
+\end{equation}
+
+\subsection{Two elementary bounds}
 
 \begin{lemma}\label{lem:smooth}
-For $Y\ge2$ and $H\ge1$,
+There is an absolute constant $c_{11}$ such that for $Y\ge2$ and every $H\ge1$
 \[
-  \sum_{\substack{n\le H\\P(n)\le Y}}\frac1n\le e^{11}\log Y.
+  \sum_{\substack{n\le H\\P(n)\le Y}}\frac1n\le\prod_{p\le Y}\Bigl(1-\frac1p\Bigr)^{-1}\le c_{11}\log Y.
 \]
 \end{lemma}
 
 \begin{proof}
-The sum is at most $\prod_{p\le Y}(1-1/p)^{-1}\le\exp\bigl(\sum_{p\le Y}\frac1{p-1}\bigr)$, and
-$\sum_p\bigl(\frac1{p-1}-\frac1p\bigr)\le1$; apply Lemma~\ref{lem:chebyshev}(iv).
+Expanding each factor as a geometric series shows that the product is the sum of $1/n$ over all $n$ with $P(n)\le Y$; the second inequality is Mertens' theorem.
 \end{proof}
 
-\begin{lemma}\label{lem:nonprincipal}
-Let $0<r<q$ and let $\psi$ be a character modulo $r$. Then the character $\chi\psi$ modulo $qr$ is nonprincipal. Moreover, if $\chi_1,\chi_2$ are primitive characters modulo $q$ with $\chi_1\psi=\chi_2\psi$, then $\chi_1=\chi_2$.
+\begin{lemma}\label{lem:gamma}
+For $3/4\le u\le2$ and real $t$, $|\Gamma(u+it)|\le 15(1+t^2)^{-1}$. For $-1/4\le u\le2$ and $|t|\ge1$, $|\Gamma(u+it)|\le c_{12}|t|^{3/2}e^{-\pi|t|/2}$.
 \end{lemma}
 
 \begin{proof}
-Suppose $\chi\psi$ is principal, so that $\chi(n)=\bar\psi(n)$ for every
-$n$ prime to $qr$. Let $d=(q,r)$ and let $n$ be prime to $q$ with $n\equiv1\pmod d$. By the
-Chinese remainder theorem there is $n'$ prime to $qr$ with $n'\equiv n\pmod q$ and
-$n'\equiv1\pmod r$, and then $\chi(n)=\chi(n')=\bar\psi(n')=1$. So $\chi$ is trivial on the
-units congruent to $1$ modulo $d$, and is induced by a character modulo $d\le r<q$, which
-contradicts primitivity. For the second claim, $\chi_1(n)=\chi_2(n)$ for every $n$ prime to $qr$, and for $n$ prime to $q$ there is, again by the Chinese remainder theorem, an $n'$ prime to $qr$ with $n'\equiv n\pmod q$, so that $\chi_1(n)=\chi_1(n')=\chi_2(n')=\chi_2(n)$.
+The product formula gives $|\Gamma(u+it)|^2=\Gamma(u)^2\prod_{n\ge0}\bigl(1+t^2/(u+n)^2\bigr)^{-1}$. Keeping the factors $n=1,2$ and using $u+1\le3$, $u+2\le4$,
+\[
+  |\Gamma(u+it)|\le\Gamma(u)\Bigl(1+\frac{t^2}9\Bigr)^{-1/2}\Bigl(1+\frac{t^2}{16}\Bigr)^{-1/2}\le\Gamma(u)\Bigl(1+\frac{t^2}{12}\Bigr)^{-1}\le\frac{12\,\Gamma(u)}{12+t^2},
+\]
+by the inequality of arithmetic and geometric means, and $\Gamma(u)\le\Gamma(3/4)<1.23$ on $[3/4,2]$; so the left side is at most $14.8/(12+t^2)\le15/(1+t^2)$. The second is Stirling's formula, uniform for $u$ in a compact interval and $|t|\ge1$~\cite[\S4.42]{Tit39}.
 \end{proof}
+\section{Prime sums from a zero-free rectangle}\label{sec:prime}
+
+In this section $1/2\le\theta<1$ is fixed and $\xi$ is a nonprincipal character modulo $k\ge3$. The constant $c_{13}$ below does not depend on $\theta$; this is what keeps the final constant of order $(1-\theta)^{-1}$.
+
+\begin{lemma}\label{lem:psi}
+Let $x\ge2$ and suppose that $L(s,\xi)\ne0$ for $\Re s>\theta$, $|\Im s|\le x$. Then
+\[
+  |\psi(x,\xi)|\le c_{13}\,x^\theta\log^2(kx)\qquad\text{and}\qquad|\vartheta(x,\xi)|\le c_{13}\,x^\theta\log^2(kx).
+\]
+\end{lemma}
+
+\begin{proof}
+Let $\xi^*$ be the primitive character modulo $k^*\mid k$ that induces $\xi$; then $k^*\ge3$, since $\xi$ is nonprincipal and there is no primitive character modulo $2$. The two characters differ only at integers sharing a prime factor with $k$, so
+\[
+  |\psi(x,\xi)-\psi(x,\xi^*)|\le\sum_{p\mid k}\sum_{p^m\le x}\log p\le\omega(k)\log x\le\frac{\log k\log x}{\log2},
+\]
+and $L(s,\xi)$, $L(s,\xi^*)$ have the same zeros with $\Re s>0$. Apply (Z3) to $\xi^*$ with $T=x$. Every zero with $|\gamma|<x$ has $\beta\le\theta$ by hypothesis. The zeros with $|\gamma|<1$ are combined with $b(\xi^*)$:
+\[
+  -\sum_{|\gamma|<1}\frac{x^\rho}\rho-b(\xi^*)=-\sum_{|\gamma|<1}\frac{x^\rho-1}\rho+O(\log k),
+\]
+\[
+  \Bigl|\frac{x^\rho-1}\rho\Bigr|=\Bigl|\int_0^{\log x}e^{\rho u}\,du\Bigr|\le x^\beta\log x\le x^\theta\log x,
+\]
+and by (Z1) there are at most $c_8\log(2k)$ of them. The zeros with $j\le|\gamma|<j+1$, $1\le j<x$, number at most $2c_8\log(k(j+3))$ and contribute at most $x^\theta/j$ each, so together at most $2c_8x^\theta\log(k(x+3))\sum_{j\le x}1/j\ll x^\theta\log^2(kx)$. The terms $(1-a)\log x$ and $\sum_mx^{a-2m}/(2m-a)\le\sum_mx^{1-2m}\le1$ are smaller, and the error term of (Z3) is $O(\log^2(kx)+x^{1/4}\log x)$. Since $\theta\ge1/2$, all of this is $O(x^\theta\log^2(kx))$. Finally $\psi(x,\xi)-\vartheta(x,\xi)$ is a sum over prime powers $p^m\le x$ with $m\ge2$, of modulus at most $\sum_{2\le m\le\log x/\log2}\vartheta(x^{1/m},\xi_0)\ll\sqrt x\log x$ by Chebyshev's bound.
+\end{proof}
+
+\begin{lemma}\label{lem:pexp}
+Let $2\le A'<B'\le x$, let $\gamma\in\R$, and suppose that $L(s,\xi)\ne0$ for $\Re s>\theta$, $|\Im s|\le x$. Then
+\[
+  \Bigl|\sum_{A'<p\le B'}\xi(p)e(p\gamma)\Bigr|\le c_{13}\,\frac{(3+2\pi|\gamma|B')\,B'^{\theta}\log^2(kB')}{\log A'}.
+\]
+\end{lemma}
+
+\begin{proof}
+Write $V=\max_{2\le u\le B'}|\vartheta(u,\xi)|$, which is at most $c_{13}B'^\theta\log^2(kB')$ by Lemma~\ref{lem:psi}. By partial summation,
+\[
+  \sum_{A'<p\le B'}\xi(p)e(p\gamma)=\Bigl[\vartheta(u,\xi)\frac{e(u\gamma)}{\log u}\Bigr]_{A'}^{B'}-\int_{A'}^{B'}\vartheta(u,\xi)\frac{d}{du}\Bigl(\frac{e(u\gamma)}{\log u}\Bigr)du .
+\]
+The derivative has modulus at most $2\pi|\gamma|/\log u+1/(u\log^2u)$, whose integral over $[A',B']$ is at most $(2\pi|\gamma|B'+1)/\log A'$. The boundary terms are at most $2V/\log A'$.
+\end{proof}
+
+The next lemma is the major-arc estimate. Here and later $\chi$ is primitive modulo $q\ge3$.
 
 \begin{lemma}\label{lem:major}
-Let $1/2\le\theta<1$, with the parameters~\eqref{eq:parameters} and the constant $C_3$ of Corollary~\ref{cor:prime}, and put $C_2=2C_3/\eta_\theta$. Let $0<r<q$, $b\in\Z$, $\beta\in\R$, let $Y\ge\max(2,r)$ and $t\ge1$ be integers, and suppose that $L(s,\chi\psi)\ne0$ for $\Re s>\theta$, $|\Im s|\le4t^2+2$ for every character $\psi$ modulo $r$. Then
+Let $1\le r<q$, $b\in\Z$, $\beta\in\R$, let $Y\ge\max(2,r)$ and let $t\le q$ be a positive integer. Suppose that $L(s,\chi\psi)\ne0$ for $\Re s>\theta$, $|\Im s|\le q$, for every character $\psi$ modulo $r$. Then
 \[
-  \Bigl|\sum_{\substack{n\le t\\P(n)>Y}}\chi(n)e\Bigl(n\Bigl(\frac br+\beta\Bigr)\Bigr)\Bigr|
-  \le C_2\,\frac{r\log(qr+2)\,(2+2\pi|\beta|t)\,t}{Y^{\eta_\theta}\log Y}.
+  \Bigl|\sum_{\substack{n\le t\\P(n)>Y}}\chi(n)\,e\Bigl(n\Bigl(\frac br+\beta\Bigr)\Bigr)\Bigr|
+  \le c_{13}\,\frac{r\,(3+2\pi|\beta|t)\log^2(qrt)}{(1-\theta)\log Y}\cdot\frac t{Y^{1-\theta}}.
 \]
 \end{lemma}
 
 \begin{proof}
-Write $\eta=\eta_\theta$. Every $n\le t$ with $P(n)>Y$ is uniquely $n=pm$ with $p=P(n)$ prime, $Y<p\le t/m$ and
-$P(m)\le p$, and then $m\le t/Y$. For such $p$ we have $p>r$, so $p\nmid r$, and on the units
-modulo $r$ the function $u\mapsto e(umb/r)$ equals $\sum_\psi c_\psi\psi(u)$, the sum over the
-characters $\psi$ modulo $r$, with $|c_\psi|\le1$. By Lemma~\ref{lem:nonprincipal} each $\chi\psi$ is nonprincipal modulo $qr$, and by hypothesis it satisfies the condition of Corollary~\ref{cor:prime} with $x=t$. Applying~\eqref{eq:twistedprime} to $\xi=\chi\psi$ with $\gamma=m\beta$,
-$A=\max(Y,P(m)-1)$ and $B=\lfloor t/m\rfloor\le t$ (the inner sum is empty if $A\ge B$) gives
+Each $n\le t$ with $P(n)>Y$ factors uniquely as $n=pm$ with $p=P(n)$; then $p>Y$, $p\ge P(m)$ and $m\le t/p<t/Y$. Conversely, for $m<t/Y$ the admissible $p$ are the primes in $(A_m,t/m]$ with $A_m=\max(Y,P(m)-1)$. Since $p>Y\ge r$, $p$ is prime to $r$, and on the reduced residues modulo $r$
 \[
-  \Bigl|\sum_{\substack{n\le t\\P(n)>Y}}\chi(n)e\Bigl(n\Bigl(\frac br+\beta\Bigr)\Bigr)\Bigr|
-  \le2C_3r\,\frac{\log(qr+2)(2+2\pi|\beta|t)}{\log Y}\sum_{m\le t/Y}\Bigl(\frac tm\Bigr)^{1-\eta},
+  e\Bigl(\frac{umb}r\Bigr)=\sum_{\psi\bmod r}c_\psi(m)\psi(u),\qquad c_\psi(m)=\frac1{\varphi(r)}\sum_{\substack{u\bmod r\\(u,r)=1}}\bar\psi(u)e\Bigl(\frac{umb}r\Bigr),\quad|c_\psi(m)|\le1.
 \]
-and $\sum_{m\le M}m^{-1+\eta}\le\int_0^Mu^{\eta-1}du=M^\eta/\eta$, so the last sum is at most $t/(\eta Y^\eta)$.
-\end{proof}
-
-\begin{proposition}\label{prop:hsum}
-Let $1/2\le\theta<1$, with the parameters~\eqref{eq:parameters}, the constant $C_1$ of Theorem~\ref{thm:mv} and the constant $C_2$ of Lemma~\ref{lem:major}, and put $A_\theta=\lceil36/\eta_\theta\rceil$ and $C_4=1+5C_1+C_2+4e^{11}A_\theta$. Suppose that $\log q\ge200$, put $M=\lceil\log q\rceil$ and $R=M^{16}$, and suppose that~\eqref{eq:hyp} holds for every $r\le R$ and every character $\psi$ modulo $r$. Then
-$\bigl|\sum_{m\le H}\chi(m)e(m\beta)/m\bigr|\le C_4\log\log q$ for every integer $H\le q$ and
-every $\beta\in\R$.
-\end{proposition}
-
-\begin{proof}
-Let $L=\log q$, $\eta=\eta_\theta$, $A=A_\theta$ and $Y=M^{A}$. Since
-$e^{L/16}\ge(L/16)^4/24>L+1\ge M$, we have $2\le R<q$, and $R\le Y$ since $A\ge288$. Split the sum according to
-$P(m)\le Y$ or $P(m)>Y$. By Lemma~\ref{lem:smooth} the first part is at most $e^{11}\log Y$. For
-the second put $A(t)=\sum_{n\le t,\,P(n)>Y}\chi(n)e(n\beta)$ and $w(t)=1/t-1/(t+1)$. Partial
-summation and $|A(H)|\le H$ give
+Hence the sum to be estimated equals
 \[
-  \Bigl|\sum_{\substack{m\le H\\P(m)>Y}}\frac{\chi(m)e(m\beta)}m\Bigr|\le1+\sum_{1\le t<H}|A(t)|\,w(t).
+  \sum_{m<t/Y}\chi(m)\sum_{\psi\bmod r}c_\psi(m)\sum_{A_m<p\le t/m}(\chi\psi)(p)\,e(pm\beta).
 \]
-If $t\le Y$, then $A(t)=0$. Let $t>Y$ and $Q=\lfloor t/R\rfloor\ge1$. By Dirichlet's theorem
-there are coprime $a,r$ with $1\le r\le Q$ and $|\beta-a/r|\le1/(r(Q+1))$; then
-$|\beta-a/r|\,t\le R$ (Figure~\ref{fig:arcs}). If $r\le R$, then $r<q$, and $4t^2+2\le4q^2+2\le5q^2$ because $t<H\le q$ and $q\ge3$, so~\eqref{eq:hyp} gives the hypothesis of Lemma~\ref{lem:major} for this $r$; that lemma with $b=a$ gives $|A(t)|\le C_2kt$, where
+By Lemma~\ref{lem:twist} each $\chi\psi$ is a nonprincipal character modulo $qr$, and by hypothesis it has no zero with $\Re s>\theta$, $|\Im s|\le q$. Lemma~\ref{lem:pexp} with $k=qr$, $x=q$, $\gamma=m\beta$, $A'=A_m\ge Y$ and $B'=t/m$ bounds the inner sum by $c_{13}(3+2\pi|\beta|t)(t/m)^\theta\log^2(qrt)/\log Y$. There are $\varphi(r)\le r$ characters $\psi$, and
 \[
-  k=\frac{R\log(qR+2)(2+2\pi R)}{Y^{\eta}\log Y}.
+  \sum_{m<t/Y}m^{-\theta}\le\int_0^{t/Y}u^{-\theta}\,du=\frac{(t/Y)^{1-\theta}}{1-\theta}.
 \]
-If $r>R$, then $R\le r\le t/R$ and $|\beta-a/r|\le r^{-2}$, so Theorem~\ref{thm:mv} for $f=\chi$
-bounds the full sum $\sum_{n\le t}\chi(n)e(n\beta)$, and since $\log t\le L$, removing the
-$\Psi(t)=\#\{n\le t:P(n)\le Y\}$ smooth terms gives
-\[
-  |A(t)|\le C_1\Bigl(\frac t{\log t}+t\rho\Bigr)+\Psi(t),\qquad
-  \rho=\frac{L^2}{R^{1/4}}=\frac{L^2}{M^4}.
-\]
-Since $tw(t)\le1/t$ and $w(t)\le1/t^2$,
-\[
-  \sum_{1\le t<H}|A(t)|\,w(t)\le C_1\sum_{2\le t\le H}\frac1{t\log t}
-  +(C_1\rho+C_2k)\sum_{t\le H}\frac1t+\sum_{1\le t<H}\Psi(t)w(t).
-\]
-The first sum is at most $3+\log L$, the second at most $1+L$, and by partial summation the third
-is at most $\sum_{n\le H,\,P(n)\le Y}1/n\le e^{11}\log Y$. Finally $L\le M\le2L$ gives
-$\rho(1+L)\le2/M\le1$; $\log(qR+2)\le18M$, $2+2\pi R\le8M^{16}$, $Y^{\eta}=M^{A\eta}\ge M^{36}$ and
-$\log Y=A\log M\ge\log M$ give $k(1+L)\le288M^{34}/(M^{36}\log M)\le1$; and
-$\log Y=A\log M\le2A\log L$, since $\log M\le\log2+\log L\le2\log L$. Collecting terms, the sum is at most
-$1+4C_1+C_2+(C_1+4e^{11}A)\log L\le(1+5C_1+C_2+4e^{11}A)\log L$, as $\log L\ge1$.
-\end{proof}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.96\textwidth]{figures/fig_arcs.png}
-\caption{The dissection of $\mathbb R/\mathbb Z$ in the proof of
-Proposition~\ref{prop:hsum}, drawn for $R=4$. Near a fraction $a/r$ with $r\le R$ (major arcs)
-the sum $A(t)$ is controlled by the twisted prime sums of Corollary~\ref{cor:prime}; elsewhere
-(minor arcs) by Theorem~\ref{thm:mv}. The heights only indicate that the major arcs carry the
-large values.}
-\label{fig:arcs}
-\end{figure}
-
-\begin{proof}[Proof of Theorem~\ref{thm:transfer}]
-Put $C_\theta=\max(C_4+6,\,207/\log\log3)$ with $C_4$ as in Proposition~\ref{prop:hsum}. If $\log q<200$, then every sum $\sum_{m\le H}\bar\chi(m)e(m\beta)/m$ with $H\le q$ has modulus at
-most $1+\log q<201$, and Lemma~\ref{lem:polya} gives
-\[
-  \Bigl|\sum_{n\le x}\chi(n)\Bigr|\le207\sqrt q\le\frac{207}{\log\log3}\sqrt q\log\log q
-\]
-without any hypothesis. Let $\log q\ge200$. The character $\bar\chi$ is primitive modulo $q$, and it satisfies~\eqref{eq:hyp} for every $r\le R$ and $\psi$ modulo $r$: the zeros of $L(s,\bar\chi\psi)$ are the complex conjugates of the zeros of $L(s,\chi\bar\psi)$, $\bar\psi$ is again a character modulo $r$, and the rectangle in~\eqref{eq:hyp} is symmetric about the real axis. Hence Proposition~\ref{prop:hsum} applies to $\bar\chi$, and
-Lemma~\ref{lem:polya} gives
-\[
-  \Bigl|\sum_{n\le x}\chi(n)\Bigr|\le\sqrt q\,(C_4\log\log q+6)\le(C_4+6)\sqrt q\log\log q.\qedhere
-\]
-\end{proof}
-
-\section{The exceptional characters}\label{sec:count}
-
-\begin{proof}[Proof of Theorem~\ref{thm:main}]
-It suffices to treat $0<\varepsilon\le1$, since for larger $\varepsilon$ the statement is weaker. Put $\theta=1-\varepsilon/48$, so that $47/48\le\theta<1$, and let $C_\theta$ be the constant of Theorem~\ref{thm:transfer}. Let $q$ satisfy $\log q\ge200$, put $L=\log q$, $M=\lceil L\rceil$, $R=M^{16}$, and let $E_q$ be the set of primitive characters $\chi$ modulo $q$ for which~\eqref{eq:hyp} fails for some $r\le R$ and some $\psi$ modulo $r$. By Theorem~\ref{thm:transfer}, every primitive $\chi\notin E_q$ has $M(\chi)\le C_\theta\sqrt q\log\log q$, so it remains to bound $|E_q|$.
-
-For $\chi\in E_q$ choose $r\le R$, $\psi$ modulo $r$ and a zero $\rho$ of $L(s,\chi\psi)$ with $\Re\rho>\theta$ and $|\Im\rho|\le5q^2$. The character $\chi\psi$ is a character modulo $qr$, and $\rho$ is counted in $N(\theta,5q^2,\chi\psi)$. For fixed $r$ and $\psi$ the map $\chi\mapsto\chi\psi$ is injective by Lemma~\ref{lem:nonprincipal}, so each term $N(\theta,5q^2,\xi)$, $\xi$ modulo $qr$, is charged by at most one $\chi$ for each pair $(r,\psi)$. Each $\chi\psi$ is nonprincipal by the same lemma. Hence, by Theorem~\ref{thm:zd} with $k=qr\ge3$ and $T=5q^2$, and since $\theta\ge11/12$,
-\begin{align*}
-  |E_q|&\le\sum_{r\le R}\sum_{\psi\bmod r}\sum_{\substack{\xi\bmod qr\\ \xi\ne\xi_0}}N(\theta,5q^2,\xi)
-  \le c_0\sum_{r\le R}\varphi(r)\,(5q^3r)^{12(1-\theta)}\bigl(\log(5q^3r)\bigr)^{9}\\
-  &\le c_0R^2(5q^3R)^{\varepsilon/4}\bigl(\log(5q^3R)\bigr)^{9}.
-\end{align*}
-Now $M\le L+1\le2L$, so $R\le2^{16}L^{16}$ and $(5R)^{1/4}\le(5\cdot2^{16})^{1/4}L^4\le2^5L^4$; and $\log(5q^3R)\le\log(5\cdot2^{16})+3L+16\log(2L)\le20L$, since $L\ge200$. Therefore
-\begin{equation}\label{eq:count}
-  |E_q|\le c_0\,2^{37}\,20^{9}\,L^{45}\,q^{3\varepsilon/4}.
-\end{equation}
-Since $(\log q)^{45}q^{-\varepsilon/4}\to0$ as $q\to\infty$, there is $q_0=q_0(\varepsilon)\ge e^{200}$ such that $c_0\,2^{37}\,20^{9}(\log q)^{45}\le q^{\varepsilon/4}$ for $q\ge q_0$, and then $|E_q|\le q^{\varepsilon}$.
-
-For $3\le q<q_0$ no character is exceptional: every sum $\sum_{m\le H}\bar\chi(m)e(m\beta)/m$ with $H\le q$ has modulus at most $1+\log q$, so Lemma~\ref{lem:polya} gives $M(\chi)\le(7+\log q_0)\sqrt q\le\bigl((7+\log q_0)/\log\log3\bigr)\sqrt q\log\log q$. The theorem holds with $C_\varepsilon=\max\bigl(C_\theta,(7+\log q_0)/\log\log3\bigr)$.
-\end{proof}
-
-The bound~\eqref{eq:count} is where the exponent $\varepsilon$ comes from: the zero-density theorem gives a power $q^{36(1-\theta)}$ of the modulus, times a power of $\log q$, and $\theta$ is chosen so that $36(1-\theta)=3\varepsilon/4$. Any zero-density theorem of the shape~\eqref{eq:zd}, with $12(1-\sigma)$ replaced by $c(1-\sigma)$ for an absolute $c$, gives the same conclusion with $\theta=1-\varepsilon/(4c)$; with the exponents of Montgomery's Theorem~12.2 one may take $\theta=1-\varepsilon/8$.
-
-\begin{proof}[Proof of Corollary~\ref{cor:halfplane}]
-Let $\chi$ be primitive modulo $q\ge3$, $r\le R<q$ and $\psi$ a character modulo $r$. By Lemma~\ref{lem:nonprincipal} the character $\chi\psi$ is nonprincipal, so by hypothesis $L(s,\chi\psi)\ne0$ for $\Re s>\theta$, and in particular~\eqref{eq:hyp} holds. Theorem~\ref{thm:transfer} gives the claim.
-\end{proof}
-
-\section{The logarithmic derivative at $s=1$}\label{sec:logderiv}
-
-In this section $\chi$ is a nonprincipal character modulo $q\ge3$, not necessarily primitive.
-
-\begin{proposition}\label{prop:logderiv}
-Let $1/2\le\theta<1$, with the parameters~\eqref{eq:parameters}, let $K_1$ be the constant of Lemma~\ref{lem:logderiv} with $\delta=\delta_\theta$, and put
-\[
-  T_1=\bigl(\log(q+2)\bigr)^{4/(1-\theta)}+2,\qquad
-  C_5=\frac6{1-\sigma_\theta}+429K_1\Bigl(1+\frac1{1-\sigma_\theta}\Bigr)+99.
-\]
-If $L(s,\chi)\ne0$ for $\Re s>\theta$, $|\Im s|\le T_1$, then $|L'/L(1,\chi)|\le C_5\log\log q$.
-\end{proposition}
-
-\begin{proof}
-Write $\sigma=\sigma_\theta$, $a=a_\theta$, $\delta=\delta_\theta$, and put
-\[
-  x=\bigl(\log(q+2)\bigr)^{1/(1-\sigma)},\qquad T_0=x^2,
-\]
-so that $x>1$, $x^{1-\sigma}=\log(q+2)$, and $T_0+2\le T_1$ by~\eqref{eq:sigmatheta}. Note that $L(1,\chi)\ne0$ by hypothesis, since $\Re1>\theta$.
-
-Let $a(n)=\chi(n)\Lambda(n)/n$ and $F(x)=S(a;x)=\sum_{n\le x}\chi(n)\Lambda(n)n^{-1}(1-n/x)$. The Dirichlet series of $a$ is $-L'/L(s+1,\chi)$, so Lemma~\ref{lem:mellin}(ii) gives $2\pi F(x)=\int_{-\infty}^\infty\Phi(2+it)\,dt$ with
-\[
-  \Phi(s)=-\frac{L'}{L}(s+1,\chi)\,\frac{x^s}{s(s+1)}.
-\]
-For $|t|>T_0$ Lemmas~\ref{lem:euler} and~\ref{lem:elementary} give $|\Phi(2+it)|\le16x^2(1+|t|)^{-2}$, so this part of the integral has modulus at most $32x^2/(1+T_0)\le32$.
-
-Consider the rectangle $\sigma-1\le\Re s\le2$, $|\Im s|\le T_0$. On a neighbourhood of it the function $-L'/L(s+1,\chi)$ is holomorphic except for a simple pole at $s=0$ with residue $1$ (the pole of $L(s+1,\chi)$ is excluded since $\chi$ is nonprincipal): indeed $\Re(s+1)\ge\sigma>\theta$ by~\eqref{eq:sigmatheta} and $|\Im(s+1)|\le T_0<T_1$, so $L(s+1,\chi)\ne0$ there except at $s=0$, where $L(1,\chi)\ne0$ as well, and the pole of $-L'/L(s+1,\chi)$ at $s=0$ is the pole of the kernel $1/(s(s+1))$. The pole of the kernel at $s=-1$ lies outside the rectangle, since $\sigma-1>-1/2$. Thus $\Phi$ has in the rectangle exactly one pole, a simple pole at $s=0$ with residue $-L'/L(1,\chi)$. By the residue theorem the integral of $\Phi$ over the right side of the rectangle equals $-2\pi\,L'/L(1,\chi)$ plus the integral over the left side plus the integrals over the two horizontal sides, with the appropriate orientations. Consequently
-\begin{equation}\label{eq:residue}
-  2\pi\Bigl|\frac{L'}{L}(1,\chi)\Bigr|\le2\pi|F(x)|+32+I_{\mathrm{left}}+I_{\mathrm{top}}+I_{\mathrm{bottom}},
-\end{equation}
-where the three $I$ are the moduli of the integrals of $\Phi$ over the left and horizontal sides.
-
-By Lemma~\ref{lem:chebyshev}(v), $|F(x)|\le\sum_{n\le x}\Lambda(n)/n\le\log x+3$.
-
-On the left side $s=\sigma-1+it$ with $|t|\le T_0$. Lemma~\ref{lem:logderiv} applies to $L'/L(\sigma+it,\chi)$, since $a+8\delta=\sigma\le2$ and the hypothesis gives $L(s,\chi)\ne0$ for $\Re s>a+2\delta$ (as $a+2\delta\ge\theta$) and $|\Im s-t|\le2$ (as $T_0+2\le T_1$); with Lemma~\ref{lem:elementary} it gives $|L'/L(\sigma+it,\chi)|\le10K_1\log(q+2)(1+|t|)^{1/2}$. Moreover $|s|\ge\max(1-\sigma,|t|)\ge(1-\sigma)(1+|t|)/2$ and $|s+1|=|\sigma+it|\ge\max(1/2,|t|)\ge(1+|t|)/3$, so $|s(s+1)|\ge(1-\sigma)(1+|t|)^2/6$. Hence
-\[
-  I_{\mathrm{left}}\le\int_{-\infty}^\infty\frac{60K_1\log(q+2)\,x^{\sigma-1}}{(1-\sigma)(1+|t|)^{3/2}}\,dt=\frac{240K_1}{1-\sigma},
-\]
-by the choice of $x$.
-
-On the horizontal sides $s=\sigma'\pm iT_0$ with $\sigma-1\le\sigma'\le2$, and $T_0\ge1$. For $\sigma'\le1$ Lemmas~\ref{lem:logderiv} and~\ref{lem:elementary} give $|L'/L(s+1,\chi)|\le10K_1\log(q+2)(1+T_0)^{1/2}$, and for $\sigma'>1$ the same bound holds by Lemma~\ref{lem:euler}, since $K_1\ge1$. Also $|x^s|\le x^2$ and $|s(s+1)|\ge T_0^2\ge(1+T_0)^2/4$. Each horizontal side has length at most $3$, so
-\[
-  I_{\mathrm{top}},\ I_{\mathrm{bottom}}\le3\cdot40K_1\log(q+2)\,x^2(1+T_0)^{-3/2}\le120K_1\log(q+2)\,x^{-1}=120K_1x^{-\sigma}\le120K_1.
-\]
-
-Inserting these bounds in~\eqref{eq:residue} and dividing by $2\pi$,
-\[
-  \Bigl|\frac{L'}{L}(1,\chi)\Bigr|\le\log x+3+6+\frac{39K_1}{1-\sigma}+39K_1
-  =\frac{\log\log(q+2)}{1-\sigma}+39K_1\Bigl(1+\frac1{1-\sigma}\Bigr)+9.
-\]
-Finally $\log\log(q+2)\le6\log\log q$ for $q\ge3$, since the ratio of the two sides decreases in $q$ and is below $5.1$ at $q=3$, and $1\le11\log\log q$ since $\log\log3>1/11$. This gives the constant $C_5$.
-\end{proof}
-
-\begin{proof}[Proof of Theorem~\ref{thm:logderiv}]
-As before let $0<\varepsilon\le1$, $\theta=1-\varepsilon/48$, and let $C_5$ and $T_1=(\log(q+2))^{192/\varepsilon}+2$ be as in Proposition~\ref{prop:logderiv}. Let $E'_q$ be the set of nonprincipal characters $\chi$ modulo $q$ for which $L(s,\chi)$ has a zero with $\Re s>\theta$ and $|\Im s|\le T_1$. By Proposition~\ref{prop:logderiv} every nonprincipal $\chi\notin E'_q$ satisfies $|L'/L(1,\chi)|\le C_5\log\log q$, and by Theorem~\ref{thm:zd}, as $E'_q$ contains only nonprincipal characters and $\theta\ge11/12$,
-\[
-  |E'_q|\le\sum_{\substack{\xi\bmod q\\ \xi\ne\xi_0}}N(\theta,T_1,\xi)\le c_0(qT_1)^{\varepsilon/4}(\log qT_1)^{9}.
-\]
-Here $T_1\le2(\log(q+2))^{192/\varepsilon}$, so $T_1^{\varepsilon/4}\le2(\log(q+2))^{48}$, and $\log(qT_1)\le\log q+1+192\varepsilon^{-1}\log\log(q+2)$. Hence $|E'_q|\le q^{\varepsilon/4}P_\varepsilon(\log q)$ for a polynomial $P_\varepsilon$, and there is $q_1=q_1(\varepsilon)$ with $|E'_q|\le q^{\varepsilon}$ for $q\ge q_1$. For $3\le q<q_1$ there are finitely many nonprincipal characters, each with $L(1,\chi)\ne0$ by Dirichlet's theorem~\cite[Chapter~4]{Dav80}, so $|L'/L(1,\chi)|/\log\log q$ is bounded on them by a constant $C'$ depending on $\varepsilon$; no character is exceptional there. The theorem holds with $C_\varepsilon=\max(C_5,C')$.
-\end{proof}
-
-\section{Euler--Kronecker constants of cyclotomic fields}\label{sec:ek}
-
-For $m\ge3$ let $K_m=\mathbb Q(\zeta_m)$ and write the Laurent expansion of its Dedekind zeta function at $s=1$ as $\zeta_{K_m}(s)=c_{-1}/(s-1)+c_0+O(s-1)$. The Euler--Kronecker constant of $K_m$ is $\gamma_m=c_0/c_{-1}$~\cite{Iha06}, so that
-\begin{equation}\label{eq:ekdef}
-  -\frac{\zeta_{K_m}'}{\zeta_{K_m}}(s)=\frac1{s-1}-\gamma_m+O(s-1)\qquad(s\to1).
-\end{equation}
-Ihara proved, under the generalised Riemann hypothesis, that $\gamma_q\le(2+o(1))\log q$ for primes $q$, and conjectured bounds of the same order on both sides; Ford, Luca and Moree showed that the lower half of that conjecture fails if the prime $k$-tuples and Elliott--Halberstam conjectures hold~\cite{Iha06,FLM14}. The zero-free half-plane of Appendix~\ref{app:halfplane} gives an upper bound of the order $\log m$ with no hypothesis.
-
-\begin{theorem}[Theorem~\ref{thm:ekintro}]\label{thm:ek}
-There is an absolute constant $C$ such that
-\[
-  \gamma_m\le12\log m+36\log\log m+C\qquad\text{for every }m\ge3,
-\]
-and
-\[
-  \gamma_q\ge-C\log q\log\log q\qquad\text{for every prime }q\ge5.
-\]
-\end{theorem}
-
-Throughout this section $\theta=11/12$, $\chi_0$ is the principal character modulo $m$, and for a character $\chi$ modulo $m$ we write $\chi^*$ for the primitive character that induces it and $\psi(x,\chi)=\sum_{n\le x}\chi(n)\Lambda(n)$. The constants $C_1,C_2,\dots$ are absolute.
-
-\begin{lemma}\label{lem:ekpsi}
-For $m\ge3$ and $x\ge2$ put $E_m(x)=\sum_{\chi\bmod m}\psi(x,\chi)-x$. Then $|E_m(x)|\le C_1\varphi(m)x^{\theta}\log^2(mx)$.
-\end{lemma}
-
-\begin{proof}
-Let $\chi^*$ be primitive modulo $k\ge3$. By Theorem~\ref{thm:b:main} the function $L(s,\chi^*)$ has no zero with $\Re s>\theta$, and by the functional equation, which maps a zero $\rho$ in the critical strip to the zero $1-\bar\rho$ of the same function, none with $0<\Re s<1-\theta$; so every nontrivial zero $\rho$ satisfies $1-\theta\le\Re\rho\le\theta$ and $|\rho|\ge1/12$. The truncated explicit formula~\cite[Chapter~19]{Dav80} with $T=x$ gives
-\[
-  \psi(x,\chi^*)=-\sum_{|\Im\rho|<x}\frac{x^\rho}\rho-b(\chi^*)+O\bigl(x^{1/4}\log x+\log^2(kx)\bigr),
-\]
-where $b(\chi^*)=-\sum_{|\Im\rho|<1}1/\rho+O(\log k)$; the number of zeros with $t\le|\Im\rho|\le t+1$ is $O(\log(k(t+2)))$~\cite[Chapter~16]{Dav80}. With $|\rho|\ge1/12$ and $|x^\rho|\le x^\theta$ this gives $|\psi(x,\chi^*)|\le C_2x^\theta\log^2(kx)$. The same argument for the Riemann zeta function, whose nontrivial zeros satisfy the same bounds by Theorem~\ref{thm:b:main}, and the explicit formula of~\cite[Chapter~17]{Dav80} give $|\psi(x)-x|\le C_2x^\theta\log^2x$. Passing from $\chi^*$ to $\chi$, and from $\psi(x)$ to $\psi(x,\chi_0)$, changes the sum only at the powers $p^j\le x$ of the primes $p\mid m$, which contribute at most $\omega(m)\log x\le2\log m\log x$. Summing over the $\varphi(m)$ characters gives the lemma.
-\end{proof}
-
-\begin{lemma}\label{lem:ekidentity}
-For $m\ge3$ and $Q\ge2$ put $S_m(Q)=\sum_{n\le Q,\ n\equiv1\ (m)}\Lambda(n)/n$. Then
-\[
-  \gamma_m=\log Q-\varphi(m)S_m(Q)-R_m+\frac{E_m(Q)}Q-\int_Q^\infty\frac{E_m(x)}{x^2}\,dx,
-\]
-where $0\le R_m\le2\log m$, and $R_q=\log q/(q-1)$ for a prime $q$.
-\end{lemma}
-
-\begin{proof}
-The Dedekind zeta function of $K_m$ is $\zeta_{K_m}(s)=\prod_{\chi\bmod m}L(s,\chi^*)$~\cite[Theorem~4.3]{Was97}. For $\Re s>1$, taking logarithmic derivatives and expanding,
-\[
-  -\frac{\zeta_{K_m}'}{\zeta_{K_m}}(s)=\sum_{n\ge1}\frac{\Lambda(n)c_m(n)}{n^s},\qquad c_m(n)=\sum_{\chi\bmod m}\chi^*(n).
-\]
-For $(n,m)=1$ we have $\chi^*(n)=\chi(n)$, so $c_m(n)=\varphi(m)\mathbf 1_{n\equiv1\,(m)}$. Let $p\mid m$ and write $m_p=m/p^{v_p(m)}$. The characters $\chi$ modulo $m$ whose conductor is prime to $p$ are exactly those induced from the characters $\chi'$ modulo $m_p$, and for them $\chi^*(p^j)=\chi'(p^j)$; for the others $\chi^*(p^j)=0$. Hence $c_m(p^j)=\varphi(m_p)\mathbf 1_{p^j\equiv1\,(m_p)}$, and
-\[
-  -\frac{\zeta_{K_m}'}{\zeta_{K_m}}(s)=\varphi(m)\sum_{n\equiv1\,(m)}\frac{\Lambda(n)}{n^s}+R_m(s),\qquad R_m(s)=\sum_{p\mid m}\varphi(m_p)\log p\sum_{\substack{j\ge1\\p^j\equiv1\,(m_p)}}p^{-js}.
-\]
-The series $R_m(s)$ converges at $s=1$; put $R_m=R_m(1)\ge0$. If $m_p\le2$ the inner sum at $s=1$ is $1/(p-1)$ and $\varphi(m_p)=1$, so the term is at most $\log p$. If $m_p\ge3$ the exponents $j$ with $p^j\equiv1\pmod{m_p}$ are the multiples of the order $o$ of $p$ modulo $m_p$, and $p^o>m_p$, so the inner sum is at most $2p^{-o}<2/m_p$ and the term is at most $2\log p$. Hence $R_m\le2\sum_{p\mid m}\log p\le2\log m$; for a prime $q$ the only term is $p=q$, $m_q=1$, and $R_q=\log q/(q-1)$.
-
-Let $A(x)=\varphi(m)\sum_{n\le x,\,n\equiv1\,(m)}\Lambda(n)=\sum_{\chi\bmod m}\psi(x,\chi)$, so that $A(x)=x+E_m(x)$ for $x\ge2$; put $E_m(x)=A(x)-x$ for $1\le x<2$ as well, so that $E_m(1)=-1$ and $|E_m(x)|\le2$ on $[1,2)$. For real $s>1$, partial summation gives
-\[
-  \varphi(m)\sum_{n\equiv1\,(m)}\frac{\Lambda(n)}{n^s}=\int_{1}^\infty x^{-s}\,dA(x)=\frac1{s-1}+1+s\int_1^\infty\frac{E_m(x)}{x^{s+1}}\,dx,
-\]
-the boundary terms being $-E_m(1)=1$ at $x=1$ and $0$ at infinity by Lemma~\ref{lem:ekpsi}. By the same lemma the last integral converges uniformly for $s\ge1$. Comparing with~\eqref{eq:ekdef} and letting $s\to1^+$,
-\[
-  \gamma_m=-1-\int_1^\infty\frac{E_m(x)}{x^2}\,dx-R_m.
-\]
-Finally, with $dA(x)=dx+dE_m(x)$ and integration by parts,
-\[
-  \varphi(m)S_m(Q)=\int_1^Q\frac{dA(x)}x=\log Q+\frac{E_m(Q)}Q+1+\int_1^Q\frac{E_m(x)}{x^2}\,dx,
-\]
-that is
-\[
-  -1-\int_1^Q\frac{E_m(x)}{x^2}\,dx=\log Q-\varphi(m)S_m(Q)+\frac{E_m(Q)}Q,
-\]
-which gives the identity of the lemma.
-\end{proof}
-
-\begin{proof}[Proof of Theorem~\ref{thm:ek}]
-Take $Q=m^{12}(\log m)^{36}$, so that $Q^{\theta-1}=m^{-1}(\log m)^{-3}$ and $\log(mQ)\le50\log m$ for $m\ge3$. By Lemma~\ref{lem:ekpsi}, since $\varphi(m)\le m$,
-\[
-\begin{split}
-  \frac{|E_m(Q)|}Q+\int_Q^\infty\frac{|E_m(x)|}{x^2}\,dx&\le C_1\varphi(m)\Bigl(Q^{\theta-1}\log^2(mQ)+\int_Q^\infty x^{\theta-2}\log^2(mx)\,dx\Bigr)\\
-  &\le C_3\varphi(m)Q^{\theta-1}\log^2(mQ)\le\frac{2500\,C_3}{\log m}.
-\end{split}
-\]
-Since $S_m(Q)\ge0$ and $R_m\ge0$, Lemma~\ref{lem:ekidentity} gives $\gamma_m\le\log Q+C_4=12\log m+36\log\log m+C_4$.
-
-For the lower bound let $q\ge5$ be prime, so $\varphi(q)=q-1$, and split $S_q(Q)=S'+S''$ into the primes and the higher prime powers. Every prime $p\equiv1\pmod q$ satisfies $p\ge2q+1$, since $p$ is odd. By the Brun--Titchmarsh inequality of Montgomery and Vaughan~\cite[Theorem~2]{MV73}, $\pi(x;q,1)\le2x/((q-1)\log(x/q))$ for $x>q$, and partial summation gives
-\[
-  (q-1)S'\le\frac{2\log Q}{\log(Q/q)}+2\int_{2q}^Q\frac{\log x\,dx}{x\log(x/q)}
-  =\frac{2\log Q}{\log(Q/q)}+2\log q\,\log\frac{\log(Q/q)}{\log2}+2\log\frac Q{2q},
-\]
-which is at most $2\log q\log\log q+C_5\log q$. For $S''$ consider the prime powers $n=p^j\equiv1\pmod q$ with $j\ge2$. Those with $n\le q^2$ have $p<q$, and for each $j$ at most $j-1$ residues $p\in[2,q-1]$ satisfy $p^j\equiv1\pmod q$; as $j\le2\log q/\log2$, there are at most $s\le5\log^2q$ such $n$, all distinct and of the form $tq+1$ with $t\ge1$, so their contribution to $(q-1)S''$ is at most $(q-1)\sum_{t\le s}\log(q^2)/(tq)\le2\log q(1+\log s)\le4\log q\log\log q+C_6\log q$. Those with $n>q^2$ are perfect powers, of which each dyadic interval $(y,2y]$ contains $O(\sqrt y)$, so their contribution is at most $(q-1)\sum_{i\ge0}O\bigl(\log(2^{i+1}q^2)/(2^{i/2}q)\bigr)\le C_7\log q$. By Lemma~\ref{lem:ekidentity}, with $R_q=\log q/(q-1)$ and the tail bound above,
-\[
-  \gamma_q\ge\log Q-(q-1)(S'+S'')-\frac{\log q}{q-1}-\frac{2500\,C_3}{\log q}\ge-6\log q\log\log q-C_8\log q,
-\]
-which is at least $-C\log q\log\log q$.
+Multiplying gives the bound, since $t^\theta(t/Y)^{1-\theta}=tY^{\theta-1}$.
 \end{proof}
 
 \begin{remark}
-The constant $12$ is $1/(1-\theta)$: the proof uses the half-plane only to give the error term $x^\theta$ in Lemma~\ref{lem:ekpsi}, and a half-plane $\Re s>\theta'$ would give $\gamma_m\le(1/(1-\theta')+o(1))\log m$. The lower bound loses the factor $\log\log q$ in the primes $p\equiv1\pmod q$ below $q^{12}$, where only the Brun--Titchmarsh inequality is available. Under the prime $k$-tuples and Elliott--Halberstam conjectures the ratio $\gamma_q/\log q$ is dense in $(-\infty,1]$~\cite[Theorem~6]{FLM14}, so the lower bound of Theorem~\ref{thm:ek} cannot be improved to $-C\log q$ without contradicting those conjectures.
+The factor $(1-\theta)^{-1}$ in Lemma~\ref{lem:major} is harmless: it is cancelled in the next section by choosing $\log Y$ of size $(1-\theta)^{-1}\log\log q$. That choice is what produces the factor $(1-\theta)^{-1}$ of Theorem~\ref{thm:B}, through the smooth numbers below $Y$.
 \end{remark}
+\section{Proof of the transfer theorem}\label{sec:transfer}
 
-\input{app.tex}
-\input{appB.tex}
+Let $\chi$ be primitive modulo $q\ge3$ and $1/2\le\theta<1$. Put
+\[
+  L=\log q,\qquad M=\lceil L\rceil,\qquad R=M^{16},\qquad A=\Bigl\lceil\frac{40}{1-\theta}\Bigr\rceil,\qquad Y=M^A .
+\]
+Let $L_0\ge e^{e}$ be an absolute constant, large enough for the finitely many numerical inequalities used below, among them $R<q$ and $72c_{13}M^{-6}(1+L)+c_{10}(16\log M)^{3/2}M^{-8}(1+L)\le1$ for $L\ge L_0$.
+
+\begin{proposition}\label{prop:harm}
+Suppose that $L\ge L_0$ and that~\eqref{eq:H} holds for every $r\le R$ and every character $\psi$ modulo $r$. Then for every integer $1\le H\le q$ and every $\beta\in\R$
+\[
+  \Bigl|\sum_{m\le H}\frac{\chi(m)e(m\beta)}m\Bigr|\le\frac{c_{14}}{1-\theta}\log\log q .
+\]
+\end{proposition}
+
+\begin{proof}
+Split the sum according to $P(m)\le Y$ or $P(m)>Y$. The first part is at most $c_{11}\log Y$ by Lemma~\ref{lem:smooth}. For the second let
+\[
+  \mathcal A(t)=\sum_{\substack{n\le t\\P(n)>Y}}\chi(n)e(n\beta),\qquad w(t)=\frac1t-\frac1{t+1}.
+\]
+Partial summation and $|\mathcal A(H)|\le H$ give
+\begin{equation}\label{eq:ps}
+  \Bigl|\sum_{\substack{m\le H\\P(m)>Y}}\frac{\chi(m)e(m\beta)}m\Bigr|\le1+\sum_{1\le t<H}|\mathcal A(t)|\,w(t).
+\end{equation}
+Since $A\ge80$, $Y\ge R$, and $\mathcal A(t)=0$ for $t\le Y$. Fix an integer $t$ with $Y<t<H$ and put $Q=\lfloor t/R\rfloor\ge1$. By Dirichlet's approximation theorem there are coprime integers $a,r$ with $1\le r\le Q$ and $|\beta-a/r|\le1/(r(Q+1))$. As $Q+1>t/R$, this gives $|\beta-a/r|\,t\le R$.
+
+\emph{Major arcs, $r\le R$.} Here $r\le R<q$ and $Y\ge\max(2,r)$, and the hypothesis of Lemma~\ref{lem:major} is~\eqref{eq:H} for this $r$. That lemma, with $b=a$ and $\beta-a/r$ in place of $\beta$, gives
+\[
+  |\mathcal A(t)|\le c_{13}\,\frac{R\,(3+2\pi R)\log^2(qRt)}{(1-\theta)\log Y}\cdot\frac t{Y^{1-\theta}} .
+\]
+Now $3+2\pi R\le8M^{16}$, $\log(qRt)\le2L+16\log M\le3M$, $Y^{1-\theta}=M^{A(1-\theta)}\ge M^{40}$ and $(1-\theta)\log Y=(1-\theta)A\log M\ge40\log M\ge1$. Hence $|\mathcal A(t)|\le72c_{13}\,tM^{-6}$.
+
+\emph{Minor arcs, $r>R$.} Here $R<r\le Q\le t/R$ and $|\beta-a/r|\le1/(r(Q+1))\le r^{-2}$, so~\eqref{eq:mv} with $f=\chi$ and $N=t$ applies to the complete sum $\sum_{n\le t}\chi(n)e(n\beta)$. Removing the $\Psi(t,Y)=\#\{n\le t:P(n)\le Y\}$ terms with $P(n)\le Y$,
+\[
+  |\mathcal A(t)|\le c_{10}\Bigl(\frac t{\log t}+t\varrho\Bigr)+\Psi(t,Y),\qquad\varrho=\frac{(\log R)^{3/2}}{R^{1/2}}=\frac{(16\log M)^{3/2}}{M^8}.
+\]
+
+\emph{Summation over $t$.} Since $t\,w(t)\le1/t$, the two cases together give
+\[
+  \sum_{1\le t<H}|\mathcal A(t)|\,w(t)\le\bigl(72c_{13}M^{-6}+c_{10}\varrho\bigr)\sum_{t\le q}\frac1t+c_{10}\sum_{2\le t\le q}\frac1{t\log t}+\sum_{1\le t<H}\Psi(t,Y)\,w(t).
+\]
+The first term is at most $1$ by the choice of $L_0$, since $\sum_{t\le q}1/t\le1+L$. The second is at most $c_{10}(\log L+2)$. In the third, each $n\le H-1$ with $P(n)\le Y$ is counted by $\Psi(t,Y)$ for $n\le t<H$, so the term equals $\sum_{n<H,\,P(n)\le Y}(1/n-1/H)\le c_{11}\log Y$. With~\eqref{eq:ps} and the smooth part,
+\[
+  \Bigl|\sum_{m\le H}\frac{\chi(m)e(m\beta)}m\Bigr|\le2c_{11}\log Y+2+c_{10}(\log L+2).
+\]
+Finally $\log Y=A\log M\le\bigl(\frac{40}{1-\theta}+1\bigr)\log(2L)\le\frac{82}{1-\theta}\log L$, because $L\ge e^e$. The proposition follows with $c_{14}=164c_{11}+3c_{10}+2$, using $\log L=\log\log q\ge1$.
+\end{proof}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.94\textwidth]{figures/fig_arcs.png}
+\caption{The dissection of $\R/\Z$ at a fixed $t$, drawn with $R=5$. Near a fraction $a/r$ with $r\le R$ the sum $\mathcal A(t)$ is a combination of prime sums of the twists $\chi\psi$, $\psi\bmod r$, and is small because of the zero-free rectangles~\eqref{eq:H}; away from such fractions it is small by~\eqref{eq:mv}. The arcs have width $2R/t$.}
+\label{fig:arcs}
+\end{figure}
+
+\begin{proof}[Proof of Theorem~\ref{thm:B}]
+If $L<L_0$, then every sum $\sum_{m\le H}\bar\chi(m)e(m\beta)/m$ with $H\le q$ has modulus at most $1+\log q<1+L_0$, and Lemma~\ref{lem:polya} gives $M(\chi)\le(3+L_0)\sqrt q\le\frac{3+L_0}{\log\log3}\sqrt q\log\log q$ without any hypothesis. Let $L\ge L_0$. The conjugate character $\bar\chi$ is primitive modulo $q$ and satisfies~\eqref{eq:H} for every $r\le R$ and $\psi\bmod r$, because the zeros of $L(s,\bar\chi\psi)$ are the complex conjugates of those of $L(s,\chi\bar\psi)$ and the rectangle is symmetric about the real axis. Proposition~\ref{prop:harm} for $\bar\chi$ with $H=\lfloor q/2\rfloor$ and Lemma~\ref{lem:polya} give
+\[
+  M(\chi)\le\sqrt q\Bigl(\frac{c_{14}}{1-\theta}\log\log q+2\Bigr)\le\frac{c_{14}+2}{1-\theta}\sqrt q\log\log q .
+\]
+Theorem~\ref{thm:B} holds with $c_4=\max\bigl(c_{14}+2,(3+L_0)/\log\log3\bigr)$.
+\end{proof}
+\section{Counting the exceptional characters}\label{sec:count}
+
+\begin{proof}[Proof of Theorem~\ref{thm:A}]
+Let $0<\eps\le1$, put $\theta=1-\eps/8$, so that $7/8\le\theta<1$, and let $c_1=8c_4$ with $c_4$ the constant of Theorem~\ref{thm:B}. Let $L=\log q$, $M=\lceil L\rceil$ and $R=M^{16}$. If $L<L_0$, the proof of Theorem~\ref{thm:B} gives $M(\chi)\le c_4\sqrt q\log\log q$ for every $\chi$ without any hypothesis, and there is nothing to count. Let $L\ge L_0$ and let $E_q$ be the set of primitive characters $\chi$ modulo $q$ for which~\eqref{eq:H} fails for some $r\le R$ and some character $\psi$ modulo $r$. Every primitive $\chi\notin E_q$ satisfies
+\[
+  M(\chi)\le\frac{c_4}{1-\theta}\sqrt q\log\log q=\frac{c_1}{\eps}\sqrt q\log\log q
+\]
+by Theorem~\ref{thm:B}, so it suffices to bound $|E_q|$.
+
+For $\chi\in E_q$ choose $r\le R$, $\psi\bmod r$ and a zero $\rho$ of $L(s,\chi\psi)$ with $\beta>\theta$ and $|\gamma|\le q$; it is counted by $N(\theta,q,\chi\psi)$. For a fixed pair $(r,\psi)$ the map $\chi\mapsto\chi\psi$ into the characters modulo $qr$ is injective by Lemma~\ref{lem:twist}, since $r\le R<q$. Hence, by~\eqref{eq:zd} with $k=qr$ and $T=q$,
+\[
+  |E_q|\le\sum_{r\le R}\ \sum_{\psi\bmod r}\ \sum_{\xi\bmod qr}N(\theta,q,\xi)
+  \le c_9\sum_{r\le R}\varphi(r)\,(q^2r)^{2(1-\theta)/\theta}\bigl(\log q^2r\bigr)^{14}.
+\]
+Here $2(1-\theta)/\theta\le\frac{16}7(1-\theta)=\frac27\eps$, so $(q^2r)^{2(1-\theta)/\theta}\le q^{4\eps/7}R^{2/7}$. With $R\le(2L)^{16}$, $R^{2/7}\le(2L)^5$, $\sum_{r\le R}\varphi(r)\le R^2$ and $\log q^2R\le3L$,
+\[
+  |E_q|\le c_9\,3^{14}\,(2L)^{37}L^{14}\,q^{4\eps/7}\le c_2(\log q)^{51}q^{\eps},
+\]
+with $c_2=2^{37}3^{14}c_9$. This proves Theorem~\ref{thm:A} with $c_3=51$.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:tail}]
+For $\tau\ge c_1$ apply Theorem~\ref{thm:A} with $\eps=c_1/\tau\le1$. For the two particular cases take $\tau=\log q/(\log\log q)^2$, where $q^{c_1/\tau}=\exp(c_1(\log\log q)^2)$, and $\tau=c_1\log\log q$, where $q^{c_1/\tau}=q^{1/\log\log q}$; in both cases $(\log q)^{c_3}$ is of smaller order, and for the finitely many $q$ with $\tau<c_1$ the statements are trivial.
+\end{proof}
+
+\begin{remark}
+The exponent $\eps$ enters only through the width $1-\theta$ of the zero-free rectangle, and the factor $(\log q)^{51}$ only through the number of twists and the logarithmic factor in~\eqref{eq:zd}. A zero-density estimate with exponent $c(1-\sigma)$ for any absolute $c$ gives Theorem~\ref{thm:A} with $\theta=1-\eps/(4c)$, and the moduli $r\le R$ can be taken smaller, $R=(\log q)^{4}$ for instance, at the cost of a larger $L_0$, which lowers the power of $\log q$.
+\end{remark}
+\section{The logarithmic derivative at \texorpdfstring{$s=1$}{s=1}}\label{sec:logder}
+
+\begin{proposition}\label{prop:logder}
+Let $\chi$ be primitive modulo $q\ge3$, let $1/2\le\theta<1$ and $\delta=(1-\theta)/2$, put $L=\log q$ and
+\[
+  T_*=\frac{\max(1,\log L)}\delta+L+\log\frac1\delta+T_0+1,
+\]
+where $T_0$ is an absolute constant fixed in the proof. If $L(s,\chi)\ne0$ for $\Re s>\theta$, $|\Im s|\le T_*$, then
+\[
+  \Bigl|\frac{L'}{L}(1,\chi)\Bigr|\le\frac{c_{16}}{1-\theta}\Bigl(\log\log q+\log\frac2{1-\theta}\Bigr).
+\]
+\end{proposition}
+
+\begin{proof}
+Let $x$ be given by $\log x=\max(1,\log L)/\delta$, so that $x\ge e^4$ and $x^{-\delta}L\le1$, and let $T=T_*-1$. For $c>0$ and $y>0$ one has $e^{-y}=\frac1{2\pi i}\int_{(c)}\Gamma(s)y^{-s}\,ds$, and since $\sum_n\chi(n)\Lambda(n)n^{-1-s}=-\frac{L'}{L}(1+s,\chi)$ converges absolutely for $\Re s=1$,
+\begin{equation}\label{eq:mellin}
+  \Sigma:=\sum_{n\ge1}\frac{\chi(n)\Lambda(n)}ne^{-n/x}=\frac1{2\pi i}\int_{(1)}\Gamma(s)x^s\Bigl(-\frac{L'}{L}(1+s,\chi)\Bigr)ds.
+\end{equation}
+Replace the part $|\Im s|\le T$ of the line $\Re s=1$ by the path from $1-iT$ to $-\delta-iT$, then to $-\delta+iT$, then to $1+iT$ (Figure~\ref{fig:contour}). Between the two paths the integrand has a pole at $s=0$, from $\Gamma$, with residue $-\frac{L'}{L}(1,\chi)$, and no other pole: $\Gamma$ has no other pole with $\Re s>-1$, $L(s,\chi)$ is entire, and $L(1+s,\chi)$ has no zero with $\Re(1+s)\ge1-\delta=\theta+\delta$ and $|\Im s|\le T$. Hence
+\[
+  \frac{L'}{L}(1,\chi)=-\Sigma+J_{\mathrm{left}}+J_{\mathrm{hor}}+J_{\mathrm{far}},
+\]
+the three integrals of $\frac1{2\pi i}\Gamma(s)x^s(-\frac{L'}{L}(1+s,\chi))$ over the vertical segment $\Re s=-\delta$, $|\Im s|\le T$, over the two horizontal segments, and over $\Re s=1$, $|\Im s|\ge T$.
+
+\emph{The size of $L'/L$.} Let $1+s=\sigma+it$ with $\theta+\delta\le\sigma\le2$ and $|t|\le T$. The zeros in (Z2) have $|\gamma|<T+1=T_*$, hence $\beta\le\theta$ and $|1+s-\rho|\ge\sigma-\beta\ge\delta$; by (Z1) there are at most $c_8\log(q(|t|+2))$ of them, so
+\begin{equation}\label{eq:ld}
+  \Bigl|\frac{L'}{L}(1+s,\chi)\Bigr|\le\frac{C\log(q(|t|+2))}\delta .
+\end{equation}
+
+\emph{The left side.} Here $s=-\delta+it$, $|x^s|=x^{-\delta}$, and by Lemma~\ref{lem:gamma}, since $3/4\le1-\delta<1$,
+\[
+  |\Gamma(-\delta+it)|=\frac{|\Gamma(1-\delta+it)|}{|-\delta+it|}\le\frac{15}{(1+t^2)\max(\delta,|t|)} .
+\]
+With~\eqref{eq:ld} and $\log(q(|t|+2))\le L+\log(|t|+2)$,
+\[
+  |J_{\mathrm{left}}|\le\frac{Cx^{-\delta}}\delta\int_{\R}\frac{L+\log(|t|+2)}{(1+t^2)\max(\delta,|t|)}\,dt\le\frac{Cx^{-\delta}L}\delta\Bigl(1+\log\frac1\delta\Bigr)\le\frac C\delta\Bigl(1+\log\frac1\delta\Bigr),
+\]
+because the integral over $|t|\le\delta$ is at most $2\log(3q)\le4L$ and the integral over $|t|>\delta$ is at most $2\int_\delta^\infty(L+\log(t+2))\,\frac{dt}{t(1+t^2)}\ll L(1+\log(1/\delta))$.
+
+\emph{The horizontal sides and the tail.} On the horizontal sides $s=u\pm iT$ with $-\delta\le u\le1$; there $|x^s|\le x$, $|\Gamma(s)|\le c_{12}T^{3/2}e^{-\pi T/2}$ by Lemma~\ref{lem:gamma} (as $T\ge1$ and $u\ge-1/4$), and~\eqref{eq:ld} applies. On the tail $|L'/L(2+it,\chi)|\le\sum_n\Lambda(n)n^{-2}<1$ and $|\Gamma(1+it)|\le c_{12}|t|^{3/2}e^{-\pi|t|/2}$. Hence
+\[
+  |J_{\mathrm{hor}}|+|J_{\mathrm{far}}|\le C\,\frac{x\,T^{5/2}\log(q(T+2))}{\delta}\,e^{-\pi T/2}\le C\,T^{5/2}(L+T)\,e^{-L-T/2}\le1,
+\]
+where we used $\pi T/2\ge T+T/2\ge\log x+L+\log(1/\delta)+T/2$, and $T\ge T_0$ with $T_0$ chosen so that $C\,T^{5/2}(1+T)e^{-T/2}\le1$ for $T\ge T_0$ (note $Le^{-L}\le1$).
+
+\emph{Conclusion.} Since $|\chi(n)|\le1$, $|\Sigma|\le\sum_{n\le x}\Lambda(n)/n+\sum_{k\ge1}e^{-k}\sum_{kx<n\le(k+1)x}\Lambda(n)/n\le\log x+c_{15}$ by Mertens' estimate $\sum_{n\le x}\Lambda(n)/n=\log x+O(1)$ and Chebyshev's bound $\psi(y)\ll y$. Collecting,
+\[
+  \Bigl|\frac{L'}{L}(1,\chi)\Bigr|\le\frac{\max(1,\log L)}\delta+c_{15}+\frac C\delta\Bigl(1+\log\frac1\delta\Bigr)+1,
+\]
+and $1/\delta=2/(1-\theta)$, $\log(1/\delta)=\log(2/(1-\theta))\ge\log4$, $\max(1,\log L)\le\log\log q+\log(2/(1-\theta))$ give the claim.
+\end{proof}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/fig_contour.png}
+\caption{The contour in the proof of Proposition~\ref{prop:logder}, in the variable $1+s$. The shaded region is free of zeros of $L(s,\chi)$ by hypothesis; the path keeps the distance $\delta$ from it. Beyond height $T$ the path stays on $\Re(1+s)=2$, where the factor $\Gamma(s)$ is exponentially small.}
+\label{fig:contour}
+\end{figure}
+
+\begin{proof}[Proof of Theorem~\ref{thm:C}]
+Let $0<\eps\le1$, $\theta=1-\eps/5\ge4/5$ and $\delta=\eps/10$. A primitive $\chi$ for which $|L'/L(1,\chi)|$ exceeds the bound of Proposition~\ref{prop:logder} has a zero with $\beta>\theta$ and $|\gamma|\le T_*$. Now $T_*\le C\log q/\eps$, so by~\eqref{eq:zd} with $k=q$ and $T=T_*$ the number of such $\chi$ is at most
+\[
+  c_9\,(qT_*)^{2(1-\theta)/\theta}(\log qT_*)^{14}\le c_9\,q^{\eps/2}\Bigl(\frac{C\log q}\eps\Bigr)^{1/2}\Bigl(\log\frac{Cq\log q}\eps\Bigr)^{14}\le c_6\Bigl(\frac{\log q}\eps\Bigr)^{c_7}q^{\eps}.
+\]
+For the other characters Proposition~\ref{prop:logder} gives $|L'/L(1,\chi)|\le\frac{5c_{16}}\eps(\log\log q+\log\frac{10}\eps)\le\frac{c_5}\eps(\log\log q+\log\frac2\eps)$ with $c_5=20c_{16}$, since $\log(10/\eps)\le4\log(2/\eps)$.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:half}]
+Let $\chi$ be primitive modulo $q$. If $\log q<L_0$, the bound for $M(\chi)$ holds unconditionally, as in the proof of Theorem~\ref{thm:B}. Otherwise $R<q$, every $\chi\psi$ with $r\le R$ is nonprincipal by Lemma~\ref{lem:twist}, and the hypothesis gives~\eqref{eq:H}; Theorem~\ref{thm:B} applies. The character $\chi$ itself is nonprincipal, so Proposition~\ref{prop:logder} applies as well, and $c_{16}\le c_5$.
+\end{proof}
+\section{Numerical data}\label{sec:num}
+
+For every prime $5\le q<10^4$ and every nonprincipal character $\chi$ modulo $q$ we computed $M(\chi)$ exactly in the following sense. With $g$ the least primitive root modulo $q$ and $\operatorname{ind}n$ the index of $n$, the characters are $\chi_j(n)=e(j\operatorname{ind}n/(q-1))$ for $1\le j\le q-2$, and $\chi_j$ is odd exactly when $j$ is odd. Since $S(x)=\sum_{n\le x}\chi(n)$ is constant on each interval $[n,n+1)$ and periodic with $S(q)=0$, the maximum of $|S(x)|$ is the maximum of $|S(n)|$ over $1\le n\le q-1$, which the program computes in double precision; the accumulated rounding error is of order $q\cdot10^{-16}$, far below the resolution of the statements made here. This is $1227$ moduli and $5\,733\,937$ characters. The programs, written in C, are archived with the paper (see the declarations), and a second program, written independently in Julia, recomputes the largest $M(\chi)/\sqrt q$ for every one of the $1227$ moduli and agrees to six decimals.
+
+Write
+\[
+  r(\chi)=\frac{M(\chi)}{\sqrt q\log\log q}.
+\]
+Table~\ref{tab:ranges} summarises the data by ranges of $q$, Figure~\ref{fig:max} shows, for each $q$, the largest value of $r(\chi)$ over odd and over even characters, and Figure~\ref{fig:hist} is the distribution of $M(\chi)/\sqrt q$ for the $1\,636\,638$ characters with $8419\le q\le9973$.
+
+\begin{table}[ht]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrcccrr@{}}
+\toprule
+range of $q$ & moduli & characters & odd max & even max & mean $M/\sqrt q$ & $r>\tfrac12$ & $r>\tfrac34$\\
+\midrule
+5--1000 & 166 & 75\,790 & 1.329 & 0.940 & 0.695 & 10\,176 & 326\\
+1001--2000 & 135 & 200\,653 & 0.838 & 0.461 & 0.701 & 18\,986 & 201\\
+2001--3000 & 127 & 316\,519 & 0.835 & 0.469 & 0.703 & 25\,260 & 203\\
+3001--4000 & 120 & 419\,444 & 0.842 & 0.436 & 0.704 & 30\,252 & 190\\
+4001--5000 & 119 & 534\,391 & 0.828 & 0.464 & 0.705 & 35\,798 & 172\\
+5001--6000 & 114 & 626\,370 & 0.828 & 0.454 & 0.705 & 39\,142 & 218\\
+6001--7000 & 117 & 760\,503 & 0.830 & 0.440 & 0.706 & 45\,298 & 212\\
+7001--8000 & 107 & 802\,881 & 0.789 & 0.451 & 0.706 & 45\,607 & 195\\
+8001--9000 & 110 & 935\,004 & 0.833 & 0.455 & 0.706 & 51\,348 & 185\\
+9001--10000 & 112 & 1\,062\,382 & 0.814 & 0.451 & 0.706 & 56\,327 & 229\\
+\midrule
+total & 1227 & 5\,733\,937 & 1.329 & 0.940 & & 358\,194 & 2\,131\\
+\bottomrule
+\end{tabular}
+\caption{Prime moduli $5\le q<10^4$. The columns ``odd max'' and ``even max'' give the largest $r(\chi)$ over odd and over even characters in the range; the last two columns count characters.}
+\label{tab:ranges}
+\end{table}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.92\textwidth]{figures/fig_max.png}
+\caption{For each prime $q<10^4$, the largest $r(\chi)$ over odd characters (upper cloud) and over even characters (lower cloud), with the constants $C_{\mathrm{odd}}=e^\gamma/\pi$, $2C_{\mathrm{odd}}$, $C_{\mathrm{even}}=e^\gamma/(\sqrt3\pi)$ and $2C_{\mathrm{even}}$.}
+\label{fig:max}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/fig_hist.png}
+\caption{Distribution of $M(\chi)/\sqrt q$ over all nonprincipal characters to prime moduli $8419\le q\le9973$, in bins of width $0.05$.}
+\label{fig:hist}
+\end{figure}
+
+The data show four things.
+
+\emph{The maxima.} For $q>1000$ the largest odd value of $r(\chi)$ lies in $[0.714,0.842]$ and the largest even value in $[0.378,0.469]$. Only six characters in the whole range have $r(\chi)>1$, two of them have $r(\chi)>1.25$, none has $r(\chi)>1.5$, and all six belong to moduli below $12$, where $\log\log q<1$. The largest value of $M(\chi)/\sqrt q$ is $1.839$, at $q=8951$; the largest value over even characters is $1.003$.
+
+\emph{Parity.} For each of the $1227$ moduli the largest $M(\chi)$ is attained by an odd character. Granville and Soundararajan proved, assuming the generalised Riemann hypothesis, that $M(\chi)\le(2C_\chi+o(1))\sqrt q\log\log q$ with
+\[
+  C_\chi=\frac{e^\gamma}{\pi}=0.5669\ldots\ (\chi\ \text{odd}),\qquad C_\chi=\frac{e^\gamma}{\sqrt3\,\pi}=0.3273\ldots\ (\chi\ \text{even}),
+\]
+and conjectured that $C_\chi$ is the true constant~\cite[Theorem~6 and Conjecture~1]{GS07}.\footnote{For even $\chi$ one has $S(q-1-x)=-S(x)$, so $S(x)$ is minus one half of the sum over $x<n<q-1-x$; the bound for even characters is the bound of~\cite{GS07} for sums over intervals, divided by two.} Both maxima in Figure~\ref{fig:max} lie between $C_\chi$ and $2C_\chi$, and the mean over $q>1000$ of the ratio of the even maximum to the odd maximum is $0.546$, a little below $1/\sqrt3=0.577$. At $q\approx10^4$ one has $\log\log q\approx2.22$, so terms of relative size $1/\log\log q$ are still large, and the data neither confirm nor contradict the value $C_\chi$.
+
+\emph{The bulk.} The mean of $M(\chi)/\sqrt q$ is $0.70$ in every range and grows only in the third decimal, and every character in the range has $M(\chi)\ge0.4\sqrt q$. The distribution in Figure~\ref{fig:hist} has a sharp left edge, a mode in $[0.50,0.55)$, and a tail that decreases by a roughly constant factor per bin up to $1.5$ and much faster beyond it, which is consistent with the doubly exponential decay found in~\cite{BGGK18}.
+
+\emph{The tail.} The proportion of characters with $r(\chi)>\tfrac12$ falls from $13.4\%$ for $q\le1000$ to $5.3\%$ for $9000<q<10^4$, and the proportion with $r(\chi)>\tfrac34$ falls from $0.43\%$ to $0.022\%$. Corollary~\ref{cor:tail} bounds the number of characters above $\tau\sqrt q\log\log q$ by $q^{c_1/\tau}$ up to a power of $\log q$; for $9000<q<10^4$ the data give about $500$ characters per modulus with $r(\chi)>\tfrac12$ and about two with $r(\chi)>\tfrac34$, so the true tail is far thinner than the bound, as one expects from a zero-density argument.
+\section{Open problems}\label{sec:open}
+
+Table~\ref{tab:verdicts} lists the statements about $M(\chi)$ and $L'/L(1,\chi)$ that bear on this paper, with their status. ``Proved'' means proved unconditionally; ``GRH'' means proved under the generalised Riemann hypothesis; ``open'' means that no proof is known, with or without the present results.
+
+\begin{table}[ht]
+\centering
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.43\textwidth}>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}p{0.32\textwidth}@{}}
+\toprule
+Statement & Status & What this paper adds\\
+\midrule
+$M(\chi)\ll\sqrt q\log q$ for every $\chi$ & proved (1918) & nothing\\
+$M(\chi)\gg\sqrt q\log\log q$ for infinitely many quadratic $\chi$ & proved~\cite{Pal32} & nothing\\
+$M(\chi)\ll\sqrt q\log\log q$ for every $\chi$ & GRH~\cite{MV77}; open & proved for all but $O((\log q)^{c_3}q^{\eps})$ characters, constant $c_1/\eps$ (Theorem~\ref{thm:A})\\
+$M(\chi)=o(\sqrt q\log q)$ for every $\chi$ & open & proved for all but $\exp(O((\log\log q)^2))$ characters (Corollary~\ref{cor:tail})\\
+$M(\chi)\le(2C_\chi+o(1))\sqrt q\log\log q$ & GRH~\cite{GS07} & numerical maxima below $2C_\chi$ for $10^3<q<10^4$ (Section~\ref{sec:num})\\
+$M(\chi)\le(C_\chi+o(1))\sqrt q\log\log q$ & open~\cite{GS07} & data between $C_\chi$ and $2C_\chi$; inconclusive\\
+Frequency of $M(\chi)>\tau\sqrt q$ for $\tau\le\log\log q-C$ & proved~\cite{BGGK18} & tail bound for all larger thresholds (Corollary~\ref{cor:tail})\\
+$M(\chi)\ll\sqrt q(\log q)^{1-\delta}$ for $\chi$ of fixed odd order & proved~\cite{GS07,Gol12,LM22} & nothing\\
+$|L'/L(1,\chi)|\le(2+o(1))\log\log q$ & GRH~\cite{IMS09} & $\ll\eps^{-1}\log\log q$ for all but $O_\eps(q^{\eps+o(1)})$ characters (Theorem~\ref{thm:C})\\
+Zero-free half-plane $\Re s>\theta$, $\theta<1$, for all $L(s,\chi)$ & open & would give both bounds for every $\chi$ with constant $\asymp(1-\theta)^{-1}$ (Corollary~\ref{cor:half})\\
+\bottomrule
+\end{tabular}
+\caption{Statements about large character sums and their status.}
+\label{tab:verdicts}
+\end{table}
+
+Three questions are suggested by the method.
+
+\emph{Fewer exceptions.} The exceptional set of Theorem~\ref{thm:A} is controlled by the number of characters $\chi$ such that some twist $\chi\psi$ with a modulus of $\psi$ at most $(\log q)^{16}$ has a zero with real part above $1-\eps/8$ and height at most $q$. In the zero-density estimate~\eqref{eq:zd} the twists have modulus $k=qr$ and height $T=q$, so the quantity $kT$ is about $q^2$; a smaller exponent in place of $2(1-\sigma)/\sigma$, or a version of Proposition~\ref{prop:harm} that needs the zero-free region only up to height $(\log q)^{A}$, would lower the exponent of $q$ in Theorem~\ref{thm:A} in proportion. The second change alone would halve it. In the present proof the height $q$ comes from the truncation $T=x$ of the explicit formula in Lemma~\ref{lem:psi}, applied to prime sums of length up to $q$.
+
+\emph{The constant.} The proof gives $c_1$ in terms of the constants of the zero-density estimate~\eqref{eq:zd} and the Montgomery--Vaughan estimate~\eqref{eq:mv}, neither of which is explicit in the sources. With explicit versions of both, Theorem~\ref{thm:A} becomes a statement with numbers, which could be set against Table~\ref{tab:ranges}.
+
+\emph{Even characters.} For every modulus in our range the maximum is odd, and the ratio of the even maximum to the odd maximum is close to $1/\sqrt3$. It would be interesting to prove, for a positive proportion of prime moduli and without hypothesis, that the largest $M(\chi)$ is attained by an odd character.
+
+The large sieve and zero-free regions are used for related questions in~\cite{Bha26b,Bha26c}, and approximations connected with the Riemann hypothesis and with Ramanujan's $\tau$-function are studied in~\cite{Bha26a,Bha23}.
+\appendix
+\section{Small moduli}\label{app:small}
+Table~\ref{tab:small} lists, for each prime $5\le q<200$, the character with the largest $M(\chi)$. The characters are numbered as in Section~\ref{sec:num}: $g$ is the least primitive root, $\chi_j(g)=e(j/(q-1))$, the order of $\chi_j$ is $(q-1)/\gcd(j,q-1)$, and $x$ is the least integer with $|S(x)|=M(\chi_j)$. Since $\chi_{q-1-j}=\bar\chi_j$ has the same partial sums up to conjugation, only the smaller index of each conjugate pair is listed.
+
+\begin{table}[ht]
+\centering\scriptsize
+\setlength{\tabcolsep}{2.6pt}
+\begin{tabular}{@{}rrrrrccc@{}}
+\toprule
+$q$ & $g$ & $j$ & order & $x$ & $x/q$ & $M/\sqrt q$ & $r(\chi)$\\
+\midrule
+
+5 & 2 & 1 & 4 & 2 & 0.400 & 0.6325 & 1.3290\\
+7 & 3 & 1 & 6 & 3 & 0.429 & 0.7559 & 1.1355\\
+11 & 2 & 5 & 2 & 5 & 0.455 & 0.9045 & 1.0342\\
+13 & 2 & 3 & 4 & 6 & 0.462 & 0.8771 & 0.9311\\
+17 & 3 & 3 & 16 & 8 & 0.471 & 0.8821 & 0.8470\\
+19 & 2 & 7 & 18 & 9 & 0.474 & 0.9037 & 0.8368\\
+23 & 5 & 11 & 2 & 9 & 0.391 & 1.0426 & 0.9123\\
+29 & 2 & 5 & 28 & 14 & 0.483 & 0.9692 & 0.7983\\
+31 & 3 & 15 & 2 & 10 & 0.323 & 1.0776 & 0.8735\\
+37 & 2 & 11 & 36 & 18 & 0.486 & 1.0770 & 0.8388\\
+41 & 6 & 3 & 40 & 16 & 0.390 & 1.0330 & 0.7874\\
+43 & 3 & 3 & 14 & 18 & 0.419 & 1.0241 & 0.7730\\
+47 & 5 & 23 & 2 & 18 & 0.383 & 1.1669 & 0.8656\\
+53 & 2 & 3 & 52 & 21 & 0.396 & 1.0744 & 0.7792\\
+59 & 2 & 29 & 2 & 29 & 0.492 & 1.1717 & 0.8337\\
+61 & 2 & 1 & 60 & 24 & 0.393 & 1.1161 & 0.7895\\
+67 & 2 & 17 & 66 & 33 & 0.493 & 1.1477 & 0.7991\\
+71 & 7 & 35 & 2 & 20 & 0.282 & 1.1868 & 0.8185\\
+73 & 5 & 9 & 8 & 24 & 0.329 & 1.1178 & 0.7675\\
+79 & 3 & 1 & 78 & 33 & 0.418 & 1.1340 & 0.7690\\
+83 & 2 & 3 & 82 & 27 & 0.325 & 1.1361 & 0.7646\\
+89 & 3 & 1 & 88 & 44 & 0.494 & 1.1356 & 0.7563\\
+\bottomrule
+\end{tabular}
+\hspace{0.8em}
+\begin{tabular}{@{}rrrrrccc@{}}
+\toprule
+$q$ & $g$ & $j$ & order & $x$ & $x/q$ & $M/\sqrt q$ & $r(\chi)$\\
+\midrule
+
+97 & 5 & 15 & 32 & 48 & 0.495 & 1.1149 & 0.7332\\
+101 & 2 & 45 & 20 & 50 & 0.495 & 1.1232 & 0.7344\\
+103 & 5 & 7 & 102 & 34 & 0.330 & 1.1482 & 0.7487\\
+107 & 2 & 3 & 106 & 42 & 0.393 & 1.1780 & 0.7641\\
+109 & 6 & 27 & 4 & 54 & 0.495 & 1.2489 & 0.8079\\
+113 & 3 & 9 & 112 & 45 & 0.398 & 1.1654 & 0.7502\\
+127 & 3 & 7 & 18 & 54 & 0.425 & 1.2540 & 0.7948\\
+131 & 2 & 65 & 2 & 65 & 0.496 & 1.3106 & 0.8273\\
+137 & 3 & 13 & 136 & 63 & 0.460 & 1.2160 & 0.7632\\
+139 & 2 & 3 & 46 & 64 & 0.460 & 1.2219 & 0.7655\\
+149 & 2 & 5 & 148 & 59 & 0.396 & 1.2119 & 0.7526\\
+151 & 6 & 13 & 150 & 58 & 0.384 & 1.1905 & 0.7381\\
+157 & 5 & 21 & 52 & 72 & 0.459 & 1.2514 & 0.7722\\
+163 & 2 & 3 & 54 & 69 & 0.423 & 1.1974 & 0.7355\\
+167 & 5 & 83 & 2 & 66 & 0.395 & 1.3929 & 0.8531\\
+173 & 2 & 9 & 172 & 57 & 0.329 & 1.2423 & 0.7576\\
+179 & 2 & 5 & 178 & 81 & 0.453 & 1.2639 & 0.7677\\
+181 & 2 & 3 & 60 & 72 & 0.398 & 1.2766 & 0.7744\\
+191 & 19 & 95 & 2 & 81 & 0.424 & 1.3748 & 0.8289\\
+193 & 5 & 7 & 192 & 96 & 0.497 & 1.1998 & 0.7225\\
+197 & 2 & 1 & 196 & 78 & 0.396 & 1.2605 & 0.7572\\
+199 & 3 & 99 & 2 & 66 & 0.332 & 1.2760 & 0.7657\\
+\bottomrule
+\end{tabular}
+\caption{The character with the largest $M(\chi)$ for each prime $5\le q<200$; every one is odd.}
+\label{tab:small}
+\end{table}
+
+Three features are visible already at this height. The maximising character is odd in every case. For $q\equiv3\pmod 4$ it is often the quadratic character $\chi_{(q-1)/2}$, of order $2$ ($q=23,47,59,71,131,167,191,199$); for $q>1000$ this happens for $59$ of the $532$ primes $q\equiv3\pmod4$, and for $1001$ of the $1061$ primes $q>1000$ the maximising character has order larger than $12$. The point $x/q$ where the maximum is reached lies between $0.28$ and $0.50$ for every $q<200$; by the symmetry $|S(q-1-x)|=|S(x)|$ of odd characters, the half $x\le q/2$ suffices.
+
+
+\section{The largest values for \texorpdfstring{$9000<q<10^4$}{9000<q<10000}}\label{app:big}
+Table~\ref{tab:big} gives, for each of the $112$ primes $9000<q<10^4$, the largest $r(\chi)$ over odd and over even characters, the mean of $M(\chi)/\sqrt q$ over all $q-2$ nonprincipal characters, and the numbers of characters with $r(\chi)>\tfrac12$ and $r(\chi)>\tfrac34$.
+
+\begin{table}[p]
+\centering\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}rccccr@{}}
+\toprule
+$q$ & odd & even & mean & $>\tfrac12$ & $>\tfrac34$\\
+\midrule
+
+9001 & 0.749 & 0.421 & 0.706 & 472 & 0\\
+9007 & 0.751 & 0.424 & 0.706 & 496 & 2\\
+9011 & 0.772 & 0.409 & 0.706 & 482 & 2\\
+9013 & 0.770 & 0.418 & 0.706 & 492 & 2\\
+9029 & 0.755 & 0.426 & 0.706 & 494 & 2\\
+9041 & 0.757 & 0.417 & 0.706 & 496 & 2\\
+9043 & 0.766 & 0.404 & 0.706 & 488 & 6\\
+9049 & 0.730 & 0.424 & 0.706 & 496 & 0\\
+9059 & 0.774 & 0.411 & 0.706 & 451 & 2\\
+9067 & 0.784 & 0.399 & 0.706 & 494 & 4\\
+9091 & 0.755 & 0.406 & 0.706 & 490 & 2\\
+9103 & 0.780 & 0.410 & 0.706 & 487 & 4\\
+9109 & 0.755 & 0.422 & 0.707 & 494 & 4\\
+9127 & 0.726 & 0.416 & 0.706 & 495 & 0\\
+9133 & 0.741 & 0.426 & 0.706 & 480 & 0\\
+9137 & 0.748 & 0.407 & 0.706 & 494 & 0\\
+9151 & 0.770 & 0.382 & 0.706 & 479 & 6\\
+9157 & 0.746 & 0.418 & 0.706 & 480 & 0\\
+9161 & 0.778 & 0.414 & 0.706 & 498 & 2\\
+9173 & 0.746 & 0.414 & 0.706 & 496 & 0\\
+9181 & 0.753 & 0.425 & 0.706 & 504 & 2\\
+9187 & 0.794 & 0.410 & 0.706 & 502 & 2\\
+9199 & 0.761 & 0.398 & 0.706 & 486 & 4\\
+9203 & 0.747 & 0.422 & 0.706 & 494 & 0\\
+9209 & 0.764 & 0.391 & 0.706 & 510 & 6\\
+9221 & 0.745 & 0.434 & 0.706 & 488 & 0\\
+9227 & 0.764 & 0.403 & 0.706 & 506 & 2\\
+9239 & 0.814 & 0.398 & 0.706 & 487 & 5\\
+9241 & 0.741 & 0.414 & 0.706 & 494 & 0\\
+9257 & 0.769 & 0.401 & 0.707 & 496 & 4\\
+9277 & 0.746 & 0.423 & 0.706 & 500 & 0\\
+9281 & 0.754 & 0.428 & 0.706 & 494 & 2\\
+9283 & 0.780 & 0.395 & 0.706 & 478 & 2\\
+9293 & 0.760 & 0.406 & 0.706 & 512 & 4\\
+9311 & 0.745 & 0.417 & 0.706 & 493 & 0\\
+9319 & 0.752 & 0.411 & 0.706 & 506 & 2\\
+9323 & 0.746 & 0.416 & 0.706 & 514 & 0\\
+9337 & 0.760 & 0.387 & 0.706 & 472 & 4\\
+9341 & 0.751 & 0.412 & 0.706 & 498 & 2\\
+9343 & 0.757 & 0.400 & 0.706 & 496 & 4\\
+9349 & 0.757 & 0.420 & 0.706 & 488 & 2\\
+9371 & 0.759 & 0.415 & 0.706 & 495 & 2\\
+9377 & 0.753 & 0.419 & 0.706 & 516 & 2\\
+9391 & 0.748 & 0.401 & 0.706 & 505 & 0\\
+9397 & 0.753 & 0.427 & 0.706 & 508 & 2\\
+9403 & 0.762 & 0.413 & 0.706 & 512 & 2\\
+9413 & 0.760 & 0.419 & 0.706 & 514 & 4\\
+9419 & 0.754 & 0.416 & 0.706 & 484 & 4\\
+9421 & 0.755 & 0.414 & 0.706 & 498 & 2\\
+9431 & 0.745 & 0.411 & 0.706 & 491 & 0\\
+9433 & 0.751 & 0.407 & 0.706 & 488 & 2\\
+9437 & 0.776 & 0.425 & 0.706 & 502 & 2\\
+9439 & 0.774 & 0.408 & 0.706 & 503 & 2\\
+9461 & 0.790 & 0.405 & 0.706 & 494 & 2\\
+9463 & 0.784 & 0.411 & 0.707 & 504 & 2\\
+9467 & 0.761 & 0.426 & 0.706 & 511 & 2\\
+\bottomrule
+\end{tabular}
+\hspace{1em}
+\begin{tabular}{@{}rccccr@{}}
+\toprule
+$q$ & odd & even & mean & $>\tfrac12$ & $>\tfrac34$\\
+\midrule
+
+9473 & 0.753 & 0.399 & 0.706 & 492 & 4\\
+9479 & 0.753 & 0.413 & 0.706 & 477 & 2\\
+9491 & 0.737 & 0.401 & 0.706 & 495 & 0\\
+9497 & 0.759 & 0.396 & 0.707 & 516 & 2\\
+9511 & 0.725 & 0.415 & 0.706 & 511 & 0\\
+9521 & 0.763 & 0.431 & 0.706 & 490 & 4\\
+9533 & 0.755 & 0.412 & 0.706 & 516 & 2\\
+9539 & 0.764 & 0.400 & 0.706 & 491 & 3\\
+9547 & 0.745 & 0.403 & 0.706 & 498 & 0\\
+9551 & 0.771 & 0.422 & 0.706 & 523 & 5\\
+9587 & 0.744 & 0.410 & 0.706 & 522 & 0\\
+9601 & 0.727 & 0.407 & 0.706 & 510 & 0\\
+9613 & 0.782 & 0.410 & 0.706 & 494 & 2\\
+9619 & 0.772 & 0.422 & 0.706 & 514 & 2\\
+9623 & 0.753 & 0.401 & 0.706 & 485 & 2\\
+9629 & 0.762 & 0.446 & 0.706 & 504 & 2\\
+9631 & 0.754 & 0.412 & 0.706 & 481 & 4\\
+9643 & 0.744 & 0.409 & 0.706 & 506 & 0\\
+9649 & 0.745 & 0.431 & 0.706 & 506 & 0\\
+9661 & 0.747 & 0.414 & 0.706 & 512 & 0\\
+9677 & 0.766 & 0.410 & 0.706 & 494 & 2\\
+9679 & 0.777 & 0.385 & 0.707 & 519 & 4\\
+9689 & 0.754 & 0.423 & 0.706 & 514 & 2\\
+9697 & 0.772 & 0.416 & 0.707 & 524 & 2\\
+9719 & 0.778 & 0.390 & 0.707 & 515 & 5\\
+9721 & 0.724 & 0.407 & 0.707 & 510 & 0\\
+9733 & 0.751 & 0.415 & 0.706 & 506 & 2\\
+9739 & 0.790 & 0.451 & 0.706 & 516 & 2\\
+9743 & 0.770 & 0.435 & 0.706 & 527 & 3\\
+9749 & 0.755 & 0.427 & 0.706 & 520 & 2\\
+9767 & 0.766 & 0.410 & 0.706 & 485 & 4\\
+9769 & 0.764 & 0.425 & 0.706 & 516 & 4\\
+9781 & 0.777 & 0.397 & 0.706 & 490 & 4\\
+9787 & 0.771 & 0.423 & 0.706 & 484 & 2\\
+9791 & 0.775 & 0.409 & 0.706 & 513 & 6\\
+9803 & 0.735 & 0.423 & 0.707 & 523 & 0\\
+9811 & 0.744 & 0.423 & 0.706 & 512 & 0\\
+9817 & 0.762 & 0.410 & 0.706 & 526 & 2\\
+9829 & 0.758 & 0.413 & 0.707 & 526 & 2\\
+9833 & 0.730 & 0.423 & 0.706 & 474 & 0\\
+9839 & 0.765 & 0.406 & 0.706 & 523 & 2\\
+9851 & 0.760 & 0.395 & 0.706 & 517 & 2\\
+9857 & 0.754 & 0.414 & 0.706 & 510 & 2\\
+9859 & 0.758 & 0.398 & 0.706 & 518 & 2\\
+9871 & 0.749 & 0.401 & 0.706 & 528 & 0\\
+9883 & 0.780 & 0.406 & 0.707 & 506 & 2\\
+9887 & 0.744 & 0.426 & 0.706 & 529 & 0\\
+9901 & 0.768 & 0.411 & 0.707 & 512 & 2\\
+9907 & 0.767 & 0.406 & 0.707 & 512 & 4\\
+9923 & 0.749 & 0.428 & 0.707 & 528 & 0\\
+9929 & 0.756 & 0.441 & 0.706 & 542 & 2\\
+9931 & 0.749 & 0.404 & 0.706 & 542 & 0\\
+9941 & 0.755 & 0.413 & 0.706 & 532 & 2\\
+9949 & 0.756 & 0.403 & 0.706 & 534 & 2\\
+9967 & 0.753 & 0.407 & 0.706 & 542 & 2\\
+9973 & 0.762 & 0.414 & 0.706 & 518 & 6\\
+\bottomrule
+\end{tabular}
+\caption{Primes $9000<q<10^4$: largest $r(\chi)$ over odd and over even characters, mean of $M(\chi)/\sqrt q$, and the numbers of characters with $r(\chi)$ above $\tfrac12$ and $\tfrac34$.}
+\label{tab:big}
+\end{table}
+
+\section{The constants}\label{app:const}
+All constants are absolute. The table records where each one enters; none of them is computed explicitly, and the proofs use only that they exist.
+
+\begin{table}[ht]
+\centering\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}lp{0.52\textwidth}@{}}
+\toprule
+constant & origin\\
+\midrule
+$c_8$ & number of zeros of $L(s,\xi)$ with $|\gamma-t|\le1$, from the partial fraction formula (Z1)\\
+$c_9$ & zero-density estimate~\eqref{eq:zd}, $\sigma\ge4/5$\\
+$c_{10}$ & exponential sums with multiplicative coefficients~\eqref{eq:mv}\\
+$c_{11}$ & sum of $1/n$ over $Y$-smooth $n$, Lemma~\ref{lem:smooth}\\
+$c_{12}$ & Stirling's formula, Lemma~\ref{lem:gamma}\\
+$c_{13}$ & prime sums from a zero-free rectangle, Lemmas~\ref{lem:psi}--\ref{lem:major}; independent of $\theta$\\
+$c_{14}=164c_{11}+3c_{10}+2$ & Proposition~\ref{prop:harm}\\
+$c_4=\max(c_{14}+2,(3+L_0)/\log\log3)$ & Theorem~\ref{thm:B}\\
+$c_1=8c_4$, $c_2=2^{37}3^{14}c_9$, $c_3=51$ & Theorem~\ref{thm:A}\\
+$c_{15}$, $c_{16}$, $T_0$ & logarithmic derivative, Proposition~\ref{prop:logder}\\
+$c_5=20c_{16}$, $c_6$, $c_7$ & Theorem~\ref{thm:C}\\
+$L_0$ & threshold for $\log q$ beyond which the numerical inequalities of Section~\ref{sec:transfer} hold\\
+\bottomrule
+\end{tabular}
+\caption{The constants and where they arise.}
+\label{tab:const}
+\end{table}
+
+The only place where the width $1-\theta$ of the zero-free rectangle enters the transfer theorem is the factor $(1-\theta)^{-1}$ in Lemma~\ref{lem:major}, which comes from the sum of $m^{-\theta}$ over the cofactors $m<t/Y$, and the length $A=\lceil40/(1-\theta)\rceil$ of the smooth range, which costs $\log Y\le\frac{82}{1-\theta}\log\log q$. Both are linear in $(1-\theta)^{-1}$, and this is why Theorem~\ref{thm:A} holds with the constant $c_1/\eps$ and not with a higher power of $1/\eps$.
+
+\section{The computations}\label{app:comp}
+\emph{Character sums.} Two independent programs compute $M(\chi)$: a C program, which produced every number in Section~\ref{sec:num} and Appendices~\ref{app:small}--\ref{app:big}, and a Julia program written separately, which recomputes the largest $M(\chi)/\sqrt q$ for every prime $5\le q<10^4$ and agrees with the C output to six decimals for all $1227$ moduli. Both use the least primitive root, the table of indices and complex double precision; the partial sums are accumulated in order, so that the error after $q$ steps is of order $q$ times the machine precision.
+
+\emph{Finite arithmetic.} A Lean~4 file, using the core library only, checks the integer facts used in the proofs: the exponent count $16\cdot2/7<5$ and $32+5+14=51$ of Section~\ref{sec:count}, the value $2^{37}3^{14}=657\,366\,253\,849\,018\,368$, the reduction of $2(1-\theta)/\theta\le\frac{16}7(1-\theta)$ to $\theta\ge7/8$, the bound $3+2\pi R\le8R$ for $R\ge2$ with $\pi<22/7$, the exponents $16+16+2+6=40$ and constants $8\cdot9=72$, $2\cdot82=164$ of Section~\ref{sec:transfer}, $5\cdot4=20$ of Section~\ref{sec:logder}, and the totals of Table~\ref{tab:ranges}. Every theorem is checked by the kernel; the file uses no axiom beyond the two standard ones of Lean's core, propositional extensionality and quotient soundness, and some of its theorems use none.
+
+\emph{The Gamma bound.} The Julia program also evaluates $|\Gamma(u+it)|(1+t^2)/15$ on a grid of step $0.005$ in $u\in[3/4,2]$ and $0.01$ in $t\in[0,40]$; the largest value is $0.116$, well below the value $1$ allowed by Lemma~\ref{lem:gamma}, whose proof is in any case analytic.
+\section*{Author contributions}
+Deep Bhattacharjee is the sole author. He posed the problems in the form treated here, proved the results, wrote the paper, drew the figures, ran the computations of Section~\ref{sec:num}, and wrote the Lean~4 file and the Julia programs that check the numerical statements.
+
+\section*{Open Gluon and Anaxia}
+Two tools built by the author organised this project. Open Gluon is a workspace that keeps pinned copies of the mathematical libraries, the source record of the project and its checks in one reproducible place. Anaxia, the engine of the eBLLM project, stores each construction as a route with its input, its output, the obligations that must be discharged and a test that makes the route fail when an obligation is skipped. It was used here to keep the chain of constants $c_8,\dots,c_{16}$ and the data of Section~\ref{sec:num} with their checks in one record. Every statement of this paper is proved in the text.
 
 \section*{Declarations}
 
-\subsection*{Funding} None.
+\subsection*{Data and code availability}
+The C programs that compute $M(\chi)$ for all characters to prime moduli below $10^4$ and their output, the Julia programs that recompute the largest values for every modulus, the data of Appendix~\ref{app:small} and the Gamma bound, the script that draws the figures, and the Lean~4 file of Appendix~\ref{app:comp} are in the public repository \url{https://github.com/creelie/Breakthrough-problems-3}.
 
-\subsection*{Conflict of interest} None.
+\subsection*{Funding}
+No funding of any kind was received for this work.
 
-\subsection*{Ethics statement} Not applicable: this work involves no human participants, animals or personal data.
+\subsection*{Competing interests}
+The author declares no competing interests.
 
-\subsection*{Data availability} The proofs in this paper are complete by hand, the zero-density theorem of Appendix~\ref{app:zd} and the zero-free half-plane of Appendix~\ref{app:halfplane} included, and no statement depends on a computer calculation. The record \href{https://doi.org/10.5281/zenodo.23881837}{doi:10.5281/zenodo.23881837} on Zenodo contains the source of the paper and programs that check the numerical inequalities between the constants of Sections~\ref{sec:riesz} to~\ref{sec:logderiv} and of Appendix~\ref{app:zd}, compute $M(\chi)/(\sqrt q\log\log q)$ and $|L'/L(1,\chi)|/\log\log q$ for the characters to small prime moduli, and check the Gauss-sum and reciprocity identities of Lemma~\ref{lem:b:arithmetic} over the Eisenstein integers for $77$ prime and $216$ composite moduli. As an independent check of the conclusion, it also contains the Lean~4 sources of OpenAI's proof of the wider half-plane $\Re s>7/8$~\cite{OAI26}, stated for the Dirichlet $L$-functions of the Mathlib library, which we compiled with Lean~4.34.1 and Mathlib; the Lean kernel reports that the theorem depends on no axiom beyond \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}. Nothing in the paper uses that formal proof. The programs and parts of the text were prepared with the assistance of AI tools (Claude Code, Anthropic; ChatGPT, OpenAI), and the zero-free half-plane of Appendix~\ref{app:halfplane} is OpenAI's argument~\cite{OAI26b}, credited there; the authors checked every proof and take full responsibility for the paper.
+\subsection*{Ethics approval}
+Not applicable. The work involves no human participants, animals or personal data.
 
-\begingroup\sloppy\emergencystretch=3em\hbadness=10000
+\providecommand{\doi}[1]{doi:\href{https://doi.org/#1}{#1}}
 \begin{thebibliography}{99}
 
-\bibitem{Bha22a}
-D.~Bhattacharjee, Establishing equivariant class $[O]$ for hyperbolic groups, Asian Res. J. Math. 18 (2022), no. 11, 362--369. \href{https://doi.org/10.9734/arjom/2022/v18i11615}{doi:10.9734/arjom/2022/v18i11615}.
+\bibitem{Bha23}
+D.~Bhattacharjee, P.~N.~Bose and P.~Samal, \emph{Ramanujan $\tau$-function and its relationship with $\mathrm{PSL}(2,\mathbb Z)$ for $\mathcal L_{24}(\tau)^{+,E}$}, Research Square (2023), \doi{10.21203/rs.3.rs-2796280/v1}.
 
-\bibitem{Bha22b}
-D.~Bhattacharjee, Non-commutativity over canonical suspension $\eta$ for genus $g\ge1$ in hypercomplex structures for potential $\rho\phi$, Asian Res. J. Math. 18 (2022), no. 11, 332--341. \href{https://doi.org/10.9734/arjom/2022/v18i11607}{doi:10.9734/arjom/2022/v18i11607}.
+\bibitem{Bha26a}
+D.~Bhattacharjee, P.~Nandi, O.~Frederick and P.~Samal, \emph{Spectral and analytic structure of the Nyman--Beurling--B\'aez-Duarte approximation}, Preprints.org (2026), \doi{10.20944/preprints202506.0772.v2}.
 
-\bibitem{BB26}
-D.~Bhattacharjee, U.~Bhattacharya, Iterated nerve complexes for $k$-fold sensor coverage, Preprints.org (2026). \href{https://doi.org/10.20944/preprints202606.1351.v2}{doi:10.20944/preprints202606.1351.v2}.
+\bibitem{Bha26b}
+D.~Bhattacharjee and U.~Bhattacharya, \emph{Maximal large sieve and coefficient uniform failure for Liouville correlations}, Preprints.org (2026), \doi{10.20944/preprints202606.1350.v1}.
+
+\bibitem{Bha26c}
+D.~Bhattacharjee, \emph{Split primes and the exponent of imaginary quadratic class groups}, Preprints.org (2026), \doi{10.20944/preprints202611.1131.v1}.
 
 \bibitem{BGGK18}
-J.~Bober, L.~Goldmakher, A.~Granville, D.~Koukoulopoulos, The frequency and the structure of large character sums, J. Eur. Math. Soc. 20 (2018), no. 7, 1759--1818. \href{https://doi.org/10.4171/JEMS/799}{doi:10.4171/JEMS/799}.
+J.~Bober, L.~Goldmakher, A.~Granville and D.~Koukoulopoulos, \emph{The frequency and the structure of large character sums}, J. Eur. Math. Soc. \textbf{20} (2018), 1759--1818, \doi{10.4171/JEMS/799}.
 
-\bibitem{BGL}
-V.~Blomer, L.~Goldmakher, B.~Louvel, $L$-functions with $n$-th-order twists, Int. Math. Res. Not. IMRN 2014, no. 7, 1925--1955. \href{https://doi.org/10.1093/imrn/rns257}{doi:10.1093/imrn/rns257}.
+\bibitem{Dav00}
+H.~Davenport, \emph{Multiplicative number theory}, 3rd ed., revised by H.~L.~Montgomery, Graduate Texts in Mathematics \textbf{74}, Springer, New York, 2000.
 
-\bibitem{Dav80}
-H.~Davenport, Multiplicative Number Theory, 2nd ed., revised by H.~L. Montgomery, Graduate Texts in Mathematics 74, Springer, New York, 1980. \href{https://doi.org/10.1007/978-1-4757-5927-3}{doi:10.1007/978-1-4757-5927-3}.
-
-\bibitem{DLMF}
-NIST Digital Library of Mathematical Functions, \S10.43, equation (10.43.19), \url{https://dlmf.nist.gov/10.43.E19}.
-
-\bibitem{DR}
-A.~Dunn, M.~Radziwi\l\l, Bias in cubic Gauss sums: Patterson's conjecture, Ann. of Math. (2) 200 (2024), no. 3, 967--1057. \href{https://doi.org/10.4007/annals.2024.200.3.3}{doi:10.4007/annals.2024.200.3.3}.
-
-\bibitem{FLM14}
-K.~Ford, F.~Luca, P.~Moree, Values of the Euler $\varphi$-function not divisible by a given odd prime, and the distribution of Euler--Kronecker constants for cyclotomic fields, Math. Comp. 83 (2014), no. 287, 1447--1476. \href{https://doi.org/10.1090/S0025-5718-2013-02749-4}{doi:10.1090/S0025-5718-2013-02749-4}.
-
-\bibitem{GL}
-L.~Goldmakher, B.~Louvel, A quadratic large sieve inequality over number fields, Math. Proc. Cambridge Philos. Soc. 154 (2013), no. 2, 193--212. \href{https://doi.org/10.1017/S0305004112000370}{doi:10.1017/S0305004112000370}.
+\bibitem{Gol12}
+L.~Goldmakher, \emph{Multiplicative mimicry and improvements to the P\'olya--Vinogradov inequality}, Algebra Number Theory \textbf{6} (2012), 123--163, \doi{10.2140/ant.2012.6.123}.
 
 \bibitem{GS07}
-A.~Granville, K.~Soundararajan, Large character sums: pretentious characters and the P\'olya--Vinogradov theorem, J. Amer. Math. Soc. 20 (2007), 357--384. \href{https://doi.org/10.1090/S0894-0347-06-00536-4}{doi:10.1090/S0894-0347-06-00536-4}.
-
-\bibitem{HR74}
-H.~Halberstam, H.-E. Richert, Sieve Methods, London Mathematical Society Monographs 4, Academic Press, London, 1974.
-
-\bibitem{HB95}
-D.~R. Heath-Brown, A mean value estimate for real character sums, Acta Arith. 72 (1995), no. 3, 235--275. \href{https://doi.org/10.4064/aa-72-3-235-275}{doi:10.4064/aa-72-3-235-275}.
-
-\bibitem{HB00}
-D.~R. Heath-Brown, Kummer's conjecture for cubic Gauss sums, Israel J. Math. 120 (2000), 97--124. \href{https://doi.org/10.1007/s11856-000-1273-y}{doi:10.1007/s11856-000-1273-y}.
-
-\bibitem{HBP79}
-D.~R. Heath-Brown, S.~J. Patterson, The distribution of Kummer sums at prime arguments, J. Reine Angew. Math. 310 (1979), 111--130. \href{https://doi.org/10.1515/crll.1979.310.111}{doi:10.1515/crll.1979.310.111}.
-
-\bibitem{Hec20}
-E.~Hecke, Eine neue Art von Zetafunktionen und ihre Beziehungen zur Verteilung der Primzahlen, I, II, Math. Z. 1 (1918), 357--376; 6 (1920), 11--51. \href{https://doi.org/10.1007/BF01465095}{doi:10.1007/BF01465095}; \href{https://doi.org/10.1007/BF01202991}{doi:10.1007/BF01202991}.
-
-\bibitem{Iha06}
-Y.~Ihara, On the Euler--Kronecker constants of global fields and primes with small norms, in: Algebraic Geometry and Number Theory, Progr. Math. 253, Birkh\"auser, Boston, 2006, 407--451. \href{https://doi.org/10.1007/978-0-8176-4532-8_5}{doi:10.1007/978-0-8176-4532-8\_5}.
+A.~Granville and K.~Soundararajan, \emph{Large character sums: pretentious characters and the P\'olya--Vinogradov theorem}, J. Amer. Math. Soc. \textbf{20} (2007), 357--384, \doi{10.1090/S0894-0347-06-00536-4}.
 
 \bibitem{IMS09}
-Y.~Ihara, V.~K. Murty, M.~Shimura, On the logarithmic derivatives of Dirichlet $L$-functions at $s=1$, Acta Arith. 137 (2009), 253--276. \href{https://doi.org/10.4064/aa137-3-6}{doi:10.4064/aa137-3-6}.
+Y.~Ihara, V.~K.~Murty and M.~Shimura, \emph{On the logarithmic derivatives of Dirichlet $L$-functions at $s=1$}, Acta Arith. \textbf{137} (2009), 253--276, \doi{10.4064/aa137-3-6}.
 
-\bibitem{Ing40}
-A.~E. Ingham, On the estimation of $N(\sigma,T)$, Quart. J. Math. Oxford Ser. 11 (1940), 201--202. \href{https://doi.org/10.1093/qmath/os-11.1.201}{doi:10.1093/qmath/os-11.1.201}.
-
-\bibitem{IK04}
-H.~Iwaniec, E.~Kowalski, Analytic Number Theory, American Mathematical Society Colloquium Publications 53, American Mathematical Society, Providence, RI, 2004. \href{https://doi.org/10.1090/coll/053}{doi:10.1090/coll/053}.
-
-\bibitem{Kub69}
-T.~Kubota, On Automorphic Functions and the Reciprocity Law in a Number Field, Lectures in Mathematics, Department of Mathematics, Kyoto University 2, Kinokuniya, Tokyo, 1969.
-
-\bibitem{Lan03}
-E.~Landau, Neuer Beweis des Primzahlsatzes und Beweis des Primidealsatzes, Math. Ann. 56 (1903), 645--670. \href{https://doi.org/10.1007/BF01444310}{doi:10.1007/BF01444310}.
+\bibitem{LM22}
+Y.~Lamzouri and A.~P.~Mangerel, \emph{Large odd order character sums and improvements of the P\'olya--Vinogradov inequality}, Trans. Amer. Math. Soc. \textbf{375} (2022), 3759--3793, \doi{10.1090/tran/8607}.
 
 \bibitem{Mon71}
-H.~L. Montgomery, Topics in Multiplicative Number Theory, Lecture Notes in Mathematics 227, Springer, Berlin, 1971. \href{https://doi.org/10.1007/BFb0060851}{doi:10.1007/BFb0060851}.
-
-\bibitem{MV73}
-H.~L. Montgomery, R.~C. Vaughan, The large sieve, Mathematika 20 (1973), no. 2, 119--134. \href{https://doi.org/10.1112/S0025579300004708}{doi:10.1112/S0025579300004708}.
+H.~L.~Montgomery, \emph{Topics in multiplicative number theory}, Lecture Notes in Mathematics \textbf{227}, Springer, Berlin, 1971, \doi{10.1007/BFb0060851}.
 
 \bibitem{MV77}
-H.~L. Montgomery, R.~C. Vaughan, Exponential sums with multiplicative coefficients, Invent. Math. 43 (1977), 69--82. \href{https://doi.org/10.1007/BF01390204}{doi:10.1007/BF01390204}.
-
-\bibitem{OAI26}
-OpenAI, The quasi-Riemann hypothesis: a zero-free half-plane $\Re s>7/8$, OpenAI Math Release preprint with Lean~4 sources, 30 September 2026, \url{https://github.com/openai/math}, directory \texttt{The-Quasi-Riemann-Hypothesis-September-30-2026}.
-
-\bibitem{OAI26b}
-OpenAI, The quasi-Riemann hypothesis: a cubic theta argument with a fixed ray class character, OpenAI Math Release preprint, 5 October 2026, \url{https://github.com/openai/math}, directory \texttt{The-Quasi-Riemann-Hypothesis-October-5-2026}.
+H.~L.~Montgomery and R.~C.~Vaughan, \emph{Exponential sums with multiplicative coefficients}, Invent. Math. \textbf{43} (1977), 69--82, \doi{10.1007/BF01390204}.
 
 \bibitem{Pal32}
-R.~E.~A.~C. Paley, A theorem on characters, J. London Math. Soc. s1-7 (1932), 28--32. \href{https://doi.org/10.1112/jlms/s1-7.1.28}{doi:10.1112/jlms/s1-7.1.28}.
+R.~E.~A.~C.~Paley, \emph{A theorem on characters}, J. London Math. Soc. \textbf{7} (1932), 28--32, \doi{10.1112/jlms/s1-7.1.28}.
 
-\bibitem{Pat77}
-S.~J. Patterson, A cubic analogue of the theta series, J. Reine Angew. Math. 296 (1977), 125--161. \href{https://doi.org/10.1515/crll.1977.296.125}{doi:10.1515/crll.1977.296.125}.
-
-\bibitem{Rud87}
-W.~Rudin, Real and Complex Analysis, 3rd ed., McGraw-Hill, New York, 1987.
-
-\bibitem{Was97}
-L.~C. Washington, Introduction to Cyclotomic Fields, 2nd ed., Graduate Texts in Mathematics 83, Springer, New York, 1997. \href{https://doi.org/10.1007/978-1-4612-1934-7}{doi:10.1007/978-1-4612-1934-7}.
-
-\bibitem{Yos87}
-A.~Yoshimoto, On the cubic theta function, Nagoya Math. J. 105 (1987), 153--167. \href{https://doi.org/10.1017/S0027763000000817}{doi:10.1017/S0027763000000817}.
+\bibitem{Tit39}
+E.~C.~Titchmarsh, \emph{The theory of functions}, 2nd ed., Oxford University Press, Oxford, 1939.
 
 \end{thebibliography}
-\endgroup
-
 \end{document}

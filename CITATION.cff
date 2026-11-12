@@ -1,31 +1,20 @@
 cff-version: 1.2.0
 message: "If you use this work, please cite it as below."
-title: "The Pólya–Vinogradov inequality with log log q for every character: paper, Lean 4 library and checking programs"
+title: "Character sums with log log q outside a sparse set of characters: paper, programs and Lean 4 checks"
 authors:
   - family-names: Bhattacharjee
     given-names: Deep
     affiliation: "Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India; Formerly, University of Calcutta (Heramba Chandra College), 23/49 Gariahat Road, Golpark, Kolkata 700029, West Bengal, India"
     email: d.bhattacharjee@erl-forschung.de
     orcid: "https://orcid.org/0000-0003-0466-750X"
-  - family-names: Mandal
-    given-names: Priyabrata
-    affiliation: "Department of Mathematics, Bioinformatics and Computer Applications, Maulana Azad National Institute of Technology Bhopal, Bhopal 462003, India"
-    email: priyabrata@manit.ac.in
-    orcid: "https://orcid.org/0000-0001-6472-6239"
-  - family-names: Bhattacharya
-    given-names: Ushashi
-    affiliation: "Formerly, National Taiwan University, Taipei 106319, Taiwan"
-    email: rai.bhattacharya.in@gmail.com
-    orcid: "https://orcid.org/0009-0002-2254-3914"
 type: software
 license: Apache-2.0
 repository-code: "https://github.com/creelie/Breakthrough-problems-3"
-url: "https://github.com/creelie/Breakthrough-problems-3/releases/tag/v4.1.0"
-doi: 10.5281/zenodo.23881837
-version: 4.1.0
-date-released: 2026-11-02
+url: "https://github.com/creelie/Breakthrough-problems-3/releases/tag/v5.0.0"
+doi: 10.5281/zenodo.23383715
+version: 5.0.0
+date-released: 2026-11-12
 keywords:
   - Pólya–Vinogradov inequality
   - character sums
-  - zero-density theorems
-  - Euler–Kronecker constants
+  - zero-density estimates
